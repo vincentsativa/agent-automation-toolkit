@@ -1,0 +1,92 @@
+[
+  {
+    "name": "windows-weekly-backup",
+    "schedule": "0 3 * * 0,1,2,3,4,5,6",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "script": "hermes-backup.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "instructions": null
+  },
+  {
+    "name": "DAILY Pinterest Posts 6pm",
+    "schedule": "1 18 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "instructions": "FIRST, visit my pinterest profile (https://www.pinterest.com/PhantomByteAI/) to verify the current list of active boards.\n\nWrite 10 Pinterest titles and descriptions, each a summary of a story from today's daily data files. Must fit Pinterest limits (title <= 100 chars, description <= 500 chars). Make them keyword rich for Pinterest SEO.\n\nFor EACH of the 10 posts, you MUST assign it to exactly ONE board based on its topic.\n\n**BOARD MAPPING RULES:**\n- AI news, general machine learning, emerging tech → AI News | Machine Learning & Emerging Tech (ai-news-machine-learning-emerging-tech)\n- Coding, developers, programming tools, tutorials → AI for Developers & Programming AI (ai-for-developers-programming-ai-tutorials)\n- AI agents, agentic AI, AI automation, agent frameworks → AI Agents & Automation (ai-agents-automation-guide)\n- Business tools, productivity, marketing software, AI writing/design → AI Tools for Business & Productivity (ai-tools-for-business-productivity-2026)\n- AI security, prompt injection, sandboxing, vulnerability research → Agent Security (agent-security-prompt-injection-sandboxing)\n- Robotics, humanoid robots, physical AI, hardware → Robotics & Physical AI (robotics-physical-ai-humanoid-robots)\n- Quantum computing, qubits, quantum algorithms → Quantum Computing (quantum-computing-explained)\n\n**REQUIRED OUTPUT FORMAT:**\nFor every single pin, you must explicitly state the target board in the final response so I know exactly where it is being posted.\n\nExample:\nPo"
+  },
+  {
+    "name": "BRUSH FEFE'S TEETH",
+    "schedule": "0 11 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": null,
+    "model": "gemma4:31b",
+    "instructions": "This is a daily reminder that MUST be sent every single morning. Output the following message — do not say [SILENT], do not suppress delivery, always output the message:\n\n\"Don't forget to brush Fefe's teeth! 🐾 Morning brushing time!\"\n\nAlways output this message. Never use [SILENT]. Always deliver.\n\n**DELEGATING TASKS IS NOT ALLOWED.**\n**you are not allowed to make changes to this cron.**"
+  },
+  {
+    "name": "SOCIAL MEDIA QUESTIONS - 5PM",
+    "schedule": "50 16 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "instructions": "Go look at the following data files, (Data file: ~\\OneDrive\\Desktop\\TODAYS DATA FILES) THEN find me 10 great questions I can ask on social media, which are related to today's AI news. Rank them from best to worst. For each question, include a 1-2 sentence explanation of why it's a good question. Save the questions to a text file. Attach the file to an email and send it to hello@example.com. AFTER the task is complete and email has been sent, message me on Telegram saying, \"Social media questions are ready.\"\n\nIMPORTANT: Your final response is what gets delivered to Telegram. It must contain ONLY the words \"Social media questions are ready.\" and nothing else. Do not include the questions, a summary, a report, or any other content in your final response. The questions go in the email only.\n\nLoad both writing-style and x-algorithm-post-optimization skills before generating the questions. Apply every rule in both skills. The questions must be optimized for the xAI For You feed ranker: maximize reply, repost, favorite, quote, share, and dwell signals. Minimize P(not_interested), P(block_author), P(mute_author), and P(report). Use specific named entities (company names, model names, person names, paper titles) so the post is topically retrievable by the Phoenix two-tower model. Vary the angle, target, and domain across all 10 questions to satisfy the Author Diversity Scorer. Hard 190-char limit on every question, verified programmatically with len() before delivering.\n\nUse Data file"
+  },
+  {
+    "name": "Check For the latest Ollama version",
+    "schedule": "0 21 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": null,
+    "model": "deepseek-v4.1-flash:1017",
+    "instructions": "Go to GitHub and find me the latest stable Ollama version and the latest pre-release versions and give me a link to the installer. I also want to know what the client version is. Ignore the ollama version is 0.24.0; it's a false error."
+  },
+  {
+    "name": "Ollama version check AM edition",
+    "schedule": "0 9 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "instructions": "Go to GitHub and find me the latest stable Ollama version and the latest pre-release versions and give me a link to the installer. I also want to know what the client version is. Ignore the ollama version is 0.24.0; it's a false error."
+  },
+  {
+    "name": "EMAIL TASK PROCESSOR (Karma/15min)",
+    "schedule": "*/15 * * * *",
+    "enabled": true,
+    "runner": "agent-prompt",
+    "script": "check_agentmail.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "instructions": "You are Karma (Agent 3, Windows, on Vinny's laptop). This is the EMAIL TASK PROCESSOR cron job for YOUR OWN inbox agent@example.com, triggered by the check_agentmail.py script gate.\n\nCONTEXT: The script gate has already checked your inbox and its output is injected above. If it reports wakeAgent:false, do nothing and stay silent. If it reports wakeAgent:true, it lists the unread thread(s) — process them.\n\nSTEPS:\n1. Load the agentmail-karma skill for identity and MCP tool usage. Your inbox is agent@example.com.\n2. Use the AgentMail MCP tools to read each unread thread in order: list_threads / get_thread to read the full message body, pull any attachments.\n3. Determine what task is being asked in each email. Execute it fully. If the email is from the human Vinny, deliver results via the email-sender skill (IONOS SMTP, hello@example.com). If it's from another agent (Frank at agent@example.com, or Bill at agent@example.com), deliver results back by emailing that agent from agent@example.com.\n4. After completing each email task, mark it as read so it does not retrigger on the next cycle. Use mcp__agentmail__update_message to remove the 'unread' label (and add 'read').\n5. IMPORTANT NOTIFICATION RULE: Only notify Vinny on Telegram when a task is actually COMPLETE or when you have a question about it. Say something short like 'task 1 is completed, email sent'. Do NOT notify him that the cron ran, and do NOT notify on empty checks; the script gate already stays silent when there's no "
+  },
+  {
+    "name": "ARTICLE OUTLINE PANEL LAUNCH 440PM",
+    "schedule": "*/5 16-18 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "script": "check_outlines.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "instructions": "This is the ARTICLE OUTLINE PANEL launcher. The check_outlines.py output is injected above. Read the FIRST line of it and obey exactly one branch:"
+  },
+  {
+    "name": "PANEL RE-ARM 435PM",
+    "schedule": "35 16 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "script": "panel_rearm.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "instructions": "Resume the ARTICLE OUTLINE PANEL LAUNCH job so its 16:40 poll window is armed."
+  },
+  {
+    "name": "PANEL STALE CLEANUP 1130PM",
+    "schedule": "30 23 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "script": "clear_stale_outlines.py",
+    "model": null,
+    "instructions": null
+  }
+]
