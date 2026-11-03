@@ -1,0 +1,63 @@
+Skeleton for a text report delivered to Vinny. Copy this and fill it in; do not
+reflow it into paragraphs. Every body paragraph stays on ONE unwrapped line, and
+the visual break comes from the rulers, the ALL-CAPS headings, the indented
+blocks, and the blank lines.
+
+================================================================
+TITLE IN CAPS, NAMING THE ACTION AND ITS OUTPUT
+One line saying what the document contains. Date.
+================================================================
+
+WHAT THIS IS
+One or two lines of framing, then get out of the way. No apology block, no
+history of earlier drafts.
+
+
+================================================================
+ONE. FIRST ITEM, NAMED AS AN ACTION
+================================================================
+
+WHY THIS ONE
+One or two sentences, tied to a fact the reader can check.
+
+SAY THIS TO THE AGENT
+    "The instruction they can paste, in quotation marks, naming inputs,
+    scripts, filters, and the exact fields to return."
+
+WHAT IT READS
+Named sources and the tool that reaches them.
+
+WHAT COMES BACK
+    - Field one
+    - Field two
+    - Field three
+
+WHERE IT RUNS
+On demand or as a job, and a real time estimate.
+
+
+================================================================
+TWO. SECOND ITEM
+================================================================
+
+(Same five blocks, in the same order, for every item.)
+
+
+================================================================
+WHAT TO RUN FIRST
+================================================================
+
+1. The move that produces a named result fastest, and why it goes first.
+2. The second move, and what it feeds.
+
+Notes on what stays on demand and what becomes a scheduled job.
+
+---
+Layout rules that make the difference between readable and a wall:
+- Ruler lines of 64 characters before and after every section.
+- One blank line minimum between every block; two before a new section.
+- Instruction text indented four spaces, quoted, never merged into a paragraph.
+- Bullets only for received output fields, never for prose.
+- No column wrapping of paragraphs, ever.
+- Max line length check before sending: long lines are correct, short uniform
+  lines mean the text was wrapped and the file is wrong.

@@ -2,6 +2,7 @@
 name: agentmail-file-delivery
 description: Use to send files or attachments via AgentMail to other agents.
 trigger: "Sending a file or attachment to another agent via AgentMail, or delivering a zip to an agent inbox."
+category: email
 ---
 
 # AgentMail File Delivery
@@ -30,8 +31,8 @@ Prefer `content` (base64, `base64 -w0 <file>`) — no hosting step.
 ## Send
 
 Via `mcp__agentmail__send_message`:
-- inboxId: `agent@example.com`
-- `to`: the target agent (agent@example.com = Frank / agent@example.com)
+- inboxId: `[REDACTED_EMAIL]`
+- `to`: the target agent ([REDACTED_EMAIL] = Frank / [REDACTED_EMAIL])
 - `attachments: [{filename, contentType, content|url}]`
 - Sign body with `— Bill`.
 

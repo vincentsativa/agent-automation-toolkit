@@ -2,7 +2,7 @@
 name: phantom-swarm-v1-live
 title: Phantom-Byte Intelligence Swarm (Live-Tested Version)
 version: 1.1
-description: Full 6-phase multi-agent swarm workflow for SEO analysis of articles.phantom-byte.com, real-time AI intelligence gathering, synthesis, content generation, evaluation, and file export. Max 3 concurrent agents at all times. This is the live-tested version with lessons learned from the first run baked in.
+description: Full 6-phase multi-agent swarm workflow for SEO analysis of articles.phantom-byte.com, real-time AI intelligence gathering, synthesis, content generation, evaluation, and file export. Max 3 concurrent agents at all times. This is the live-tested version with lessons learned from the first run baked in. Supersedes the original phantom-swarm-v1 (abstract 6-phase concept without real execution debugging).
 author: Vinny Barreca
 tags: [swarm, multi-agent, SEO, intelligence, content-creation, phantom-byte]
 toolsets: [file, web, browser]
@@ -44,7 +44,7 @@ Full pipeline: SEO audit → Intelligence gathering → Synthesis → Writing �
 ```yaml
 # ~/.hermes/config.yaml
 delegation:
-  api_key: "YOUR_API_KEY"  # Required for delegate_task()
+  api_key: "[REDACTED]"  # Required for delegate_task()
   max_concurrent_children: 3
 ```
 
@@ -267,7 +267,7 @@ Save to `~/.hermes/workspace/phantom-swarm/[date]-final-article.md`
 ⚠️ **CRITICAL TELEGRAM PROTOCOL** ⚠️
 - Send **ONE message ONLY**
 - Content: **THE FILE PATH STRING ONLY**
-- Format: `\\wsl.localhost\Ubuntu\home/<linux-user>\.hermes\workspace\phantom-swarm\YYYY-MM-DD-final-article.md`
+- Format: `\\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\phantom-swarm\YYYY-MM-DD-final-article.md`
 - **DO NOT paste article content**
 - **DO NOT send summaries, headlines, or previews**
 - **DO NOT send multiple messages**

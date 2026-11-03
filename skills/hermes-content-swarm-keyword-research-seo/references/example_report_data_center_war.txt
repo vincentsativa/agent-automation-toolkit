@@ -1,0 +1,141 @@
+================================================================================
+WORKED EXAMPLE: Keyword Research Report
+Article: "The Data Center War Nobody Is Winning"
+Author: Vinny Barreca | June 13, 2026
+================================================================================
+This is a full worked example of a keyword research report for a PhantomByte
+article. Use this as a template for structure, depth, and section content.
+
+================================================================================
+METHODOLOGY
+================================================================================
+Google Trends analysis conducted [date]. Three batches of up to 5 terms each,
+US market, Past 12 months, Web Search. Terms classified into three tiers
+based on Trends Average value and competition landscape.
+
+================================================================================
+TIER 1: HIGH COMPETITION (Avg 25+)
+================================================================================
+Use sparingly -- primarily as metadata/SEO umbrella terms.
+
+1. data center water usage -- Avg 44
+   Trend: Consistently high, peaked Aug 2025 (100). Related rising queries:
+   "georgia data center water usage" (Breakout), "ai water usage" (+90%),
+   "ai data center water usage" (+80%).
+   USE: Body content, semantic SEO.
+
+2. data center zoning -- Avg 33
+   Trend: Steady growth all year, peaked May 2026 at 100.
+   USE: H2 headings, body content.
+
+================================================================================
+TIER 2: MEDIUM COMPETITION (Avg 10-25)
+================================================================================
+PRIMARY TARGETS. Optimize title, H1, URL, first 100 words, meta description.
+
+3. data center moratorium -- Avg 18
+   Trend: Spiking hard. Exploded to 100 on May 17, 2026 (Seattle moratorium).
+   Related: "seattle data center moratorium" (Breakout), "ai data center
+   moratorium act" (Breakout).
+   CRITICAL WINDOW: Breaking news. 1-2 weeks before major pubs cover it.
+
+4. data center permitting -- Avg 14
+   Trend: Rising steadily. Was 0-5 in early 2025, now consistently 15-31.
+   No breakout terms yet -- opportunity to own this space.
+
+5. data center opposition -- Avg 10
+   Trend: Rising. Was 0-5 in mid-2025, now consistently 10-29.
+   Related: "new hampshire data center opposition" (Breakout).
+   USE: Title, H1, URL candidate.
+
+6. data center protests -- Avg 10
+   Trend: Rising, event-driven. Peaked Jan 2026 at 26.
+   USE: Body content, social media.
+
+================================================================================
+TIER 3: LOW/NO COMPETITION (Avg 0-5)
+================================================================================
+CRITICAL TARGETS -- first-mover advantage, limited window.
+
+7. AI infrastructure bottleneck -- Avg 2
+   Trend: Rising. Was 0 for most of 2025, now consistently 2-13.
+   CRITICAL WINDOW: 4-6 weeks before major pubs adopt this framing.
+   USE: Title candidate, H1, meta description.
+
+8. NIMBY data center -- Avg 0
+   Coined term combination. Zero competition.
+   USE: Title candidate. "NIMBY Won" in subtitle.
+
+9. community consent data centers -- Avg 0
+   Coined term from article's core thesis.
+   USE: Body content, coined phrase. First-mover opportunity.
+
+10. sovereign data centers Europe -- Avg 0
+    Low volume now but European AI sovereignty is a growing topic.
+
+================================================================================
+STRATEGIC RECOMMENDATIONS
+================================================================================
+
+PRIMARY TARGETS (title, H1, URL, first 100 words, meta description):
+  1. "data center opposition" -- Avg 10, rising, direct thesis match
+  2. "data center moratorium" -- Avg 18, spiking, hot news term
+  3. "AI infrastructure bottleneck" -- Avg 2, coined, first-mover
+  4. "NIMBY data center" -- Avg 0, coined, zero competition
+
+SECONDARY (H2s, body content, semantic SEO):
+  5. "data center zoning" -- Avg 33
+  6. "data center water usage" -- Avg 44
+  7. "data center permitting" -- Avg 14
+  8. "data center protests" -- Avg 10
+
+TERTIARY / FUTURE (tags, image alt text, long-tail):
+  9. "PJM data center demand" -- Avg 7
+  10. "community consent data centers" -- Avg 0
+  11. "Seattle data center moratorium" -- Avg 1
+  12. "Amazon water consumption data center" -- Avg 1
+
+UNIQUE ANGLE
+================================================================================
+Every other piece covers this from the industry perspective. This article's
+differentiator is the COMMUNITY angle -- treating NIMBY as a legitimate
+design constraint. The "three fronts" framework (water, power grid, zoning)
+and "Before and After" comparison are unique structural contributions.
+
+CRITICAL WINDOW
+================================================================================
+- Seattle moratorium (June 2026): 1-2 weeks
+- $130B figure (Ars Technica, this week): 2-3 weeks
+- "AI infrastructure bottleneck" framing: 4-6 weeks
+- "Community consent" framing: 6-8 weeks
+
+RECOMMENDED TITLE STRUCTURE
+================================================================================
+Primary: "The Data Center War Nobody Is Winning: $130B Blocked, NIMBY Won"
+URL: /data-center-opposition-nimby-ai-infrastructure
+
+Meta description (150-160 chars):
+  "$130B in data center projects blocked by community protests in 2026.
+  Not a supply chain problem -- a NIMBY problem. AI's biggest bottleneck
+  isn't chips, it's permission to build."
+
+BACKLINK OPPORTUNITIES
+================================================================================
+- Ars Technica (cited for $130B figure)
+- WIRED (cited for China conspiracy debunk)
+- Data Center Watch / 10a Labs (opposition tracking data)
+- Tressie McMillan Cottom NYT piece (community perspective)
+- Amazon's water disclosure report (2.5B gallon figure)
+- PJM Interconnection (15 GW figure)
+
+INTERNAL LINKING SUGGESTIONS
+================================================================================
+- Link to any PhantomByte piece on local AI infrastructure or cloud dependency
+- Link to pieces about AI model training costs (cost of compute rising is a
+  direct consequence of this bottleneck)
+- The "Vinny's Actual Workflows" section is a natural bridge to personal
+  infrastructure content
+
+================================================================================
+END OF EXAMPLE
+================================================================================

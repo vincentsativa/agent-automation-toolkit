@@ -1,0 +1,10 @@
+Full working copy lives at ~/money_ideas/freespoke_finder.py (this is a mirror).
+
+Usage:
+    python3 freespoke_finder.py --pairs "nail salons:new york" "plumbers:tampa" \
+        -o out.csv --domains out_domains.txt
+    python3 freespoke_finder.py --file pairs.txt -o out.csv --domains out_domains.txt
+
+pairs.txt format, one per line:  <industry> | <city>
+
+See SKILL.md Step 3b for the design rules, the licensing gate, and the pitfalls.

@@ -1,0 +1,62 @@
+{
+  "Cisco Antares": {
+    "mean": 0.4,
+    "trend": "rising"
+  },
+  "Gemini Flash Cyber": {
+    "mean": 4.3,
+    "trend": "rising"
+  },
+  "Fugu-Cyber": {
+    "mean": 0.1,
+    "trend": "rising"
+  },
+  "small AI security models": {
+    "mean": 17.8,
+    "trend": "falling"
+  },
+  "AI vulnerability detection": {
+    "mean": 34.9,
+    "trend": "falling"
+  },
+  "multi-agent security": {
+    "mean": 12.6,
+    "trend": "falling"
+  },
+  "AI supply chain security": {
+    "mean": 21.7,
+    "trend": "falling"
+  },
+  "AI model cheating": {
+    "mean": 2.7,
+    "trend": "falling"
+  },
+  "local AI security": {
+    "mean": 48.8,
+    "trend": "falling"
+  },
+  "data sovereignty AI": {
+    "mean": 9.4,
+    "trend": "falling"
+  },
+  "AI agent security": {
+    "mean": 45.3,
+    "trend": "falling"
+  },
+  "AI endpoint security": {
+    "mean": 8.7,
+    "trend": "falling"
+  },
+  "frontier model security": {
+    "mean": 1.7,
+    "trend": "falling"
+  },
+  "AI vulnerability scanning": {
+    "mean": 1.5,
+    "trend": "falling"
+  },
+  "CrowdStrike AI worm": {
+    "mean": 0.0,
+    "trend": "flat"
+  }
+}

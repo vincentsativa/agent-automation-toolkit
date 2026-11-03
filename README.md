@@ -14,8 +14,8 @@ because a previous run reported success that was not true.
 
 | Path | Contents |
 | --- | --- |
-| [`scripts/`](scripts) | 57 runnable scripts (Python, Bash, Node), grouped by domain |
-| [`skills/`](skills) | 112 agent skill definitions (`SKILL.md`) — the procedures the agents load before acting |
+| [`scripts/`](scripts) | 93 runnable scripts (Python, Bash, Node), grouped by domain |
+| [`skills/`](skills) | 281 agent skill definitions (262 Hermes, 19 Pi) — the procedures the agents load before acting |
 | [`crons/`](crons) | Scheduled jobs: expressions, runner type, and the full instruction each one executes |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the two-agent system fits together |
 
@@ -135,18 +135,65 @@ output: `plain-text-to-html.py`, `guide-to-html.py`, `blueprint-to-html.py`,
 | `gh-env.sh` | Detects the available GitHub auth path in a shell |
 | `linear_api.py` | Linear GraphQL CLI, standard library only |
 
+### Hermes agent home — `scripts/hermes/`
+
+The scripts that live in the WSL Hermes agent's own `~/.hermes/scripts` directory:
+the cron workers, the pre-tool-call hooks, and the operational jobs the scheduled
+table calls. These are what the jobs in [`crons/`](crons) actually run.
+
+| Script | What it does |
+| --- | --- |
+| `agent-change-brief-collect.sh` | Collects the last 7 days of changes to the shared agent backup repo and emits a diff summary for the other agents to read |
+| `blogwatcher-cleanup.py` | Delete watched articles older than N days straight from the blogwatcher SQLite DB |
+| `blogwatcher-cleanup.sh` | Two-phase cleanup: mark old articles read so they cannot be re-imported, then purge past the archival limit |
+| `blogwatcher-fetch.py` | Query watched articles by date from the blogwatcher DB, optionally saving them to a file |
+| `check_agentmail.py` | Cron gate for the inbox processor: prints unread threads when there is mail, prints nothing (silent) when there is not |
+| `daily-data-backup.sh` | Mirrors the day's data folder into the private backup repo |
+| `daily_outreach_refill.sh` | The outreach data side end to end: clean the sendable list, refill if the pool is short, stage the day's schedule, verify by read-back, print one summary |
+| `dir_harvest_instabox.sh` | Runs the partner-directory contact harvest on a cloud box and pulls the results back, so the local 90-minute cron timeout stops being the ceiling |
+| `e2e_proof_scratch_guard.py` | End-to-end proof for the scratch-path hook: reproduces the exact blocked write, shows it refused without the hook and landing with it |
+| `harvest_clicks.sh` | Pulls click notices into the leads log and rebuilds the clicker groups; idempotent and sends nothing |
+| `hermes-backup.sh` | Pushes agent config, skills, cron, memories and kanban to a private git remote |
+| `launch-desktop.sh` | Launch the desktop app with `--skip-build` instead of repackaging every time |
+| `no_hard_wrap_guard.py` | Pre-tool-call hook that strips hard-wrapping from delivered `.txt`/`.md` files |
+| `osm_build_reminder.py` | One-shot reminder for a scheduled build session |
+| `partner_directory_refill.sh` | Grows the partner/agency pool from agency directories, then pushes new domains through the scan and harvest chain |
+| `partner_refill.sh` | Stages the partner batch for a same-day send, sourcing fresh prospects when the pool is short |
+| `pinterest_dedup.py` | Hard gate for the Pinterest cron: prints already-pinned titles before writing, and enforces dedup against the planned posts file after |
+| `pinterest_prune.py` | Keeps the last N days of Pinterest post files and deletes the rest |
+| `pinterest_trends.py` | Pinterest public trend endpoints — no login, no cookies — for the daily Pinterest job |
+| `pool_harvest_instabox.sh` | Splits a domain batch across cloud boxes, harvests on each, pulls every slice back and merges once with dedup |
+| `refill_check.sh` | Measures the sendable prospect pool and says whether a refill is due — the deterministic half of the refill job |
+| `restart-gateway.sh` | Restart the user-level gateway service |
+| `scratch_path_guard.py` | Pre-tool-call hook that moves a stale fixed-path scratch file aside so a legitimate write is not refused |
+| `send_pinterest_email.py` | Emails the day's Pinterest file with a sent-marker, so the agent cron and the backstop cron can never double-send |
+| `send_social_email.py` | Same idempotent emailer for the social questions file |
+| `start-wsl-browser.sh` | Starts the dedicated headless Chromium on a non-default profile that the browser harness connects to over CDP |
+| `tensorfeed_filter.py` | Strips recurring unwanted stories from the news feed before any report is written |
+| `turn_tool_cap_guard.py` | Pre-tool-call hook that enforces a per-turn tool-call ceiling |
+| `update_health_check.py` | Post-update health check that prints nothing when healthy and only speaks when something regressed, so it costs zero tokens |
+| `weekday_verifier_prefill.sh` | Spends the weekday's free verifier credits ahead of time and writes the verdict cache — sends no mail |
+| `weekend_verifier_prefill.sh` | Same prefill for the weekend credit pool |
+| `x-algorithm-update-check.sh` | Watches the x-algorithm repo for new commits and releases, silent when nothing moved |
+| `agent-memory-tutorial-to-html.py` | Parses the agent-memory tutorial source into HTML for WeasyPrint PDF output |
+| `ironpulse_email_2026-09-11.py` | One-off: mails a dated report file as an attachment |
+| `sbt-tutorial-to-html.py` | Parses the all-caps tutorial format into HTML for WeasyPrint PDF output |
+
 ## Scheduled jobs — `crons/`
 
 `crons/hermes-cron-jobs.json` is the live job table with secrets and delivery targets
 removed: name, expression, enabled state, runner type (`deterministic-script` or
-`agent-prompt`), model, and the full instruction the agent executes. Ten jobs, covering a
-nightly backup, a 15-minute inbox processor, a polling panel that arms and cleans itself
-up, and content-generation jobs.
+`agent-prompt`), model, skills preloaded, and the full instruction the agent executes.
+Thirty-four jobs: nightly backups, a 15-minute inbox processor, outreach pool refills and
+verifier prefills, social and Pinterest posting jobs, press-release and article-outline
+jobs, and the release watchers.
 
 ## Skills — `skills/`
 
-112 skill definitions. Each `SKILL.md` is what an agent loads before doing that class of
-work: preconditions, procedure, the exact commands, and the pitfalls already paid for.
+281 skill definitions — 262 from the WSL Hermes agent (including 62 retired skills kept
+under `hermes-archive-*`) and 19 from the Windows Pi agent. Each `SKILL.md` is what an
+agent loads before doing that class of work: preconditions, procedure, the exact commands,
+and the pitfalls already paid for, plus any `references/` and `scripts/` bundled with it.
 Prefixes show which agent the skill lives in (`pi-` or `hermes-`). Groups:
 
 - `content-swarm-*` — the article pipeline from outline selection to publication,

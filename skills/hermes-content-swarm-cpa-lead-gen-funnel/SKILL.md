@@ -2,6 +2,7 @@
 name: cpa-lead-gen-funnel
 description: Use for CPA lead-gen funnels with email capture and abandonment recovery.
 trigger: "Building or rebuilding a CPA lead-gen funnel, email capture page, or abandonment recovery flow."
+category: content-swarm
 ---
 
 # CPA Lead-Gen Funnel
@@ -63,6 +64,7 @@ Rough design on purpose (low overhead signal, lowers guard). Contrast with Phant
 ## Pitfalls
 
 - Ugly is intentional, don't "fix" it.
+- NO title/headline on the email capture page. The page is intentionally bare: just the email field, no H1, no headline, no hero copy. A title raises the guard and kills the low-overhead signal that makes ugly converts work. This is a hard rule, not a style choice.
 - Triggers must be independent (first wins), not dependent.
 - Cookie set on submit attempt, not validation success.
 - `pushState` on window load, not DOMContentReady.

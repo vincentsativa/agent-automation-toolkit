@@ -2,6 +2,7 @@
 name: firebase-storage-setup
 description: Use for Firebase Cloud Storage file hosting and delivery.
 trigger: "Setting up Firebase storage, uploading/downloading files from Firebase, or hosting files for delivery."
+category: devops
 ---
 
 # Firebase Storage Setup

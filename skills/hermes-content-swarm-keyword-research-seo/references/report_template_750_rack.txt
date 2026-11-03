@@ -1,0 +1,88 @@
+KEYWORD RESEARCH: [Article Title]
+====================================
+Date: [Date]
+Article: "[Article Title]"
+Author: Vinny Barreca / PhantomByte
+
+METHODOLOGY
+-----------
+Google Trends analysis (US, Past 12 months, Web Search) conducted [Date].
+Terms grouped into 3 batches by theme. Data extracted from Trends DOM before
+error overlay. Coined/insufficient-data terms noted as zero-competition targets.
+
+================================================================================
+TIER 1: HIGH COMPETITION (Avg 25+ on Trends)
+================================================================================
+
+1. [term] -- Avg [N] ([trend direction])
+   [Description, competition note, recommended use]
+
+2. [term] -- ...
+
+================================================================================
+TIER 2: MEDIUM COMPETITION (Avg 10-25 on Trends)
+================================================================================
+
+1. [term] -- Avg [N] ([trend direction])
+   [Description, competition note, recommended use]
+
+================================================================================
+TIER 3: LOW/NO COMPETITION (Avg 0-5 on Trends)
+================================================================================
+
+1. [term] -- Avg [N] ([trend direction])
+   [Description, competition note, recommended use]
+
+COINED / INSUFFICIENT DATA TERMS (Zero Competition, First-Mover Opportunity)
+-----------------------------------------------------------------------------
+- [term] -- [context, why zero competition]
+
+================================================================================
+STRATEGIC RECOMMENDATIONS
+================================================================================
+
+PRIMARY TARGETS (optimize title, H1, URL, first 100 words, meta description):
+  1. "[term]" -- Avg [N], [trend], [competition note]
+  2. "[term]" -- ...
+
+SECONDARY TARGETS (H2 headings, body content, semantic SEO):
+  3. "[term]" -- ...
+
+TERTIARY / FUTURE TARGETS (tags, image alt text, long-tail anchors):
+  4. "[term]" -- ...
+
+================================================================================
+UNIQUE ANGLE
+------------------
+[What this article has that competitors don't. Be specific: data, timing, angle.]
+
+================================================================================
+CRITICAL WINDOW
+------------------
+[When major pubs typically pick up this topic. Publish-by date for first-mover.]
+
+================================================================================
+RECOMMENDED URL
+------------------
+phantom-byte.com/[slug]
+
+================================================================================
+RECOMMENDED META DESCRIPTION (150-160 chars)
+------------------
+[One sentence meta description.]
+
+================================================================================
+BACKLINK OPPORTUNITIES
+------------------
+1. [Source] -- [why high-authority]
+2. [Source] -- ...
+
+================================================================================
+INTERNAL LINKING
+------------------
+[Cross-link targets to existing PhantomByte articles.]
+
+================================================================================
+TAGS
+------------------
+[comma-separated list]

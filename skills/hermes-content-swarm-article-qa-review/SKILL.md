@@ -11,8 +11,6 @@ tags: [qa, article-blaster, phantom-byte, seo, fact-checking]
 
 **When to use:** After drafting a PhantomByte article, before publishing. Run this QA review to catch style violations, factual errors, and SEO gaps.
 
-**Scope guard (Vinny's standing order, Oct 15 2026):** this review runs on a draft that is still being finished. Never run it against an article Vinny has already finished or published unless he asks for that specific article. On a finished piece the output is findings for him, never edits: no sentence rewrites, no prose changes, and no "replace every instance" sweep applied to his text. Metadata is the only field an agent may recommend changing, and citing a rule that is not in these skills is never a justification for a change.
-
 **Prerequisites:**
 - Article draft file (`.md`)
 - Synthesis documents (synthesis-1, synthesis-2)

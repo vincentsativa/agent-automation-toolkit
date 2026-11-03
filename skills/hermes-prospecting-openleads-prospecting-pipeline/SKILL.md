@@ -1,6 +1,6 @@
 ---
 name: openleads-prospecting-pipeline
-description: Use when Vinny describes what he wants to sell and needs a target list with contact emails (agent-driven prospecting: offer -> ICP -> how many targets -> verified emails) via OpenLeads.
+description: "Use when Vinny describes what he wants to sell and needs a target list with contact emails (agent-driven prospecting: offer -> ICP -> how many targets -> verified emails) via OpenLeads."
 ---
 
 # Agent-Driven Prospecting Pipeline (OpenLeads)
@@ -21,7 +21,7 @@ Use `find`, `enrich`, `verify`, `sources`, `doctor`. Do **not** run
 `openleads run`, `openleads send`, `openleads drip --live`, or `openleads
 schedule` unless Vinny asks for sending in that specific turn. Vinny's outreach
 goes out through his own mail setup (`email-sender` skill, IONOS SMTP from
-hello@example.com), not from OpenLeads. Sending is a separate decision with
+hello@phantom-byte.com), not from OpenLeads. Sending is a separate decision with
 its own deliverability risk, so never fire it as a side effect of a search.
 
 ## Rule 2 — Never invent a number
@@ -37,6 +37,24 @@ numbers into this one, and never treat an earlier size band, vertical, or city a
 a default. If a parameter is missing, ask (Constitution Article 4) instead of
 substituting the previous value. A run that reuses a stale parameter without
 being told to is a failure even when the output looks clean.
+
+**Never source geography from files lying around.** Domain lists, scan CSVs, and
+contact sheets already in the project folder are the OUTPUT of earlier runs, not
+a statement of current targeting. Tampa and Orlando files sat in the folder for
+weeks and got treated as live targeting twice, once to the point of quoting
+Florida statutes back at Vinny as if they applied to him. He lives in New York
+and had never asked for Florida. Read the folder for tooling, never for target
+geography. When nothing in the current instruction names a place, ask.
+
+**Default geography is the New York metro**, because that is where Vinny lives.
+It is also the better pool: one of the largest concentrations of businesses with
+real mail infrastructure in the country, and near enough that a job can be more
+than an email. Do not reach for a distant market unless he names it. Retail
+service trades in thin markets, salons, plumbers, single-truck contractors, are
+low-value prospects whose defect costs them nothing visible, so a $500 fix is a
+hard sell there regardless of how real the finding is. Weight toward commercial
+and professional categories, and toward firms with staff, a marketing budget, and
+a mail system somebody actually manages.
 
 ## Rule 3 — Tiers are the send policy
 OpenLeads grades each email `safe`, `risky`, or `bad` with a confidence percent.
@@ -161,6 +179,85 @@ part of it the sources can actually honor and how the rest gets covered (usually
 list Vinny supplies, resolved with `enrich`). Many jobs have no size band, which
 makes this a non-issue.
 
+## Step 3b — Freespoke as a second local sweep
+
+`~/money_ideas/freespoke_finder.py` (mirror and notes at
+`scripts/freespoke_finder.README.txt`). Freespoke's web search renders a
+`PlacesSection` of business cards above the normal results. Each card carries
+name, the business's OWN website, street address, masked phone, and review count.
+It is a second, independent sweep of the same shape as `local`, useful when
+Overpass is thin or rate-limited.
+
+```bash
+cd ~/money_ideas
+python3 freespoke_finder.py --pairs "nail salons:new york" "plumbers:tampa" \
+    -o fs.csv --domains fs_domains.txt
+python3 email_scan.py --file fs_domains.txt --csv fs_scan.csv
+```
+
+Rules that make it work:
+
+- **Output feeds the same downstream.** The CSV carries Business Name, Website,
+  Domain, Address, City, State, Zip, Phone, Reviews, Industry. `--domains` writes
+  the one-per-line file `email_scan.py` and `find_contacts.py` already take,
+  which puts the result in the same shape as the `local` route.
+- **It is a directory slice, not a census.** One pair returned 2 cards, not 2
+  thousand. Volume comes from many narrow industry x city pairs, so the pair
+  list is the input that matters. Do not promise big numbers per query.
+- **Query shape.** `<industry> <city>` works. Keep the industry as a plain
+  business category. A two word industry that collided with a news phrase
+  returned zero cards, so if a pair returns nothing, try the simpler category
+  noun before concluding the site is empty.
+- **The place data is Foursquare.** The rating block is `FoursquareReviewStars`
+  and the card links `foursquare.com`, so a Foursquare business listing is what
+  makes a business appear. Check Foursquare's terms for commercial outreach use
+  before the output becomes a send list, the same gate as Google Places.
+- **Scrapling timeout units differ by fetcher.** `StealthyFetcher.fetch`
+  `timeout` is MILLISECONDS; `Fetcher.get` `timeout` is SECONDS. Passing 90 to
+  StealthyFetcher is 90ms and every load dies instantly. Multiply by 1000.
+- **`css_first` does not exist on nested Selectors.** A card from
+  `page.css(...)` is a `Selector`; `card.css_first(...)` raises AttributeError.
+  Use `card.css(sel)[0]` and read `.get_all_text()`, not `.text`, which returns
+  an empty string on container elements.
+- **Masked phone numbers.** The card HTML masks digits (`+121****0137`) and only
+  the `tel:` href carries the real number. Capture it from the href. Regardless,
+  phones never go on a prospect sheet (Rule 4).
+- **The same business can appear twice.** It can show as both a website card and
+  a card whose website field points at `foursquare.com`. Dedupe on domain, then
+  name.
+
+## Step 3c — Pasting a list from ChatGPT or anywhere else
+
+`~/money_ideas/parse_domain_list.py`. Vinny has a ChatGPT
+subscription and can get a name plus website list in one prompt for any industry
+and city. The paste comes back in a fixed shape: a header row, a number on its
+own line, a business name, then a link whose TEXT is the bare domain with a
+`?utm_source=chatgpt.com` tail. The script turns that into a domains file.
+
+```bash
+python3 parse_domain_list.py --file pasted.txt --out domains.txt --csv named.csv
+python3 find_contacts.py --file domains.txt --out contacts.csv
+python3 email_scan.py --file domains.txt --csv scan.csv
+```
+
+Rules:
+
+- **The link text is usually the bare domain, so do not read it as the name.**
+  When the text before the URL is itself the domain, the real name is on the
+  line above. Reading it wrong fills the name column with domains.
+- **`?utm_source=chatgpt.com` is stripped automatically** by reducing every URL
+  to its host, which also drops `/location/new-york/` style path tails.
+- **The list is a model answer, so verify before sending.** ChatGPT produces
+  plausible business names that may not exist, may be out of business, or may
+  have the wrong domain. `find_contacts.py` skipping a domain or finding nothing
+  on it is a signal to check that business by hand rather than a failure.
+- **It behaves like the Freespoke route downstream.** Name to domain and nothing
+  else, so `find_contacts.py` resolves the address and `email_scan.py` proves
+  the defect. Measured on a 25 domain contractor list: 10 reachable, 14 with no
+  address printed on their pages, 1 skipped as a national brand.
+- **The parser is not ChatGPT specific.** Any pasted list carrying URLs works,
+  including markdown tables and bulleted lists.
+
 ## Step 4 — Run and collect
 
 Work in a workspace folder and append every run to files, so counts survive a
@@ -222,10 +319,10 @@ Already installed and verified. Do not reinstall unless something broke.
   hard-to-verify addresses.
 
 **Windows agent**
-- Repo copy: `~\workspace\openleads`, venv at
-  `~\.venvs\openleads` (Python 3.12.10), `openleads.exe` in its
+- Repo copy: `C:\Users\<user>\workspace\openleads`, venv at
+  `C:\Users\<user>\.venvs\openleads` (Python 3.12.10), `openleads.exe` in its
   `Scripts\` folder, which is on the User PATH.
-- Launcher: `~\workspace\openleads\ol.cmd`.
+- Launcher: `C:\Users\<user>\workspace\openleads\ol.cmd`.
 - **UTF-8 is mandatory on Windows.** The CLI prints box-drawing characters and
   crashes with `UnicodeEncodeError` on a cp1252 console. `PYTHONIOENCODING=utf-8`
   is set in the User environment and inside `ol.cmd`. From WSL, call the Windows
@@ -239,7 +336,7 @@ Already installed and verified. Do not reinstall unless something broke.
 - Port 25 is open here, so SMTP verification is available.
 
 Windows and WSL keep separate state (`~/.openleads` vs
-`~\.openleads`). A run on one side does not see the other's leads or
+`C:\Users\<user>\.openleads`). A run on one side does not see the other's leads or
 CRM. Pick one side per campaign and stay on it.
 
 ## Pitfalls (learned here)

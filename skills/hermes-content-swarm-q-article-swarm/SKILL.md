@@ -62,7 +62,7 @@ If `delegation.api_key` is empty in `~/.hermes/config.yaml`, the swarm runs sequ
 To fix for parallel execution:
 ```yaml
 delegation:
-  api_key: "YOUR_API_KEY"
+  api_key: "your-api-key-here"
   max_concurrent_children: 3
 ```
 
@@ -189,7 +189,7 @@ delegation:
 
 1. **Telegram (CRITICAL):** Output ONLY the UNC file path. NEVER dump article content.
 2. **Local Files:** Save all drafts, evaluation results, synthesis brief
-3. **Format:** `\\wsl.localhost\Ubuntu\home/<linux-user>\.hermes\workspace\q-article-swarm\{DATE}-draft-{winner}.md`
+3. **Format:** `\\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\q-article-swarm\{DATE}-draft-{winner}.md`
 
 ---
 

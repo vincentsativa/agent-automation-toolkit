@@ -12,7 +12,7 @@ trigger: "vinny asks for craigslist services, craigslist ai services, craigslist
 - Any request to find services to promote on Craigslist using open-source AI tools
 
 ## Output Target
-- **To:** hello@example.com
+- **To:** hello@phantom-byte.com
 - **Subject:** "PhantomByte Craigslist AI Services Strategy Guide" or context-specific
 - **Attachment:** A .txt document with the full strategy
 
@@ -135,7 +135,7 @@ Before saving the document:
 
 ### 6. Save and Email
 1. Save the document to `~/phantombyte_craigslist_[descriptor].txt`
-2. Use the email-sender skill to send to hello@example.com
+2. Use the email-sender skill to send to hello@phantom-byte.com
 3. Subject: `PhantomByte Craigslist AI Services Strategy Guide`
 4. Body: Brief summary of services count, cities covered, and key takeaway
 5. Attach the .txt file

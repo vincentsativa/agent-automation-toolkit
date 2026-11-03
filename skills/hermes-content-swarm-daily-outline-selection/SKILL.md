@@ -40,7 +40,7 @@ The correct hierarchy — in order of weight:
 1. **Load the live site and the sitemap.** Both come through scrapling into this run's scratch dir:
 
 ```bash
-SCRATCH=$(mktemp -d ~/.hermes/cache/scratch/ph-XXXXXX)
+SCRATCH=$(mktemp -d ~/cache/scratch/ph-XXXXXX)
 scrapling extract get "https://articles.phantom-byte.com" "$SCRATCH/home.txt"
 scrapling extract get "https://articles.phantom-byte.com/sitemap.xml" "$SCRATCH/sitemap.txt"
 ```
@@ -61,7 +61,7 @@ Then filter those slugs per outline keyword set: voice, speech, audio, determini
 
 5. **Deliver pick + why + publishing order.** Explicitly state which metric you optimized for and why. If the pick looks "less urgent," say why GEO/authority outweighs urgency. Answer with one pick, one order, and the reasons, never a menu of trade-offs.
 
-6. **Save the decision to the agent-knowledge-base repo** at `/mnt~/agent-knowledge-base/lessons-learned/outline-selection-YYYY-MM-DD.md`. The repo lives on the Windows side; that mount path is how WSL reaches it. `git add` and `git commit` the file, then attempt `git push`. If the push is refused for repository access rights, the local commit is the deliverable: say so in one line and stop.
+6. **Save the decision to the agent-knowledge-base repo** at `/mnt/c/Users/<user>/agent-knowledge-base/lessons-learned/outline-selection-YYYY-MM-DD.md`. The repo lives on the Windows side; that mount path is how WSL reaches it. `git add` and `git commit` the file, then attempt `git push`. If the push is refused for repository access rights, the local commit is the deliverable: say so in one line and stop.
 
 ## Pitfalls
 
@@ -75,18 +75,4 @@ Then filter those slugs per outline keyword set: voice, speech, audio, determini
 - **Ranking without pulling the recent category run first.** Three good outlines ranked in isolation produce a pick that piles onto a category already covered four days running. Get the last 5-7 titles and their categories before ranking, not after.
 - **Answering with options instead of a pick.** He asked which one and why. A menu of trade-offs hands the decision back to him and stalls the pipeline. One pick, its publish order, and the reasoning behind it.
 - **Running the workflow off a bare attachment.** Seeing outline `.txt` files arrive without a question is not a request for selection. Inferring the ritual and starting the fetch, the ranking, and the repo write is acting on your own initiative, and it gets interrupted. Wait for the ask.
-- **Ranking an outline whose topic is already written or already published.** Before ranking, check the outline topic against the published slug list AND against what is already drafted or written: the last few days of `outline*.txt` in his TODAYS DATA FILES folder, and `/mnt~/workspace/article-drafts/ghostwriter-terminal/` for `ARTICLE <n> COMPLETE.txt` and `*-draft.txt`. A batch can contain a repeat of a topic whose article was written the evening before and published the same day; that outline is dead on arrival and must be named as such instead of ranked.
-
-## Windows run note (this copy runs on the Windows Hermes agent)
-
-`scrapling` is not installed on this machine. Load the site without it:
-
-```
-curl -sS https://articles.phantom-byte.com -o "%TEMP%\ph_home.txt"
-curl -sS https://articles.phantom-byte.com/sitemap.xml -o "%TEMP%\ph_sitemap.txt"
-```
-
-Use those two files exactly where step 1 would use the scrapling output, and grep the
-sitemap slugs out of the xml the same way the step 2 command does. If curl is missing,
-use `python -c "import urllib.request;..."` instead. Everything else in this skill
-applies unchanged.
+- **Ranking an outline whose topic is already written or already published.** Before ranking, check the outline topic against the published slug list AND against what is already drafted or written: the last few days of `outline*.txt` in his TODAYS DATA FILES folder, and `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/` for `ARTICLE <n> COMPLETE.txt` and `*-draft.txt`. A batch can contain a repeat of a topic whose article was written the evening before and published the same day; that outline is dead on arrival and must be named as such instead of ranked.

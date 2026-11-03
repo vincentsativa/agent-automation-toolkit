@@ -10,7 +10,7 @@ description: |
 ## When to Use
 - Vinny gives you an outline and says "write me this story"
 - The outline cites arXiv papers or data files that need fact-checking
-- You need to email the finished draft to hello@example.com
+- You need to email the finished draft to hello@phantom-byte.com
 - The article must position PhantomByte as an AI engineering authority
 
 ## Loading This Skill Without Getting Stuck
@@ -21,7 +21,7 @@ Do not retry the bare name. Either pass the categorized path, or read the file d
 
 ```
 skill_view(name='content-swarm/ghostwriter-terminal')
-read_file('~/.hermes/skills/content-swarm/ghostwriter-terminal/SKILL.md')
+read_file('~/skills/content-swarm/ghostwriter-terminal/SKILL.md')
 ```
 
 If a reference file is requested by a name that skill reports as missing, list what the skill actually ships before assuming the content is gone — the file may live in a sibling copy of the skill.
@@ -91,15 +91,15 @@ The browser path is faster than the API for spot-checking 3-5 papers because abs
 - **Curl as fallback for TechCrunch verification.** When browser returns 404 on a TechCrunch article, a curl fetch may return the actual content if the 404 was bot-detection-related. Try: `curl -sL "URL" | grep -i "KEYWORD"`. If curl also returns 404 data, rely on search confirmation.
 - **Daily data files may be missing on disk.** The outline may reference files like `ironpulse-2026-07-29.txt` or `tensorfeed_report_2026-07-29.txt` that are not present in the expected Desktop directory. When this happens, attempt web verification via Bing News. If both the data file and web search fail due to bot detection, treat the claim as unverifiable and omit it. Do not fabricate attribution.
 - **TODAYS DATA FILES folder can be completely empty.** Vinny may keep the daily data drop in a different location or the folder may exist but contain no files. Do not stall or ask. Proceed with outline claims + browser verification of named sources only.
-- **TODAYS DATA FILES folder is frequently empty.** Vinny often says: "Data files: ~\OneDrive\Desktop\TODAYS DATA FILES". That folder is frequently empty. When it is:
+- **TODAYS DATA FILES folder is frequently empty.** Vinny often says: "Data files: C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES". That folder is frequently empty. When it is:
   1. Search the Desktop directly for dated ironpulse, tensorfeed, and blogwatcher files:
      ```bash
-     ls /mnt~/Desktop/ | grep -E "(ironpulse|tensorfeed|blogwatcher|20-AI).*2026-08-09"
+     ls /mnt/c/Users/<user>/Desktop/ | grep -E "(ironpulse|tensorfeed|blogwatcher|20-AI).*2026-08-09"
      ```
   2. Search the home directory and cron output directories:
      ```bash
      find ~/ -maxdepth 3 -name "*2026-08-09*" -type f
-     find ~/.hermes/cron/output/ -name "*2026-08-09*" -type f
+     find ~/cron/output/ -name "*2026-08-09*" -type f
      ```
   3. If still not found, the outline-referenced daily data files simply do not exist on this machine. Fall back to web search for verification of the specific claims named in the outline. Do not block the writing task waiting for files that are not present.
   4. The outline may also reference specific filenames like "20-AI-News-Stories-2026-08-09.md" that do not exist anywhere on disk. Treat these as unverifiable via local files and verify through web search instead.
@@ -208,7 +208,7 @@ Articles must position PhantomByte as an engineering and architecture authority 
 
 ## Email Delivery
 - Use `email-sender` skill (IONOS SMTP)
-- Save to `~\workspace\article-drafts\ghostwriter-terminal\YYYY-MM-DD-slug-draft.txt`
+- Save to `C:\Users\<user>\workspace\article-drafts\ghostwriter-terminal\YYYY-MM-DD-slug-draft.txt`
 - Email body: brief summary of structure, word count, readiness status
 - Subject line: "[Title] - Draft", using the article's title VERBATIM. Never shorten or reword the title for the subject. Plain hyphen only; the no-em-dash rule covers every string Vinny reads, the subject line and the email body included, not just the article file.
 - Content is the attachment, not pasted into the body

@@ -2,6 +2,7 @@
 name: hermes-desktop-troubleshooting
 description: Use to diagnose Hermes desktop app CPU spikes or won't-launch.
 trigger: "Hermes desktop app has high CPU usage, won't launch, or crashes."
+category: devops
 ---
 
 # Hermes Desktop Troubleshooting

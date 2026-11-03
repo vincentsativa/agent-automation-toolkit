@@ -97,7 +97,9 @@ After an update wipes and rebuilds the desktop app, the shortcut icon goes blank
 cmd.exe /c "powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\<user>\AppData\Local\hermes\script.ps1"
 ```
 
-This is the only reliable way to run PowerShell with variables from WSL. Clean up the temp `.ps1` after. Also note `wmic` and `tasklist /FI "IMAGENAME eq X"` fail through cmd.exe from WSL — use `tasklist` piped to `grep` instead.
+This is the only reliable way to run PowerShell with variables from WSL. Clean up the temp `.ps1` after.
+
+The script has to sit somewhere Windows can see, so copy it onto the Windows mount before invoking it (`cp "$SCRATCH/probe.ps1" /mnt/c/Users/<user>/AppData/Local/Temp/probe.ps1` and pass that path to `-File`); a `/home/...` path is invisible to `powershell.exe`. Piping a bash heredoc into `-Command` fails the same way from the other side, because bash expands `$env:TEMP`, `$d`, and `$null` before PowerShell ever parses them. Also note `wmic` and `tasklist /FI "IMAGENAME eq X"` fail through cmd.exe from WSL — use `tasklist` piped to `grep` instead.
 
 ## Data Integrity Check
 
@@ -501,8 +503,8 @@ Expect a `list`, never a `str`.
 ```bash
 cd ~ && python3 - <<'EOF'
 import sys, os
-sys.path.insert(0, '~/.hermes/hermes-agent')
-os.environ['HERMES_HOME'] = '/mnt~/AppData/Local/hermes'  # or the WSL home
+sys.path.insert(0, '~/hermes-agent')
+os.environ['HERMES_HOME'] = '/mnt/c/Users/<user>/AppData/Local/hermes'  # or the WSL home
 from agent.skill_commands import resolve_auto_load_skills, build_auto_load_prompt
 print("resolved:", resolve_auto_load_skills())
 text, loaded, missing = build_auto_load_prompt()
@@ -516,7 +518,7 @@ Success is the skill name in `loaded` with `missing: []`. A name in `missing` me
 
 ### Editing the Windows config.yaml
 
-The Windows home is `/mnt~/AppData/Local/hermes/` (config.yaml at the root). The security guard that blocks `patch`/`write_file` on the WSL config does NOT apply here, so writes go through directly, and that makes the following mandatory:
+The Windows home is `/mnt/c/Users/<user>/AppData/Local/hermes/` (config.yaml at the root). The security guard that blocks `patch`/`write_file` on the WSL config does NOT apply here, so writes go through directly, and that makes the following mandatory:
 
 1. **Back up first, then RE-LIST the backup in a separate step to prove it persists.** A backup that is never re-listed may not be on disk, and a vanished backup turns a recoverable edit into a loss.
 2. **Anchor the insert on a unique block and assert the match count** before replacing (e.g. `skills:\r\n  external_dirs: []\r\n`), so exactly one key is inserted and the `disabled` list and every other section survive.
@@ -528,6 +530,43 @@ The Windows home is `/mnt~/AppData/Local/hermes/` (config.yaml at the root). The
 - **Windows files use CRLF line endings.** A plain Python `open(p,'w')` on a Windows config or skill file silently converts the whole file to LF, so read and write with `newline=""` and reuse the file's own line endings when you script the change. Verify with `file <path>` (expect "with CRLF line terminators"). The `patch` tool preserves line endings on its own; hand-written Python does not.
 - **Verify subagent self-reports when you delegate per-tree.** Subagents can silently skip an item (observed: a Windows subagent omitted one brief section). After a delegated bulk sync, re-read or `grep` the target files to confirm each item landed, and patch gaps yourself.
 
+## Diagnosing a Failing Windows-Agent Cron From WSL
+
+The Windows agent's cron store is NOT under `~/.hermes` or `%USERPROFILE%\\.hermes`; it lives in the Windows data home: `/mnt/c/Users/<user>/AppData/Local/hermes/cron/jobs.json`. The same script is often duplicated under `.clawdbot/cron/jobs.json` and `OpenclawBackup/cron/jobs.json` from older agents — those are stale, do not edit them.
+
+```bash
+# 1. Find the real job and read its last_error (the whole diagnosis lives here)
+python3 -c "import json;d=json.load(open('/mnt/c/Users/<user>/AppData/Local/hermes/cron/jobs.json'));print([j for j in d['jobs'] if 'NAME' in j['name']])"
+
+# 2. Read the script the job invokes
+read_file /mnt/c/Users/<user>/AppData/Local/hermes/scripts/<script>
+
+# 3. Read the per-run output files for the failure streak
+ls /mnt/c/Users/<user>/AppData/Local/hermes/cron/output/<job_id>/
+```
+
+`last_error` plus `failure_streak` tell you whether you are looking at a new fault or one bug that has been failing repeatedly. A high streak with an identical message every run means ONE root cause, not many — read the message literally, because the exact string is usually the whole bug.
+
+**PITFALL — a global `core.hooksPath` guard can block pushes that look fine.** `git config --global core.hooksPath` on the Windows box may point at a `~/.githooks` directory (e.g. a pre-push guard that refuses public repos). A backup job can then fail for many consecutive runs with a `PUSH BLOCKED` / `could not verify visibility` message that has nothing to do with the backup script. Check `core.hooksPath` in `/mnt/c/Users/<user>/.gitconfig` before blaming the script. See `references/git-push-guard-hooks.md`.
+
+**PITFALL — verify the fix with the WINDOWS git and python, not the WSL ones.** WSL has its own `git` and its own global config, so a WSL-side test does not exercise the Windows hook path or the Windows credential helper. Run the real script the way cron runs it:
+
+```bash
+GIT="/mnt/c/Program Files/Git/bin/git.exe"
+PY="/mnt/c/Users/<user>/AppData/Local/Programs/Python/Python312/python.exe"
+PATH="/mnt/c/Program Files/Git/bin:$PATH" "$PY" "C:/Users/<user>/AppData/Local/hermes/scripts/<script>.py"; echo "EXIT=$?"
+```
+
+Prefer the WSL paths of Windows executables (`/mnt/c/...`) over `cmd.exe /c` — the UNC-path errors that come with launching from `\\wsl.localhost` break git's "dubious ownership" check. Then confirm the effect server-side (`gh api repos/<owner>/<repo>/commits --jq '.[0].sha'`), because a script printing "complete" is not proof the push landed.
+
+**PITFALL — a 403 from GitHub happens before pre-push runs.** Testing the guard by pushing to a repo you lack write access to proves nothing: the remote rejects the push during connection, so the hook never executes and prints nothing. Test the hook directly instead:
+
+```bash
+bash /mnt/c/Users/<user>/.githooks/pre-push origin https://github.com/<known-public-owner>/<repo>; echo "EXIT=$?"
+```
+
+Always confirm the guard still blocks what it is supposed to block after changing it, so a fix does not quietly disable the protection.
+
 ## WSL as Desktop Agent
 
 See `references/wsl-desktop-access.md` for the full pattern of running Hermes in WSL and accessing the Windows desktop filesystem directly. This covers both:
@@ -537,6 +576,7 @@ See `references/wsl-desktop-access.md` for the full pattern of running Hermes in
 
 ## Pitfalls
 
+- **`C:\Users\<user>\.hermes` is NOT the Hermes home.** That directory exists on these machines but holds only `workspace/`, `creds/`, `chrome-debug*/`, and a browser launcher `.bat`; it has no `skills/`, no `config.yaml`, and no `cron/jobs.json`. The home is `%LOCALAPPDATA%\hermes`. A recursive grep or an `ls` against `.hermes` returns empty and reads as a clean result, so prove the target before making any claim about it: `find <home>/skills -name SKILL.md | wc -l` must be non-zero, and `ls <home>/cron/jobs.json` must hit. Claiming 'checked the Windows agent' off a `.hermes` sweep is a false statement the user will catch on the next question.
 - **OneDrive Desktop vs Local Desktop**: Windows sync can mean shortcuts exist in ONE but not the OTHER. Check both `%USERPROFILE%\\Desktop\\` and `%USERPROFILE%\\OneDrive\\Desktop\\`.
 - **WSL vs Windows paths**: From WSL, `cmd.exe /c "where hermes"` is the only reliable way to check Windows PATH. WSL doesn't inherit Windows PATH by default.
 - **Windows PATH reset**: Recent Windows updates have been known to reset User PATH environment variables. The CLI is still installed — the path just needs to be re-added.

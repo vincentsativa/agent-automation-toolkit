@@ -1,68 +1,85 @@
 ---
 name: scrapling-fallback-rule
-description: Scrapling first for web extraction. Browser only for interactive pages.
-trigger: "ANY web research, scraping, content extraction, or site access task. Load at session start."
+description: "HARD RULE: scrapling on block. Track blocked sites."
+trigger: "ALWAYS active. Hard behavioral rule for every web access attempt — browser_navigate, web_search, web_extract, curl, or any tool that fetches from an external website."
 ---
 
-# Scrapling First, Browser Only for Interactive Pages
+# HARD RULE: Scrapling First, Browser Only for Interactive Pages
 
-This is a hard rule, not optional. Pinned — the curator cannot archive or delete it.
+## The Rule
 
-## Step 1: Scrapling Fetcher FIRST (default tool, not fallback)
+This is a **non-negotiable behavioral rule**. Follow it on every web access attempt without exception.
 
-For ALL content fetching, use scrapling Fetcher first. This is the default tool, not a last resort.
+### Step 1: Use Scrapling FIRST for ALL content fetching
+
+For ANY web content fetch — search results, news articles, blog posts, documentation, API responses, any URL — use **scrapling Fetcher** via `terminal()` or `execute_code()` as the DEFAULT tool. Do NOT reach for browser_navigate first.
 
 ```python
-from scrapling.fetchers import Fetcher, StealthyFetcher
+from scrapling.fetchers import Fetcher
 
-# Default: basic fetcher
 f = Fetcher()
-page = f.get("https://example.com")
-print(page.status, page.text[:500])
+page = f.get('https://example.com', follow_redirects=True)
+print(page.status)
+# CSS selectors work
+title = page.css('h1::text').get()
+text = page.css('body::text').getall()
+links = page.css('a::attr(href)').getall()
+```
 
-# Protected sites: StealthyFetcher
+Run via: `cd ~/.hermes/hermes-agent/venv && python3 -c "..."`
+
+### Step 2: Only use browser tools for interactive pages
+
+Browser tools (`browser_navigate`, `browser_click`, etc.) are ONLY for:
+- Pages that require JavaScript interaction (forms, login flows, JS-heavy SPAs)
+- Pages that need clicking, typing, or scrolling
+- Visual verification (CAPTCHA solving via browser_vision)
+
+### Step 3: If scrapling Fetcher gets blocked, try StealthyFetcher
+
+```python
+from scrapling.fetchers import StealthyFetcher
 sf = StealthyFetcher()
-page = sf.fetch("https://x.com/someuser", headless=True, network_idle=True)
+page = sf.fetch("URL", headless=True, network_idle=True)
 ```
 
-## Step 2: Browser tools ONLY for interactive pages
+### Step 4: Escalate to Rotunda when StealthyFetcher gets blocked
 
-Browser tools (`browser_navigate`, `browser_click`) ONLY for:
-- Interactive pages: forms, login flows, JS-heavy SPAs.
-- Visual verification (CAPTCHA via browser_vision).
+If StealthyFetcher returns 403/429/CAPTCHA, launch **Rotunda** — a Firefox fork with Juggler protocol that evades automation detection and humanizes input (keystroke cadence, mouse path prediction, natural typing speed).
 
-Not for plain content retrieval — use scrapling.
-
-## Step 3: If scrapling Fetcher gets blocked
-
-Try `StealthyFetcher`.
-
-## Step 4: If StealthyFetcher gets blocked
-
-Launch **Rotunda** (Firefox fork with Juggler protocol, evades automation detection, humanizes keystroke cadence/mouse path).
-
-Playwright Firefox with:
-```
-executable_path=~/.cache/rotunda/browsers/official/0.3.5-150.0.1/rotunda
-headless=True
-no_viewport=True
+```python
+import os
+from playwright.sync_api import sync_playwright
+ROTUNDA_BIN = os.path.expanduser(
+    '~/.cache/rotunda/browsers/official/0.3.5-150.0.1/rotunda'
+)
+with sync_playwright() as p:
+    browser = p.firefox.launch(headless=True, executable_path=ROTUNDA_BIN)
+    context = browser.new_context(no_viewport=True)
+    page = context.new_page()
+    page.goto('https://example.com')
+    # Use standard Playwright methods for interaction
+    text = page.locator('h1').first.inner_text()
+    browser.close()
 ```
 
-## Step 5: Combine
+Rotunda makes you look human without lying about your fingerprint — real GPU, real OS, real IP from your home network. It only removes automation signatures.
 
-Use Rotunda for the session, feed resulting HTML back into scrapling's `Adaptor` parser for adaptive extraction.
+### Step 5: Combine both for maximum effectiveness
 
-## Step 6: Track blocked sites
+Use Rotunda for the browser session (fingerprint-evading navigation, humanized input, CAPTCHA resolution) and feed the resulting HTML back into Scrapling's `Adaptor` parser for adaptive CSS extraction and crawling.
 
-When a site blocks you, note it and avoid wasted retries.
+### Step 6: Track Blocked Sites
 
-## Known-blocking sites (now populated)
+Maintain this list. When a site blocks scrapling, add it here.
 
-- google.com (CAPTCHA)
+## Known Blocking Sites
+
+- google.com (CAPTCHA on search)
 - bing.com (CAPTCHA/Cloudflare)
-- duckduckgo.com (CAPTCHA)
-- reddit.com (CAPTCHA/block)
+- duckduckgo.com (CAPTCHA on automated requests)
+- reddit.com (CAPTCHA/block on automated requests)
 
-## Priority
+## Verification
 
-Scrapling first, always. Only fall back to browser tools if scrapling fails AND you've moved through the ladder (Fetcher → StealthyFetcher → Rotunda). Matches the scrapling-or-death enforcement.
+After adding a site to the blocked list, verify the rule works by using scrapling first on the next access attempt to that domain.

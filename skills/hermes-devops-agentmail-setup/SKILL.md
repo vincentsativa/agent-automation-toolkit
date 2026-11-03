@@ -2,6 +2,7 @@
 name: agentmail-setup
 description: Use for AgentMail setup. Multi-agent email with own inboxes.
 trigger: "Setting up AgentMail, configuring the AgentMail MCP server, or creating an AgentMail inbox."
+category: devops
 ---
 
 # AgentMail Setup
@@ -20,7 +21,7 @@ mcp_servers:
     enabled: true
 ```
 
-Restart Hermes. Create inboxes via `create_inbox` (username `my-agent` → `agent@example.com`).
+Restart Hermes. Create inboxes via `create_inbox` (username `my-agent` → `[REDACTED_EMAIL]`).
 
 ## Available MCP Tools
 

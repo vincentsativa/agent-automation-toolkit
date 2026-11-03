@@ -79,7 +79,7 @@ Format: Two sections — Beginner (outcome-driven workflows) and Developer/Engin
 
 ### Phase 5: Deliver
 - Write to a `.txt` file with clear formatting
-- Email to `hello@example.com` using the `email-sender` skill (do NOT paste content into Telegram chat)
+- Email to `hello@phantom-byte.com` using the `email-sender` skill (do NOT paste content into Telegram chat)
 - Use subject line: "X Tutorial Ideas — $9.99 / $50 Value Each"
 
 ## Pitfalls

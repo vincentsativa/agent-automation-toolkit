@@ -14,6 +14,8 @@ toolsets: [file, web, browser]
 > **Phase C** — Optimize social board metadata for search discovery (Pinterest, Reddit, YouTube)
 > **Phase D** — Article keyword research with Google Trends
 > **Phase E** — Pinterest pin creation and scheduling for product launches
+> **Phase F** — Article QA review checklist (em dash sweep, fact-checking, style audit, SEO audit) — see `references/article-qa-review.md`
+> **Phase G** — Craigslist service strategy research (convincing the anti-FAANG crowd with open-source AI services) — see `references/craigslist-strategy.md`
 > Trigger: any task involving PhantomByte content creation, Gumroad publishing, board SEO, or Pinterest pin scheduling.
 
 ---
@@ -37,7 +39,7 @@ When Vinny provides a barrier/problem statement with solution framing:
 
 1. **Write the outline** — full section-by-section breakdown with content notes under each heading. Map the complete article structure.
 2. **Save to** `~/.hermes/workspace/` as a `.txt` file
-3. **Email it** to hello@example.com via email-sender skill with a brief summary body
+3. **Email it** to hello@phantom-byte.com via email-sender skill with a brief summary body
 4. **Reply in Telegram** confirming it was sent and briefly summarizing the structure
 5. **Stop.** Wait for him to say "write the tutorial."
 
@@ -60,11 +62,14 @@ When Vinny says "write the tutorial and email it to me" (or "write me this tutor
 
 - **Vinny's voice:** Direct, conversational, zero corporate language. He says "you're not stupid" not "users may experience confusion." He says "damn that was fast" not "I appreciate the efficiency."
 - **No AI-isms:** No "leverage," "synergy," "delve," "dive deep," "furthermore," "it's worth noting," "in today's rapidly evolving landscape." Kill all of these.
+- **Field Report Mentality:** These are not blog posts or think pieces. They are Field Reports. Focus on the *pattern* and the *insight* derived from actual operation. Avoid the "thought leader" tone.
+- **Interconnected Brand Authority:** Treat the archive as a serial. Use internal references to previous Notes to build continuity and reward regular readers. Don't treat articles as isolated units.
 - **Short paragraphs.** 1–4 sentences. Break often.
 - **Address the actual barrier.** The emotional objection, not just the technical gap. Name the feeling ("you're staring at a blinking cursor"). Validate it. Then solve it.
 - **Include real workflows.** Vinny's IronPulse, PhantomByte publishing, Hermes self-debugging — these are proof, not filler. Use them.
 - **End with a one-sentence close** that lands the point.
 - **Checklist/checkbox format** for challenge-based content. ☐ symbols for gamified completion.
+- **ALWAYS include the date.** Every article gets a date line under the title/byline. Format: "By Vinny Barreca" on one line, then the date on the next line (e.g., "July 11, 2026"). The date is not optional, not "dead weight," not something Vinny should have to add himself. It tells readers whether the information is current and whether to trust it. This is a hard requirement — do not skip it.
 
 ### Content Structure Patterns
 
@@ -100,8 +105,26 @@ Same structure as barrier articles PLUS:
 - **Always email.** Vinny wants the content in his inbox, not spammed into Telegram.
 - **Email body:** Brief summary of structure, word count, readiness status. The content is the attachment.
 - **Telegram:** "Sent. ~X,000 words — [structure bullet]. In your inbox." Nothing more.
-- **SMTP:** IONOS via email-sender skill (smtp.ionos.com:587, hello@example.com)
+- **SMTP:** IONOS via email-sender skill (smtp.ionos.com:587, hello@phantom-byte.com)
 - **Subject format:** "Barrier X: [Title] — [Outline/Tutorial]" or "[Topic] — Full Tutorial"
+
+### URL Naming Convention
+
+When creating a new article, the URL slug follows a kebab-case pattern derived from the full article title. See `references/article-url-naming-convention.md` for the complete convention with archive examples.
+
+### Finding an Existing Article by Topic
+
+When Vinny asks for "the article about X" and gives no URL, use the site's own sitemap, never a search engine.
+
+1. Fetch it: `scrapling extract get "https://articles.phantom-byte.com/sitemap.xml" "$SCRATCH/sm.txt"`. The fetch is public, no stealth needed. The CLI refuses an output filename ending in `.xml`, so always save as `.txt`; the URL itself keeps `.xml`.
+2. Extract and filter the slugs: `grep -oiE "https://articles\.phantom-byte\.com/[a-z0-9/-]+" sm.txt | sort -u | grep -iE "4-bit|quant|precision"`. Broad topic words first, then narrow.
+3. **Fetch the URL with its `.html` suffix.** Sitemap entries are `.../slug.html`; the bare `/slug` returns 404. Read the first line of the extract for the exact title (it comes back as plain text, not inside a `<title>` tag), and grep the body for the claim in question to confirm the right article before answering.
+4. Report title, note number, section, date, URL, and the one or two sentences that actually answer him. Do not summarize the whole piece unless he asks.
+
+Pitfalls:
+- `/sitemap.txt` is a 404. Only `/sitemap.xml` exists.
+- The sitemap holds roughly 230 URLs, so grep the slugs rather than reading the file.
+- The ironpulse skill's article catalog may not list recent Notes. When it misses, the live sitemap is authoritative.
 
 ### Speed Note
 
@@ -119,7 +142,7 @@ Create and manage Gumroad digital products via the Gumroad API v2. Covers produc
 
 Stored in `~/.hermes/credentials.md`:
 - **Account:** phantombyteai.gumroad.com
-- **Access Token:** `_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE`
+- **Access Token:** `[REDACTED_TOKEN]`
 - **API Base:** `https://api.gumroad.com/v2/`
 
 ### Workflow
@@ -132,7 +155,7 @@ Read the markdown or text file containing the tutorial content. Extract:
 - **Price** from frontmatter `gumroad_price:` field — convert dollar amount to cents (e.g. `$0.99` → `99`)
 - **Content** for writing description and summary
 
-Source files live on Windows at paths like `/mnt~/OneDrive/Desktop/PI TUTORIAL/...`
+Source files live on Windows at paths like `/mnt/c/Users/<user>/OneDrive/Desktop/PI TUTORIAL/...`
 
 #### 2. CRAFT DESCRIPTION AND SUMMARY
 
@@ -159,17 +182,16 @@ This applies to BOTH `custom_summary` AND `description` fields. Do not substitut
 
 ```bash
 curl -s -X POST "https://api.gumroad.com/v2/products" \
-  --data-urlencode "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
-  --data-urlencode "name=<product name>" \
-  --data-urlencode "price=<price in cents>" \
-  --data-urlencode "custom_summary=<short summary>" \
-  --data-urlencode "description=<full description>"
+  -d "access_token=[REDACTED_TOKEN]" \
+  -d "name=<product name>" \
+  -d "price=<price in cents>" \
+  -d "custom_summary=<short summary>" \
+  -d "description=<full description>" \
+  -d "permalink=<url-slug>"
 ```
 
-Required fields: `name`, `price`, `custom_summary`, `description`
+Required fields: `name`, `price`, `custom_summary`, `description`, `permalink` (submitted — see Pitfall 7)
 Optional: `customizable_price=false`, `max_purchase_count=1000`
-
-**CRITICAL: Use `--data-urlencode` for ALL fields, not `-d`.** The `&` character in product names (e.g. "APIs & Databases") and HTML special characters in descriptions (`<`, `>`, `&`) will be silently truncated or corrupted by plain `-d` because the shell interprets `&` as a parameter separator. `--data-urlencode` properly encodes these characters. Do NOT submit `permalink` on POST — it is silently ignored (see Pitfall 7).
 
 #### 4. SET THE PERMALINK (PUT — required after POST)
 
@@ -177,8 +199,8 @@ Gumroad's API silently ignores the `permalink` field on POST. The product is cre
 
 ```bash
 curl -s -X PUT "https://api.gumroad.com/v2/products/<PRODUCT_ID>" \
-  --data-urlencode "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
-  --data-urlencode "custom_permalink=<desired-slug>"
+  -d "access_token=[REDACTED_TOKEN]" \
+  -d "custom_permalink=<desired-slug>"
 ```
 
 After this call, `short_url` will update to `https://phantombyteai.gumroad.com/l/<desired-slug>`.
@@ -187,12 +209,12 @@ After this call, `short_url` will update to `https://phantombyteai.gumroad.com/l
 
 ```bash
 curl -s -X PUT "https://api.gumroad.com/v2/products/<PRODUCT_ID>" \
-  --data-urlencode "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
-  --data-urlencode "name=<new name>" \
-  --data-urlencode "description=<updated description>"
+  -d "access_token=[REDACTED_TOKEN]" \
+  -d "name=<new name>" \
+  -d "description=<updated description>"
 ```
 
-Always use `--data-urlencode` for all fields. Plain `-d` will corrupt any `&` character in the value (common in product names like "APIs & Databases" or HTML descriptions).
+The `--data-urlencode` flag is NOT needed for plain text (no special shell chars). For descriptions containing newlines, use `-d` with literal newlines in the shell string — curl handles this correctly.
 
 #### 6. MESSAGE VINNY ON TELEGRAM
 
@@ -211,8 +233,6 @@ After creating the draft, send Vinny a message on Telegram with:
 5. **Product starts as unpublished draft** — Vinny uploads the PDF and images, then publishes manually. Do NOT publish via API.
 6. **`max_purchase_count` field** — set to a reasonable cap like 1000 to prevent unlimited free/ultra-low price abuse when running a promotional price.
 7. **`permalink` ignored on POST** — Gumroad's API silently drops the `permalink` field during product creation. The response comes back with `custom_permalink: null` and an auto-generated `short_url` like `https://phantombyteai.gumroad.com/l/wteqxi`. Always follow POST with a PUT to set `custom_permalink=<desired-slug>`. Verify `short_url` in the PUT response shows your slug.
-8. **`&` in product names/descriptions corrupts plain `-d`** — The `&` character is a shell parameter separator. When using plain `-d "name=APIs & Databases"`, the shell interprets `& Databases"` as a background process command, and curl only receives `name=APIs `. Always use `--data-urlencode` for ALL fields, not `-d`. This applies to POST (create) AND PUT (update) calls. The `&` character appears in product names like "APIs & Databases" and in HTML descriptions containing `&nbsp;`, `&amp;`, etc.
-9. **Description may be silently dropped on POST** — The Gumroad API may return `"description":null` in the POST response even when you sent a valid description. This is a known API behavior. Always verify the description field in the response, and if null, follow up with a PUT to set it. Use `--data-urlencode` for the PUT as well.
 
 ### Verification
 
@@ -404,10 +424,24 @@ Combine Trends volume with domain knowledge:
 - Niche terms for specific audience segments
 - Forward-looking terms that will grow over time
 
-#### 6. Save & Deliver
+#### 6. Build the internal linking map (Interconnected Brand Authority)
+
+PhantomByte is a daily serial. Every Note references and builds on previous Notes. Google explicitly values this as "Interconnected Brand Authority" — cross-referencing your own published IP weaves it into a cohesive body of work that compounds in value.
+
+For every keyword research report on a PhantomByte article, identify which previous Notes should be linked from which sections. Map each link to a specific section of the current article and explain why the connection matters. This is not optional SEO garnish — it is the core content strategy.
+
+Common linking patterns:
+- Shepherd pattern articles → Composition Pattern section
+- Memory latency articles → Context Sharing Strategy section
+- Tool operator / MCP articles → Tool Integration Depth section
+- Preflight check / responsibility articles → Approval Gating section
+- Sovereign AI / infrastructure articles → Local orchestration section
+- Model churn articles → Architecture Shift / "why harness matters" section
+
+#### 7. Save & Deliver
 
 - **Save full report** as `~/keyword_research_[slug].txt`
-- **Email** to hello@example.com with the file attached
+- **Email** to hello@phantom-byte.com with the file attached
 - **Email body** concise summary: primary targets, secondary targets, strategic notes (critical window, unique angle)
 - **Telegram** confirm: "Sent. [N] terms across 3 tiers — [primary highlights]. In your inbox."
 
@@ -449,7 +483,7 @@ Combine Trends volume with domain knowledge:
 ### Inputs
 
 1. **The existing Gumroad catalog** — list all products via the Gumroad API v2 GET endpoint
-2. **The new/just-uploaded tutorial** — read the user's uploaded content from the cache directory at `~/.hermes/cache/documents/`
+2. **The new/just-uploaded tutorial** — read the user's uploaded content from the cache directory at `~/cache/documents/`
 3. **User's audience split** — typically two tiers: beginners (non-technical, can type a sentence but don't code) and developers/engineers
 
 ### Workflow
@@ -458,7 +492,7 @@ Combine Trends volume with domain knowledge:
 
 ```bash
 curl -s "https://api.gumroad.com/v2/products" -G \
-  -d "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
+  -d "access_token=[REDACTED_TOKEN]" \
   | python3 -c "import sys,json;d=json.load(sys.stdin);[print(f'{p[\"name\"]} | {p.get(\"custom_summary\",\"\")[:200]}') for p in d.get('products',[])]"
 ```
 
@@ -509,7 +543,7 @@ Each idea must include:
 #### Step 6: Deliver
 
 1. **Save to file** at `~/[slug]-tutorial-ideas.txt`
-2. **Email** to hello@example.com via email-sender skill with the file attached
+2. **Email** to hello@phantom-byte.com via email-sender skill with the file attached
 3. **Telegram brief** — confirm sent with a summary of the split (5 beginner + 5 developer) and a note that each is $9.99 priced at $50 value
 
 ### Pricing Logic
@@ -550,7 +584,7 @@ Before logging into Pinterest, assemble the pin content from the product page or
 
 ### Login
 
-**Critical pitfall: Pinterest credentials are NOT stored in credentials.md.** The PhantomByteAI Pinterest account (`pinterest.com/PhantomByteAI/`) was created via Facebook login which is no longer supported. The available email/password combos (`user@example.com`, `hello@example.com`) do not work for Pinterest login. The user must provide the correct login credentials before pin creation can proceed.
+**Critical pitfall: Pinterest credentials are NOT stored in credentials.md.** The PhantomByteAI Pinterest account (`pinterest.com/PhantomByteAI/`) was created via Facebook login which is no longer supported. The available email/password combos (`[REDACTED_EMAIL]`, `hello@phantom-byte.com`) do not work for Pinterest login. The user must provide the correct login credentials before pin creation can proceed.
 
 When credentials ARE available:
 1. Navigate to `https://www.pinterest.com/login/`
@@ -588,125 +622,22 @@ Pinterest allows scheduling pins hours/days in advance:
 
 ---
 
----
-
-## Phase G: Social Media & X Post Writing
-
-> Create short-form social content for PhantomByte — X/Twitter posts, Pinterest titles and descriptions, and social media engagement questions. Covers character limits, tone injection, platform-specific formatting, and the daily cron workflow for question generation.
-
-### Triggers
-
-- "Write me a [N]-character X post about [topic] with [tone/angle]"
-- "Write me a Pinterest title and description for [content]"
-- Any request to create social media copy for PhantomByte content
-- The daily "SOCIAL MEDIA QUESTIONS - 5PM" cron job (produces engagement hooks, not posts)
-
-### Social Media Questions (Engagement Hooks)
-
-> Used by the daily "SOCIAL MEDIA QUESTIONS - 5PM" cron job. These are NOT posts — they are provocative questions designed to drive engagement and replies on X/Twitter.
-
-**Structure of a good question:**
-1. Lead with a specific, concrete fact or event (named company, number, product, study)
-2. Expose the contradiction, irony, or uncomfortable truth
-3. End with a question that forces the reader to take a side or think
-
-**Character limit:** 190 characters maximum. Count programmatically before delivering.
-
-**Tone:** PhantomByte voice — short, direct, skeptical edge. No em dashes. Concrete names and numbers.
-
-**Cron prompt pattern (the "SOCIAL MEDIA QUESTIONS - 5PM" job):**
-```
-Go look at the following data files, THEN produce 10 sharp, provocative social media questions for PhantomByte. Each question must be a complete, publishable question in PhantomByte voice — short, direct, skeptical edge, concrete names and numbers, no em dashes. Each question must be 190 characters or fewer. These are engagement hooks: they should make the reader stop, think, and want to reply. Lead with a specific fact or event, then ask the question that exposes the contradiction or the uncomfortable truth. After writing all 10, verify every single one is under 190 chars by counting programmatically. If any are over, shorten them. Deliver the final verified set.
-```
-
-**Pitfalls:**
-- Do NOT confuse questions with posts. The cron is named "SOCIAL MEDIA QUESTIONS - 5PM" — it produces questions, not ready-to-post content. Changing it to produce posts violates the user's intent.
-- A vague prompt ("find me 10 great questions") produces weak output. The prompt must specify: lead with a concrete fact, expose a contradiction, under 190 chars, verify programmatically.
-- Questions that are just "What do you think about X?" without a specific fact or angle are too weak. Every question must earn its place with a named entity and a specific claim.
-
-### X/Twitter Posts
-
-**Character limit:** 190 characters maximum. Count programmatically before delivering.
-
-**Tone injection:** When the user specifies a tone or angle (e.g., "with the tone 'why are Americans trying so hard to destroy American AI companies?'" or "with the tone 'they should have been doing this the whole time'"), embed that angle as the framing device. The tone is not a separate sentence — it colors the whole post.
-
-**Structure:**
-1. Lead with the news or claim — specific, concrete, named entities
-2. Deliver the angle or punchline in the second half
-3. End with a question or challenge to drive engagement
-4. Optionally annotate with character count in the header: `POST 1 (189 chars):` followed by the post text on the next line (Format A). The old format `POST 1: ...\n<text>\n(189 chars)` (Format B) also works. The verify script now handles both.
-
-**Punctuation rules (absolute):**
-- No em dashes (—) or double hyphens (--). Use commas, colons, or periods instead.
-- This applies to ALL social posts, not just articles.
-
-**Verification:** After writing, count characters with `len(text)` and confirm under 190. If over, trim without losing the angle.
-
-### Pinterest Titles & Descriptions
-
-**Title:** Concise, front-loaded with key terms. Matches the content being promoted.
-
-**Description format:** Summary of the content followed by a question. The question engages the reader and invites a click.
-
-Example:
-```
-Title: 42 State AGs Just Launched the Biggest Attack on OpenAI Yet
-Description: Subpoenas targeting ads, data, minors, and model sycophancy right before the IPO. Why are Americans trying so hard to destroy American AI companies?
-```
-
-### Pitfalls
-
-- **190 characters is tight** — every word must earn its place. Cut adjectives and adverbs first. Use contractions. Drop filler phrases like "just," "yet," "really."
-- **Tone must be embedded, not stated** — don't write "The tone of this post is X." Write the post so the tone is obvious from the content.
-- **Pinterest description is not an X post** — it's longer, more descriptive, and ends with a question. Don't apply the 190-char limit to Pinterest descriptions.
-- **Em dashes in social posts** — the user will correct you. Always use commas or periods instead.
-- **Character count markers are often wrong** — when you write a post and annotate it with `(N chars)`, the actual `len()` count frequently differs from what you claimed. Always verify programmatically before delivering. Run the verification script in `scripts/verify-social-posts.py` against the saved file to catch mismatches.
-- **"Half a million" costs 15 characters; "500,000" costs 7** — when every character counts under 190, use numeric forms over spelled-out numbers. "500,000" saves 8 characters over "half a million" with no loss of meaning.
-- **Post rewrites can silently push you over the limit** — every time you edit a post to fix one issue (tone, accuracy, style), re-check the character count. A single word swap can add 5-10 characters and push you over 190. Always re-verify after any edit.
-
----
-
-## Phase H: Article-to-Video Pipeline (MoneyPrinterTurbo)
-
-> Convert a written PhantomByte article into a narrated video with stock footage, TTS voiceover, subtitles, and background music.
-
-### Trigger
-
-- "turn this article into a video" — after writing an article, Vinny wants a companion video
-- Any request to generate a video from article text
-
-### Requirements
-
-- MoneyPrinterTurbo installed at `~/MoneyPrinterTurbo/` (already set up)
-- For stock footage: free Pexels API key in config.toml, or use local video files
-
-### Workflow
-
-1. Read the article text from the saved file
-2. Run the CLI with `--video-script "$(cat article.txt)"` — this bypasses the LLM entirely and uses Vinny's text directly as the script
-3. Output is a 1080x1920 portrait video with TTS narration, subtitles, stock footage, and background music
-4. Deliver the output path to Vinny
-
-### Reference
-
-`references/moneyprinterturbo-video-pipeline.md` — full CLI reference, voice options, pitfall documentation, and config details.
-
-### Pitfalls
-
-- **Local video files must be in `~/MoneyPrinterTurbo/storage/local_videos/`** — the tool rejects files outside this directory as a security measure.
-- **Pexels API key is needed for stock footage** — without it, use `--video-source local`.
-- **No LLM cost** when `--video-script` is provided. Vinny's article text is the script.
-
----
-
 ## Reference Files
 
 The following reference files provide detailed session-specific examples, statistical data, and fallback procedures:
+
+- `references/outline-from-data-files.md` — Full workflow for generating article outlines from daily IronPulse/TensorFeed/Blogwatcher data files. Covers brand research, data reading, outline structure, and delivery requirements.
+- `references/product-claim-drift.md` — When an outline cites a specific price, lifetime license, or business model claim, always verify against the live vendor site. If the live source contradicts the outline, the live source wins. Omit stale claims rather than propagating them.
+- `references/title-formatting-rules.md` — Hardened title rules: no all caps; **the title is keyword-optimized AFTER the article body is written, never before** (Rule 0A); outside that pass a title Vinny selected stays verbatim; shortening fires only when Vinny explicitly flags a specific title as too long.
+- `references/ghostwriter-terminal.md` — **DEPRECATED.** Use the standalone `ghostwriter-terminal` skill instead. Vinny gives you a solid outline, you write the story in a single pass.
+- `references/tutorial-writing-rules.md` — Rules for writing tutorials for Vinny: teach concept not blueprint, the "well done" stop signal, the "I told you what I wanted" execute-don't-question rule, and the "go fuck yourself" signal.
 
 - `references/pinterest-search-research-example.md` — Annotated walkthrough of a real board audit with search autocomplete capture and keyword selection logic table
 - `references/keyword-research-example-aging-agent.md` — Keyword research report template with Google Trends methodology and three-tier strategy
 - `references/pinterest-niche-research-reference.md` — Key Pinterest statistics for niche sizing (MAUs, category rankings, referral traffic, demographics, shopping metrics)
 - `references/google-trends-fallback.md` — Step-by-step fallback chain when Google Trends blocks automated extraction: simpler queries, DuckDuckGo search density, autocomplete analysis, transparent estimation methodology, and cross-reference triangulation
-- `references/gumroad-api-curl-patterns.md` — Verified curl commands for Gumroad API v2 product creation, permalink setting, description updates, and tag handling. Covers the `--data-urlencode` requirement, `&` character corruption, and the description-null-on-POST quirk.
-- `references/coverage-gap-analysis.md` — Browser-based technique for extracting article titles from articles.phantom-byte.com, categorizing coverage by theme, and identifying gaps for new article recommendations. Used when TensorFeed report analysis requires PhantomByte coverage intelligence.
-- `references/article-selection-workflow.md` — Full workflow for scanning the published catalog, evaluating outlines against timeliness/narrative-continuity/gap-coverage criteria, making the recommendation, and revising outlines with Vinny's recurring editorial additions (Dario fraud, real mechanism, regulations are silly, open source wins, capability-based targeting).
+- `references/coverage-gap-analysis.md` — Browser console technique for extracting all article titles from articles.phantom-byte.com in one shot, categorizing coverage by theme, and identifying gaps for new article recommendations. Used in both blogwatcher editorial briefs and TensorFeed report analysis. Verified working July 5, 2026 (240 results from `querySelectorAll('article h3 a, article h3')`).
+- `references/amazon-influencer-strategy.md` — Amazon Influencer storefront content strategy: content types that work (roundups, gear, books, video), SEO value, quick-start plan, and how it fits Vinny's distribution-first approach. Trigger: any task involving the Amazon Influencer page or storefront content planning.
+- `references/pi-coding-handoff-format.md` — The exact format of the `FOR PI CODING ONLY` section at the bottom of article files, plus the full explanation of the system: it is Vinny's deliberate working protocol with Pi, he manages it himself, and it is not to be touched unless explicitly asked. Dashed separator, keyword list, sources with URLs. This section is stripped before publishing — it's a handoff block for Pi, not article content.
+- `references/low-volume-day-protocol.md` — Protocol for editorial briefs on weekends/holidays when only 2-3 of 13+ feeds produce fresh content. Expands the window to yesterday's articles from active feeds instead of padding with arXiv papers or non-AI content. Verified working July 11, 2026 (Saturday).
+- `references/daily-data-workflow.md` — How the daily data pipeline works: cron dumps land on the Windows desktop, the data tells its own story, and outlines are never pre-committed before reviewing the day's data.

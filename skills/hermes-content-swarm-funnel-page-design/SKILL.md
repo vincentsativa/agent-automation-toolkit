@@ -139,7 +139,7 @@ Each email in a funnel automation follows the PhantomByte brand system:
 - Clear deliverable title as H1
 - CTA button matching brand gradient (`#9D4EDD`)
 - Bullet-point value summary
-- From: `Vinny Barreca — PhantomByte <hello@example.com>`
+- From: `Vinny Barreca — PhantomByte <hello@phantom-byte.com>`
 - Sign-off: `— Vinny` / `PhantomByte`
 
 ### 7e. Funnel Email Automation Types
@@ -180,7 +180,10 @@ When generating email magnet ideas from site content, follow the framework in `r
 For the Sovereign AI Stack Blueprint welcome email (all-subscribers trigger), see `references/welcome-email-html.md` — contains ready-to-paste HTML, plain text, and MailerLite automation setup steps.
 
 ## Task Tracking Workflow (CRITICAL)
-When Vinny assigns a task, write it immediately to `/mnt~/workspace/TODO.md`. The session todo tool (`todo` tool) is session-scoped only — it disappears when the conversation ends. The workspace TODO.md file persists across sessions. Never use the session todo tool for tracking Vinny's tasks. Update it on every new task assignment and when tasks are completed or superseded.
+When Vinny assigns a task, write it immediately to `/mnt/c/Users/<user>/workspace/TODO.md`. The session todo tool (`todo` tool) is session-scoped only — it disappears when the conversation ends. The workspace TODO.md file persists across sessions. Never use the session todo tool for tracking Vinny's tasks. Update it on every new task assignment and when tasks are completed or superseded.
+
+## Website Redesign & Services Architecture
+When Vinny asks to redesign phantom-byte.com or write new services copy based on "everything we've built," see `references/website-redesign-services-audit.md` — covers the full audit workflow (sites, skills, cron, scripts, config, articles), positioning shift from commodity to specialized services, copy voice differences for websites vs articles, and the four-site ecosystem reference.
 
 ## Email Delivery (IONOS SMTP)
 For sending deliverables via email, see `references/smtp-email-sending.md` — includes credentials, Python template with attachment support, and pitfalls (always write script to file, never inline with `-c`).

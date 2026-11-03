@@ -5,41 +5,64 @@ description: Use when choosing search backend. Firecrawl is X-only.
 
 # Firecrawl Is X-Only
 
-Vinny's rule: **Firecrawl is ONLY used for X (Twitter) and JS-heavy pages that Keenable cannot render.** Never default to Firecrawl.
+Vinny's rule: **Firecrawl is ONLY used for X (Twitter) and JS-heavy pages that
+Keenable cannot render.** Never default to Firecrawl.
 
 ## Default = Keenable
 
-- For ANY web search, use `web_search` (Keenable backend) first over everything else.
+- For ANY web search, use `web_search` (Keenable backend) first.
 - Keenable is keyless and free. Use it for everything by default.
 
 ## When Firecrawl is allowed (and only then)
 
-Firecrawl MCP tools (`firecrawl_scrape`, `firecrawl_search`, etc.) are used ONLY when the target is X.com or Twitter, or the page is JS-rendered and Keenable returns empty or blocked content.
+Firecrawl MCP tools (`firecrawl_scrape`, `firecrawl_search`, etc.) are used
+ONLY when:
+1. The target is X.com / Twitter, OR
+2. The page is JS-rendered and Keenable returns empty/blocked content.
 
 If Keenable works, Firecrawl is not used. Period.
 
 ## Prohibition
 
-- Do NOT use Firecrawl for normal web search, news, docs, or any page Keenable can fetch.
+- Do NOT use Firecrawl for normal web search, news, docs, or any page Keenable
+  can fetch.
 - If in doubt, use Keenable. Firecrawl is the exception, not the default.
 
-## Getting X trend or topic signal (works without an X login)
+## Finding what is trending on X (`firecrawl_search` + `firecrawl_scrape`)
 
-x.com itself is useless to an unauthenticated fetcher: /explore/tabs/trending and /search both answer 307 then land on /i/jf/onboarding/web?mode=login, and the parsed text is about 26 characters, just the page title. Do not read that 200 as success, and do not burn calls retrying it. Scrape X-index sites instead, which quote the original posts with view and like counts and link back to the post URL.
+Run these in this order. Each step feeds the next.
 
-The order that works:
+1. **`firecrawl_search` with `site:x.com` and `tbs: "qdr:d"`.** That is the only
+date window that reliably means "today". Query by topic, not by "trending":
+`"AI site:x.com"` and `"OpenAI OR Anthropic OR Grok OR Nvidia site:x.com"`. The
+hits come back with a one-line snippet, an author, and a relative timestamp, so
+read them as a ranked candidate list before scraping anything.
 
-1. Find the index page with Keenable first, since a date-specific URL is needed and guessing it wastes calls: `web_search("what is trending on AI on X this week <month year>")`. This returns the live day pages. Firecrawl search is for the case where Keenable returns nothing.
-2. Fetch the day page with scrapling: `Fetcher.get("https://whatisthelatest.ai/top-10/YYYY-MM-DD")`. It ranks the ten AI posts that spread furthest on X in the previous 48 hours, one post per story and per person, each at least 5K views, with the metrics and the x.com/status link.
-3. Walk the page by anchor text, not by fixed character offsets. Slice from `Number 5.` to `Number 6.`, and from `Number 1.` to `Previous day`. Offsets drift as the page changes.
-4. Check the current date page and the day before, so the list is live rather than a day stale.
+2. **`firecrawl_scrape` the individual status URLs** (`https://x.com/<user>/status/<id>`).
+Each scrape returns, in markdown: `Author`, `Posted` (ISO timestamp), `Likes`,
+`Retweets`, the full post text, any quoted thread post, and up to three
+`Top Comments`. Those engagement counts are the ranking signal; sort candidates
+by likes before writing.
 
-Supporting index sites, each with its own angle: techtwitter.com/twitter-trending and its /YYYY-MM-DD archive (raw engagement ranking, useful for what builders posted), getfior.com/articles (weekly mood read of how people talk about AI across X, LinkedIn and Bluesky, good for sentiment rather than news), agiright.org/ug/signals (single X posts with a read and verified versus could not verify note per claim), shipradarai.com/trending (tools, weighted by who is talking about them, not launch announcements).
+3. **For trending terms rather than posts**, scrape
+`https://trends24.in/united-states/`. It returns the last 24 hours of US trends
+in numbered `[term](twitter.com/search?q=...)` blocks, timestamped per snapshot.
+Parse with a regex over `\d{2}\. \[([^\]]+)\]` and `collections.Counter` if you
+need per-term frequency across snapshots.
 
-Report the posts as the source's own numbers, view and like counts included, name the account and the outlet, and say which claims are unverified. Never present an index site's summary as if the X post itself had been read.
+**Pick the topic for the audience, not the loudest term.** The US trending list
+is dominated by sports and entertainment; for an AI/tech brand the trend list
+almost never contains the topic. Treat trends24 as a context check and let the
+`qdr:d` X search supply the actual subject.
 
-## When Firecrawl is capped
+**Two URL shapes the X engine will not return content for.** `x.com/explore/tabs/trending`
+and `x.com/i/article/<id>` both come back "we do not support this site". Do not
+retry them. Get the topic from the search snippet, then scrape a plain status
+URL from the same thread, or verify the claim outside X (vendor blog, repo
+README, filing coverage) with `web_search`.
 
-Keyless Firecrawl has a daily credit limit, and hitting it returns the daily limit error on every call, then the MCP server pauses for about a minute after three rejects. The fix for the account is a key from https://firecrawl.dev/k/czsh3v5x8s47 set as an Authorization header on https://mcp.firecrawl.dev/v2/mcp, which needs a new session to pick up.
-
-When the cap hits mid-task, do not stop and do not retry the same call. Switch to the Keenable plus scrapling path above, deliver the answer from it, state in one line which tool was capped, and end with the signup line the error asked for. A capped tool is a routing change, not a failed task.
+**Verify before you write.** A post trading today may be resurfacing
+months-old reporting. Confirm the underlying event date and the numbers at a
+primary source, and compute any derived ratio in code rather than in your head
+(16.3 / 1.1 rounds to 15x, not 16x), so the post's fact stanza survives a reply
+from someone who read the filing.

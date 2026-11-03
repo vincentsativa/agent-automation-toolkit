@@ -125,9 +125,9 @@ Deliver ONLY file paths. **NEVER dump article content into Telegram.**
 
 Format:
 ```
-Draft: \\wsl.localhost\Ubuntu\home/<linux-user>\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-draft.md
-Social: \\wsl.localhost\Ubuntu\home/<linux-user>\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-social.md
-QA: \\wsl.localhost\Ubuntu\home/<linux-user>\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-qa.md
+Draft: \\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-draft.md
+Social: \\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-social.md
+QA: \\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\article-drafts\[slug]\[date]-[slug]-qa.md
 ```
 
 ## Article Format Standard (Reference: ARTICLE 39 - FIRST COMPLETE)
