@@ -90,7 +90,7 @@ The blended page is already mobile-optimized; the existing offer page CSS carrie
 ## Parked until demand proves it
 
 - The monitoring product (quarterly re-verify plus alert email; keyword demand exists via dmarc report reader and viewer). The $250 per month manual monitoring already exists on the rescue page; a second recurring product without evidence is complexity.
-- The MSP white-label angle — unparked 2026-10-08 on Vinny's direction; the
+- The MSP white-label angle, unparked 2026-10-08 on Vinny's direction; the
   terms, copy drafts, sourcing, and page outline are in
   `references/partner-referral-channel.md`. r/msp stays the tolerant venue.
 - The blacklist check, until a reliable resolver path for the major zones exists, and then as its own labeled check.

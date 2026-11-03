@@ -30,7 +30,7 @@ Himalaya is a CLI email client that lets you manage emails from the terminal usi
 ### Installation
 
 ```bash
-# Pre-built binary (Linux/macOS — recommended)
+# Pre-built binary (Linux/macOS, recommended)
 curl -sSL https://raw.githubusercontent.com/pimalaya/himalaya/master/install.sh | PREFIX=~/.local sh
 
 # macOS via Homebrew
@@ -79,9 +79,9 @@ himalaya account configure
 ## Hermes Integration Notes
 
 - **Reading, listing, searching, moving, deleting** all work directly through the terminal tool
-- **Composing/replying/forwarding** — piped input (`cat << EOF | himalaya template send`) is recommended for reliability. Interactive `$EDITOR` mode works with `pty=true` + background + process tool, but requires knowing the editor and its commands
+- **Composing/replying/forwarding**, piped input (`cat << EOF | himalaya template send`) is recommended for reliability. Interactive `$EDITOR` mode works with `pty=true` + background + process tool, but requires knowing the editor and its commands
 - Use `--output json` for structured output that's easier to parse programmatically
-- The `himalaya account configure` wizard requires interactive input — use PTY mode: `terminal(command="himalaya account configure", pty=true)`
+- The `himalaya account configure` wizard requires interactive input, use PTY mode: `terminal(command="himalaya account configure", pty=true)`
 
 ## Common Operations
 
@@ -153,7 +153,7 @@ Your reply here.
 EOF
 ```
 
-Reply-all (interactive — needs $EDITOR, use template approach above instead):
+Reply-all (interactive, needs $EDITOR, use template approach above instead):
 
 ```bash
 himalaya message reply 42 --all
@@ -168,7 +168,7 @@ himalaya template forward 42 | sed 's/^To:.*/To: newrecipient@example.com/' | hi
 
 ### Write a New Email
 
-**Non-interactive (use this from Hermes)** — pipe the message via stdin:
+**Non-interactive (use this from Hermes)**, pipe the message via stdin:
 
 ```bash
 cat << 'EOF' | himalaya template send

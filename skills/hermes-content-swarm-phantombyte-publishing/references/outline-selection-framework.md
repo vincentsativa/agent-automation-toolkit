@@ -1,4 +1,4 @@
-# Outline Selection Framework — Which Article to Publish Next
+# Outline Selection Framework, Which Article to Publish Next
 
 A structured decision framework for choosing between multiple article outlines when Vinny asks "which should I write next?" Used when he provides 3-4 outlines and wants a recommendation grounded in site data.
 
@@ -54,10 +54,10 @@ Four outlines evaluated:
 
 | Criterion | Outline #1 (Inference Bill) | Outline #2 (Recursive Self-Improvement) | Outline #3 (Proactive Agents) | Outline #4 (Safety Exodus) |
 |---|---|---|---|---|
-| Timeliness | Medium — same data as today's article | HIGH — Sol/Luna broke July 10 | Medium — Context Graphs paper | Medium — departures are a pattern, not a single event |
+| Timeliness | Medium, same data as today's article | HIGH, Sol/Luna broke July 10 | Medium, Context Graphs paper | Medium, departures are a pattern, not a single event |
 | Site gap | Redundant with latest | Deepens Infrastructure (53) with new angle | Strengthens thin Agents (4) | Policy (6) is thin but not engineering |
-| Redundancy | HIGH — same SK Hynix/Micron data as July 11 | LOW — completely new territory | LOW — Agents only has 4 articles | LOW — Policy only has 6 |
+| Redundancy | HIGH, same SK Hynix/Micron data as July 11 | LOW, completely new territory | LOW, Agents only has 4 articles | LOW, Policy only has 6 |
 | Narrative arc | Standalone | Completes degradation → churn → self-improvement trilogy | Standalone | Standalone |
-| Engineering focus | Medium — cost analysis | HIGH — infrastructure framework | HIGH — architecture pattern | LOW — incentive structures |
+| Engineering focus | Medium, cost analysis | HIGH, infrastructure framework | HIGH, architecture pattern | LOW, incentive structures |
 
 **Result:** Outline #2 wins on timeliness, narrative arc, and engineering focus with zero redundancy.

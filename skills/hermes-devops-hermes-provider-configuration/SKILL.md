@@ -24,7 +24,7 @@ provider semantics.
 
 Load this skill when any of these is true:
 
-- A provider's model list is not what the user configured — too many models, or
+- A provider's model list is not what the user configured, too many models, or
   the list changes between opens.
 - The user asks for only the models they declared, or a subset of an endpoint's
   catalog.
@@ -160,7 +160,7 @@ curl -s https://<endpoint>/v1/models -H "Authorization: Bearer <key>" \
 ```
 
 Then match each requested name to an ID by substring. Report any that matched
-nothing, and report any matched ID that is NOT on that endpoint at all — a
+nothing, and report any matched ID that is NOT on that endpoint at all, a
 vendor catalog routinely lists microservices (image, video, translation,
 detection, embedding) that have no chat-completions route. Those belong in the
 list only if the user asked for them by name; flag explicitly that selecting them

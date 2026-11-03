@@ -12,7 +12,7 @@ references:
 
 # Cron Delivery: Telegram Only
 
-When setting up any cron job for Vinny, the delivery target must always be `deliver="telegram"` (Home channel). Never use `"origin"` — origin deliveries are invisible to the user and he never receives them.
+When setting up any cron job for Vinny, the delivery target must always be `deliver="telegram"` (Home channel). Never use `"origin"`, origin deliveries are invisible to the user and he never receives them.
 
 ## When to Use
 
@@ -23,7 +23,7 @@ When setting up any cron job for Vinny, the delivery target must always be `deli
 ## Procedure
 
 1. When using the `cronjob` tool with `action='create'`, always include `deliver="telegram"`.
-2. Never use `deliver="origin"` — the user confirmed this is the only delivery target that works for him.
+2. Never use `deliver="origin"`, the user confirmed this is the only delivery target that works for him.
 3. This applies to every cron job, no exceptions.
 4. **Read the persisted `deliver` field back before walking away.** The create or update call returning success is a claim about the call, not the stored job. A job created with `deliver="telegram"` has been found sitting in `jobs.json` as `deliver: local`, and every run of it was then delivered to a file on disk instead of Telegram.
 
@@ -62,11 +62,11 @@ ls -t ~/.hermes/cron/output/<job_id>/*.md | head -5
 ```
 
 - `delivered` on a Telegram job vs `suppressed` on a local one is the whole diagnosis. A run can produce a perfectly good completion message and still record `suppressed`.
-- **`suppressed` alone is not the bug — pair it with the response text.** A run that answered `[SILENT]` records `suppressed` on a correctly-configured Telegram job too, because there was nothing to send. Read the `## Response` block first: `suppressed` WITH real content is the mis-set `deliver`; `suppressed` with `[SILENT]` is the healthy no-op. Read the reverse way, a silent run after a delivery fix looks like the fix failed.
+- **`suppressed` alone is not the bug, pair it with the response text.** A run that answered `[SILENT]` records `suppressed` on a correctly-configured Telegram job too, because there was nothing to send. Read the `## Response` block first: `suppressed` WITH real content is the mis-set `deliver`; `suppressed` with `[SILENT]` is the healthy no-op. Read the reverse way, a silent run after a delivery fix looks like the fix failed.
 - The output file holds the injected prompt AND the `## Response` section. Slice the file after `## Response` before reading it: the prompt itself quotes the words `[SILENT]` and "task is completed", so a plain grep over the whole file matches every run and tells you nothing.
 - Report the cause by name: the message was written to `~/.hermes/cron/output/<job_id>/` instead of being delivered, because the job's `deliver` field is `local`.
 
-## A cron run sends ONE message on its own — the rest go through the `hermes send` CLI
+## A cron run sends ONE message on its own, the rest go through the `hermes send` CLI
 
 A cron execution's own delivery is exactly one thing: its final response. `send_message` is
 deliberately NOT registered as an agent-callable tool (see the note at the top of
@@ -78,7 +78,7 @@ loop, and works with no gateway running at all for bot-token platforms:
 ~/.local/bin/hermes send --to telegram "EMAIL RECEIVED: <subject> from <sender>"
 ```
 
-Use the absolute path — a cron process PATH does not reliably carry `~/.local/bin`. Success
+Use the absolute path, a cron process PATH does not reliably carry `~/.local/bin`. Success
 prints `Sent to telegram home channel (chat_id: ...)` and exits 0; anything else is a real
 failure to report, never to swallow.
 
@@ -103,7 +103,7 @@ sent after the work arrives late and reads as a second completion notice.
 - **A job's OWN standing prompt outranks an instruction inside the task it receives.** A
   task email saying "let me know on Telegram that you got this, then when done notify me"
   produces only the completion message when the job prompt says "only notify me on
-  completion" — the run follows the prompt it boots with, not the mail it just read. When a
+  completion", the run follows the prompt it boots with, not the mail it just read. When a
   user reports a notification that the task explicitly asked for and the job prompt never
   mentioned, that contradiction is the cause: reconcile the job prompt, do not re-fire.
 - **A transient `action='run'` prompt is not a delivery test.** The job's own gate and
@@ -111,9 +111,9 @@ sent after the work arrives late and reads as a second completion notice.
   `[SILENT]` and delivers nothing, no matter what the transient prompt says. Prove delivery
   with a real content run or a direct `hermes send` to the same target.
 
-## Reminder vs Task Distinction (CRITICAL — July 10, 2026)
+## Reminder vs Task Distinction (CRITICAL, July 10, 2026)
 
-When Vinny says "remind me" or "remind me about X in Y time," that is a **reminder cron** — not a task cron. The distinction matters:
+When Vinny says "remind me" or "remind me about X in Y time," that is a **reminder cron**, not a task cron. The distinction matters:
 
 | Type | Purpose | Behavior |
 |------|---------|----------|
@@ -124,7 +124,7 @@ When Vinny says "remind me" or "remind me about X in Y time," that is a **remind
 - Vinny said "remind me of this again in one hour"
 - I created a cron that ran and delivered a full recap of the money-making cron (job ID, schedule, what it does, etc.)
 - Vinny's response: "this was a reminder not a task... dick. lmao but whatever."
-- The reminder should have just said: "Hey — one hour later. You asked me to remind you about the money-making cron. It's ready for review when you are."
+- The reminder should have just said: "Hey, one hour later. You asked me to remind you about the money-making cron. It's ready for review when you are."
 
 **The rule:** A reminder cron's final response is a short nudge. No data, no recap, no execution. Just the nudge. The user will tell you if they want more.
 

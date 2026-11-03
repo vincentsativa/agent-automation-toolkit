@@ -1,6 +1,6 @@
-# SHIFT44 BI — PDF Guide Summary
+# SHIFT44 BI, PDF Guide Summary
 
-**Source:** `stepbystep.pdf` — AI BI Agent: Step-by-Step Business Intelligence Guide
+**Source:** `stepbystep.pdf`, AI BI Agent: Step-by-Step Business Intelligence Guide
 
 ## Phase 1: Competitor Site Registration & Partner Identification
 1. Navigate to competitor registration site

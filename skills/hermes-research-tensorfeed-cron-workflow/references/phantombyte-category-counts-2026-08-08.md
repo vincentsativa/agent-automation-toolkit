@@ -27,6 +27,6 @@ The `#\d+\n([^\n]+)` regex returned 0 matches on this build. See the SKILL.md bo
 
 ## Drift vs. prior reference
 Aug 6 file: 154 total, AI Infrastructure 64, AI Engineering 23, AI Security 22, AI Industry 16.
-Aug 8: 156 total, AI Infrastructure 66 (net +2), others flat. AI Engineering, AI Security, and the four zero-article gaps unchanged — the strongest recommendation targets are still the empty Open Source AI / AI Hardware / Model Architecture / AI Energy categories.
+Aug 8: 156 total, AI Infrastructure 66 (net +2), others flat. AI Engineering, AI Security, and the four zero-article gaps unchanged, the strongest recommendation targets are still the empty Open Source AI / AI Hardware / Model Architecture / AI Energy categories.
 
 Use THIS reference for article-recommendation gap analysis; the Aug 6 and Aug 5 files are superseded (keep only for drift comparison).

@@ -4,7 +4,7 @@ When asked to delete a duplicate file, directory, or tree, follow this process t
 
 ## The Problem
 
-"Just delete it" without investigation is the same class of error as "just fix it" without root cause. Duplicates often contain unique data — newer versions, orphaned support files, or content that was never migrated to the canonical location.
+"Just delete it" without investigation is the same class of error as "just fix it" without root cause. Duplicates often contain unique data, newer versions, orphaned support files, or content that was never migrated to the canonical location.
 
 ## The Workflow
 
@@ -23,10 +23,10 @@ find /path -type d -name "target*" 2>/dev/null
 ### Phase 2: Inventory
 
 For each copy, check:
-- **Size and timestamp** — which is newer? Which is larger?
-- **SKILL.md content** — diff the main files
-- **Supporting files** — does one have references/, scripts/, templates/ that the other doesn't?
-- **Hidden files** — .git/, .archive/, .curator_backups/
+- **Size and timestamp**, which is newer? Which is larger?
+- **SKILL.md content**, diff the main files
+- **Supporting files**, does one have references/, scripts/, templates/ that the other doesn't?
+- **Hidden files**, .git/, .archive/, .curator_backups/
 
 ```bash
 # Compare sizes and timestamps
@@ -46,9 +46,9 @@ diff copy1/SKILL.md copy2/SKILL.md
 Before deleting anything:
 
 1. **Copy unique skills** from the duplicate to the primary (if the duplicate has skills the primary doesn't)
-2. **Copy newer versions** — if the duplicate's SKILL.md is newer, copy it over the primary
-3. **Copy orphaned support files** — references/, scripts/, templates/ that exist only in the duplicate
-4. **Check for archived/backup content** — .archive/, .curator_backups/ may hold files that were removed from the primary
+2. **Copy newer versions**, if the duplicate's SKILL.md is newer, copy it over the primary
+3. **Copy orphaned support files**, references/, scripts/, templates/ that exist only in the duplicate
+4. **Check for archived/backup content**, .archive/, .curator_backups/ may hold files that were removed from the primary
 
 ```bash
 # Copy a missing skill
@@ -79,7 +79,7 @@ Only now is it safe to remove the duplicate.
 
 ## Common Pitfalls
 
-- **Assuming timestamps tell the whole story** — a file with an older timestamp may have content the newer one doesn't. Always diff.
-- **Missing support files** — SKILL.md is the main file, but references/, scripts/, templates/ directories may hold unique content. Always check.
-- **Nested duplicates** — a `skills/skills/` directory means the entire tree was duplicated. Check every subdirectory, not just the top level.
-- **The "it's just a copy" assumption** — duplicates often diverge over time as one copy gets updated and the other doesn't. Never assume they're identical.
+- **Assuming timestamps tell the whole story**, a file with an older timestamp may have content the newer one doesn't. Always diff.
+- **Missing support files**, SKILL.md is the main file, but references/, scripts/, templates/ directories may hold unique content. Always check.
+- **Nested duplicates**, a `skills/skills/` directory means the entire tree was duplicated. Check every subdirectory, not just the top level.
+- **The "it's just a copy" assumption**, duplicates often diverge over time as one copy gets updated and the other doesn't. Never assume they're identical.

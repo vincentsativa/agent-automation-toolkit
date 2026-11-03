@@ -1,4 +1,4 @@
-# Kanban Setup — What Nobody Tells You
+# Kanban Setup, What Nobody Tells You
 
 Collected from a broken setup session (May 2026). These are the things that go wrong when you're new to Hermes Kanban.
 
@@ -25,11 +25,11 @@ hermes skills list | grep kanban
 # shows: kanban-worker  ...  disabled
 ```
 
-This does NOT mean the dispatcher won't run — the dispatcher runs inside the gateway when `kanban.dispatch_in_gateway: true` (default). The skill is for **worker behavior guidance**, not dispatcher existence.
+This does NOT mean the dispatcher won't run, the dispatcher runs inside the gateway when `kanban.dispatch_in_gateway: true` (default). The skill is for **worker behavior guidance**, not dispatcher existence.
 
 To enable:
 ```bash
-# Edit ~/.hermes/config.yaml — remove from the `skills.disabled:` list:
+# Edit ~/.hermes/config.yaml, remove from the `skills.disabled:` list:
 #   - kanban-worker
 #   - kanban-orchestrator
 ```

@@ -1,4 +1,4 @@
-# Pinterest Analytics Audit — working recipe
+# Pinterest Analytics Audit, working recipe
 
 Mechanics for turning a Pinterest analytics export into board and cron decisions. The rules live in SKILL.md; this file is the how.
 
@@ -16,10 +16,10 @@ Quirk to know before parsing it: in a board feed, the RSS `<title>` element carr
 
 The analytics export has no destination column. To find where a pin actually sends a visitor, fetch the pin page and read the embedded pin JSON. The fields that matter:
 
-- `"link"` — the destination URL on the pin
-- `"domain"` — the destination host
-- `"linkDomain"` — the host plus the account that owns it if the domain is claimed, `"officialUser":null` if it is not
-- `"method"` — how the pin was created, e.g. `pin_scheduling`
+- `"link"`, the destination URL on the pin
+- `"domain"`, the destination host
+- `"linkDomain"`, the host plus the account that owns it if the domain is claimed, `"officialUser":null` if it is not
+- `"method"`, how the pin was created, e.g. `pin_scheduling`
 
 Working fetch (scrapling is not on the default python path on this box, so invoke the venv binary and save HTML, then parse it):
 

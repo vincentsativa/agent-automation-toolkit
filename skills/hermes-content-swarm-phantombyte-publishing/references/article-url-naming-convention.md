@@ -2,7 +2,7 @@
 
 ## Pattern
 
-All articles use **kebab-case.html** — lowercase, hyphens only, no underscores, no special characters, no trailing slashes.
+All articles use **kebab-case.html**, lowercase, hyphens only, no underscores, no special characters, no trailing slashes.
 
 ## Examples from the Archive
 
@@ -22,11 +22,11 @@ All articles use **kebab-case.html** — lowercase, hyphens only, no underscores
 
 ## Rules
 
-1. **Full title slugged** — the slug is the full article title converted to kebab-case, not a shortened version. Recent articles use the complete title.
-2. **No article number** — slugs do not include the article number (e.g., `#124` is not in the URL).
-3. **No date prefix** — slugs do not include dates.
-4. **No trailing slash** — the URL ends with `.html`, not `/`.
-5. **No underscores** — use hyphens only.
+1. **Full title slugged**, the slug is the full article title converted to kebab-case, not a shortened version. Recent articles use the complete title.
+2. **No article number**, slugs do not include the article number (e.g., `#124` is not in the URL).
+3. **No date prefix**, slugs do not include dates.
+4. **No trailing slash**, the URL ends with `.html`, not `/`.
+5. **No underscores**, use hyphens only.
 
 ## How to Discover the Convention
 

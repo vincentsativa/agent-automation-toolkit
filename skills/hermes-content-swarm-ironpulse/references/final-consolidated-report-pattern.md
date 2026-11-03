@@ -120,18 +120,18 @@ Copy to the exact Windows path the user specified:
 cp ~/output.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
 ```
 
-**Verify** the file exists after copying — confirm the exact filename matches what the user requested, including any "(IMPORTANT)" suffix and exact casing.
+**Verify** the file exists after copying, confirm the exact filename matches what the user requested, including any "(IMPORTANT)" suffix and exact casing.
 
 ### Phase 5: Email + Telegram
 
 1. Send the report as an SMTP attachment to hello@phantom-byte.com
 2. For cron runs, report completion directly in the response (do NOT spam Telegram)
-3. If user explicitly says "Message me in telegram after the email," send a short confirmation only — never paste report content into Telegram
+3. If user explicitly says "Message me in telegram after the email," send a short confirmation only, never paste report content into Telegram
 
 ## Formatting Rules (User Preference)
 
 - **No em dashes** of any kind. Not even as replacements. Use commas, periods, or parentheses only.
-- **Punctuation must be correct** — do NOT just replace em dashes with hyphens or dashes. Rewrite the sentence structure properly.
+- **Punctuation must be correct**, do NOT just replace em dashes with hyphens or dashes. Rewrite the sentence structure properly.
 - **X posts must be 190 characters or fewer**
 - **Pinterest title + description** for every story
 - **5 themes** at the bottom (not 3)

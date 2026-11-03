@@ -116,7 +116,7 @@ just the changed sections.
 
 ## Related
 
-- `tutorial-writing` — the writing skill (concept vs blueprint)
-- `paid-product-pricing-model` — pricing the cheap full-build vs build-for-you tiers
-- `email-sender` — IONOS SMTP delivery to hello@phantom-byte.com
-- `phantom-byte-writing-style` — the voice rules for any published copy
+- `tutorial-writing`, the writing skill (concept vs blueprint)
+- `paid-product-pricing-model`, pricing the cheap full-build vs build-for-you tiers
+- `email-sender`, IONOS SMTP delivery to hello@phantom-byte.com
+- `phantom-byte-writing-style`, the voice rules for any published copy

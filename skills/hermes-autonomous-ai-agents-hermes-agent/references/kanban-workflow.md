@@ -11,7 +11,7 @@ kanban to users.
 | **Triage** | Raw idea dump, unvetted | "Dump half-baked thoughts here. The AI can spec them out and promote to Todo." |
 | **Todo** | Vetted + worth doing, not yet queued | "You've decided this is real. Just not prioritized yet." |
 | **Ready** | Queued for execution | "Dispatcher picks from here. Move items here when you want action taken." |
-| **In Progress** | Actively being worked on | "Someone is working on this — you, or an autonomous agent." |
+| **In Progress** | Actively being worked on | "Someone is working on this, you, or an autonomous agent." |
 | **Blocked** | Stuck on external dependency | "Waiting on something outside this task before it can proceed." |
 | **Done** | Completed | "Finished. Summary/result attached to the card." |
 | **Archived** | Old done work, preserved for reference | "Cleaned up but not deleted. History is preserved." |
@@ -34,7 +34,7 @@ When a task is created with `--triage`, the dispatcher:
 3. Promotes it to Todo
 4. The spec is attached to the card as the task body
 
-This eliminates hallucinations when kicking around ideas — the AI commits the
+This eliminates hallucinations when kicking around ideas, the AI commits the
 spec to the card for later review.
 
 ## User-Facing Examples
@@ -50,7 +50,7 @@ spec to the card for later review.
 ## Key Differences from Trello/Generic Kanban
 
 - **Dispatcher integration:** Cards in Ready can be autonomously claimed and
-  executed by Hermes worker agents. This is the unique power — it's a queue
+  executed by Hermes worker agents. This is the unique power, it's a queue
   for autonomous execution, not just a passive status board.
 - **Workspace isolation:** Each claimed task gets an isolated workspace
   (scratch, worktree, or dir:<path>).
@@ -67,8 +67,8 @@ spec to the card for later review.
 
 ## Multi-Project Boards
 
-- `hermes kanban boards list` — see all boards
-- `hermes kanban boards switch <slug>` — change active board
-- `hermes kanban boards create <slug>` — new board
+- `hermes kanban boards list`, see all boards
+- `hermes kanban boards switch <slug>`, change active board
+- `hermes kanban boards create <slug>`, new board
 - Each board has its own database under `~/.hermes/kanban/boards/<slug>/`
 - The `--board <slug>` flag can target any board from any command

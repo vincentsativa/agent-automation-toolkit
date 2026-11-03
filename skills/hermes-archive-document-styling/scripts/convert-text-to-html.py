@@ -255,7 +255,7 @@ if __name__ == '__main__':
         print('Usage: python3 convert-text-to-html.py input.txt output.html')
         sys.exit(1)
     with open(sys.argv[1], 'r', encoding='utf-8') as f:
-        lines = f.read().replace('—', '–').split('\n')
+        lines = f.read().replace('-', '–').split('\n')
     html = build_html(lines)
     with open(sys.argv[2], 'w', encoding='utf-8') as f:
         f.write(html)

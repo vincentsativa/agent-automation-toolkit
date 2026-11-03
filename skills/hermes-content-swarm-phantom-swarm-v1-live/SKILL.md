@@ -71,13 +71,13 @@ If `api_key: ''` or missing, run sequential or patch config first.
 
 ## CRITICAL: Scanner Hallucination Prevention (Lessons Learned)
 
-**Problem:** Scanner agents have hallucinated fictional products (e.g., "Mozilla Thunderbolt" AI client — does not exist). This wastes time and risks publishing false information.
+**Problem:** Scanner agents have hallucinated fictional products (e.g., "Mozilla Thunderbolt" AI client, does not exist). This wastes time and risks publishing false information.
 
 **Required Scanner Behavior:**
 - **Verify product announcements against official sources** before reporting as fact (check company blogs, press releases, GitHub repos, official social media)
-- **Verify exact product/model names** against primary sources before writing (e.g., "Mythos Preview" not "Mythos AI" — the fact-checker caught this discrepancy). Always use the official naming from the source.
+- **Verify exact product/model names** against primary sources before writing (e.g., "Mythos Preview" not "Mythos AI", the fact-checker caught this discrepancy). Always use the official naming from the source.
 - **Flag uncertain claims** with confidence levels: HIGH (officially confirmed), MEDIUM (multiple reputable sources), LOW (single source/unverified)
-- **Do not synthesize marketing language as technical fact** — distinguish between "Mozilla announced X" vs. "Mozilla's X does Y"
+- **Do not synthesize marketing language as technical fact**, distinguish between "Mozilla announced X" vs. "Mozilla's X does Y"
 - **Cross-check at least 2 independent sources** for any product launch claim before including in scanner output
 
 **Synthesizer Duty:** When building the intelligence brief, flag any story with LOW confidence for extra fact-checking scrutiny in Phase 5.
@@ -212,8 +212,8 @@ Written by: Vinny Barreca
 ```
 
 **PRE-SAVE STYLE CHECK (MANDATORY):** Before saving, each writer must self-audit:
-1. Scan for em dashes (—) — replace with commas, periods, or colons
-2. Scan for bullet/numbered lists in prose sections — convert to flowing narrative
+1. Scan for em dashes (-), replace with commas, periods, or colons
+2. Scan for bullet/numbered lists in prose sections, convert to flowing narrative
 3. Verify contractions are used throughout (it's, don't, can't, won't, you're, etc.)
 4. If any violations found: fix before saving, note corrections in task summary
 

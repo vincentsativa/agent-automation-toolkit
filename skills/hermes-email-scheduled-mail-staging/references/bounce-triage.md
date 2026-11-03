@@ -20,10 +20,10 @@ Fetch bodies with `BODY.PEEK[]` and parse with the `email` module. Only the body
 
 Every notice is one of four things, and they call for different responses:
 
-- `550 5.1.1` / "user doesn't exist" / "address not found" — hard bounce, the mailbox does not exist.
-- "delivery loop detected" / "Message blocked" — the address is real but the mail never reaches a human. Treat as hard.
-- "the group you tried to contact may not exist" — the address is a distribution list or Google Group, not a person. Treat as hard, and exclude group addresses from the candidate pool.
-- 4xx, greylist, mailbox full, rate limit — soft. Retry later, do not count against the sender.
+- `550 5.1.1` / "user doesn't exist" / "address not found", hard bounce, the mailbox does not exist.
+- "delivery loop detected" / "Message blocked", the address is real but the mail never reaches a human. Treat as hard.
+- "the group you tried to contact may not exist", the address is a distribution list or Google Group, not a person. Treat as hard, and exclude group addresses from the candidate pool.
+- 4xx, greylist, mailbox full, rate limit, soft. Retry later, do not count against the sender.
 
 **A hard-bounce cluster that is all `info@`, `contact@`, or `hello@` is a list-verification problem, not a deliverability problem.** Those are the three conventional role guesses, and if that is the shape of the failures, the addresses were guessed rather than verified. Say so, because the fix belongs before the send, not in the sending settings.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-sync-ollama-models.py — keep ~/.pi/agent/models.json honest about what Ollama
+sync-ollama-models.py, keep ~/.pi/agent/models.json honest about what Ollama
 actually serves, so pi never under- or over-estimates a model again.
 
 Why this exists
@@ -12,7 +12,7 @@ conversation far too early, or overrun the real window.
 
 Same story for vision: pi decides whether to invoke the vision-proxy (or send
 images straight to the model) from each model's `input` array. Ollama already
-knows the answer — `GET /api/show` returns it in `capabilities`.
+knows the answer, `GET /api/show` returns it in `capabilities`.
 
 What it syncs (per model under providers.ollama.models)
   contextWindow  <- model_info.*.context_length
@@ -32,7 +32,7 @@ Usage
   python sync-ollama-models.py --url http://127.0.0.1:11434
 
 Exit codes: 0 = in sync (or applied), 1 = error (unreadable config, no server).
-Drift or prunable models on a dry run still exit 0 — callers should read stdout.
+Drift or prunable models on a dry run still exit 0, callers should read stdout.
 """
 
 import argparse
@@ -176,7 +176,7 @@ def main() -> int:
         else:
             healthy += 1
 
-    # Fail loudly if the server never answered at all — silently "succeeding"
+    # Fail loudly if the server never answered at all, silently "succeeding"
     # would let a dead ollama look like a clean bill of health.
     if unreachable == len(models):
         print(f"error: could not reach ollama at {base_url}", file=sys.stderr)
@@ -190,7 +190,7 @@ def main() -> int:
         verb = "PRUNE " if args.prune else "RETIRED"
         print(f"{verb} {mid}  ({why})")
     for mid, why in unknown:
-        print(f"SKIP   {mid}  ({why} — left as-is)")
+        print(f"SKIP   {mid}  ({why}, left as-is)")
 
     to_remove = len(retired) if args.prune else 0
     print(
@@ -204,7 +204,7 @@ def main() -> int:
         return 0
 
     if not args.write:
-        print("\ndry run — re-run with --write to apply.")
+        print("\ndry run, re-run with --write to apply.")
         return 0
 
     if to_remove:

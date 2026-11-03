@@ -7,7 +7,7 @@ description: >-
   box", "my cloud machine", "the sandbox", "freemachine", "the Hermes on
   instabox", "the Pi on instabox", "run this on the box / in the cloud", or
   asks to start, stop, suspend, resume, exec in, upload to, download from,
-  snapshot, resize or publish a port on that machine — and when a task has to
+  snapshot, resize or publish a port on that machine, and when a task has to
   be handed to the Hermes or Pi agents living inside it.
 ---
 
@@ -20,7 +20,7 @@ HTTPS API with the saved key. Nothing here is installed locally: no `instabox`
 CLI, no `jq`, no `python3` on the Windows shell (Node is available).
 
 State of the account as verified against the live API on **2026-10-30**. Re-check
-before acting on anything that matters — the numbers below are a snapshot, not a
+before acting on anything that matters, the numbers below are a snapshot, not a
 promise.
 
 ## Load the key first
@@ -43,12 +43,12 @@ key itself cannot do it. If it 401s, the `error.code` says which failure:
 
 | | |
 | --- | --- |
-| Workspace | `org_3cc11d4000d5474980fe87a2a13a3164` — personal, owner/admin, **free tier** |
+| Workspace | `org_3cc11d4000d5474980fe87a2a13a3164`, personal, owner/admin, **free tier** |
 | Login | `user@example.com` (Vinny Barreca) |
-| Machines | 1 of 1 used — `freemachine` |
+| Machines | 1 of 1 used, `freemachine` |
 | Machine ID | `m_agqyslvrg433nydcum6oqxyadm` |
 | Template | `agent-browser@2026-10-25.23` (Debian 13, Docker, Node 22, Bun, Python 3.13, Go, Rust, JDK 21, desktop + Chromium) |
-| Spec | 4 vCPU / 8192 MiB / 20 GiB `/data` + 16 GiB root — the only size the free plan offers |
+| Spec | 4 vCPU / 8192 MiB / 20 GiB `/data` + 16 GiB root, the only size the free plan offers |
 | Lifecycle | idle pause 1800 s (fixed on free), max-run 480 min, then a 5–20 min cooldown |
 | Snapshots | 0 of 5 |
 | Public ports | none published |
@@ -118,7 +118,7 @@ curl -sS -H "X-API-Key: $INSTABOX_API_KEY" $BASE/v1/snapshots
 
 Machine states: `creating`, `starting`, `running`, `stopping`, `stopped`,
 `suspending`, `suspended` (paused), `resuming`, `deleting`, `error`. One
-operation at a time per machine — wait for it or the next call is
+operation at a time per machine, wait for it or the next call is
 `409 operation_conflict`.
 
 Docs, if a code or field is unclear: https://instabox.sh/docs/api.md ,
@@ -130,14 +130,14 @@ body carries `docs_url`, `retryable` and sometimes `retryAfterSeconds`. Branch o
 
 Verified working: `GET /v1/me`, `/v1/orgs`, `/v1/usage`, `/v1/machines`,
 `/v1/snapshots`, `/v1/ports`, `exec`, `files`/`files/content`. The key belongs to
-the personal workspace, so it reaches that workspace only — other workspaces'
+the personal workspace, so it reaches that workspace only, other workspaces'
 machines and snapshots are `404`, and anything it creates lands here.
 
 Scopes a key can carry are `machines:read`, `machines:write` (create, start,
 stop, pause, resume, resize, labels, exec, files, SSH), `machines:delete`,
 `images:read/write/delete`, `workspace:admin`. **A key cannot read its own scope
 list** (`GET /v1/keys` is sign-in only), so treat the exact scope set as unknown
-until a call returns `403 missing_scope` — then say so, don't guess. The default
+until a call returns `403 missing_scope`, then say so, don't guess. The default
 key from `instabox keys create` is read+write+delete+images:read, which is what
 this one most likely is.
 
@@ -155,7 +155,7 @@ Org Secrets need a `workspace:admin` key, which this one is probably not.
 
 ## What the provider forbids (Terms of Service, last updated 2026-10-22)
 
-Section 3 (Acceptable Use) — a violation can mean a stopped machine, unpublished
+Section 3 (Acceptable Use), a violation can mean a stopped machine, unpublished
 ports, blocked traffic, lowered limits or a terminated account, and mining,
 scanning/attacks, phishing/credential abuse, fraud and CSAM are cut off
 immediately without notice. Charges already incurred stay owed, and opening a new
@@ -177,7 +177,7 @@ account after a suspension is itself a violation. Concretely, from this box:
 - No circumventing quotas or abuse detection, no multi-accounting for free
   resources, no attempting to escape the VM or touch other machines or hosts.
 
-Vinny's cold-outreach campaign therefore **must not be sent from this box** — it
+Vinny's cold-outreach campaign therefore **must not be sent from this box**, it
 is unsolicited bulk email under section 3(d). The machine may read, stage and
 process data for it; the sending stays on the mailer it already uses.
 
@@ -192,7 +192,7 @@ whole service on that port.
   `files/content`, not `exec cat`.
 - **Exec timeouts:** default 60 s, `timeoutSeconds` max 600. Anything longer goes
   in the background and its output to a file: `nohup ./server >server.log 2>&1 &`
-  — a process left holding exec's stdout gets a broken pipe when it writes later.
+  - a process left holding exec's stdout gets a broken pipe when it writes later.
 - **32 exec/file/desktop calls at once** across the account; more is a retryable
   `429 quota_exceeded`.
 - **Idle pause wakes on use**, but a machine **you** stopped or paused does not:
@@ -200,7 +200,7 @@ whole service on that port.
   stopped one answers `409 machine_not_running`. After a max-run pause there is a
   `409 machine_cooldown` with `retryAfterSeconds` (5–20 min); stopping or
   resuming does not shorten it.
-- **Outbound is capped ~50 Mbit/s (~6 MB/s)** — a 100 MB push is ~15–20 s.
+- **Outbound is capped ~50 Mbit/s (~6 MB/s)**, a 100 MB push is ~15–20 s.
 - **`/tmp` is tmpfs, about half of RAM**, not the disk. Stage big files in
   `/data/workspace`.
 - **`resize` is free-plan-blocked** (`400 spec_not_allowed`): no bigger size, no
@@ -210,7 +210,7 @@ whole service on that port.
   and a snapshot is the only way back. Do not delete `freemachine` on any
   instruction that does not name deleting it explicitly.
 - **The free machine pauses itself after 30 idle minutes.** A cron or sender that
-  must run on a schedule cannot live here reliably — that is what the pause kills.
+  must run on a schedule cannot live here reliably, that is what the pause kills.
 
 ## Before you hand a job to the box
 
@@ -219,7 +219,7 @@ whole service on that port.
 3. Do the job with `exec`/`files`, streaming long output to a file if needed.
 4. Read results back with `files/content`.
 5. Never stop, suspend or delete the machine as cleanup. Leave it running or
-   paused exactly as you found it — Hermes' gateway and Pi's sessions live in it.
+   paused exactly as you found it, Hermes' gateway and Pi's sessions live in it.
 
 ## Smoke test
 

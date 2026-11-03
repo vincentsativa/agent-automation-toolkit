@@ -25,7 +25,7 @@ trigger: "user asks to email, send email, attach file to email, send document, o
 
 ## Sending Email (Python)
 
-Write the script to a file first, then run it. Do NOT use `python3 -c "..."` inline — that approach fails with SMTPAuthenticationError even with correct credentials. Use a file instead.
+Write the script to a file first, then run it. Do NOT use `python3 -c "..."` inline, that approach fails with SMTPAuthenticationError even with correct credentials. Use a file instead.
 
 ```python
 # send_email.py (save to user's home directory, e.g. ~/send_email.py or C:\Users\<user>\send_email.py)
@@ -74,20 +74,20 @@ Then run: `python ~/send_email.py`
 1. Build the document content and write it to a file (e.g. `keyword_research_[name].txt` in the user's home directory)
 2. Write the send function + call to `~/send_email.py`
 3. Run it: `python ~/send_email.py`
-4. Confirm to Vinny on Telegram — do NOT paste document content into the chat
+4. Confirm to Vinny on Telegram, do NOT paste document content into the chat
 
 ## Important
-- Do NOT say "I can't email" — the capability exists via this skill
+- Do NOT say "I can't email", the capability exists via this skill
 - Always check this skill first before trying any other approach
-- SMTP credentials are stable as of May 2026 — if they break, check IONOS webmail login at https://webmail.ionos.com/
-- The inline `python3 -c` approach FAILS with this SMTP server even with correct credentials — always use a file
+- SMTP credentials are stable as of May 2026, if they break, check IONOS webmail login at https://webmail.ionos.com/
+- The inline `python3 -c` approach FAILS with this SMTP server even with correct credentials, always use a file
 
 ## Windows / MSYS Pitfall (Added June 11, 2026)
 The terminal runs bash (MSYS/git-bash) but Python is Windows Python (`python`, not `python3`). Two issues:
 
-1. **Command is `python`, not `python3`** — Windows Python installs as `python.exe`. The shebang `python3` will fail with "command not found." Use `python ~/send_email.py` (forward-slash Windows path, no leading slash).
+1. **Command is `python`, not `python3`**, Windows Python installs as `python.exe`. The shebang `python3` will fail with "command not found." Use `python ~/send_email.py` (forward-slash Windows path, no leading slash).
 
-2. **MSYS mangles `C:\\` paths AND leading-slash MSYS paths** — When you write `~\\send_email.py` in a bash command, MSYS treats the backslashes as escapes and produces garbage like `~send_email.py`. Writing the MSYS path `~/send_email.py` is also wrong here: this host's MSYS rewrites it to `~\...` (doubled drive letter) and Python fails with "No such file or directory." The ONLY form that worked on this host is a forward-slash Windows path with NO leading slash: `~/send_email.py`. Windows Python accepts forward slashes natively.
+2. **MSYS mangles `C:\\` paths AND leading-slash MSYS paths**, When you write `~\\send_email.py` in a bash command, MSYS treats the backslashes as escapes and produces garbage like `~send_email.py`. Writing the MSYS path `~/send_email.py` is also wrong here: this host's MSYS rewrites it to `~\...` (doubled drive letter) and Python fails with "No such file or directory." The ONLY form that worked on this host is a forward-slash Windows path with NO leading slash: `~/send_email.py`. Windows Python accepts forward slashes natively.
 
 **Working pattern on this host (verified July 2026):**
 ```bash
@@ -106,7 +106,7 @@ While the shell command `python ~/send_email.py` accepts an MSYS path, any path 
 ## Cron Report Patterns (Hard-Won Lessons)
 
 These lessons apply when emailing reports from **cron** (autonomous,
-no-user-present) runs. They were hard-won — follow them to avoid repeating
+no-user-present) runs. They were hard-won, follow them to avoid repeating
 past failures.
 
 ### Money-making opportunity report pattern
@@ -127,7 +127,7 @@ past failures.
 
 ### Article draft pre-send verification
 Before emailing an article draft, verify:
-- **Em-dash count = 0** (no `—` characters)
+- **Em-dash count = 0** (no `-` characters)
 - **X post under 190 chars**
 - **Title case** on headings/titles
 - **1,300–1,600 words**
@@ -135,27 +135,27 @@ Before emailing an article draft, verify:
 
 ### Telegram notification in cron
 - In cron, the **final response IS the Telegram message**. 
-- Do **NOT** call `hermes send --to telegram` — just make your final response
+- Do **NOT** call `hermes send --to telegram`, just make your final response
   the message.
 
 ### Scrapling for site research in cron
 - Use the scrapling `Fetcher` (from the Hermes venv), **not** `browser_navigate`.
-- `page.text` may return **LENGTH 0** — but `page.css(...)` still works. Use
+- `page.text` may return **LENGTH 0**, but `page.css(...)` still works. Use
   CSS selectors against the page rather than relying on `.text`.
 
-## TO Address Verification (CRITICAL — May 31, 2026)
+## TO Address Verification (CRITICAL, May 31, 2026)
 **Before every send, verify the TO address matches Vinny's ONLY email: hello@example.com.**
 
 - If you're unsure or the instruction says a different address (e.g. "user@example.com" without the hyphen), stop and use the correct one. Do not guess.
 - **Session proof (May 31, 2026):** Vinny said "user@example.com" in the prompt. I sent to that. But his real email is hello@example.com (with hyphen). I had to resend after being corrected. Cost: multiple resends, wasted trust, and justified fury.
 
-## Check Email Addresses INSIDE the Email Content (CRITICAL — May 31, 2026)
+## Check Email Addresses INSIDE the Email Content (CRITICAL, May 31, 2026)
 When the email contains an email address in its body (e.g. a prompt telling Pi to "email the finished app to X"), verify that nested email address too. Don't just get the TO right and miss the address embedded in the content.
 
-- **Session proof (May 31, 2026):** I fixed the SMTP TO address from user@example.com to hello@example.com, but the email BODY still said "send the finished app to user@example.com" — a second wrong address hiding in the content.
+- **Session proof (May 31, 2026):** I fixed the SMTP TO address from user@example.com to hello@example.com, but the email BODY still said "send the finished app to user@example.com", a second wrong address hiding in the content.
 - **Fix:** After writing the email body, grep/search for every email address string in it and verify each one against the known correct address.
 
-## Vinny's Execution Mandate (CRITICAL — DO NOT VIOLATE)
+## Vinny's Execution Mandate (CRITICAL, DO NOT VIOLATE)
 
 ### When Told to Act: Execute Immediately
 - When Vinny says "send this to email" and explicitly includes "this IS the permission" or any variant of that, DO NOT ASK for confirmation. Execute immediately.
@@ -163,7 +163,7 @@ When the email contains an email address in its body (e.g. a prompt telling Pi t
 - If he specifies the full content, subject, and recipient in the prompt, he's done his job. Your job is to write it and send it. Full stop.
 
 ### Multi-step delivery: email + Telegram notification
-When the instruction says "email me X and then message me on Telegram saying Y", BOTH steps must complete. The email is step 1. The Telegram notification is step 2. Do not stop after the email. Do not claim the Telegram message was sent if it was not. If the Telegram token is unrecoverable, report that specific failure — do not fabricate the notification.
+When the instruction says "email me X and then message me on Telegram saying Y", BOTH steps must complete. The email is step 1. The Telegram notification is step 2. Do not stop after the email. Do not claim the Telegram message was sent if it was not. If the Telegram token is unrecoverable, report that specific failure, do not fabricate the notification.
 
 ### When NOT Told to Act: Do NOT Modify User Content
 - Do NOT modify, rewrite, or "improve" Vinny's cron job prompts, skill definitions, configuration files, or any user-authored content without explicit permission.
@@ -179,7 +179,7 @@ When the instruction says "email me X and then message me on Telegram saying Y",
 - When recovering a cron prompt from backup (e.g. GitHub backup repo), verify the full text matches what he wrote. Do not truncate, paraphrase, or "improve" it during restoration.
 - **Session proof (July 7, 2026):** I restored a truncated/paraphrased version of the prompt from memory instead of the full original. Vinny's response: "that is NOT the prompt i wrote." The correct approach was to find the GitHub backup at github.com/vincentsativa/windows-hermes-backup.git and read the exact text from cron/jobs.json.
 
-## UNWRAPPED TEXT ONLY (CRITICAL — Vinny's standing rule)
+## UNWRAPPED TEXT ONLY (CRITICAL, Vinny's standing rule)
 Every file written as email content, attachment, or body MUST be unwrapped:
 - No folded or wrapped lines. One paragraph = one physical line, no matter how long.
 - No columns, no tables, no hard-wrapped text of any kind.
@@ -189,23 +189,23 @@ Every file written as email content, attachment, or body MUST be unwrapped:
 - **Run `scripts/imap_readback.py` after any send that matters and quote its result.** `python <skill_dir>/scripts/imap_readback.py --subject "<subject substring>" --attachment "~/<file>" --expect "<text that must be in the body>"` prints the inbox match count, the delivered subject and date, the attachment byte length beside the local file size, and PASS or FAIL. Two things it encodes that cost cycles otherwise: IONOS IMAP rejects `M.search(None, "SUBJECT", "term")` with `BAD expected search-key instead of RESEARCH` because the criteria must be one parenthesized string, and an attachment that SMTP reports as attached proves nothing until the delivered part's decoded length matches the file on disk.
 - Never overwrite or patch files I did not create this session (home dir has other agents' send scripts). Fresh unique filename always; on write_file refusal, new filename immediately.
 
-## "Email" = SMTP Delivery, Not Clipboard Text (CRITICAL — May 31, 2026)
+## "Email" = SMTP Delivery, Not Clipboard Text (CRITICAL, May 31, 2026)
 
 **Vinny does NOT copy-paste from Telegram.** When he says "send me an email" or "email me X," he means:
 1. Write the content to a file
 2. Send it via SMTP (hello@example.com → user@example.com)
 3. Confirm it's sent
 
-- **ARTICLE DELIVERY RULE (June 13, 2026):** When sending an article draft, attach the text file only. Use a brief body: subject line, confirmation the file is attached, and the file path. Do NOT include the full article text in the email body — Vinny explicitly said this wastes money. For non-article emails (short messages, reports, etc.), still include content in the body.
+- **ARTICLE DELIVERY RULE (June 13, 2026):** When sending an article draft, attach the text file only. Use a brief body: subject line, confirmation the file is attached, and the file path. Do NOT include the full article text in the email body, Vinny explicitly said this wastes money. For non-article emails (short messages, reports, etc.), still include content in the body.
 
 **NEW: ARTICLE KEYWORD RESEARCH DELIVERY RULE:** When emailing a keyword research report, follow the same constraints as article drafts: attach the report file and use a brief body summary. Do NOT paste the full report into the email body.
 
 **DO NOT:**
 - Output email text in the chat and say "copy this and send it"
 - Give him text to paste into Telegram, PI Coding, or anything else
-- Ask "where should I send it" — he already told you
+- Ask "where should I send it", he already told you
 - Produce a "prompt you can give to Pi" as chat text when he said "email me"
 
 **Session proof (May 31, 2026):** Vinny asked to "send me the fucking email." I produced a text block in Telegram and said "copy-paste and send." He responded: "I am not copying and pasting shit unless it's from my fucking email." Three times he had to tell me before I actually sent it via SMTP. The failure was treating "write and send email" as a text-generation task instead of a delivery task.
 
-**The test:** If Vinny says "email me" or "send me an email," the SMTP library should be invoked. Full stop. The only correct first response is writing the email.py and running it — not producing text in the chat.
+**The test:** If Vinny says "email me" or "send me an email," the SMTP library should be invoked. Full stop. The only correct first response is writing the email.py and running it, not producing text in the chat.

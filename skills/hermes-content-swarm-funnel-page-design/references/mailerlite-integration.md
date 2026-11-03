@@ -32,20 +32,20 @@
 - Accepts: `{ email, name, group, redirect, ...optional_fields }`
 - Rate limits: 5 req/min per IP (in-memory counter)
 - Returns: `{ success: true, redirect_url: "..." }`
-- API key stored as Cloud Run env var — rotated May 2026
+- API key stored as Cloud Run env var, rotated May 2026
 
 ## Working Automation Creation Pattern
 
 See `mailerlite_setup_v4.py` in the Windows workspace at:
 `C:\Users\<user>\workspace\mailerlite_setup_v4.py`
 
-This script is the **canonical working reference** — it successfully creates and enables automations via the MailerLite API. Key learnings from it:
+This script is the **canonical working reference**, it successfully creates and enables automations via the MailerLite API. Key learnings from it:
 
 1. **Create shell with `enabled: False`** first
 2. **Add trigger** via `POST /automations/{id}/triggers` with `subscriber_joins_group` type
 3. **Create steps** via `POST /automations/{id}/steps` with minimal payload (type, parent_id)
 4. **Update step content** via `PUT /automations/{id}/steps/{step_id}` with a `data` wrapper
-5. **Enable** via `PUT /automations/{id}` with `enabled: True` — this works when the automation has at least one step
+5. **Enable** via `PUT /automations/{id}` with `enabled: True`, this works when the automation has at least one step
 
 ### Email Step PUT Payload Pattern (confirmed working)
 ```python
@@ -77,7 +77,7 @@ api("PUT", f"/automations/{aid}/steps/{sid}", put_body)
 ```
 
 ### API Key Location
-The full API key is in `mailerlite_setup_v4.py` at line 9. The `...mHmw` suffix shown in some logs is not the full key — read the actual file to get it.
+The full API key is in `mailerlite_setup_v4.py` at line 9. The `...mHmw` suffix shown in some logs is not the full key, read the actual file to get it.
 
 ## Automations (as of May 16, 2026)
 

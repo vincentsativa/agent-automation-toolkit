@@ -219,7 +219,7 @@ def parse(src_path, out_path):
                 code_buffer.append(line)
             continue
         else:
-            # Not code — if we were in a code block, close it
+            # Not code, if we were in a code block, close it
             if in_code_block:
                 close_all()
 

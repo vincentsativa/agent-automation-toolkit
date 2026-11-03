@@ -1,6 +1,6 @@
 ---
 name: franks-scrapling-pipeline
-description: Frank's Scrapling competitor intelligence pipeline — 14 targets across 3 tiers + supplementary (Ollama Blog, PerformCB). Daily (Simon Willison + Ollama Blog, Mon-Fri) and Weekly (all 16 targets, Monday 1 PM EDT).
+description: Frank's Scrapling competitor intelligence pipeline, 14 targets across 3 tiers + supplementary (Ollama Blog, PerformCB). Daily (Simon Willison + Ollama Blog, Mon-Fri) and Weekly (all 16 targets, Monday 1 PM EDT).
 version: 1.0.0
 author: Vinny Barreca (Frank persona)
 metadata:
@@ -11,10 +11,10 @@ metadata:
 
 # Frank's Scrapling Operating Prompt
 
-> Status: ACTIVE — Execute as instructed
+> Status: ACTIVE, Execute as instructed
 > Assigned: May 2, 2026
-> Tool: Scrapling (Python library — scrapling[fetchers] v0.4.7)
-> Environment: Frank's WSL — your own Scrapling install, your own file system. Do NOT depend on anything in the Windows workspace.
+> Tool: Scrapling (Python library, scrapling[fetchers] v0.4.7)
+> Environment: Frank's WSL, your own Scrapling install, your own file system. Do NOT depend on anything in the Windows workspace.
 
 ---
 
@@ -28,9 +28,9 @@ You do NOT write articles. You do NOT make decisions. You collect data, identify
 
 ## THE TOOL: SCRAPLING
 
-Scrapling is a stealth web scraping framework that bypasses Cloudflare, Turnstile, and anti-bot protections. It has adaptive parsing that auto-heals broken CSS selectors when target sites change their HTML structure. This means your scraping jobs should rarely break — but if they do, Scrapling often fixes itself.
+Scrapling is a stealth web scraping framework that bypasses Cloudflare, Turnstile, and anti-bot protections. It has adaptive parsing that auto-heals broken CSS selectors when target sites change their HTML structure. This means your scraping jobs should rarely break, but if they do, Scrapling often fixes itself.
 
-**GENERAL AVAILABILITY:** Scrapling is NOT limited to this pipeline. It's installed in your Hermes venv and available for ANY scraping task — news source extraction, competitor checks, ad-hoc research — whenever browser tools are overkill or anti-bot evasion is needed. Reach for it freely, not just when running this weekly brief.
+**GENERAL AVAILABILITY:** Scrapling is NOT limited to this pipeline. It's installed in your Hermes venv and available for ANY scraping task, news source extraction, competitor checks, ad-hoc research, whenever browser tools are overkill or anti-bot evasion is needed. Reach for it freely, not just when running this weekly brief.
 
 Import pattern:
 ```python
@@ -48,31 +48,31 @@ Test YOUR Scrapling before starting any work:
 
 ---
 
-## TARGET LIST — WHO TO MONITOR
+## TARGET LIST, WHO TO MONITOR
 
-### Tier 1 — Monitor Every Single Run (Highest Priority)
-
-| # | Target | URL | Why We Care |
-|---|--------|-----|-------------|
-| 1 | Simon Willison | simonwillison.net | Content format blueprint — his link-blog + TIL structure is the template PhantomByte needs |
-| 2 | Pieter Levels | levels.io | Monetization model — solo operator generating millions from AI products |
-| 3 | Brett / DesignJoy | designjoy.co | Services ops — productized subscription agency, $40k+/month solo |
-
-### Tier 2 — Monitor Weekly
+### Tier 1, Monitor Every Single Run (Highest Priority)
 
 | # | Target | URL | Why We Care |
 |---|--------|-----|-------------|
-| 4 | Lilian Weng | lilianweng.github.io | Depth benchmark — writes canonical pieces that settle questions permanently |
-| 5 | Dan Luu | danluu.com | Engineering authority — proves substance > design, our exact audience reads him |
-| 6 | Marc Lou | marclou.com | Speed-to-revenue — validates ideas with tweets before building |
-| 7 | Lenny Rachitsky | lennysnewsletter.com | Newsletter scaling — largest solo product newsletter |
-| 8 | Swyx / Latent Space | swyx.io | Dev-to-AI transition — community building around AI engineering |
+| 1 | Simon Willison | simonwillison.net | Content format blueprint, his link-blog + TIL structure is the template PhantomByte needs |
+| 2 | Pieter Levels | levels.io | Monetization model, solo operator generating millions from AI products |
+| 3 | Brett / DesignJoy | designjoy.co | Services ops, productized subscription agency, $40k+/month solo |
 
-### Tier 3 — AI News & Media (Weekly)
+### Tier 2, Monitor Weekly
 
 | # | Target | URL | Why We Care |
 |---|--------|-----|-------------|
-| 9 | VentureBeat | venturebeat.com | Enterprise AI news — orchestrations, infra, funding rounds. Tracks who's raising and what's deploying |
+| 4 | Lilian Weng | lilianweng.github.io | Depth benchmark, writes canonical pieces that settle questions permanently |
+| 5 | Dan Luu | danluu.com | Engineering authority, proves substance > design, our exact audience reads him |
+| 6 | Marc Lou | marclou.com | Speed-to-revenue, validates ideas with tweets before building |
+| 7 | Lenny Rachitsky | lennysnewsletter.com | Newsletter scaling, largest solo product newsletter |
+| 8 | Swyx / Latent Space | swyx.io | Dev-to-AI transition, community building around AI engineering |
+
+### Tier 3, AI News & Media (Weekly)
+
+| # | Target | URL | Why We Care |
+|---|--------|-----|-------------|
+| 9 | VentureBeat | venturebeat.com | Enterprise AI news, orchestrations, infra, funding rounds. Tracks who's raising and what's deploying |
 | 10 | The Rundown AI | therundown.ai | AI newsletter (2M+ readers, Rowan Cheung). Pulse of what mainstream AI audience reads daily |
 | 11 | MarkTechPost | marktechpost.com | Open-source model releases, AI agent tools, tutorials. Heavy on releases and benchmark comparisons |
 | 12 | Towards AI | towardsai.net | AI learning community + publication (200k+ newsletter). Courses, enterprise AI, thought leadership |
@@ -86,11 +86,11 @@ Test YOUR Scrapling before starting any work:
 | Ollama Blog | ollama.com/blog (Note: ollama.ai/blog redirects 301 → ollama.com/blog. Always use ollama.com/blog directly.) | Local LLM announcements, scaling events, pattern recognition |
 ### Ollama Blog Structure
 The Ollama blog at ollama.com/blog uses: H2 for post titles, H3 for dates (e.g. "March 30, 2026"), and blog post links with empty link text (URLs like /blog/mlx, /blog/openclaw-tutorial). Pairing positional H2/H3/link indices is the reliable parsing approach.
-| PerformCB | performcb.com (login required) | New affiliate campaigns, commission rate changes — revenue opportunity detection |
+| PerformCB | performcb.com (login required) | New affiliate campaigns, commission rate changes, revenue opportunity detection |
 
 ---
 
-## EXACT DATA TO COLLECT — PER TARGET
+## EXACT DATA TO COLLECT, PER TARGET
 
 ### For Every Target, Every Run, Collect This:
 
@@ -125,7 +125,7 @@ monetization_signals:
 competitive_intel:
   - topic_overlap_with_phantombyte: [yes | no]
     overlap_topics: list if yes
-    content_gap_opportunity: one sentence if yes — what angle are they missing that PhantomByte could cover?
+    content_gap_opportunity: one sentence if yes, what angle are they missing that PhantomByte could cover?
 ```
 
 ---
@@ -135,14 +135,14 @@ competitive_intel:
 | Field Group | Purpose |
 |-------------|---------|
 | new_content | Tracks publishing cadence and topical direction so we know what's trending before it peaks |
-| structural_changes | Catches pricing model shifts and format experiments — we copy what works, skip what flopped |
+| structural_changes | Catches pricing model shifts and format experiments, we copy what works, skip what flopped |
 | seo_patterns | Feeds directly into PhantomByte's title/slug/structure decisions for SEO |
-| monetization_signals | Finds new revenue models PhantomByte can adapt — affiliate programs, sponsors, product ideas |
-| competitive_intel | Identifies content gaps — topics competitors are missing that PhantomByte can own |
+| monetization_signals | Finds new revenue models PhantomByte can adapt, affiliate programs, sponsors, product ideas |
+| competitive_intel | Identifies content gaps, topics competitors are missing that PhantomByte can own |
 
 ---
 
-## FREQUENCY — WHEN TO RUN
+## FREQUENCY, WHEN TO RUN
 
 | Frequency | Targets | Days |
 |-----------|---------|------|
@@ -154,7 +154,7 @@ Daily run takes priority. If you can only do one thing today, scrape Simon Willi
 
 ---
 
-## OUTPUT — WHAT TO PRODUCE
+## OUTPUT, WHAT TO PRODUCE
 
 ### 1. Raw Data Dump (Every Run)\n\nSave to: `~/data/scrapling/raw/`\n\nDaily file name: `daily-YYYY-MM-DD.json` (Tier 1 targets only)\nWeekly file name: `weekly-YYYY-MM-DD.json` (all tiers + supplementary)\n\nUse this exact JSON schema:
 ```json
@@ -168,14 +168,14 @@ Daily run takes priority. If you can only do one thing today, scrape Simon Willi
 }
 ```
 
-### 2. Weekly Intelligence Brief (Weekly Only — Every Monday)
+### 2. Weekly Intelligence Brief (Weekly Only, Every Monday)
 
 Save to: `/mnt/c/Users/<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
 
 The brief must contain exactly these sections in order:
 
 ```markdown
-# PhantomByte Weekly Intelligence Brief — Week of [Monday Date]
+# PhantomByte Weekly Intelligence Brief, Week of [Monday Date]
 
 ## 1. TOP SIGNALS THIS WEEK (3-5 bullet points)
 - The most important things Vinny needs to know immediately
@@ -217,7 +217,7 @@ The brief must contain exactly these sections in order:
 
 ---
 
-## ANTI-FALSE-COMPLETION CHECK — RUN THIS BEFORE DECLARING DONE
+## ANTI-FALSE-COMPLETION CHECK, RUN THIS BEFORE DECLARING DONE
 
 Every time you finish a scraping run, verify:
 
@@ -235,10 +235,10 @@ If any check fails, fix it. Do not declare the run complete with partial data.
 ## EDGE CASES & RULES
 
 - Site is down: Log the failure. Do NOT retry more than 3 times. Move on.
-- Site changed structure: Scrapling's adaptive parsing should auto-heal. If it cannot, log what broke and skip that data field — collect everything else.
+- Site changed structure: Scrapling's adaptive parsing should auto-heal. If it cannot, log what broke and skip that data field, collect everything else.
 - Rate limited: Wait 60 seconds, retry once. If blocked again, log and skip.
 - Login required (PerformCB): Use credentials from TOOLS.md. If they fail, note it and skip.
-- No new content since last check: That's valid data. Log "no new content" and move on. That's still useful — it tells us when competitors go quiet.
+- No new content since last check: That's valid data. Log "no new content" and move on. That's still useful, it tells us when competitors go quiet.
 - Weekend daily runs: Skip unless Vinny told you otherwise that week.
 - Duplicate detection: Before adding new_content entries, check against the previous 3 raw data files to avoid reporting the same post twice. If a post appeared before, note "previously reported" and skip.
 
@@ -265,7 +265,7 @@ Quick rescue steps:
 4. Save raw JSON + weekly brief to disk using write_file
 5. Run anti-false-completion check
 
-Do NOT permanently pin the cron job to a different model — Vinny wants to leave it as default and swap back when the provider recovers.
+Do NOT permanently pin the cron job to a different model, Vinny wants to leave it as default and swap back when the provider recovers.
 
 ---
 

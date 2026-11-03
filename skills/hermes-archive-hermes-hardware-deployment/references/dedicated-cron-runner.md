@@ -5,7 +5,7 @@ A secondary Hermes instance on a separate machine that runs only scheduled jobs,
 ## When To Use
 
 - Your primary Hermes runs on a laptop you want to carry around
-- You have 5+ cron jobs that fire daily — they wake the primary agent, burn context, and drain battery
+- You have 5+ cron jobs that fire daily, they wake the primary agent, burn context, and drain battery
 - You want a machine that stays on 24/7 in a corner, never interrupted
 - You want clean separation: primary = interactive work, secondary = scheduled output
 
@@ -47,7 +47,7 @@ TELEGRAM_BOT_TOKEN=your_bot_token_here
 
 ### 3. Handle Provider Drift
 
-Jobs created on the original machine may reference a different provider (e.g. `custom`). The secondary machine's global provider is different (e.g. `ollama-cloud`). Hermes has a safety feature (issue #44585) that **skips unpinned jobs** — jobs without an explicit `provider`/`model` pinned at creation — rather than silently running them on a different provider and potentially burning money.
+Jobs created on the original machine may reference a different provider (e.g. `custom`). The secondary machine's global provider is different (e.g. `ollama-cloud`). Hermes has a safety feature (issue #44585) that **skips unpinned jobs**, jobs without an explicit `provider`/`model` pinned at creation, rather than silently running them on a different provider and potentially burning money.
 
 **Jobs that will run fine:** Those with explicit provider+model pins (e.g. `provider=ollama-com model=glm-5.2`).
 
@@ -61,7 +61,7 @@ RuntimeError: Skipped to prevent unintended spend: global inference config drift
 cronjob action=update job_id=<id> provider=ollama-cloud model=<model>
 ```
 
-Or set the secondary machine's global provider to match the original. Pinning is cleaner — each job declares what it needs.
+Or set the secondary machine's global provider to match the original. Pinning is cleaner, each job declares what it needs.
 
 ### 4. Unpause Jobs
 
@@ -84,7 +84,7 @@ Look for `last_status: "ok"` and no `last_delivery_error`.
 A single Linux cron box can run multiple Hermes agent instances. The primary agent (interactive, creative, strategic) runs on the laptop. A second agent instance (e.g. "Bill") runs on the cron box with the same skills, memory, and workflows, handling the automated pipeline in parallel.
 
 **Benefits:**
-- Force multiplication — same brain, separate iron, parallel execution
+- Force multiplication, same brain, separate iron, parallel execution
 - One handles creative/strategic work, the other runs the automated pipeline
 - The cron box agent never sleeps, never gets interrupted, just cranks through jobs
 - Both agents share the same skill library and memory (synced via backup)
@@ -93,7 +93,7 @@ A single Linux cron box can run multiple Hermes agent instances. The primary age
 - Install a second Hermes instance on the cron box (same install method as primary)
 - Clone skills and memory from the primary (see Setup Flow above)
 - Configure a separate Telegram bot token for the cron box agent
-- The cron box agent runs headless — no interactive sessions, no dashboard browsing
+- The cron box agent runs headless, no interactive sessions, no dashboard browsing
 
 ## Cross-OS Setup as Coaching Curriculum
 
@@ -103,12 +103,12 @@ Every OS you set up Hermes on (Windows, WSL, Linux) builds repetition that compo
 - **WSL:** Translation layer overhead, filesystem bridging, network quirks
 - **Linux:** Clean execution, no translation layer, best performance
 
-The bugs you squash, the configs you dial in, the OS quirks you learn to dance around — those become hours of future coaching content you can deliver without having to figure it out on camera. By the time you're ready to coach, you've done the dance so many times you could teach it in your sleep.
+The bugs you squash, the configs you dial in, the OS quirks you learn to dance around, those become hours of future coaching content you can deliver without having to figure it out on camera. By the time you're ready to coach, you've done the dance so many times you could teach it in your sleep.
 
-The machine is the product. The process is the curriculum. You get paid twice — once in infrastructure, once in expertise.
+The machine is the product. The process is the curriculum. You get paid twice, once in infrastructure, once in expertise.
 
 - **Don't run interactive sessions on the cron box.** It's a headless appliance. Every interactive session is context that could have gone to a cron job. If you need to debug something, SSH in, fix it, and leave.
 - **Provider drift is a feature, not a bug.** The safety check (#44585) prevents the clone from silently burning money on a different provider. Pin jobs explicitly rather than fighting the safety.
-- **Telegram token is per-instance.** The clone needs its own bot. You can't share a bot token between two Hermes instances — they'll fight over updates.
+- **Telegram token is per-instance.** The clone needs its own bot. You can't share a bot token between two Hermes instances, they'll fight over updates.
 - **Backup the cron box too.** Once it's running, add it to the weekly backup rotation. Its cron output and any job modifications are valuable state.
 - **The clone's config.yaml has placeholder API keys.** The backup skill strips live keys. You must inject fresh keys after cloning. The config structure (model names, provider settings, tool configs) is preserved.

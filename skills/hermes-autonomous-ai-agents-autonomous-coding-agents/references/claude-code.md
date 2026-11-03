@@ -1,4 +1,4 @@
-# Claude Code — Reference
+# Claude Code, Reference
 
 [Claude Code](https://code.claude.com/docs/en/cli-reference) is Anthropic's autonomous coding agent CLI. v2.x can read files, write code, run shell commands, spawn subagents, and manage git workflows autonomously.
 
@@ -27,7 +27,7 @@ claude --version
 claude update
 ```
 
-## Print Mode (`-p`) — Non-Interactive (PREFERRED)
+## Print Mode (`-p`), Non-Interactive (PREFERRED)
 
 Print mode runs a one-shot task, returns the result, and exits. **No PTY needed. No interactive prompts.**
 
@@ -132,12 +132,12 @@ terminal(command="tmux send-keys -t claude-work '/exit' Enter")
 
 Claude Code presents confirmation dialogs on first launch:
 
-**Dialog 1: Workspace Trust** — default is "Yes, I trust this folder"
+**Dialog 1: Workspace Trust**, default is "Yes, I trust this folder"
 ```bash
 tmux send-keys -t <session> Enter
 ```
 
-**Dialog 2: Bypass Permissions** — default is "No, exit" (WRONG). Must navigate down first:
+**Dialog 2: Bypass Permissions**, default is "No, exit" (WRONG). Must navigate down first:
 ```bash
 tmux send-keys -t <session> Down && sleep 0.3 && tmux send-keys -t <session> Enter
 ```
@@ -291,7 +291,7 @@ terminal(command="sleep 30 && for s in task1 task2 task3; do echo '=== '$s' ==='
 ## Settings & Configuration
 
 ### Settings Hierarchy (highest to lowest)
-1. CLI flags — override everything
+1. CLI flags, override everything
 2. Local project: `.claude/settings.local.json` (personal, gitignored)
 3. Project: `.claude/settings.json` (shared, git-tracked)
 4. User: `~/.claude/settings.json` (global)
@@ -308,9 +308,9 @@ terminal(command="sleep 30 && for s in task1 task2 task3; do echo '=== '$s' ==='
 ```
 
 ### Memory Files (CLAUDE.md) Hierarchy
-1. Global: `~/.claude/CLAUDE.md` — all projects
-2. Project: `./CLAUDE.md` — project-specific (git-tracked)
-3. Local: `.claude/CLAUDE.local.md` — personal overrides (gitignored)
+1. Global: `~/.claude/CLAUDE.md`, all projects
+2. Project: `./CLAUDE.md`, project-specific (git-tracked)
+3. Local: `.claude/CLAUDE.local.md`, personal overrides (gitignored)
 
 Use `#` prefix in interactive mode: `# Always use 2-space indentation`.
 
@@ -367,7 +367,7 @@ Use `#` prefix in interactive mode: `# Always use 2-space indentation`.
 
 **"ultrathink"** keyword triggers maximum reasoning effort on a single turn.
 
-## Hooks — Automation on Events
+## Hooks, Automation on Events
 
 Configure in `.claude/settings.json` (project) or `~/.claude/settings.json` (global):
 
@@ -438,9 +438,9 @@ terminal(command="tmux capture-pane -t dev -p -S -10")
 Indicators: `❯` = waiting for input, `●` = actively using tools, `ctrl+o to expand` = truncated output.
 
 ### Context Window Health
-- **< 70%** — Normal
-- **70-85%** — Precision drops, consider `/compact`
-- **> 85%** — Hallucination risk spikes
+- **< 70%**, Normal
+- **70-85%**, Precision drops, consider `/compact`
+- **> 85%**, Hallucination risk spikes
 
 ## Environment Variables
 
@@ -455,12 +455,12 @@ Indicators: `❯` = waiting for input, `●` = actively using tools, `ctrl+o to 
 
 ## Pitfalls
 
-1. **Interactive mode REQUIRES tmux** — raw PTY is insufficient
-2. **`--dangerously-skip-permissions` defaults to "No, exit"** — send Down then Enter
+1. **Interactive mode REQUIRES tmux**, raw PTY is insufficient
+2. **`--dangerously-skip-permissions` defaults to "No, exit"**, send Down then Enter
 3. **`--max-budget-usd` minimum ~$0.05**
-4. **`--max-turns` is print-mode only** — ignored in interactive sessions
-5. **Trust dialog only once per directory** — then cached
-6. **Background tmux sessions persist** — always `tmux kill-session -t <name>` when done
+4. **`--max-turns` is print-mode only**, ignored in interactive sessions
+5. **Trust dialog only once per directory**, then cached
+6. **Background tmux sessions persist**, always `tmux kill-session -t <name>` when done
 7. **Slash commands only work in interactive mode**
-8. **`--bare` skips OAuth** — requires `ANTHROPIC_API_KEY`
-9. **Context degradation is real** — proactively `/compact` above 70%
+8. **`--bare` skips OAuth**, requires `ANTHROPIC_API_KEY`
+9. **Context degradation is real**, proactively `/compact` above 70%

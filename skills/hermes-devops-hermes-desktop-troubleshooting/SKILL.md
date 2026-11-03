@@ -11,11 +11,11 @@ Diagnose Hermes desktop app CPU spikes / won't-launch.
 
 ## Key Facts
 
-- Desktop spawns its OWN backend (`hermes serve` on a random localhost port, look for `HERMES_BACKEND_READY port=N`) — does NOT reuse the gateway. Two backends on a failing cloud endpoint stack load.
+- Desktop spawns its OWN backend (`hermes serve` on a random localhost port, look for `HERMES_BACKEND_READY port=N`), does NOT reuse the gateway. Two backends on a failing cloud endpoint stack load.
 - Logs:
   - `~/.hermes/logs/desktop.log` (model API calls, 401/500, retry loop).
   - `~/.hermes/logs/gui.log` (`event loop stalled Xs (GIL pressure suspected)`).
-- Check log mtimes — can go stale.
+- Check log mtimes, can go stale.
 
 ## Cause A (check first): stale build stamp + corrupted node_modules
 
@@ -27,5 +27,5 @@ Fix: point desktop at local Ollama, don't run desktop while gateway is up, verif
 
 ## Config
 
-- `config.yaml` is write-protected from direct edits — use `hermes config set model.default "..."` / `hermes config get`.
-- `:cloud` model suffix is cosmetic — stripped by `_strip_ollama_cloud_suffix()`, doesn't change routing.
+- `config.yaml` is write-protected from direct edits, use `hermes config set model.default "..."` / `hermes config get`.
+- `:cloud` model suffix is cosmetic, stripped by `_strip_ollama_cloud_suffix()`, doesn't change routing.

@@ -20,7 +20,7 @@ Deliverable shape when Vinny asks for the copy plus recommendations: one documen
 6. ONE copy set, no A/B arm. Vinny's order (2026-09-29): the approved copy goes to 100 percent of the list. An A/B split on the same approved change put the retired old subjects on half the batch, which is a directive violation, not a test. Test variants only when he orders the test.
 7. The auditor test: if a subject sounds like a note from an auditor or a warning label, cut it again. It must create immediate loss, fear, or curiosity in under 6 seconds and read like something an owner says out loud.
 8. Not every current subject has a better rewrite. When every variant tried is vaguer than the current line (dkim_revoked, no_reporting), keep the current line and say so; a weak rewrite is worse than a strong original.
-9. Measure the set before recommending it. The character budget that matters belongs to the domain, not to the line, so render every subject against a 16, 21, and 25 character domain, print the counts, and report the max per domain length. A set that fits at 16 characters routinely breaks at 25 — the longest domain pushes several lines 20 or more characters past the cutoff — and a recommendation that quotes one domain's length is guessing.
+9. Measure the set before recommending it. The character budget that matters belongs to the domain, not to the line, so render every subject against a 16, 21, and 25 character domain, print the counts, and report the max per domain length. A set that fits at 16 characters routinely breaks at 25, the longest domain pushes several lines 20 or more characters past the cutoff, and a recommendation that quotes one domain's length is guessing.
 
 ## Body recommendations (strength order)
 

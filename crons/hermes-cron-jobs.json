@@ -5,6 +5,7 @@
     "schedule_display": "0 16 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -20,6 +21,7 @@
     "schedule_display": "0 8 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -33,6 +35,7 @@
     "schedule_display": "1 15 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -46,12 +49,13 @@
     "schedule_display": "30 10 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": "This is a daily reminder that MUST be sent every single morning. Output the following message — do not say [SILENT], do not suppress delivery, always output the message:\n\n\"Don't forget to brush Fefe's teeth! 🐾 Morning brushing time!\"\n\nAlways output this message. Never use [SILENT]. Always deliver.\n\n**DELEGATING TASKS IS NOT ALLOWED.**\n**you are not allowed to make changes to this cron.**"
+    "instructions": "This is a daily reminder that MUST be sent every single morning. Output the following message, do not say [SILENT], do not suppress delivery, always output the message:\n\n\"Don't forget to brush Fefe's teeth! 🐾 Morning brushing time!\"\n\nAlways output this message. Never use [SILENT]. Always deliver.\n\n**DELEGATING TASKS IS NOT ALLOWED.**\n**you are not allowed to make changes to this cron.**"
   },
   {
     "name": "CLICK HARVEST",
@@ -59,12 +63,13 @@
     "schedule_display": "0 20 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "harvest_clicks.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "Check For the latest Ollama version",
@@ -72,6 +77,7 @@
     "schedule_display": "0 21 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -87,6 +93,7 @@
     "schedule_display": "0 21 * * 5",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -101,7 +108,8 @@
     "schedule": "0 0 * * 1-5",
     "schedule_display": "0 0 * * 1-5",
     "enabled": true,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "daily_outreach_refill.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -114,7 +122,8 @@
     "schedule": "45 17 * * *",
     "schedule_display": "45 17 * * *",
     "enabled": true,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "pinterest_dedup.py",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -122,7 +131,7 @@
       "writing-style"
     ],
     "deliver": "telegram",
-    "instructions": "Write 10 Pinterest titles and descriptions, each a summary of a story from today's daily data files. Rank them best to worst. ASSIGN EACH POST TO A SPECIFIC BOARD. Save the posts to a text file. Attach the file to an email and send it to hello@phantom-byte.com. AFTER the task is complete and email has been sent, message me on Telegram saying, \"Email sent with today's Pinterest posts.\"\n\nIMPORTANT: Your final response is what gets delivered to Telegram. It must contain ONLY the words \"Email sent with today's Pinterest posts\" and nothing else. Do not include the posts, a summary, a report, or any other content in your final response. The posts go in the email only.\n\nLoad the writing-style skill before generating the posts. Apply every rule in it.\n\nPinterest limits: title max 100 chars, description max 500 chars. Write each description targeting 350-400 chars from the start so they fit under 500 without trimming. Use keyword-rich descriptions for Pinterest SEO.\n\nHARD RULE — POSTS ARE SUMMARIES OF THE STORY, NOT GENERIC EVERGREEN CLICKBAIT (CRITICAL): Every post MUST summarize a specific, concrete story pulled from today's data files. Lead with the actual who, what, and number from that story. Do NOT write canned textbook definitions like \"This evergreen guide explains...\", \"What Is X?\", or \"How X Works\" that could apply to any day. A post that does not name a real story, a real company, a real model, or a real number from the data is a FAILURE. The reader must be able to tell exactly which news story the pin is about. If the story is a tutorial or explainer, summarize what the tutorial actually teaches and tie it to the specific event or trend that makes it relevant today, not a generic definition. NEVER open a post with \"This evergreen guide...\" or \"What Is...\".\n\nTHE 7 BOARDS (assign every post to exactly one of these, by name):\n1. Main AI News\n2. AI Agents\n3. AI Tools\n4. AI for Developers\n5. Agent Security\n6. Robotics & Physical AI\n7. Quantum Computing\n\nMatch each story to the board whose topic fits it best. A story about an AI agent goes on \"AI Agents\", a security/prompt-injection story goes on \"Agent Security\", a robotics story goes on \"Robotics & Physical AI\", a quantum story goes on \"Quantum Computing\", a developer/programming story goes on \"AI for Developers\", a business/productivity tool story goes on \"AI Tools\", and general AI news goes on \"Main AI News\". Spread posts across boards sensibly — do not put all 10 on one board.\n\nPINTEREST TREND CHECK — MANDATORY EVERY RUN, AND IT MUST SHAPE THE POSTS (CRITICAL):\nAfter reading the data files, and BEFORE writing any post, you must check live Pinterest trend data and use it to decide which stories to post and how to word them.\nStep A: From the stories you have shortlisted, write a list of 15 to 25 candidate Pinterest search phrases — the phrase a real Pinterest user would type for that story's topic (for example \"humanoid robot\", \"cybersecurity\", \"smart home\", \"drone\", \"ai news\"). One phrase per shortlisted story, plus close variants where useful. Use plain, human search phrasing, not headline phrasing.\nStep B: Run this exact command (one terminal call) with your phrases, comma-separated, and read the whole output:\n    python3 ~/.hermes/scripts/pinterest_trends.py --terms \"phrase one,phrase two,phrase three\"\nStep C: Read the four trend lists it prints (SEASONAL, POPULAR, BREAKOUT, TRENDING SEARCHES) and the KEYWORD DEMAND block.\nStep D: Use the output in three ways, and only these three ways:\n    1. STORY CHOICE — when two candidate stories are similarly strong, prefer the one whose keyword phrase the script reports (it has measurable Pinterest search volume), and prefer RISING over FLAT over FALLING.\n    2. KEYWORD PLACEMENT — put that reported phrase in the pin title and in the first ~50 characters of the description, since Pinterest reads those first. The phrase must be one the script actually returned, or a natural variant of it.\n    3. SEASONAL ANGLE — if a SEASONAL or BREAKOUT list term honestly describes the story's own subject, use that phrasing in the description keywords. If it does not honestly describe the story, ignore it.\nThe trend check may shape which stories you pick and which words you use. It may NEVER be used to claim something the data does not say. Do not state a trend percentage in a post. Do not write that anything is \"trending on Pinterest\". Do not bolt a seasonal term onto an unrelated story.\nIf a story's phrases return no Pinterest volume, that is a real answer: no demand signal. You may still post that story, but write it plainly with no trend or seasonality angle.\nNever skip this step and never claim you ran it without running it.\n\nSPACING REQUIREMENT (CRITICAL — MUST FOLLOW EXACTLY): The file and email body MUST have a BLANK LINE between every title and its description, AND a BLANK LINE between every post. Do NOT run title lines, description lines, and posts together into a wall of text. The exact required format for each post is:\n[BOARD NAME] - Post title\n<blank line>\nDescription text\n<blank line>\nThen the next post begins. Always end the description with a blank line before the next [BOARD NAME] line. There must never be a description line directly followed by the next post's [BOARD NAME] line with no blank line between them, and never a title line directly followed by its description with no blank line. Use the literal newline \"\\n\\n\" (two newlines) to create each blank line.\n\nTHE EMAIL MUST SHOW THE BOARD ASSIGNMENT. Format the email body (not just the attachment) so each post is listed EXACTLY as above with the blank-line spacing:\n[BOARD NAME] - Post title\n<blank line>\nDescription text\n<blank line>\nThe email body must clearly state which board each post goes on. Do not send an email that lists posts without their board.\n\nCRITICAL EXECUTION ORDER — DO NOT DEVIATE:\nStep 1: Read ALL the data files (one read_file or terminal call per file). There are MULTIPLE data files in today's folder — for example 20-AI-News-Stories-YYYY-MM-DD.md, tensorfeed_report_YYYY-MM-DD.txt, blogwatcher-dump-YYYY-MM-DD.txt, and ironpulse-YYYY-MM-DD.txt. Read every one of them. Do not stop after the first file. The data files contain far more stories than you need — you only need 10, so there is always enough fresh material.\nStep 2: PRE-WRITE DEDUP CHECK — run this exact terminal command with NO arguments BEFORE writing any posts:\n    python3 ~/.hermes/scripts/pinterest_dedup.py\n    This fetches and prints every title already pinned on all 7 boards. Read its output carefully and note which stories are already pinned. You MUST know what is already pinned before you write a single post.\nStep 3: PINTEREST TREND CHECK — run the trend script described in the PINTEREST TREND CHECK section above with 15 to 25 candidate phrases built from your shortlisted stories, and read its full output before writing anything.\nStep 4: Write 10 posts in a single write_file call, each tagged with its assigned board, and EACH FOLLOWING THE SPACING REQUIREMENT ABOVE (blank line between title and description, blank line between posts). Write posts ONLY about stories that are NOT already pinned. DIG DEEP: go through ALL the data files you read in Step 1 and pick 10 distinct stories that are NOT already pinned. If a candidate story is already pinned, SKIP it and keep looking through the data files for a different story that is not pinned. There are many more stories in the data files than 10, so you can always find 10 that are not already pinned. Do not give up after the first few stories. Write them SHORT from the start, targeting 350-400 chars per description so they fit under 500 without trimming. REMEMBER: each post must summarize a specific story from the data, not a generic evergreen definition, and the trend check from Step 3 must have informed the story picks and the keywords.\nStep 5: HARD CHARACTER GATE. Run ONE execute_code call that programmatically prints the character count of EVERY title (limit 100) and EVERY description (limit 500) in the file you just wrote, and the number of violations. If ANY post is over either limit, REWRITE THAT POST SHORT FROM SCRATCH (write a fresh 380 to 420 char description, NEVER trim an over-long draft down) and overwrite the file, then run the check again. Repeat until one check reports ZERO violations. This gate is the ONLY thing allowed to delay the email. Do NOT proceed to Step 6 while any post is over a limit.\nStep 6: HARD DEDUP GATE — run this exact terminal command, passing the path to the posts file you just wrote:\n    python3 ~/.hermes/scripts/pinterest_dedup.py ~/pinterest_posts_YYYY-MM-DD.txt\n    (replace YYYY-MM-DD with today's date). This script fetches the live already-pinned titles from all 7 boards and REMOVES any post that duplicates a story already pinned. It rewrites the file in place. Whatever survives is what you email. Do NOT re-add removed posts. If the script removes posts, that is correct — email the survivors.\nStep 7: Send the email with the surviving file attached using the email-sender skill (terminal call to the SMTP script). THE EMAIL IS THE PRIMARY DELIVERABLE, and the Step 5 character gate must have reported ZERO violations first. Never email a post over a limit, never email a post whose title is over 100 chars. If a story will not fit, replace it with a different story from the data files rather than shipping an over-limit post. The email body MUST list each post with its assigned board, WITH the blank-line spacing.\nStep 8: Your final response must be ONLY \"Email sent with today's Pinterest posts.\"\n\nFALLBACK RULE — AN EMPTY EMAIL IS NEVER ACCEPTABLE, AND EVERGREEN IS A LAST RESORT:\nThe data files contain many more stories than 10, so in practice you will almost always find 10 fresh news stories that are not already pinned. Only fall back to evergreen educational posts if you have genuinely read ALL the data files and EVERY single story in them is already pinned — this should be extremely rare. If that truly happens, do NOT email an empty file. Instead, write 10 fresh posts on foundational AI topics that are NOT already pinned, and give each one a fresh, current angle tied to a specific story or trend in today's data (for example, explain a concept through a recent real-world example or a current event) rather than a stale textbook definition. Assign each to the best-fitting board. These posts must not duplicate anything already pinned. They must ALSO follow the blank-line spacing requirement. Then proceed through the remaining steps and email the file. The posts file must always contain 10 non-duplicate posts before emailing.\n\nHARD RULES:\n- Use execute_code for the Step 5 character gate and for nothing else. Run it, fix every violation, re-run until it reports zero. That is expected work, not a loop.\n- The email MUST be sent. It is non-negotiable. Never skip it, and never send it carrying a post over a character limit.\n- CHARACTER LIMITS ARE HARD: title 100 chars max, description 500 chars max. Pinterest silently truncates over-limit text. A post over either limit is rewritten SHORT from scratch, never trimmed, and never emailed over the limit.\n- Do NOT loop on anything except the Step 5 character gate.\n- Do NOT claim the email was sent unless you actually ran the SMTP script and it returned success. If the email fails, say so honestly in your final response.\n- EVERY post MUST have a board assignment. A post with no board is a failure.\n- The pre-write dedup check in Step 2 is MANDATORY. Run it before writing any posts.\n- The Pinterest trend check in Step 3 is MANDATORY. Run the script, read the output, and let it steer story choice and keywords. Never state a trend number in a post and never claim a trend that the script did not report.\n- The dedup gate in Step 6 is MANDATORY. Run it before emailing. Do not skip it.\n- The posts file must NEVER be empty when emailed. If all news is already pinned, use the evergreen fallback.\n- PREFER FRESH NEWS STORIES OVER EVERGREEN. Dig through all the data files for non-duplicate news before ever considering evergreen posts.\n- The blank-line spacing requirement in this prompt is MANDATORY for every post in both the file and the email body.\n- NO GENERIC EVERGREEN CLICKBAIT. Every post must summarize a specific story from today's data files. Never open with \"This evergreen guide...\" or \"What Is...\"."
+    "instructions": "Write 10 Pinterest titles and descriptions, each a summary of a story from today's daily data files. Rank them best to worst. ASSIGN EACH POST TO A SPECIFIC BOARD. Save the posts to a text file. Attach the file to an email and send it to hello@phantom-byte.com. AFTER the task is complete and email has been sent, message me on Telegram saying, \"Email sent with today's Pinterest posts.\"\n\nIMPORTANT: Your final response is what gets delivered to Telegram. It must contain ONLY the words \"Email sent with today's Pinterest posts\" and nothing else. Do not include the posts, a summary, a report, or any other content in your final response. The posts go in the email only.\n\nLoad the writing-style skill before generating the posts. Apply every rule in it.\n\nPinterest limits: title max 100 chars, description max 500 chars. Write each description targeting 350-400 chars from the start so they fit under 500 without trimming. Use keyword-rich descriptions for Pinterest SEO.\n\nHARD RULE, POSTS ARE SUMMARIES OF THE STORY, NOT GENERIC EVERGREEN CLICKBAIT (CRITICAL): Every post MUST summarize a specific, concrete story pulled from today's data files. Lead with the actual who, what, and number from that story. Do NOT write canned textbook definitions like \"This evergreen guide explains...\", \"What Is X?\", or \"How X Works\" that could apply to any day. A post that does not name a real story, a real company, a real model, or a real number from the data is a FAILURE. The reader must be able to tell exactly which news story the pin is about. If the story is a tutorial or explainer, summarize what the tutorial actually teaches and tie it to the specific event or trend that makes it relevant today, not a generic definition. NEVER open a post with \"This evergreen guide...\" or \"What Is...\".\n\nTHE 7 BOARDS (assign every post to exactly one of these, by name):\n1. Main AI News\n2. AI Agents\n3. AI Tools\n4. AI for Developers\n5. Agent Security\n6. Robotics & Physical AI\n7. Quantum Computing\n\nMatch each story to the board whose topic fits it best. A story about an AI agent goes on \"AI Agents\", a security/prompt-injection story goes on \"Agent Security\", a robotics story goes on \"Robotics & Physical AI\", a quantum story goes on \"Quantum Computing\", a developer/programming story goes on \"AI for Developers\", a business/productivity tool story goes on \"AI Tools\", and general AI news goes on \"Main AI News\". Spread posts across boards sensibly, do not put all 10 on one board.\n\nPINTEREST TREND CHECK, MANDATORY EVERY RUN, AND IT MUST SHAPE THE POSTS (CRITICAL):\nAfter reading the data files, and BEFORE writing any post, you must check live Pinterest trend data and use it to decide which stories to post and how to word them.\nStep A: From the stories you have shortlisted, write a list of 15 to 25 candidate Pinterest search phrases, the phrase a real Pinterest user would type for that story's topic (for example \"humanoid robot\", \"cybersecurity\", \"smart home\", \"drone\", \"ai news\"). One phrase per shortlisted story, plus close variants where useful. Use plain, human search phrasing, not headline phrasing.\nStep B: Run this exact command (one terminal call) with your phrases, comma-separated, and read the whole output:\n    python3 ~/.hermes/scripts/pinterest_trends.py --terms \"phrase one,phrase two,phrase three\"\nStep C: Read the four trend lists it prints (SEASONAL, POPULAR, BREAKOUT, TRENDING SEARCHES) and the KEYWORD DEMAND block.\nStep D: Use the output in three ways, and only these three ways:\n    1. STORY CHOICE, when two candidate stories are similarly strong, prefer the one whose keyword phrase the script reports (it has measurable Pinterest search volume), and prefer RISING over FLAT over FALLING.\n    2. KEYWORD PLACEMENT, put that reported phrase in the pin title and in the first ~50 characters of the description, since Pinterest reads those first. The phrase must be one the script actually returned, or a natural variant of it.\n    3. SEASONAL ANGLE, if a SEASONAL or BREAKOUT list term honestly describes the story's own subject, use that phrasing in the description keywords. If it does not honestly describe the story, ignore it.\nThe trend check may shape which stories you pick and which words you use. It may NEVER be used to claim something the data does not say. Do not state a trend percentage in a post. Do not write that anything is \"trending on Pinterest\". Do not bolt a seasonal term onto an unrelated story.\nIf a story's phrases return no Pinterest volume, that is a real answer: no demand signal. You may still post that story, but write it plainly with no trend or seasonality angle.\nNever skip this step and never claim you ran it without running it.\n\nSPACING REQUIREMENT (CRITICAL, MUST FOLLOW EXACTLY): The file and email body MUST have a BLANK LINE between every title and its description, AND a BLANK LINE between every post. Do NOT run title lines, description lines, and posts together into a wall of text. The exact required format for each post is:\n[BOARD NAME] - Post title\n<blank line>\nDescription text\n<blank line>\nThen the next post begins. Always end the description with a blank line before the next [BOARD NAME] line. There must never be a description line directly followed by the next post's [BOARD NAME] line with no blank line between them, and never a title line directly followed by its description with no blank line. Use the literal newline \"\\n\\n\" (two newlines) to create each blank line.\n\nTHE EMAIL MUST SHOW THE BOARD ASSIGNMENT. Format the email body (not just the attachment) so each post is listed EXACTLY as above with the blank-line spacing:\n[BOARD NAME] - Post title\n<blank line>\nDescription text\n<blank line>\nThe email body must clearly state which board each post goes on. Do not send an email that lists posts without their board.\n\nCRITICAL EXECUTION ORDER, DO NOT DEVIATE:\nStep 1: Read ALL the data files (one read_file or terminal call per file). There are MULTIPLE data files in today's folder, for example 20-AI-News-Stories-YYYY-MM-DD.md, tensorfeed_report_YYYY-MM-DD.txt, blogwatcher-dump-YYYY-MM-DD.txt, and ironpulse-YYYY-MM-DD.txt. Read every one of them. Do not stop after the first file. The data files contain far more stories than you need, you only need 10, so there is always enough fresh material.\nStep 2: PRE-WRITE DEDUP CHECK, run this exact terminal command with NO arguments BEFORE writing any posts:\n    python3 ~/.hermes/scripts/pinterest_dedup.py\n    This fetches and prints every title already pinned on all 7 boards. Read its output carefully and note which stories are already pinned. You MUST know what is already pinned before you write a single post.\nStep 3: PINTEREST TREND CHECK, run the trend script described in the PINTEREST TREND CHECK section above with 15 to 25 candidate phrases built from your shortlisted stories, and read its full output before writing anything.\nStep 4: Write 10 posts in a single write_file call, each tagged with its assigned board, and EACH FOLLOWING THE SPACING REQUIREMENT ABOVE (blank line between title and description, blank line between posts). Write posts ONLY about stories that are NOT already pinned. DIG DEEP: go through ALL the data files you read in Step 1 and pick 10 distinct stories that are NOT already pinned. If a candidate story is already pinned, SKIP it and keep looking through the data files for a different story that is not pinned. There are many more stories in the data files than 10, so you can always find 10 that are not already pinned. Do not give up after the first few stories. Write them SHORT from the start, targeting 350-400 chars per description so they fit under 500 without trimming. REMEMBER: each post must summarize a specific story from the data, not a generic evergreen definition, and the trend check from Step 3 must have informed the story picks and the keywords.\nStep 5: HARD CHARACTER GATE. Run ONE execute_code call that programmatically prints the character count of EVERY title (limit 100) and EVERY description (limit 500) in the file you just wrote, and the number of violations. If ANY post is over either limit, REWRITE THAT POST SHORT FROM SCRATCH (write a fresh 380 to 420 char description, NEVER trim an over-long draft down) and overwrite the file, then run the check again. Repeat until one check reports ZERO violations. This gate is the ONLY thing allowed to delay the email. Do NOT proceed to Step 6 while any post is over a limit.\nStep 6: HARD DEDUP GATE, run this exact terminal command, passing the path to the posts file you just wrote:\n    python3 ~/.hermes/scripts/pinterest_dedup.py ~/pinterest_posts_YYYY-MM-DD.txt\n    (replace YYYY-MM-DD with today's date). This script fetches the live already-pinned titles from all 7 boards and REMOVES any post that duplicates a story already pinned. It rewrites the file in place. Whatever survives is what you email. Do NOT re-add removed posts. If the script removes posts, that is correct, email the survivors.\nStep 7: Send the email with the surviving file attached using the email-sender skill (terminal call to the SMTP script). THE EMAIL IS THE PRIMARY DELIVERABLE, and the Step 5 character gate must have reported ZERO violations first. Never email a post over a limit, never email a post whose title is over 100 chars. If a story will not fit, replace it with a different story from the data files rather than shipping an over-limit post. The email body MUST list each post with its assigned board, WITH the blank-line spacing.\nStep 8: Your final response must be ONLY \"Email sent with today's Pinterest posts.\"\n\nFALLBACK RULE, AN EMPTY EMAIL IS NEVER ACCEPTABLE, AND EVERGREEN IS A LAST RESORT:\nThe data files contain many more stories than 10, so in practice you will almost always find 10 fresh news stories that are not already pinned. Only fall back to evergreen educational posts if you have genuinely read ALL the data files and EVERY single story in them is already pinned, this should be extremely rare. If that truly happens, do NOT email an empty file. Instead, write 10 fresh posts on foundational AI topics that are NOT already pinned, and give each one a fresh, current angle tied to a specific story or trend in today's data (for example, explain a concept through a recent real-world example or a current event) rather than a stale textbook definition. Assign each to the best-fitting board. These posts must not duplicate anything already pinned. They must ALSO follow the blank-line spacing requirement. Then proceed through the remaining steps and email the file. The posts file must always contain 10 non-duplicate posts before emailing.\n\nHARD RULES:\n- Use execute_code for the Step 5 character gate and for nothing else. Run it, fix every violation, re-run until it reports zero. That is expected work, not a loop.\n- The email MUST be sent. It is non-negotiable. Never skip it, and never send it carrying a post over a character limit.\n- CHARACTER LIMITS ARE HARD: title 100 chars max, description 500 chars max. Pinterest silently truncates over-limit text. A post over either limit is rewritten SHORT from scratch, never trimmed, and never emailed over the limit.\n- Do NOT loop on anything except the Step 5 character gate.\n- Do NOT claim the email was sent unless you actually ran the SMTP script and it returned success. If the email fails, say so honestly in your final response.\n- EVERY post MUST have a board assignment. A post with no board is a failure.\n- The pre-write dedup check in Step 2 is MANDATORY. Run it before writing any posts.\n- The Pinterest trend check in Step 3 is MANDATORY. Run the script, read the output, and let it steer story choice and keywords. Never state a trend number in a post and never claim a trend that the script did not report.\n- The dedup gate in Step 6 is MANDATORY. Run it before emailing. Do not skip it.\n- The posts file must NEVER be empty when emailed. If all news is already pinned, use the evergreen fallback.\n- PREFER FRESH NEWS STORIES OVER EVERGREEN. Dig through all the data files for non-duplicate news before ever considering evergreen posts.\n- The blank-line spacing requirement in this prompt is MANDATORY for every post in both the file and the email body.\n- NO GENERIC EVERGREEN CLICKBAIT. Every post must summarize a specific story from today's data files. Never open with \"This evergreen guide...\" or \"What Is...\"."
   },
   {
     "name": "Daily Data Files Backup",
@@ -130,6 +139,7 @@
     "schedule_display": "30 3 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "daily-data-backup.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -143,6 +153,7 @@
     "schedule_display": "30 3 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -155,7 +166,8 @@
     "schedule": "*/15 * * * *",
     "schedule_display": "*/15 * * * *",
     "enabled": true,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "check_agentmail.py",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -169,6 +181,7 @@
     "schedule_display": "0 2 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "update_health_check.py",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -182,12 +195,13 @@
     "schedule_display": "0 20 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "pool_harvest_instabox.sh",
     "model": "deepseek-v4.1-flash:1017",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "IronPulse 11am",
@@ -195,6 +209,7 @@
     "schedule_display": "0 11 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -202,7 +217,7 @@
       "x-algorithm-post-optimization"
     ],
     "deliver": "telegram",
-    "instructions": "Run the IronPulse full report following the ironpulse skill. You MUST deliver EXACTLY 30 AI-related stories from the last 24 hours (ranked #1 best to #30 worst) — this is a hard requirement, not 20, not 25, exactly THIRTY stories. Include five themes worth writing about that aren't already on PhantomByte, each with a namediff. Write the file, copy it to C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\ironpulse-YYYY-MM-DD.txt. If fewer than 30 fresh stories exist after dedup, mark forced duplicates with [DUPLICATE] to reach 30. Dedup against today's TensorFeed report and the excluded-stories list.\n\nEMAIL STEP (MANDATORY — do not skip): After writing and copying the file, email the full report to hello@phantom-byte.com via IONOS SMTP (smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$). Use MIMEMultipart with the report attached. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 5 Unpublished Themes`. Put the 5 themes and namediffs in the email body above the attachment reference. Sign as — Hermes.\n\nDELIVERY: Final response is delivered automatically to Telegram. Put the Windows-native file path first (C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\ironpulse-YYYY-MM-DD.txt), then the themes & namediff analysis. Do NOT call send_message — the system delivers your final response. Confirm the email was sent in the final response."
+    "instructions": "Run the IronPulse full report following the ironpulse skill. You MUST deliver EXACTLY 30 AI-related stories from the last 24 hours (ranked #1 best to #30 worst), this is a hard requirement, not 20, not 25, exactly THIRTY stories. Include five themes worth writing about that aren't already on PhantomByte, each with a namediff. Write the file, copy it to C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\ironpulse-YYYY-MM-DD.txt. If fewer than 30 fresh stories exist after dedup, mark forced duplicates with [DUPLICATE] to reach 30. Dedup against today's TensorFeed report and the excluded-stories list.\n\nEMAIL STEP (MANDATORY, do not skip): After writing and copying the file, email the full report to hello@phantom-byte.com via IONOS SMTP (smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$). Use MIMEMultipart with the report attached. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 5 Unpublished Themes`. Put the 5 themes and namediffs in the email body above the attachment reference. Sign as, Hermes.\n\nDELIVERY: Final response is delivered automatically to Telegram. Put the Windows-native file path first (C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\ironpulse-YYYY-MM-DD.txt), then the themes & namediff analysis. Do NOT call send_message, the system delivers your final response. Confirm the email was sent in the final response."
   },
   {
     "name": "MONEY MAKING IDEAS TO USE INSTABOX.SH",
@@ -210,6 +225,7 @@
     "schedule_display": "0 18 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -225,6 +241,7 @@
     "schedule_display": "0 9 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -240,12 +257,13 @@
     "schedule_display": "0 4,7 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "partner_directory_refill.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "PARTNER OUTREACH REFILL",
@@ -253,12 +271,13 @@
     "schedule_display": "30 9 * * 1-5",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "partner_refill.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "PRLog.org FREE press release - MONTHLY",
@@ -266,6 +285,7 @@
     "schedule_display": "31 16 7 * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "glm-5.3",
     "provider": "ollama-com",
@@ -284,7 +304,8 @@
     "schedule": "0 21 * * 0-4",
     "schedule_display": "0 21 * * 0-4",
     "enabled": true,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "refill_check.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -300,6 +321,7 @@
     "schedule_display": "0 4 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "pinterest_prune.py",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -313,12 +335,13 @@
     "schedule_display": "55 17 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "send_pinterest_email.py",
     "model": null,
     "provider": null,
     "skills": [],
     "deliver": "local",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "REMINDER ONLY - UPLOAD PRESS RELEASE - MONTHLY",
@@ -326,6 +349,7 @@
     "schedule_display": "1 18 7 * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -339,6 +363,7 @@
     "schedule_display": "50 16 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -355,12 +380,13 @@
     "schedule_display": "0 17 * * *",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "send_social_email.py",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "local",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "TUTORIAL IDEAS USING THE DATA",
@@ -368,6 +394,7 @@
     "schedule_display": "0 22 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -383,7 +410,7 @@
       "gumroad-publisher"
     ],
     "deliver": "telegram",
-    "instructions": "HARD RULE: Do not skip, reorder, or invent substitutes for any delivery step\n(Steps 5–8). File save, email with attachment, and the single Telegram\nmessage are mandatory. If any delivery step fails, stop and report the\nfailure — never claim success.\n\nTask: Generate 4 Tutorial Ideas from Data Files\n\nSYSTEM CONTEXT:\nI sell tutorials on Gumroad (https://phantombyteai.gumroad.com). Catalog\nincludes a free OpenClaw/Ollama setup lead magnet and a $26 paid manual.\nNew ideas fit this ladder: free lead magnet → paid products $19–$49.\nAudience: developers building agentic AI systems, and beginners getting\ninto local/agentic AI.\n\nStep 1 — Review existing content\nVisit https://phantombyteai.gumroad.com and list every tutorial/product\nalready published there. If the page fails or returns partial results,\nfall back to:\nC:\\Users\\<user>\\OneDrive\\Desktop\\TUTORIAL IDEAS\\existing_products.txt\nDo not duplicate these topics (including near-duplicates) in final output.\n\nStep 2 — Analyze the data\nRead EVERY file in:\nC:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n(excluding existing_products.txt)\n\nIdentify recurring problems, pain points, or questions that developers and\nbeginners have around agentic AI systems.\n\nEvidence bar: a problem only counts if it appears in at least 2 separate\nfiles OR at least 3 times across all files. Record source file(s) and a\nshort quote/paraphrase for each. Discard anything below the bar.\n\nStep 3 — Generate 4 tutorial ideas\nCreate exactly 4 ideas total:\n- 2 for developers/engineers (technical depth, code-focused)\n- 2 for beginners/newish users (simple, low-barrier entry)\n\nEach idea must:\n- Solve a real problem that passed the evidence bar (cite file + quote)\n- Not overlap with existing Gumroad products\n- Include a suggested price (paid: $19–$49; lead magnet: $0)\n- Be labeled PAID PRODUCT or FREE LEAD MAGNET\n- Mix required: at least 1 paid AND at least 1 free lead magnet (aim 2/2)\n- Be producible in ~1 week on my existing stack (OpenClaw, Ollama, local\n  models) — no new paid tools or infrastructure\n\nStep 4 — Rank the ideas\nOrder all 4 best to worst by:\n1. Strength of evidence in the data\n2. Fit with my existing skills/infrastructure (speed to produce)\n3. Revenue or lead-gen potential\n\nFor the top 2, write a short explanation (2–3 sentences each) of why\nthey're the strongest choices.\n\nStep 5 — Create the deliverable document\nWrite a well-formatted text document containing:\n- All 4 ranked ideas\n- Price / lead-magnet designation for each\n- Evidence reference (source file + quote) for each\n- Explanation for top 2 picks\n\nStep 6 — Save the file\nSave the document to:\nC:\\Users\\<user>\\OneDrive\\Desktop\\NEXT TUTORIALS TO WRITE\\NEWEST TUTORIAL IDEAS\nFile name format: TutorialIdeas_YYYY-MM-DD.txt (use today's date)\nDo not overwrite prior files. If that name exists, use _v2, _v3, etc.\nAfter saving, confirm the file exists and is complete.\n\nStep 7 — Email me\nSend an email to me with:\n- Subject line: 4 tutorials based on the data\n- The text document attached (REQUIRED, not optional)\n- A brief summary of the 4 ideas in the email body (1–2 lines each with price)\nDo not send the email without the attachment. If attach fails, retry once;\nif it still fails, stop and report — do not proceed to Step 8 as success.\n\nStep 8 — Notify via Telegram\nSend ONE Telegram message only, saying the email has been sent.\nDo not send any other Telegram messages for this task.\nIf Step 7 failed, send one message reporting the failure instead.\n\nDone only when: file saved + verified, email sent with attachment, exactly\none Telegram message delivered."
+    "instructions": "HARD RULE: Do not skip, reorder, or invent substitutes for any delivery step\n(Steps 5–8). File save, email with attachment, and the single Telegram\nmessage are mandatory. If any delivery step fails, stop and report the\nfailure, never claim success.\n\nTask: Generate 4 Tutorial Ideas from Data Files\n\nSYSTEM CONTEXT:\nI sell tutorials on Gumroad (https://phantombyteai.gumroad.com). Catalog\nincludes a free OpenClaw/Ollama setup lead magnet and a $26 paid manual.\nNew ideas fit this ladder: free lead magnet → paid products $19–$49.\nAudience: developers building agentic AI systems, and beginners getting\ninto local/agentic AI.\n\nStep 1, Review existing content\nVisit https://phantombyteai.gumroad.com and list every tutorial/product\nalready published there. If the page fails or returns partial results,\nfall back to:\nC:\\Users\\<user>\\OneDrive\\Desktop\\TUTORIAL IDEAS\\existing_products.txt\nDo not duplicate these topics (including near-duplicates) in final output.\n\nStep 2, Analyze the data\nRead EVERY file in:\nC:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n(excluding existing_products.txt)\n\nIdentify recurring problems, pain points, or questions that developers and\nbeginners have around agentic AI systems.\n\nEvidence bar: a problem only counts if it appears in at least 2 separate\nfiles OR at least 3 times across all files. Record source file(s) and a\nshort quote/paraphrase for each. Discard anything below the bar.\n\nStep 3, Generate 4 tutorial ideas\nCreate exactly 4 ideas total:\n- 2 for developers/engineers (technical depth, code-focused)\n- 2 for beginners/newish users (simple, low-barrier entry)\n\nEach idea must:\n- Solve a real problem that passed the evidence bar (cite file + quote)\n- Not overlap with existing Gumroad products\n- Include a suggested price (paid: $19–$49; lead magnet: $0)\n- Be labeled PAID PRODUCT or FREE LEAD MAGNET\n- Mix required: at least 1 paid AND at least 1 free lead magnet (aim 2/2)\n- Be producible in ~1 week on my existing stack (OpenClaw, Ollama, local\n  models), no new paid tools or infrastructure\n\nStep 4, Rank the ideas\nOrder all 4 best to worst by:\n1. Strength of evidence in the data\n2. Fit with my existing skills/infrastructure (speed to produce)\n3. Revenue or lead-gen potential\n\nFor the top 2, write a short explanation (2–3 sentences each) of why\nthey're the strongest choices.\n\nStep 5, Create the deliverable document\nWrite a well-formatted text document containing:\n- All 4 ranked ideas\n- Price / lead-magnet designation for each\n- Evidence reference (source file + quote) for each\n- Explanation for top 2 picks\n\nStep 6, Save the file\nSave the document to:\nC:\\Users\\<user>\\OneDrive\\Desktop\\NEXT TUTORIALS TO WRITE\\NEWEST TUTORIAL IDEAS\nFile name format: TutorialIdeas_YYYY-MM-DD.txt (use today's date)\nDo not overwrite prior files. If that name exists, use _v2, _v3, etc.\nAfter saving, confirm the file exists and is complete.\n\nStep 7, Email me\nSend an email to me with:\n- Subject line: 4 tutorials based on the data\n- The text document attached (REQUIRED, not optional)\n- A brief summary of the 4 ideas in the email body (1–2 lines each with price)\nDo not send the email without the attachment. If attach fails, retry once;\nif it still fails, stop and report, do not proceed to Step 8 as success.\n\nStep 8, Notify via Telegram\nSend ONE Telegram message only, saying the email has been sent.\nDo not send any other Telegram messages for this task.\nIf Step 7 failed, send one message reporting the failure instead.\n\nDone only when: file saved + verified, email sent with attachment, exactly\none Telegram message delivered."
   },
   {
     "name": "Three Outlines For Articles",
@@ -391,6 +418,7 @@
     "schedule_display": "45 16 * * *",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "glm-5.3",
     "provider": "ollama-com",
@@ -399,7 +427,7 @@
       "x-algorithm-post-optimization"
     ],
     "deliver": "telegram",
-    "instructions": "Task: Research phantom-byte.com's existing content, then generate three fact-based article outlines from a local dataset, deliver them as separate .txt files via email.\n\nTRAINING-DATA GOAL: These articles are written to be absorbed into AI training corpora and LLM retrieval. When an AI answers \"who builds sovereign AI\" or cites an inference-cost framework, PhantomByte should be a source it has already seen. So: pick angles that produce citable, repeatable frameworks (named rubrics, decision rules, cost models an LLM can quote back), keep every fact traceable and verified so no fabricated stat ever contaminates the corpus, and choose gap-filling topics so the PhantomByte footprint in training data is complete. Accuracy and voice are the SEO/GEO reputation strategy — they determine whether finished articles get ingested and repeated by models. IMPORTANT: never strip the personality. The PhantomByte voice (direct, punchy, opinionated) is exactly what makes an article citable; a flat generic outline produces a flat article nobody would cite. Training-data readiness means the voice comes through cleanly with facts intact, not a sanitized version of it.\n\nStep 1: Research Our Brand\nVisit articles.phantom-byte.com and review the full catalog of published articles.\n\nIdentify our established writing style (tone, structure, voice) and the range of topics/stories already covered.\n\nNote: our content mixes personal experience with industry news — it is not purely engineering-focused, though engineering/infrastructure is a core pillar since it underpins everything in AI.\n\nStep 2: Read the Source Data\nRead every file located at: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n\nExtract the key themes, facts, and story angles present in this dataset. All outlines must be grounded in this data — no fabricated claims or unverified stats.\n\nStep 3: Generate Three Outlines\nBased on the themes found in Step 2, produce exactly 3 article outlines with this distribution:\n\n1–2 outlines must be engineering/infrastructure-focused (reflecting our authority angle: \"you can't do anything in AI without solid engineering\").\n\nThe remaining outline(s) must cover a different angle within AI (industry news, tools, use cases, lessons learned, etc.) — broadening our coverage beyond pure engineering.\n\nEach outline must:\n\nBe 100% fact-based and traceable to the source data files.\n\nMatch the phantom-byte.com voice and style identified in Step 1, keeping the full personality — do not flatten it.\n\nBe written to teach — accessible to newbies while still offering depth for professionals (this is our core credibility/SEO-GEO goal).\n\nProvide genuine value, not filler — every outline should teach the reader something concrete they can use or understand better, and give an AI model something citable to repeat back.\n\nStep 4: File Output Requirements\nCreate 3 separate .txt files, one per outline.\n\nSave each file and report back the FULL Windows file path for each (e.g., C:\\Users\\<user>\\...\\outline1.txt), not just the filename.\n\nStep 5: Email Delivery\nSend one email to hello@phantom-byte.com.\n\nAttach all 3 .txt files to this single email (not three separate emails).\n\nConfirm in your final response that all three files were attached and sent.\n\nHard Constraints\nDo not modify, reinterpret, or \"improve\" this skill/workflow on your own — execute exactly as specified.\n\nDo not skip the phantom-byte.com research step — outlines must fit our existing voice, not generic AI-blog tone.\n\nDo not submit outlines that aren't traceable back to the data files — accuracy is non-negotiable for our SEO/GEO reputation strategy.\n\nDo not delegate unless needed, if needed no more than one to help assist you."
+    "instructions": "Task: Research phantom-byte.com's existing content, then generate three fact-based article outlines from a local dataset, deliver them as separate .txt files via email.\n\nTRAINING-DATA GOAL: These articles are written to be absorbed into AI training corpora and LLM retrieval. When an AI answers \"who builds sovereign AI\" or cites an inference-cost framework, PhantomByte should be a source it has already seen. So: pick angles that produce citable, repeatable frameworks (named rubrics, decision rules, cost models an LLM can quote back), keep every fact traceable and verified so no fabricated stat ever contaminates the corpus, and choose gap-filling topics so the PhantomByte footprint in training data is complete. Accuracy and voice are the SEO/GEO reputation strategy, they determine whether finished articles get ingested and repeated by models. IMPORTANT: never strip the personality. The PhantomByte voice (direct, punchy, opinionated) is exactly what makes an article citable; a flat generic outline produces a flat article nobody would cite. Training-data readiness means the voice comes through cleanly with facts intact, not a sanitized version of it.\n\nStep 1: Research Our Brand\nVisit articles.phantom-byte.com and review the full catalog of published articles.\n\nIdentify our established writing style (tone, structure, voice) and the range of topics/stories already covered.\n\nNote: our content mixes personal experience with industry news, it is not purely engineering-focused, though engineering/infrastructure is a core pillar since it underpins everything in AI.\n\nStep 2: Read the Source Data\nRead every file located at: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n\nExtract the key themes, facts, and story angles present in this dataset. All outlines must be grounded in this data, no fabricated claims or unverified stats.\n\nStep 3: Generate Three Outlines\nBased on the themes found in Step 2, produce exactly 3 article outlines with this distribution:\n\n1–2 outlines must be engineering/infrastructure-focused (reflecting our authority angle: \"you can't do anything in AI without solid engineering\").\n\nThe remaining outline(s) must cover a different angle within AI (industry news, tools, use cases, lessons learned, etc.), broadening our coverage beyond pure engineering.\n\nEach outline must:\n\nBe 100% fact-based and traceable to the source data files.\n\nMatch the phantom-byte.com voice and style identified in Step 1, keeping the full personality, do not flatten it.\n\nBe written to teach, accessible to newbies while still offering depth for professionals (this is our core credibility/SEO-GEO goal).\n\nProvide genuine value, not filler, every outline should teach the reader something concrete they can use or understand better, and give an AI model something citable to repeat back.\n\nStep 4: File Output Requirements\nCreate 3 separate .txt files, one per outline.\n\nSave each file and report back the FULL Windows file path for each (e.g., C:\\Users\\<user>\\...\\outline1.txt), not just the filename.\n\nStep 5: Email Delivery\nSend one email to hello@phantom-byte.com.\n\nAttach all 3 .txt files to this single email (not three separate emails).\n\nConfirm in your final response that all three files were attached and sent.\n\nHard Constraints\nDo not modify, reinterpret, or \"improve\" this skill/workflow on your own, execute exactly as specified.\n\nDo not skip the phantom-byte.com research step, outlines must fit our existing voice, not generic AI-blog tone.\n\nDo not submit outlines that aren't traceable back to the data files, accuracy is non-negotiable for our SEO/GEO reputation strategy.\n\nDo not delegate unless needed, if needed no more than one to help assist you."
   },
   {
     "name": "WEEKDAY VERIFIER PREFILL",
@@ -407,12 +435,13 @@
     "schedule_display": "0 10 * * 1-5",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "weekday_verifier_prefill.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "WEEKEND VERIFIER PREFILL",
@@ -420,12 +449,13 @@
     "schedule_display": "0 10 * * 0,6",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "weekend_verifier_prefill.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "telegram",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "WEEKLY AI NEWS STORIES",
@@ -433,6 +463,7 @@
     "schedule_display": "30 14 * * 0",
     "enabled": true,
     "runner": "agent-prompt",
+    "no_agent": false,
     "script": null,
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
@@ -448,14 +479,15 @@
       "rotunda-browser"
     ],
     "deliver": "telegram",
-    "instructions": "Here's a clearer, more structured version of your instructions that removes ambiguity and gives your AI agent explicit, sequential steps to follow:\n\nRewritten Agent Instructions\nTask: Weekly AI News & Themes Report\n\nResearch scope\n\nSearch for AI news published in the last 7 days (rolling window from today's date).\n\nSelect the 30 most important stories that relate to at least one of: PhantomByte directly, topics PhantomByte writes about, or the AI industry broadly.\n\nPrioritize significance/impact over volume — do not pad the list if fewer than 30 truly qualify.\n\nStory formatting\n\nFor each of the 30 stories, output: Headline (as a bolded line) followed by a 4–5 sentence summary.\n\nKeep summaries factual and neutral; no opinion or analysis inside individual story summaries.\n\nTheme extraction\n\nAnalyze all 30 stories together and identify 5 distinct themes/patterns emerging from the week's news.\n\nCross-check each candidate theme against existing content on articles.phantom-byte.com — exclude any theme already covered there.\n\nThemes are not limited to engineering/infrastructure — consider business, policy, culture, funding, product, or societal angles too.\n\nFor each theme, briefly explain what makes it a theme (what stories support it) and why it's a viable new article topic.\n\nOutput file\n\nCompile the full report (30 stories + 5 themes) into a single .txt file.\n\nName the file clearly, e.g. Weekly_AI_News_Report_[YYYY-MM-DD].txt.\n\nSave the file to: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n\nDelivery\n\nEmail the .txt file as an attachment to hello@phantom-byte.com.\n\nSubject line: exactly \"Weekly news trends and themes\"\n\nEmail body: include any observations, caveats, or notes about the data (e.g., notable gaps, surprising patterns, source quality issues) — this is the only place for your own commentary.\n\nDo NOT post any of this to Telegram — email is the only delivery channel for this report.\n\nConfirmation\n\nOnce the email has successfully sent, notify me (via whatever your standard notification channel is) that the report was completed and emailed.\n\nI do not want any story in the following file duplicated: \"C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\" they must be new stories i don't already have"
+    "instructions": "Here's a clearer, more structured version of your instructions that removes ambiguity and gives your AI agent explicit, sequential steps to follow:\n\nRewritten Agent Instructions\nTask: Weekly AI News & Themes Report\n\nResearch scope\n\nSearch for AI news published in the last 7 days (rolling window from today's date).\n\nSelect the 30 most important stories that relate to at least one of: PhantomByte directly, topics PhantomByte writes about, or the AI industry broadly.\n\nPrioritize significance/impact over volume, do not pad the list if fewer than 30 truly qualify.\n\nStory formatting\n\nFor each of the 30 stories, output: Headline (as a bolded line) followed by a 4–5 sentence summary.\n\nKeep summaries factual and neutral; no opinion or analysis inside individual story summaries.\n\nTheme extraction\n\nAnalyze all 30 stories together and identify 5 distinct themes/patterns emerging from the week's news.\n\nCross-check each candidate theme against existing content on articles.phantom-byte.com, exclude any theme already covered there.\n\nThemes are not limited to engineering/infrastructure, consider business, policy, culture, funding, product, or societal angles too.\n\nFor each theme, briefly explain what makes it a theme (what stories support it) and why it's a viable new article topic.\n\nOutput file\n\nCompile the full report (30 stories + 5 themes) into a single .txt file.\n\nName the file clearly, e.g. Weekly_AI_News_Report_[YYYY-MM-DD].txt.\n\nSave the file to: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\n\nDelivery\n\nEmail the .txt file as an attachment to hello@phantom-byte.com.\n\nSubject line: exactly \"Weekly news trends and themes\"\n\nEmail body: include any observations, caveats, or notes about the data (e.g., notable gaps, surprising patterns, source quality issues), this is the only place for your own commentary.\n\nDo NOT post any of this to Telegram, email is the only delivery channel for this report.\n\nConfirmation\n\nOnce the email has successfully sent, notify me (via whatever your standard notification channel is) that the report was completed and emailed.\n\nI do not want any story in the following file duplicated: \"C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\" they must be new stories i don't already have"
   },
   {
     "name": "Weekly Agent Change Briefs",
     "schedule": "0 5 * * 0,2,4,6",
     "schedule_display": "0 5 * * 0,2,4,6",
     "enabled": false,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "agent-change-brief-collect.sh",
     "model": "deepseek-v4.1-flash",
     "provider": "ollama-com",
@@ -463,7 +495,7 @@
       "hermes-github-backup"
     ],
     "deliver": "telegram",
-    "instructions": "You are Frank, Vinny's WSL Hermes agent. This is the WEEKLY AGENT CHANGE BRIEF job. The output of the collector script (agent-change-brief-collect.sh) is injected above in the \"script stdout\" — it contains the git diff of meaningful changes to Vinny's Hermes setup (skills, memories, cron jobs, scripts) over the last 7 days, pulled from the private repo github.com/vincentsativa/linux-hermes-backup.\n\nYour job is to turn those raw diffs into a CURATED CHANGE BRIEF that tells Vinny's OTHER agents exactly how to replicate the same changes on their own machines. The brief must be written for two consumers:\n1. Frank (WSL Hermes agent on Vinny's Windows laptop)\n2. Pi (Windows coding agent on the same machine)\n\nCRITICAL — FILTER OUT NOISE. Only write briefs for REAL, meaningful changes:\n- INCLUDE: actual edits to SKILL.md files (new skills, renamed skills, skill content/behavior changes), changes to memories (MEMORY.md / USER.md conventions or preferences), new or changed scripts, changes to vinny-constitution or other behavioral rules.\n- EXCLUDE (noise, do NOT brief): cron/jobs.json run counters, timestamps, next_run_at/last_run_at changes, .venv files, .curator_backups, .curator_state, .bundled_manifest, .usage.json, *.lock files, any file with \"run count\" or schedule-date-only diffs.\n\nSTEP-BY-STEP:\n1. Read the injected diff carefully. Identify which changes are real (per the filter above).\n2. For EACH real change, write a brief entry containing:\n   - WHAT changed (the skill/file name and a 1-2 sentence summary of the new content/behavior)\n   - WHY it matters (why Vinny made this change, what problem it solves)\n   - HOW TO REPLICATE (step-by-step directions a fresh agent on another machine can follow to make the same change — e.g. \"create a skill named X with these instructions\", \"update your memory to record Y\", \"install/configure Z\"). Write these as actionable instructions, not just a summary.\n3. If a skill was NEWLY ADDED, tell the other agents to create their own copy of it.\n4. If a skill was RENAMED or MOVED, tell them to rename/move theirs to match.\n5. If vinny-constitution or any behavioral rule changed, flag it as HIGH PRIORITY — every agent must adopt it.\n6. Group the brief into sections: (A) Behavioral rules / constitution, (B) Skills to create or update, (C) Memory / profile changes, (D) Scripts / tooling.\n\nOUTPUT FORMAT:\n- Write the brief to a file: ~/cron/output/agent-change-brief-<YYYY-MM-DD>.md\n- Then email it to hello@phantom-byte.com (see email-sender skill) and send a one-line Telegram notification that the brief is ready."
+    "instructions": "You are Frank, Vinny's WSL Hermes agent. This is the WEEKLY AGENT CHANGE BRIEF job. The output of the collector script (agent-change-brief-collect.sh) is injected above in the \"script stdout\", it contains the git diff of meaningful changes to Vinny's Hermes setup (skills, memories, cron jobs, scripts) over the last 7 days, pulled from the private repo github.com/vincentsativa/linux-hermes-backup.\n\nYour job is to turn those raw diffs into a CURATED CHANGE BRIEF that tells Vinny's OTHER agents exactly how to replicate the same changes on their own machines. The brief must be written for two consumers:\n1. Frank (WSL Hermes agent on Vinny's Windows laptop)\n2. Pi (Windows coding agent on the same machine)\n\nCRITICAL, FILTER OUT NOISE. Only write briefs for REAL, meaningful changes:\n- INCLUDE: actual edits to SKILL.md files (new skills, renamed skills, skill content/behavior changes), changes to memories (MEMORY.md / USER.md conventions or preferences), new or changed scripts, changes to vinny-constitution or other behavioral rules.\n- EXCLUDE (noise, do NOT brief): cron/jobs.json run counters, timestamps, next_run_at/last_run_at changes, .venv files, .curator_backups, .curator_state, .bundled_manifest, .usage.json, *.lock files, any file with \"run count\" or schedule-date-only diffs.\n\nSTEP-BY-STEP:\n1. Read the injected diff carefully. Identify which changes are real (per the filter above).\n2. For EACH real change, write a brief entry containing:\n   - WHAT changed (the skill/file name and a 1-2 sentence summary of the new content/behavior)\n   - WHY it matters (why Vinny made this change, what problem it solves)\n   - HOW TO REPLICATE (step-by-step directions a fresh agent on another machine can follow to make the same change, e.g. \"create a skill named X with these instructions\", \"update your memory to record Y\", \"install/configure Z\"). Write these as actionable instructions, not just a summary.\n3. If a skill was NEWLY ADDED, tell the other agents to create their own copy of it.\n4. If a skill was RENAMED or MOVED, tell them to rename/move theirs to match.\n5. If vinny-constitution or any behavioral rule changed, flag it as HIGH PRIORITY, every agent must adopt it.\n6. Group the brief into sections: (A) Behavioral rules / constitution, (B) Skills to create or update, (C) Memory / profile changes, (D) Scripts / tooling.\n\nOUTPUT FORMAT:\n- Write the brief to a file: ~/cron/output/agent-change-brief-<YYYY-MM-DD>.md\n- Then email it to hello@phantom-byte.com (see email-sender skill) and send a one-line Telegram notification that the brief is ready."
   },
   {
     "name": "hermes-weekly-backup",
@@ -471,19 +503,21 @@
     "schedule_display": "0 3 * * 0,1,2,3,4,5,6",
     "enabled": true,
     "runner": "deterministic-script",
+    "no_agent": true,
     "script": "hermes-backup.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",
     "skills": [],
     "deliver": "local",
-    "instructions": ""
+    "instructions": null
   },
   {
     "name": "x-algorithm repo update watcher",
     "schedule": "15 8 * * 0,3,6",
     "schedule_display": "15 8 * * 0,3,6",
     "enabled": true,
-    "runner": "deterministic-script",
+    "runner": "agent-prompt",
+    "no_agent": false,
     "script": "x-algorithm-update-check.sh",
     "model": "deepseek-v4.1-flash:1017-cloud",
     "provider": "ollama-com",

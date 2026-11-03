@@ -1,19 +1,19 @@
-# IronPulse — Full Report Workflow
+# IronPulse, Full Report Workflow
 
 Loaded on demand by the ironpulse SKILL.md when the request is a full report (file to Desktop, social posts, themes, article ideas). A quick scan does NOT need this file.
 
 ## Instructions
 
-### Research Phase — RSS First, Browser Fallback
+### Research Phase, RSS First, Browser Fallback
 
 **HARD RULE: RSS feeds are the PRIMARY data source. Browser scraping is the LAST resort, used only when a source has no RSS feed or the feed is broken.**
 
 **Breaking news exception:** For stories that broke within the last hour, use browser_navigate first. RSS feeds have 15-60 minute refresh cycles and won't have ultra-fresh stories yet. The browser catches what RSS misses on the bleeding edge.
 
 1. **Find top 30 AI-related story headlines from last 24 hours**
-   - **Step 1: Fetch RSS feeds** — curl each source's RSS/Atom feed URL. RSS is structured XML/JSON, no bot blocking, no fragile DOM selectors, no CAPTCHAs, no 404s from stale article URLs.
-   - **Step 2: Parse feed data** — extract headlines, publish dates, links, and descriptions from the feed XML/JSON. This gives you 20+ stories in a single tool call per source.
-   - **Step 3: Browser fallback** — only use browser_navigate when a source has no RSS feed or the feed returns empty/outdated data.
+   - **Step 1: Fetch RSS feeds**, curl each source's RSS/Atom feed URL. RSS is structured XML/JSON, no bot blocking, no fragile DOM selectors, no CAPTCHAs, no 404s from stale article URLs.
+   - **Step 2: Parse feed data**, extract headlines, publish dates, links, and descriptions from the feed XML/JSON. This gives you 20+ stories in a single tool call per source.
+   - **Step 3: Browser fallback**, only use browser_navigate when a source has no RSS feed or the feed returns empty/outdated data.
    - Minimum of 6 different sources required
    - At least one MSM (Mainstream Media) news website required
    - Stories must be from last 24 hours exactly
@@ -32,10 +32,10 @@ Loaded on demand by the ironpulse SKILL.md when the request is a full report (fi
 
 Save all results to: `~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt`
 
-**CRITICAL — Windows path delivery:** Vinny's on WSL but uses Windows. After writing the file:
+**CRITICAL, Windows path delivery:** Vinny's on WSL but uses Windows. After writing the file:
 1. Copy it to Windows Desktop: `cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/Desktop/ironpulse-YYYY-MM-DD.txt"`
 2. Return the **Windows-native** full path as the very first line of your response: `C:\Users\<user>\Desktop\ironpulse-YYYY-MM-DD.txt`
-3. Do NOT return the WSL path (~/...) — Vinny can't paste that into Windows File Explorer or Run dialog
+3. Do NOT return the WSL path (~/...), Vinny can't paste that into Windows File Explorer or Run dialog
 4. A "full file path" means one he can copy-paste directly into a Windows context (Explorer, cmd, Run dialog)
 5. If you're unsure of the Windows username, check `/mnt/c/Users/`
 
@@ -100,7 +100,7 @@ END OF REPORT
    # Hacker News RSS
    curl -sL "https://hnrss.org/frontpage?count=30"
    ```
-   Parse each feed for: headlines, publish dates, article links, descriptions. RSS gives you structured data — no fragile DOM selectors, no CAPTCHAs, no 404s.
+   Parse each feed for: headlines, publish dates, article links, descriptions. RSS gives you structured data, no fragile DOM selectors, no CAPTCHAs, no 404s.
 
 4. **Supplement with additional RSS feeds if needed:**
    ```bash
@@ -123,7 +123,7 @@ END OF REPORT
    - Rank #1 (most newsworthy) to #30 (least)
    - Hard rule: if you can't name 4 distinct domains, you haven't fetched enough RSS feeds
 
-**Step-by-step process (curl fallback path — when browser is unavailable):**
+**Step-by-step process (curl fallback path, when browser is unavailable):**
 
 1. **Create output directory:**
    ```bash
@@ -178,8 +178,8 @@ END OF REPORT
       - `cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt"`
     - Verify the copies exist.
 
-**Interactive mode path delivery —** First line is the Windows-native full path, nothing else.
-**Cron/scheduled mode delivery —** First line is the Windows-native full path, followed by analysis sections (see "Analysis Delivery Mode" below).
+**Interactive mode path delivery, ** First line is the Windows-native full path, nothing else.
+**Cron/scheduled mode delivery, ** First line is the Windows-native full path, followed by analysis sections (see "Analysis Delivery Mode" below).
 
 **Interactive mode with analysis (PhantomByte editorial workflow):**
 When Vinny runs IronPulse interactively and specifically requests themes and article ideas, the delivery has three parts:
@@ -189,11 +189,11 @@ When Vinny runs IronPulse interactively and specifically requests themes and art
    - If Vinny specified a OneDrive subfolder (e.g. `TODAYS DATA FILES`), ALSO copy there: `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES\ironpulse-YYYY-MM-DD.txt`
    - Verify both copies exist
 
-2. **Email delivery:** Send the full report as a MIMEMultipart attachment to hello@phantom-byte.com, with the 3 themes and 3 article ideas in the email body (above the attachment reference). Each theme should include the namediff — explicitly stating why it does NOT overlap with a specific published PhantomByte article. IONOS SMTP: smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 3 Unpublished Themes`.
+2. **Email delivery:** Send the full report as a MIMEMultipart attachment to hello@phantom-byte.com, with the 3 themes and 3 article ideas in the email body (above the attachment reference). Each theme should include the namediff, explicitly stating why it does NOT overlap with a specific published PhantomByte article. IONOS SMTP: smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 3 Unpublished Themes`.
 
-3. **Telegram notification (email confirmed):** When the user explicitly requests "Message me on Telegram after the email has been sent," send a brief notification confirming delivery. This is a confirmation of the email being sent, NOT a report delivery — keep it short (e.g. "Sent. 30 stories, 3 themes in the email body. File at path."). Do NOT paste report content (headlines, summaries, themes, or ideas) into the notification.
+3. **Telegram notification (email confirmed):** When the user explicitly requests "Message me on Telegram after the email has been sent," send a brief notification confirming delivery. This is a confirmation of the email being sent, NOT a report delivery, keep it short (e.g. "Sent. 30 stories, 3 themes in the email body. File at path."). Do NOT paste report content (headlines, summaries, themes, or ideas) into the notification.
 
-**CRITICAL - Telegram delivery rule:** The file path and email-sent confirmation are the only acceptable Telegram messages. Do NOT reproduce headlines, summaries, themes, or article ideas in the Telegram message. If Vinny wants to discuss the report, he'll read the file on Desktop and engage in conversation. Sending analysis inline in Telegram violates this preference — UNLESS Vinny explicitly asked to be messaged after email delivery. That request turns Telegram into a notification channel, not a report channel.
+**CRITICAL - Telegram delivery rule:** The file path and email-sent confirmation are the only acceptable Telegram messages. Do NOT reproduce headlines, summaries, themes, or article ideas in the Telegram message. If Vinny wants to discuss the report, he'll read the file on Desktop and engage in conversation. Sending analysis inline in Telegram violates this preference, UNLESS Vinny explicitly asked to be messaged after email delivery. That request turns Telegram into a notification channel, not a report channel.
 
 **User Preference: Analysis Content**
 - Focus on "The Human-First Premium" (AI backlash as a luxury market opportunity).
@@ -202,6 +202,6 @@ When Vinny runs IronPulse interactively and specifically requests themes and art
 
 [DELETED delivery mode description]
 
-**CRITICAL — ALWAYS return a Windows-native path** (`C:\\Users\\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`). Never return a WSL path or `\\\\wsl.localhost\\...`. The user works on Windows and needs paths he can paste into File Explorer, text editors, and other Windows applications directly.
+**CRITICAL, ALWAYS return a Windows-native path** (`C:\\Users\\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`). Never return a WSL path or `\\\\wsl.localhost\\...`. The user works on Windows and needs paths he can paste into File Explorer, text editors, and other Windows applications directly.
 
-**Email delivery for scheduled runs:** When creating a cron job for IronPulse, set `deliver: "email"` — Vinny expects the report in his inbox, not a Telegram message. The delivery target is part of the job definition, not optional metadata. If you don't know his email address, it's hello@phantom-byte.com (the IONOS account). Telegram delivery is for interactive-mode quick outputs only; scheduled reports go to email.
+**Email delivery for scheduled runs:** When creating a cron job for IronPulse, set `deliver: "email"`, Vinny expects the report in his inbox, not a Telegram message. The delivery target is part of the job definition, not optional metadata. If you don't know his email address, it's hello@phantom-byte.com (the IONOS account). Telegram delivery is for interactive-mode quick outputs only; scheduled reports go to email.

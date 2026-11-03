@@ -33,7 +33,7 @@ wsl.exe -d Ubuntu -- bash -lc '...'
 3. Snapshot uncommitted local edits before updating (safety).
 4. Run `hermes update --yes --gateway` to completion (exit 0).
 5. Verify version, git HEAD, and that gateway/browser services are `active`.
-6. Report truthfully — if upstream has no new commits, say so plainly.
+6. Report truthfully, if upstream has no new commits, say so plainly.
 
 ---
 
@@ -120,7 +120,7 @@ Success = version updated/confirmed, both services `active`, local edits preserv
 
 - State the exact new version/hash.
 - If no new upstream commits existed, say so explicitly rather than implying features arrived.
-- If gateway/browser are NOT active, report it — do not claim success.
+- If gateway/browser are NOT active, report it, do not claim success.
 
 ## Troubleshooting
 

@@ -31,7 +31,7 @@ By Marc Levy
 
 Key pattern: The actual headline appears as the line immediately before the time stamp, and is also duplicated in the "More - [Description]" line above it.
 
-Each story cluster has: source name, headline, relative timestamp, and byline — all as sibling text nodes. Parse this by:
+Each story cluster has: source name, headline, relative timestamp, and byline, all as sibling text nodes. Parse this by:
 
 1. Scanning for "hours ago", "minutes ago", "ago" patterns
 2. Reading 1 line above for the headline (verify it matches the line after "More - ")
@@ -80,7 +80,7 @@ Filter results to only include stories with "hour" or "minute" in the time-ago f
 
 ### Pitfalls
 
-- Google News uses obfuscated relative URLs (e.g., `./read/CBMi...`). These cannot be navigated to directly — they require Google's session context. Extract story content from the aria-label metadata only.
+- Google News uses obfuscated relative URLs (e.g., `./read/CBMi...`). These cannot be navigated to directly, they require Google's session context. Extract story content from the aria-label metadata only.
 - The first 3-5 results may be dominated by a single breaking story across multiple sources. Deduplicate by headline similarity.
 - Google News returns results from many outlets including some that are blocked by bot detection (Reuters, CNN, CNBC). The aria-label text is the only reliable content source for those articles.
 
@@ -88,7 +88,7 @@ Filter results to only include stories with "hour" or "minute" in the time-ago f
 
 ```
 1. browser_navigate('https://news.google.com/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US:en')
-2. browser_scroll('down') — trigger lazy loading (do this 1-2 times)
+2. browser_scroll('down'), trigger lazy loading (do this 1-2 times)
 3. browser_console(expression="document.body.innerText.substring(0, 30000)")
 4. Parse the raw text for headlines with " ago" timestamps
 ```
@@ -97,6 +97,6 @@ Filter results to only include stories with "hour" or "minute" in the time-ago f
 
 - Google News lazy-loads stories. Always scroll at least once before extracting.
 - The first result may include promoted/sticky content. Scroll past it.
-- Relative timestamps like "18 hours ago" vs "Yesterday" vs "5 days ago" — filter to only include stories with "hour" or "minute" in their timestamp text.
+- Relative timestamps like "18 hours ago" vs "Yesterday" vs "5 days ago", filter to only include stories with "hour" or "minute" in their timestamp text.
 - Stories marked "Yesterday" or with day counts (e.g. "2 days ago") are outside the 24-hour window.
-- "1 hour ago", "2 hours ago" etc. all contain "hour" — simple substring check works.
+- "1 hour ago", "2 hours ago" etc. all contain "hour", simple substring check works.

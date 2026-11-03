@@ -22,7 +22,7 @@ description: |
 
 Never email the draft, then patch and re-email. Verify BEFORE sending:
 
-1. **Em-dash count = 0**: Run `grep -c '—' /path/to/file.txt`. If output is not `0`, fix every occurrence before sending.
+1. **Em-dash count = 0**: Run `grep -c '-' /path/to/file.txt`. If output is not `0`, fix every occurrence before sending.
 2. **X post under 190 chars**: Count characters including spaces.
 3. **Title keyword-optimized after the body is written**, against the words a searcher would actually type. Keep the entity, the proper nouns, and the numbers. Never optimize before the article exists, and never let it become shortening into something generic. No all-caps words and no em dashes. See `title-formatting-rules.md` Rule 0 and Rule 0A. Report the final title in the delivery message.
 4. **All outline references addressed in the body** (not just the sources section).
@@ -35,18 +35,18 @@ THEN send.
 The default rule is no research loops. But if Vinny says "fact check it" or "use your browser skill to fill in the gaps":
 
 1. **Identify every named claim** in the outline: specific people, quotes, dates, documents, numbers, URLs.
-2. **Verify each with targeted searches** — not open-ended topic research. Check:
+2. **Verify each with targeted searches**, not open-ended topic research. Check:
    - arXiv abs pages for papers (navigate directly to `https://arxiv.org/abs/<id>`, not search result "More" links)
    - Vendor sites for referenced reports
    - Daily data files (IronPulse, TensorFeed, blogwatcher) for supporting material
-3. **If a claim cannot be verified** — omit it. Do not include unverified claims unlabeled. Adjust surrounding prose if the omission breaks the argument.
+3. **If a claim cannot be verified**, omit it. Do not include unverified claims unlabeled. Adjust surrounding prose if the omission breaks the argument.
 4. **Add a SOURCES section** at the end of the article listing every primary source URL used.
 
 ### Pitfalls
 
 - **TechCrunch URL fragility.** TechCrunch slugs are auto-generated from headlines and can change between outline creation and verification. Multiple variants may all 404. The outline's guessed URL format is frequently wrong. Always check daily data files (IronPulse, TensorFeed, blogwatcher) for the actual canonical URL or shortened link (tcrn.ch) before marking a TechCrunch claim unverifiable. Session 2026-07-07 (Article 123): the Vercel CEO interview URL in the outline was a 404, but the interview content was fully reproduced in IronPulse with a tcrn.ch short link. Cite the daily data file as the corroborating source.
 
-- **Dead outline URL rescue.** When a specific URL in the outline returns 404 or fails to load, do not mark the claim unverifiable immediately. Check the daily data files — they often reproduce the same announcement with correct sourcing. If the claim itself is confirmed there, cite the daily data file as the source. Only omit the claim if it cannot be corroborated by any primary source.
+- **Dead outline URL rescue.** When a specific URL in the outline returns 404 or fails to load, do not mark the claim unverifiable immediately. Check the daily data files, they often reproduce the same announcement with correct sourcing. If the claim itself is confirmed there, cite the daily data file as the source. Only omit the claim if it cannot be corroborated by any primary source.
 
 - **arXiv truncated abstracts.** arXiv search result pages truncate abstracts with a "More" link. Clicking that link via browser tools often fails with DOM box-model errors. Fix: navigate directly to `https://arxiv.org/abs/<id>` instead. The abstract page renders the full text immediately without expansion clicks. Session 2026-07-07 verified four papers this way in parallel (SwarmResearch 2607.02807, OCM 2607.02846, iFLYTEK-Embodied-Omni 2607.02542, Zombie Agents 2602.15654).
 

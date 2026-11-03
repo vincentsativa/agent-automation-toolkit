@@ -12,7 +12,7 @@ Two modes:
    Read the agent's just-written posts file, fetch the live already-pinned
    titles from all 7 boards, and HARD-REMOVE any planned post whose story
    matches an already-pinned story. Rewrites the file in place with only the
-   non-duplicate posts. This is the deterministic gate — it does NOT rely on
+   non-duplicate posts. This is the deterministic gate, it does NOT rely on
    the model's judgment. The email step then sends whatever survives.
 
 Why RSS instead of scrapling/browser:

@@ -15,23 +15,23 @@ Distilled from Google's official Search Central documentation (developers.google
 - Writing or outlining any PhantomByte article (tutorial, analysis, engineering piece)
 - "Follow Google best practices" / "make this authoritative" / "SEO/GEO"
 - Optimizing an article for Google Search or generative AI search (AI Overviews, AI Mode)
-- Choosing what to write next — prioritize authority-building over keyword-chasing
+- Choosing what to write next, prioritize authority-building over keyword-chasing
 - Any skill or workflow where Google SEO/GEO matters (see Integration section)
 
 ## Primary Sources (learned from official docs)
 
-- **Optimizing for generative AI features on Google Search** — https://developers.google.com/search/docs/fundamentals/ai-optimization-guide (updated 2026-07-10)
-- **Creating helpful, reliable, people-first content** — https://developers.google.com/search/docs/fundamentals/creating-helpful-content
-- **Google's guidance on using generative AI content** — https://developers.google.com/search/docs/fundamentals/using-gen-ai-content
-- **Guide to Google Search ranking systems** — https://developers.google.com/search/docs/appearance/helpful-content-system
-- **Understanding structured data** — https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
-- **Article structured data** — https://developers.google.com/search/docs/appearance/structured-data/article
-- **Title links** — https://developers.google.com/search/docs/appearance/title-link
-- **Meta descriptions** — https://developers.google.com/search/docs/appearance/snippet
+- **Optimizing for generative AI features on Google Search**, https://developers.google.com/search/docs/fundamentals/ai-optimization-guide (updated 2026-07-10)
+- **Creating helpful, reliable, people-first content**, https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- **Google's guidance on using generative AI content**, https://developers.google.com/search/docs/fundamentals/using-gen-ai-content
+- **Guide to Google Search ranking systems**, https://developers.google.com/search/docs/appearance/helpful-content-system
+- **Understanding structured data**, https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+- **Article structured data**, https://developers.google.com/search/docs/appearance/structured-data/article
+- **Title links**, https://developers.google.com/search/docs/appearance/title-link
+- **Meta descriptions**, https://developers.google.com/search/docs/appearance/snippet
 
 ## The Authority Framework (decision order)
 
-When planning ANY content, decide in this order — keywords never come first:
+When planning ANY content, decide in this order, keywords never come first:
 
 1. **Who is this for and why?** Real audience with a real goal. People-first, not search-first.
 2. **What unique value do we add that no one else can?** First-hand experience, original analysis, proprietary data, real-world engineering from the PhantomByte stack. Non-commodity content.
@@ -48,21 +48,21 @@ When planning ANY content, decide in this order — keywords never come first:
 
 ### 2. Demonstrate E-E-A-T (Experience, Expertise, Authoritativeness, Trust)
 - Of the four, **trust is most important**. The others contribute to trust.
-- **Who**: clear authorship. Bylines that link to an author page/about page. Vinny Barreca = systems builder, built mass emailer 2004 (Shift44 seed), co-built Shift44 ($40M exit). This is the authority story — surface it. NEVER call him "founder" — he is a systems builder / operator.
+- **Who**: clear authorship. Bylines that link to an author page/about page. Vinny Barreca = systems builder, built mass emailer 2004 (Shift44 seed), co-built Shift44 ($40M exit). This is the authority story, surface it. NEVER call him "founder", he is a systems builder / operator.
 - **How**: transparent about how content was made, including where automation/AI was used. Explain the process.
 - **Why**: content exists primarily to help people, not to manipulate rankings.
-- **YMYL**: PhantomByte's AI/cloud/security topics are "Your Money or Your Life" — they can impact financial stability and societal well-being. YMYL requires the HIGHEST E-E-A-T: every claim needs a citation, clear sourcing, author expertise.
+- **YMYL**: PhantomByte's AI/cloud/security topics are "Your Money or Your Life", they can impact financial stability and societal well-being. YMYL requires the HIGHEST E-E-A-T: every claim needs a citation, clear sourcing, author expertise.
 
 ### 3. Apply foundational SEO to generative AI search
-- Google's AI features (AI Overviews, AI Mode) are grounded in the SAME core ranking systems. So SEO still matters — it's the same game.
+- Google's AI features (AI Overviews, AI Mode) are grounded in the SAME core ranking systems. So SEO still matters, it's the same game.
 - RAG/grounding: Google retrieves indexed pages, then surfaces the supporting page. Being indexed, crawlable, and high-quality IS the GEO play.
 - **"AEO"/"GEO" as separate disciplines are marketing terms.** From Google's perspective, optimizing for generative AI search is just SEO. Be wary of third-party AEO/GEO tools claiming "internal" knowledge.
 - **Ignore these myths (Google explicitly says you DON'T need them):**
-  - llms.txt and other "special" AI markup — Google ignores them (fine for other engines, no SEO harm/benefit)
-  - "Chunking" content for AI — Google understands nuance across a page
-  - Rewriting just for AI / hunting long-tail keyword variants — AI understands synonyms
+  - llms.txt and other "special" AI markup, Google ignores them (fine for other engines, no SEO harm/benefit)
+  - "Chunking" content for AI, Google understands nuance across a page
+  - Rewriting just for AI / hunting long-tail keyword variants, AI understands synonyms
   - Seeking inauthentic "mentions"
-  - Overfocusing on structured data — helpful but NOT required for AI search
+  - Overfocusing on structured data, helpful but NOT required for AI search
 
 ### 4. Focus on technical clarity
 - **Search technical requirements**: page must be indexed and eligible to show with a snippet.
@@ -70,7 +70,7 @@ When planning ANY content, decide in this order — keywords never come first:
 - **Semantic HTML** helps screen readers and all users; don't obsess over perfect code, but use headings properly.
 - **Page experience**: works across devices, low latency, clear main content.
 - **Reduce duplicate content**.
-- **Structured data** (JSON-LD): still worth doing — it enables rich results and helps understanding, even though not required for AI search. Validate with Rich Results Test.
+- **Structured data** (JSON-LD): still worth doing, it enables rich results and helps understanding, even though not required for AI search. Validate with Rich Results Test.
 - **Verify site in Search Console** and monitor the **Generative AI performance report** to see AI visibility.
 
 ### 5. Never game the system
@@ -92,7 +92,7 @@ When planning ANY content, decide in this order — keywords never come first:
 **Expertise:**
 - Does it make you want to trust it (clear sourcing, author background, About page)?
 - Written/reviewed by a demonstrable expert or enthusiast?
-- Any easily-verified factual errors? (Must be none — accuracy is non-negotiable.)
+- Any easily-verified factual errors? (Must be none, accuracy is non-negotiable.)
 
 **People-first (yes = good):**
 - Would an existing audience find it useful directly?
@@ -121,19 +121,19 @@ When planning ANY content, decide in this order — keywords never come first:
 ## GEO-Relevant Content Structure (for AI citation)
 
 Generative engines pull individual sections, not whole articles. So:
-- **Each section should be self-contained** — answer one question completely.
+- **Each section should be self-contained**, answer one question completely.
 - **Front-load the direct answer/definition** in each section, then expand.
 - **Use extractable formats** (lists, tables) that LLMs can parse and cite.
-- **Cite sources by name** inline ("According to [paper/source]...") — content that explicitly references trusted sources is cited more.
+- **Cite sources by name** inline ("According to [paper/source]..."), content that explicitly references trusted sources is cited more.
 - **Original data points** are high-value for AI synthesis.
 
 ## Integration (so this skill is ALWAYS applied)
 
 This skill is the SEO/GEO layer that must be referenced wherever Google visibility matters:
 
-1. **Three Outlines cron** — loaded so outlines are planned authority-first (non-commodity, E-E-A-T, YMYL citations, self-contained sections) before any keyword work.
-2. **keyword-research-seo skill** — keyword research is performed IN SERVICE of an authority angle, not as the driver. See that skill's "Google SEO/GEO Best Practices" section.
-3. **phantombyte-distribution** — this skill is the primary source for the E-E-A-T and AI-optimization steps it already covers.
+1. **Three Outlines cron**, loaded so outlines are planned authority-first (non-commodity, E-E-A-T, YMYL citations, self-contained sections) before any keyword work.
+2. **keyword-research-seo skill**, keyword research is performed IN SERVICE of an authority angle, not as the driver. See that skill's "Google SEO/GEO Best Practices" section.
+3. **phantombyte-distribution**, this skill is the primary source for the E-E-A-T and AI-optimization steps it already covers.
 
 ## Pitfalls
 
@@ -141,9 +141,9 @@ This skill is the SEO/GEO layer that must be referenced wherever Google visibili
 - **Don't treat GEO/AEO as separate from SEO.** Google says optimizing for generative AI search IS SEO. Avoid cargo-cult hacks (llms.txt, chunking for AI).
 - **Don't write commodity content** even if it ranks for a keyword. Non-commodity, first-hand value is the long-term play.
 - **Don't forget trust > expertise.** All four E-E-A-T matter, but trust is what Google weights most.
-- **Don't ship unverified claims** in YMYL content — accuracy is non-negotiable for our reputation strategy.
-- **Don't skip technical structure** (title, schema, headings, citations) — it's the substrate of both classic and AI search.
-- **Don't over-optimize for AI at the expense of human readers** — Google explicitly warns against this.
+- **Don't ship unverified claims** in YMYL content, accuracy is non-negotiable for our reputation strategy.
+- **Don't skip technical structure** (title, schema, headings, citations), it's the substrate of both classic and AI search.
+- **Don't over-optimize for AI at the expense of human readers**, Google explicitly warns against this.
 
 ## Verification Checklist
 

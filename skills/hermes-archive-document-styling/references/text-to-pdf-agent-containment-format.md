@@ -4,7 +4,7 @@ Seventh tutorial format variant. Found in "Agent Containment Engineering" (`AGEN
 
 ## Document shape
 
-1. **Cover block in body (MUST SKIP).** The source's first ~17 lines contain the SAME cover text the build script already generates: title, subtitle, "A PhantomByte Tutorial", the intro paragraph, `IN THIS TUTORIAL`, and the 7 TOC bullets, followed by a redundant full-title line, then `OVERVIEW`. If the parser runs over these, page 1 ends up with the cover content duplicated as plain body paragraphs AND 7 stray empty `•` list markers at the bottom of page 1. **Fix: cut `lines = lines[overview_idx:]` — find the line `OVERVIEW` and drop everything before it.** This is the single most important step for this format.
+1. **Cover block in body (MUST SKIP).** The source's first ~17 lines contain the SAME cover text the build script already generates: title, subtitle, "A PhantomByte Tutorial", the intro paragraph, `IN THIS TUTORIAL`, and the 7 TOC bullets, followed by a redundant full-title line, then `OVERVIEW`. If the parser runs over these, page 1 ends up with the cover content duplicated as plain body paragraphs AND 7 stray empty `•` list markers at the bottom of page 1. **Fix: cut `lines = lines[overview_idx:]`, find the line `OVERVIEW` and drop everything before it.** This is the single most important step for this format.
 
 2. **Markdown-style headers** (not the ALL-CAPS / `===` / Roman-numeral styles of other formats):
    - `## N – Title`  -> `<h2>`  (regex: `^##\s+(\d+)\s*[–-]\s*(.+)$`)
@@ -58,7 +58,7 @@ User reported this as "you put the title and subtitle together making one run-on
 3. Shrink the subtitle in CSS: `.cover-sub { font-size: 13pt ... }` → `10.5pt`, dim color to `rgba(255,255,255,0.75)`.
 4. Re-render `weasyprint.HTML(existing.html).write_pdf(...)`.
 
-Verify the split with pymupdf span extraction — the subtitle line should be a distinct span at the smaller size (11pt) below the 24pt title, not a 24pt continuation.
+Verify the split with pymupdf span extraction, the subtitle line should be a distinct span at the smaller size (11pt) below the 24pt title, not a 24pt continuation.
 
 ## Working parser
-A complete working implementation is built from the shape above (custom `H2_RE`/`H3_RE`/`CODE_OPEN_RE`/`ALL_CAPS_RE` + ballot-box + bullet + cover-skip logic). Recreate it from the shape above rather than forcing `plain-text-to-html.py` or `build-agent-tutorial-to-html.py` onto it — both misclassify the `##`/`###` headers and the `☐` lines.
+A complete working implementation is built from the shape above (custom `H2_RE`/`H3_RE`/`CODE_OPEN_RE`/`ALL_CAPS_RE` + ballot-box + bullet + cover-skip logic). Recreate it from the shape above rather than forcing `plain-text-to-html.py` or `build-agent-tutorial-to-html.py` onto it, both misclassify the `##`/`###` headers and the `☐` lines.

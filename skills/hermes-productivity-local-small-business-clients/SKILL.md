@@ -5,17 +5,17 @@ description: Use when Vinny wants quick script cash from local clients.
 
 # Local Small-Business Clients (Quick Script Cash)
 
-Vinny's goal: **small, fast, easy cash** for little scripts and same-day fixes — NOT a freelance career. He builds systems; this is a side channel. The buyers are non-tech-savvy small business owners who pay cash for a specific problem solved today.
+Vinny's goal: **small, fast, easy cash** for little scripts and same-day fixes, NOT a freelance career. He builds systems; this is a side channel. The buyers are non-tech-savvy small business owners who pay cash for a specific problem solved today.
 
 ## Core principle
 Non-tech-savvy small business owners never search for freelancers. They don't know what Upwork is. They ask their neighbor, their local Facebook group, or their barber. **Go where they already are, not where freelancers hang out.**
 
 ## Best channels (in order)
 1. **Local Facebook groups** (town + "small business owners of [town]"). Owners post "anyone know someone who can fix my website/email/invoicing?" daily. Answer those directly.
-2. **Nextdoor** — hyper-local, full of owners asking for help. Trust is built in: being local IS the credential. Join by verifying your address.
-3. **BNI / chamber of commerce / local networking** — the referral engine.
+2. **Nextdoor**, hyper-local, full of owners asking for help. Trust is built in: being local IS the credential. Join by verifying your address.
+3. **BNI / chamber of commerce / local networking**, the referral engine.
 4. **Walk-in / direct outreach** to local shops (barbershops, salons, plumbers, contractors, restaurants). Point at one specific pain, offer same-day flat-fee fix.
-5. **Craigslist "computer services"** — old school but still works for this exact buyer (50+, runs a shop, never left Craigslist). Zero competition from the $5 crowd, no platform fees, buyer is pre-qualified.
+5. **Craigslist "computer services"**, old school but still works for this exact buyer (50+, runs a shop, never left Craigslist). Zero competition from the $5 crowd, no platform fees, buyer is pre-qualified.
 
 ## The pitch that works
 Don't sell "I'm a freelancer." Sell "I'll fix your [specific problem] for $X, done today." Owners buy outcomes, not services. Flat fee, cash or Venmo, paid on completion.

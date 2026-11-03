@@ -9,7 +9,7 @@ metadata:
     category: devops
 ---
 
-# Agent Change Briefs — Sync to WSL + Windows Agents
+# Agent Change Briefs, Sync to WSL + Windows Agents
 
 ## Purpose
 
@@ -24,10 +24,10 @@ Read the Windows tree's own `memories/MEMORY.md` to learn which agent it current
 
 ## Where briefs actually are
 
-- `~/agent-change-briefs/briefs/<YYYY-MM-DD>.md` — the original briefs repo. It can go stale and stop receiving pushes long before the setup stops changing.
-- `~/.hermes/cron/output/agent-change-brief-<YYYY-MM-DD>.md` — briefs written by the weekly cron job (`0f9182f1d46d`, schedule `0 5 * * 0,2,4,6`). Newer briefs live here when the repo is dead.
-- `~/.hermes/cron/output/<job-id>/<timestamp>.md` — the same runs, filed per job.
-- `/tmp/hermes-backup` (fresh clone) and `~/linux-hermes-backup` (older clone) — `github.com/vincentsativa/linux-hermes-backup`, the raw source of truth the briefs diff. Compare against this when you suspect the brief pipeline has died.
+- `~/agent-change-briefs/briefs/<YYYY-MM-DD>.md`, the original briefs repo. It can go stale and stop receiving pushes long before the setup stops changing.
+- `~/.hermes/cron/output/agent-change-brief-<YYYY-MM-DD>.md`, briefs written by the weekly cron job (`0f9182f1d46d`, schedule `0 5 * * 0,2,4,6`). Newer briefs live here when the repo is dead.
+- `~/.hermes/cron/output/<job-id>/<timestamp>.md`, the same runs, filed per job.
+- `/tmp/hermes-backup` (fresh clone) and `~/linux-hermes-backup` (older clone), `github.com/vincentsativa/linux-hermes-backup`, the raw source of truth the briefs diff. Compare against this when you suspect the brief pipeline has died.
 
 ## Core Workflow (run this when Vinny or Bill says "update yourself", or on the weekly cron)
 
@@ -35,10 +35,10 @@ Read the Windows tree's own `memories/MEMORY.md` to learn which agent it current
 2. **If the newest brief looks old, prove the pipeline is still alive before believing there is nothing to do:** read the job's `enabled` flag in `~/.hermes/cron/jobs.json`. A disabled brief job means briefs stopped while the backup repo kept moving, so the real gap is unreported.
 3. **The live source of truth beats the newest brief.** With the pipeline dead, diff current `/tmp/hermes-backup` against both trees and treat anything the backup carries and a tree lacks as an unapplied brief item. Never conclude "nothing to apply" from a stale repo alone.
 4. Work through each section IN ORDER:
-   - **(A) Behavioral rules / constitution** — apply FIRST, governs everything
-   - **(B) Skills to create or update** — replicate each skill on BOTH agents
-   - **(C) Memory / profile changes** — DO NOT APPLY. Memory is never touched unless Vinny personally says add or subtract (see `memory-touch-rule`); a brief listing memory edits is not that permission. Report the skipped memory items and the reason.
-   - **(D) Scripts / tooling** — install/configure tools on BOTH
+   - **(A) Behavioral rules / constitution**, apply FIRST, governs everything
+   - **(B) Skills to create or update**, replicate each skill on BOTH agents
+   - **(C) Memory / profile changes**, DO NOT APPLY. Memory is never touched unless Vinny personally says add or subtract (see `memory-touch-rule`); a brief listing memory edits is not that permission. Report the skipped memory items and the reason.
+   - **(D) Scripts / tooling**, install/configure tools on BOTH
 5. **Apply to the Windows tree too**, writing under `/mnt/c/Users/<user>/AppData/Local/hermes/` (skills in `skills/`, memories in `memories/`).
    - A file present on both trees gets the DELTA only: patch the exact bullet or section the brief names. Never overwrite a shared skill with the WSL copy, because each tree carries content the other lacks.
    - A skill missing on the Windows tree gets copied whole (`shutil.copytree`, which brings `references/` with it), then proven with `diff -r`.

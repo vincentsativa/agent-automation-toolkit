@@ -3,7 +3,7 @@
 Class of task: a cron request for "today's top N AI story headlines with a 5-6
 sentence summary each + N themes," where the deliverable is a dated file in
 `~/Desktop/TODAYS DATA FILES/` and an email with the file attached
-(Telegram only gets a short "email sent" note — the user does NOT want 25
+(Telegram only gets a short "email sent" note, the user does NOT want 25
 stories pasted to Telegram).
 
 ## Pre-flight dedup (MANDATORY)
@@ -26,7 +26,7 @@ verifies freshness in one line.
 Verified reliable feeds for this class: TechCrunch AI, Ars Technica AI, WIRED
 AI, MIT Tech Review, BBC Technology, Guardian AI, Google News RSS (all load
 clean via scrapling Fetcher). VentureBeat's `/category/ai/feed` returned stale
-Jan-2026 items on Aug 6 — treat VentureBeat as unreliable for "today" reports.
+Jan-2026 items on Aug 6, treat VentureBeat as unreliable for "today" reports.
 
 ## Verification (web_extract on canonical URLs)
 
@@ -44,10 +44,10 @@ PITFALLS:
 ## Writing
 
 - Exactly N stories, each with its own 5-6 sentence summary (every story gets a
-  summary — do NOT truncate to a few).
+  summary, do NOT truncate to a few).
 - 5 themes/patterns section at the end, synthesized from the N stories.
 - Vinny rule: NO em dashes. Use commas/periods. Verify with
-  `grep -c '—' <file>` = 0 before delivery.
+  `grep -c '-' <file>` = 0 before delivery.
 
 ## Save + email + telegram
 

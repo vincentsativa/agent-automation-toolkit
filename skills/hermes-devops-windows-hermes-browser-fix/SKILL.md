@@ -9,7 +9,7 @@ Fix the Windows Hermes agent's browser when it fails with `chrome-not-running: n
 
 ## CRITICAL BOUNDARY RULE
 
-**The Windows Hermes agent is Pi. I am NEVER allowed to touch Pi's box, config, processes, or files. Vinny will NEVER authorize this — it is an absolute, permanent boundary.** This skill exists only to document the fix so Vinny or Pi can apply it themselves. I do not apply it to Pi's machine, ever, under any circumstances. If the Windows agent's browser breaks, I hand the fix to Vinny or Pi to apply — I do not reach in.
+**The Windows Hermes agent is Pi. I am NEVER allowed to touch Pi's box, config, processes, or files. Vinny will NEVER authorize this, it is an absolute, permanent boundary.** This skill exists only to document the fix so Vinny or Pi can apply it themselves. I do not apply it to Pi's machine, ever, under any circumstances. If the Windows agent's browser breaks, I hand the fix to Vinny or Pi to apply, I do not reach in.
 
 ## WSL-SIDE BROWSER FIX (port 9222)
 
@@ -89,7 +89,7 @@ Must show `Chrome/151` (Windows build). If it shows HeadlessChrome, that's the W
 
 ### Test the harness (from WSL)
 
-PowerShell has no heredocs — write the Python to a file and pipe it:
+PowerShell has no heredocs, write the Python to a file and pipe it:
 
 ```bash
 # write test.py containing: print(page_info())
@@ -100,9 +100,9 @@ A dict with `url`/`title` means it works. Then test real navigation with `new_ta
 
 ## Pitfalls
 
-- **Port 9222 is taken by WSL.** Never point the Windows config at 9222 — it will hit the WSL Chromium or fail to bind.
+- **Port 9222 is taken by WSL.** Never point the Windows config at 9222, it will hit the WSL Chromium or fail to bind.
 - **Chrome merges into existing session** if the profile dir is already in use. Use a dedicated profile dir (`chrome-debug-9223`) and a fresh one if it won't bind.
 - **PowerShell has no heredocs.** Always write the test Python to a file and pipe it with `Get-Content ... | uvx browser-use`.
-- **`--doctor` shows `daemon alive` FAIL** even when Chrome is running — the daemon auto-starts on first real exec, so run an actual browser-use call to force it, not just `--doctor`.
+- **`--doctor` shows `daemon alive` FAIL** even when Chrome is running, the daemon auto-starts on first real exec, so run an actual browser-use call to force it, not just `--doctor`.
 - **Clean up temp test files** after verifying (`rm -f .../tmp_bu_test.py`).
 - **Do NOT touch Pi, ever.** Vinny will never authorize it. Hand the fix to Vinny or Pi to apply; never reach into Pi's machine.

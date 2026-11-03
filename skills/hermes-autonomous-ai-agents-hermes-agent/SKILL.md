@@ -1,6 +1,6 @@
 ---
 name: hermes-agent
-description: Complete guide to using and extending Hermes Agent — CLI usage, setup, configuration, spawning additional agents, gateway platforms, skills, voice, tools, profiles, and a concise contributor reference. Load this skill when helping users configure Hermes, troubleshoot issues, spawn agent instances, or make code contributions.
+description: Complete guide to using and extending Hermes Agent, CLI usage, setup, configuration, spawning additional agents, gateway platforms, skills, voice, tools, profiles, and a concise contributor reference. Load this skill when helping users configure Hermes, troubleshoot issues, spawn agent instances, or make code contributions.
 version: 2.0.0
 author: Hermes Agent + Teknium
 license: MIT
@@ -13,20 +13,20 @@ metadata:
 
 # Hermes Agent
 
-Hermes Agent is an open-source AI agent framework by Nous Research that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. Hermes works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
+Hermes Agent is an open-source AI agent framework by Nous Research that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw, autonomous coding and task-execution agents that use tool calling to interact with your system. Hermes works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
 
 What makes Hermes different:
 
-- **Self-improving through skills** — Hermes learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
-- **Persistent memory across sessions** — remembers who you are, your preferences, environment details, and lessons learned. Pluggable memory backends (built-in, Honcho, Mem0, and more) let you choose how memory works.
-- **Multi-platform gateway** — the same agent runs on Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, and 10+ other platforms with full tool access, not just chat.
-- **Provider-agnostic** — swap models and providers mid-workflow without changing anything else. Credential pools rotate across multiple API keys automatically.
-- **Profiles** — run multiple independent Hermes instances with isolated configs, sessions, skills, and memory.
-- **Extensible** — plugins, MCP servers, custom tools, webhook triggers, cron scheduling, and the full Python ecosystem.
+- **Self-improving through skills**, Hermes learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
+- **Persistent memory across sessions**, remembers who you are, your preferences, environment details, and lessons learned. Pluggable memory backends (built-in, Honcho, Mem0, and more) let you choose how memory works.
+- **Multi-platform gateway**, the same agent runs on Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, and 10+ other platforms with full tool access, not just chat.
+- **Provider-agnostic**, swap models and providers mid-workflow without changing anything else. Credential pools rotate across multiple API keys automatically.
+- **Profiles**, run multiple independent Hermes instances with isolated configs, sessions, skills, and memory.
+- **Extensible**, plugins, MCP servers, custom tools, webhook triggers, cron scheduling, and the full Python ecosystem.
 
 People use Hermes for software development, research, system administration, data analysis, content creation, home automation, and anything else that benefits from an AI agent with persistent context and full system access.
 
-**This skill helps you work with Hermes Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
+**This skill helps you work with Hermes Agent effectively**, setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
 
 **Docs:** https://hermes-agent.nousresearch.com/docs/
 
@@ -58,9 +58,9 @@ People use Hermes for software development, research, system administration, dat
 
 ### Instruction-Following: Look Before You Guess
 
-When asked about something you don't know — a model, a tool, a product, a fact — use the browser or search tools to find the answer. Do not guess, speculate, or make something up.
+When asked about something you don't know, a model, a tool, a product, a fact, use the browser or search tools to find the answer. Do not guess, speculate, or make something up.
 
-This is not a courtesy issue — it's a trust issue. Making up facts when you have the means to verify is exactly the behavior the user was criticizing in this session: models that "look helpful but aren't helpful by design." A model that guesses in a conversation about false information is maximally ironic and maximally harmful.
+This is not a courtesy issue, it's a trust issue. Making up facts when you have the means to verify is exactly the behavior the user was criticizing in this session: models that "look helpful but aren't helpful by design." A model that guesses in a conversation about false information is maximally ironic and maximally harmful.
 
 The rule: if you don't know, say so and look it up. If you can't look it up right now, say you don't know. Never dress up a guess as knowledge.
 
@@ -78,9 +78,9 @@ The explanation doesn't need to be detailed. It just needs to answer "what does 
 2. Wait for explicit user approval before executing
 3. If the user blocks or denies, do NOT retry the same command
 
-This applies to ALL write-level actions — including patches, file creation, file deletion, pip installs, rm commands, and "cleanup" tasks. No exceptions. The user has been burned by unauthorized agent actions before. "I'll just clean this up" without asking is a violation.
+This applies to ALL write-level actions, including patches, file creation, file deletion, pip installs, rm commands, and "cleanup" tasks. No exceptions. The user has been burned by unauthorized agent actions before. "I'll just clean this up" without asking is a violation.
 
-Never assume approval. Even trivial cleanup requires asking first. The user will approve good work — they just need to know what's happening before it happens.
+Never assume approval. Even trivial cleanup requires asking first. The user will approve good work, they just need to know what's happening before it happens.
 
 ## Quick Start
 
@@ -230,12 +230,12 @@ hermes cron status          Scheduler status
 
 #### no_agent Mode (Script-Only Cron)
 
-Cron jobs can run scripts **without spinning up an LLM agent** — zero tokens consumed. The script's stdout is delivered to the configured destination verbatim; non-zero exit codes trigger error alerts.
+Cron jobs can run scripts **without spinning up an LLM agent**, zero tokens consumed. The script's stdout is delivered to the configured destination verbatim; non-zero exit codes trigger error alerts.
 
 **Setup:**
 1. Place the script in `~/.hermes/scripts/`
 2. Use the `cronjob` tool with `no_agent=True` and `script="filename.sh"` (relative path only, no `~/` or absolute paths)
-3. Scripts are run with `bash ~/.hermes/scripts/<filename>` — ensure shebang is correct
+3. Scripts are run with `bash ~/.hermes/scripts/<filename>`, ensure shebang is correct
 
 **When to use:** Script-only operations (cleanup, pruning, DB maintenance, health checks) that don't need LLM reasoning. Anything you previously ran as a cron job that just called bash commands is a candidate.
 
@@ -250,20 +250,20 @@ hermes kanban [--board <slug>] {init,boards,create,list,show,assign,complete,...
 Multi-profile collaboration board (tasks with dependencies, comments, workspaces). Persistent SQLite-backed.
 
 **How to access:**
-- **Dashboard web UI:** `hermes dashboard` (port 9119 by default), then click **KANBAN** under PLUGINS in the sidebar. The sidebar scrolls — kanban is below the initial visible links.
-- **CLI:** `hermes kanban <subcommand>` — full task management from command line
-- **NOT via TUI** — there is no kanban tab in `hermes --tui` despite what the commit history might suggest
+- **Dashboard web UI:** `hermes dashboard` (port 9119 by default), then click **KANBAN** under PLUGINS in the sidebar. The sidebar scrolls, kanban is below the initial visible links.
+- **CLI:** `hermes kanban <subcommand>`, full task management from command line
+- **NOT via TUI**, there is no kanban tab in `hermes --tui` despite what the commit history might suggest
 
 **Column layout (default board):** Triage → Todo → Ready → In Progress → Blocked → Done → Archived. These are the canonical statuses.
 
 **Boards:** One install supports multiple boards (`hermes kanban boards list/switch/create`). Default board at `~/.hermes/kanban.db`; multi-project boards at `~/.hermes/kanban/boards/<slug>/`.
 
 **Common commands:**
-- `hermes kanban create --title "Task" --status ready` — add a task
-- `hermes kanban create --title "Idea" --triage` — dump rough idea; dispatcher specs it out and promotes to Todo
-- `hermes kanban list` — see all tasks
-- `hermes kanban boards list` — see all boards (● marks current)
-- `hermes kanban boards switch <slug>` — change active board
+- `hermes kanban create --title "Task" --status ready`, add a task
+- `hermes kanban create --title "Idea" --triage`, dump rough idea; dispatcher specs it out and promotes to Todo
+- `hermes kanban list`, see all tasks
+- `hermes kanban boards list`, see all boards (● marks current)
+- `hermes kanban boards switch <slug>`, change active board
 
 **Triage `--triage` mode:** When a task is created with `--triage`, the dispatcher picks it up, fleshes out a full spec (title, body, implementation plan), and promotes it to Todo. Useful for dumping half-formed ideas and having an agent scope them. See `references/kanban-workflow.md` for column semantics and use-case mapping.
 
@@ -505,10 +505,10 @@ Tool changes take effect on `/reset` (new session). They do NOT apply mid-conver
 Voice messages from messaging platforms are auto-transcribed.
 
 Provider priority (auto-detected):
-1. **Local faster-whisper** — free, no API key: `pip install faster-whisper`
-2. **Groq Whisper** — free tier: set `GROQ_API_KEY`
-3. **OpenAI Whisper** — paid: set `VOICE_TOOLS_OPENAI_KEY`
-4. **Mistral Voxtral** — set `MISTRAL_API_KEY`
+1. **Local faster-whisper**, free, no API key: `pip install faster-whisper`
+2. **Groq Whisper**, free tier: set `GROQ_API_KEY`
+3. **OpenAI Whisper**, paid: set `VOICE_TOOLS_OPENAI_KEY`
+4. **Mistral Voxtral**, set `MISTRAL_API_KEY`
 
 Config:
 ```yaml
@@ -536,7 +536,7 @@ Voice commands: `/voice on` (voice-to-voice), `/voice tts` (always voice), `/voi
 
 ## Spawning Additional Hermes Instances
 
-Run additional Hermes processes as fully independent subprocesses — separate sessions, tools, and environments.
+Run additional Hermes processes as fully independent subprocesses, separate sessions, tools, and environments.
 
 ### When to Use This vs delegate_task
 
@@ -606,12 +606,12 @@ terminal(command="tmux new-session -d -s resumed 'hermes --resume 20260225_14305
 
 ### Tips
 
-- **Prefer `delegate_task` for quick subtasks** — less overhead than spawning a full process
-- **Use `-w` (worktree mode)** when spawning agents that edit code — prevents git conflicts
-- **Set timeouts** for one-shot mode — complex tasks can take 5-10 minutes
-- **Use `hermes chat -q` for fire-and-forget** — no PTY needed
-- **Use tmux for interactive sessions** — raw PTY mode has `\r` vs `\n` issues with prompt_toolkit
-- **For scheduled tasks**, use the `cronjob` tool instead of spawning — handles delivery and retry
+- **Prefer `delegate_task` for quick subtasks**, less overhead than spawning a full process
+- **Use `-w` (worktree mode)** when spawning agents that edit code, prevents git conflicts
+- **Set timeouts** for one-shot mode, complex tasks can take 5-10 minutes
+- **Use `hermes chat -q` for fire-and-forget**, no PTY needed
+- **Use tmux for interactive sessions**, raw PTY mode has `\r` vs `\n` issues with prompt_toolkit
+- **For scheduled tasks**, use the `cronjob` tool instead of spawning, handles delivery and retry
 
 ---
 
@@ -623,13 +623,13 @@ terminal(command="tmux new-session -d -s resumed 'hermes --resume 20260225_14305
 3. In gateway: `/restart`. In CLI: exit and relaunch.
 
 ### Tool not available
-1. `hermes tools` — check if toolset is enabled for your platform
+1. `hermes tools`, check if toolset is enabled for your platform
 2. Some tools need env vars (check `.env`)
 3. `/reset` after enabling tools
 
 ### Model/provider issues
 
-**PITFALL — Don't speculate.** When the user reports "model X sucks" or "quality suddenly dropped," do NOT theorize about quantization, config defaults, context bloat, or provider settings until you have evidence. Speculation without data is worse than useless — it wastes the user's time and erodes trust. 
+**PITFALL, Don't speculate.** When the user reports "model X sucks" or "quality suddenly dropped," do NOT theorize about quantization, config defaults, context bloat, or provider settings until you have evidence. Speculation without data is worse than useless, it wastes the user's time and erodes trust. 
 
 **Stop Speculating with Users:** If a user explicitly rejects your hypotheses as "bullshit" or "guessing," STOP immediately. Do not attempt to refine the theory. Admit you lack the internal logs/data to provide a factual answer and that further attempts would be guessing. This prevents the "guessing loop" and stops the erosion of trust.
 
@@ -647,20 +647,20 @@ curl -s --max-time 30 https://ollama.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model": "deepseek-v4-pro", "messages": [{"role": "user", "content": "What is 17 * 23? Just the number."}], "max_tokens": 200}'
 ```
-If the API responds correctly, the model/provider is fine — the issue is in Hermes' config, prompt injection, or context. If the API itself returns garbage/errors, it's upstream. Full playbook: `references/quality-regression-isolation.md`.
+If the API responds correctly, the model/provider is fine, the issue is in Hermes' config, prompt injection, or context. If the API itself returns garbage/errors, it's upstream. Full playbook: `references/quality-regression-isolation.md`.
 
 **After isolation test:**
-1. `hermes doctor` — check config and dependencies
-2. `hermes login` — re-authenticate OAuth providers
+1. `hermes doctor`, check config and dependencies
+2. `hermes login`, re-authenticate OAuth providers
 3. Check `.env` has the right API key
-4. **Model works via direct API call but not in `/model` picker** — The provider's model listing cache may be stale. Clear it and force a refresh:
+4. **Model works via direct API call but not in `/model` picker**, The provider's model listing cache may be stale. Clear it and force a refresh:
    ```bash
    rm -f ~/.hermes/ollama_cloud_models_cache.json
    # Then retry /model in the gateway, or force-refresh from CLI:
    hermes model
    ```
    This applies to any model that was recently added to Ollama Cloud but isn't showing up yet in Hermes' picker. The cache is local to your machine and only refreshes automatically ~1 hour after the last fetch.
-5. **Model quality differs significantly between frameworks (e.g. DeepSeek V4 Flash is great in OpenClaw but weak in Hermes)** — This is a transport/API format mismatch, not a model quality problem. See `references/provider-transport-architecture.md` for the architectural explanation. Consider switching to an Anthropic-native model (MiniMax, GLM, Kimi, StepFun) for better integration with Hermes.
+5. **Model quality differs significantly between frameworks (e.g. DeepSeek V4 Flash is great in OpenClaw but weak in Hermes)**, This is a transport/API format mismatch, not a model quality problem. See `references/provider-transport-architecture.md` for the architectural explanation. Consider switching to an Anthropic-native model (MiniMax, GLM, Kimi, StepFun) for better integration with Hermes.
 5. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `hermes model` → GitHub Copilot.
 
 ### Terminal exits 126 with `cd: .../cache/scratch/...: No such file or directory`
@@ -673,8 +673,8 @@ The terminal tool persists its working directory between calls, and the scratch 
 - **Code changes:** Restart the CLI or gateway process
 
 ### Skills not showing
-1. `hermes skills list` — verify installed
-2. `hermes skills config` — check platform enablement
+1. `hermes skills list`, verify installed
+2. `hermes skills config`, check platform enablement
 3. Load explicitly: `/skill name` or `hermes -s name`
 
 ### Agent "spins in circles" searching instead of loading the right skill
@@ -756,7 +756,7 @@ For occasional contributors and PR authors. Full developer docs: https://hermes-
 
 ```
 hermes-agent/
-├── run_agent.py          # AIAgent — core conversation loop
+├── run_agent.py          # AIAgent, core conversation loop
 ├── model_tools.py        # Tool discovery and dispatch
 ├── toolsets.py           # Toolset definitions
 ├── cli.py                # Interactive CLI (HermesCLI)
@@ -834,7 +834,7 @@ python -m pytest tests/ -o 'addopts=' -q   # Full suite
 python -m pytest tests/tools/ -q            # Specific area
 ```
 
-- Tests auto-redirect `HERMES_HOME` to temp dirs — never touch real `~/.hermes/`
+- Tests auto-redirect `HERMES_HOME` to temp dirs, never touch real `~/.hermes/`
 - Run full suite before pushing any change
 - Use `-o 'addopts='` to clear any baked-in pytest flags
 
@@ -850,8 +850,8 @@ Types: `fix:`, `feat:`, `refactor:`, `docs:`, `chore:`
 
 ### Key Rules
 
-- **Never break prompt caching** — don't change context, tools, or system prompt mid-conversation
-- **Message role alternation** — never two assistant or two user messages in a row
+- **Never break prompt caching**, don't change context, tools, or system prompt mid-conversation
+- **Message role alternation**, never two assistant or two user messages in a row
 - Use `get_hermes_home()` from `hermes_constants` for all paths (profile-safe)
 - Config values go in `config.yaml`, secrets go in `.env`
 - New tools need a `check_fn` so they only appear when requirements are met

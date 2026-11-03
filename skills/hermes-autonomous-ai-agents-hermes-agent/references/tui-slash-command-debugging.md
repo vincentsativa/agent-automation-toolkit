@@ -2,7 +2,7 @@
 
 ## Overview
 
-Hermes slash commands span three layers — Python command registry, tui_gateway JSON-RPC bridge, and the Ink/TypeScript frontend. When a command misbehaves (missing from autocomplete, works in CLI but not TUI, config persists but UI doesn't update), the bug is almost always one layer being out of sync with another.
+Hermes slash commands span three layers, Python command registry, tui_gateway JSON-RPC bridge, and the Ink/TypeScript frontend. When a command misbehaves (missing from autocomplete, works in CLI but not TUI, config persists but UI doesn't update), the bug is almost always one layer being out of sync with another.
 
 ## Architecture
 
@@ -42,11 +42,11 @@ For gateway commands, add handler in `gateway/run.py`. For CLI commands, add to 
 
 ## Common Issues
 
-1. **Command shows in TUI but not autocomplete** — missing from `COMMAND_REGISTRY`
-2. **Command shows in autocomplete but doesn't work** — missing handler in tui_gateway or frontend
-3. **CLI vs TUI behavior differs** — different implementations in two places
-4. **Config persists but UI doesn't update** — also update nanostore state + render paths
-5. **Gateway silently ignores** — check `GATEWAY_KNOWN_COMMANDS` or `gateway_config_gate`
+1. **Command shows in TUI but not autocomplete**, missing from `COMMAND_REGISTRY`
+2. **Command shows in autocomplete but doesn't work**, missing handler in tui_gateway or frontend
+3. **CLI vs TUI behavior differs**, different implementations in two places
+4. **Config persists but UI doesn't update**, also update nanostore state + render paths
+5. **Gateway silently ignores**, check `GATEWAY_KNOWN_COMMANDS` or `gateway_config_gate`
 
 ## Verification
 

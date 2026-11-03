@@ -1,10 +1,10 @@
 ---
 name: research-data-collection
-description: Operational patterns for running automated data collection scripts (pytrends, API scrapers, web data extraction) — timeout handling, stale data prevention, result verification, and retry strategies. Companion to keyword-research-seo for the execution layer.
+description: Operational patterns for running automated data collection scripts (pytrends, API scrapers, web data extraction), timeout handling, stale data prevention, result verification, and retry strategies. Companion to keyword-research-seo for the execution layer.
 trigger: "running pytrends collector, data collection script times out, stale results file, need to verify collected data, API rate limiting during research, free endpoint returns 429/504 or reports zero results (Overpass, Nominatim, scraped search backends), a search or scrape source coming back empty"
 ---
 
-# Research Data Collection — Operational Patterns
+# Research Data Collection, Operational Patterns
 
 ## When to Use
 
@@ -34,7 +34,7 @@ Data collection scripts that write to a fixed filename (e.g. `trends_results.jso
    ```bash
    timeout 90 .venv/bin/python3 trends_collector.py
    ```
-   If it times out, retry immediately — the second attempt on a fresh connection typically completes in under 30 seconds.
+   If it times out, retry immediately, the second attempt on a fresh connection typically completes in under 30 seconds.
 
 3. **Verify data after a timeout:**
    After a timeout, read the JSON file and check that the first term matches what you actually queried. If it shows terms from a different article, delete the file and retry.
@@ -61,9 +61,9 @@ Data collection scripts that write to a fixed filename (e.g. `trends_results.jso
 
 For articles about geopolitical dynamics, policy analysis, and CTO decision frameworks (e.g., "Your AI Stack Is a Geopolitical Bet"):
 
-- **Batch 1 — Core Strategy Concepts:** The article's umbrella term (e.g., "AI stack"), the coined risk term (e.g., "cloud catalogue risk"), strategic framing terms (e.g., "sovereign AI", "geopolitical AI"), ecosystem term (e.g., "open-weight models")
-- **Batch 2 — Named Models & Technical Terms:** All specific model names mentioned (Kimi K3, Qwen 3.8, GLM 5.2, Soofi S), the technical debate term (e.g., "model distillation")
-- **Batch 3 — Ecosystem & Policy Terms:** Broader ecosystem terms (e.g., "Chinese AI models", "open source AI"), decision-intent terms (e.g., "AI model selection", "AI infrastructure strategy"), policy terms (e.g., "AI regulation")
+- **Batch 1, Core Strategy Concepts:** The article's umbrella term (e.g., "AI stack"), the coined risk term (e.g., "cloud catalogue risk"), strategic framing terms (e.g., "sovereign AI", "geopolitical AI"), ecosystem term (e.g., "open-weight models")
+- **Batch 2, Named Models & Technical Terms:** All specific model names mentioned (Kimi K3, Qwen 3.8, GLM 5.2, Soofi S), the technical debate term (e.g., "model distillation")
+- **Batch 3, Ecosystem & Policy Terms:** Broader ecosystem terms (e.g., "Chinese AI models", "open source AI"), decision-intent terms (e.g., "AI model selection", "AI infrastructure strategy"), policy terms (e.g., "AI regulation")
 
 Trend interpretation for this article type: coined risk terms show mean 0.0 (expected, zero competition), new model names show mean 0.0 with rising trend (brand new, 2-4 week window), high-volume umbrella terms (40+) are SEO metadata hooks not primary content targets.
 
@@ -71,16 +71,16 @@ Trend interpretation for this article type: coined risk terms show mean 0.0 (exp
 
 For articles that synthesize 4+ heterogeneous sources (blog essays + news articles + Substack + vendor benchmarks) into a unified argument, a single pass of 15 terms may miss important umbrella terms. Use a **two-pass strategy**:
 
-**Pass 1 (3 batches, 15 terms):** Specific terms from the article's sources — coined terms, source names, specific model names, niche concepts. These are the high-value first-mover targets.
+**Pass 1 (3 batches, 15 terms):** Specific terms from the article's sources, coined terms, source names, specific model names, niche concepts. These are the high-value first-mover targets.
 
-**Pass 2 (3 batches, 15 terms):** Broader umbrella terms that the first pass missed — architectural concepts, security terms, cost/economics terms, vendor product lines. These are the SEO metadata hooks and secondary targets.
+**Pass 2 (3 batches, 15 terms):** Broader umbrella terms that the first pass missed, architectural concepts, security terms, cost/economics terms, vendor product lines. These are the SEO metadata hooks and secondary targets.
 
 **Why two passes:** The first pass's term selection is biased toward what the article specifically discusses. The second pass catches adjacent terms that searchers use but the article doesn't explicitly name. Example: an article about "Library-Librarian pattern" might not include "AI system design architecture" in its term list, but that's a high-volume (40.5) umbrella term that belongs in the SEO metadata.
 
 **When to use two passes:**
 - Article synthesizes 3+ sources from different domains
 - Article has a security, cost, or architecture angle that spans multiple sub-topics
-- The coined term is a named pattern (not a descriptive phrase) — broader umbrella terms are needed for SEO context
+- The coined term is a named pattern (not a descriptive phrase), broader umbrella terms are needed for SEO context
 
 **When one pass is sufficient:**
 - Single-source article (one paper, one benchmark)
@@ -99,7 +99,7 @@ Before building a report from collected data, verify:
 
 - [ ] The output file exists and is non-empty
 - [ ] The terms in the output match what you queried (not stale data)
-- [ ] No terms show errors (429, timeout, etc.) — if so, retry those batches
+- [ ] No terms show errors (429, timeout, etc.), if so, retry those batches
 - [ ] Trend direction is derived from the last 4 weeks of 12-month data (not a separate API call)
 - [ ] Coined terms showing "mean: 0.0" are expected, not errors
 
@@ -175,7 +175,7 @@ When a collection run takes tens of minutes and the user says "let me know when 
 done," the deliverable is a single completion notice with the final count. Watch it
 from a background watcher that:
 
-- counts live processes by NAME (`pgrep -f "<script>.py"`), never a captured PID — a
+- counts live processes by NAME (`pgrep -f "<script>.py"`), never a captured PID, a
   run relaunched in a different shape (one process split into N parallel part files)
   has a new PID, so `kill -0 <old_pid>` reports false while the work is still running
   and the watcher announces a false completion;
@@ -190,7 +190,7 @@ Launch the watcher loop AS the background command. Never wrap it in `nohup bash 
 inside a `background=true` call: the backgrounded shell returns immediately, so the
 completion notification fires for the shell that started the watcher rather than for
 the job. Report the live process count, the summed row count across all output files,
-and the finish time — a watcher exit code of 0 means the watcher ended, not that the
+and the finish time, a watcher exit code of 0 means the watcher ended, not that the
 collection succeeded.
 
 Full recipe: `references/background-job-completion-monitoring.md`.
@@ -259,5 +259,5 @@ was clean.
 
 - **Stale data is the #1 failure mode.** A previous run's `trends_results.json` sitting on disk will be read after a timeout, producing a report for the wrong article. Always delete or use unique filenames.
 - **Exit code 0 means the script ran, not that data is fresh.** The script can complete successfully with stale data if it read from a pre-existing file. Always verify the terms match.
-- **pytrends can hang indefinitely.** Always wrap with `timeout 90` — don't rely on the terminal tool's default timeout.
+- **pytrends can hang indefinitely.** Always wrap with `timeout 90`, don't rely on the terminal tool's default timeout.
 - **Do not fall back to domain-knowledge estimates.** If data collection fails after retries, report the failure. Never invent numbers.

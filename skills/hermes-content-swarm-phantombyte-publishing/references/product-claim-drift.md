@@ -20,12 +20,12 @@ Vinny said "information included in your article MUST be true." Propagating an o
 
 **Outline claim:** "LockIn MCP: $19.99 lifetime license."
 
-**Live vendor site (lockinmcp.com):** "Pro subscription — $14.99/year" with monthly and yearly toggle. No lifetime license mentioned.
+**Live vendor site (lockinmcp.com):** "Pro subscription, $14.99/year" with monthly and yearly toggle. No lifetime license mentioned.
 
 **Resolution:** The "$19.99 lifetime license" claim was omitted from the article. LockIn MCP was described as "a shipping product" and "consumer-grade system administration" without citing a specific price.
 
 ## Related Pitfalls
 
-- **Vendor blog URL slug mismatch** — especially NVIDIA. See `references/google-trends-fallback.md` for vendor URL verification patterns.
-- **GitHub stats are live, not static** — star counts and forks change hourly. Always pull fresh.
-- **Verification tool failures** — see `references/fact-checking-pattern.md` in ghostwriter-terminal for the full workflow.
+- **Vendor blog URL slug mismatch**, especially NVIDIA. See `references/google-trends-fallback.md` for vendor URL verification patterns.
+- **GitHub stats are live, not static**, star counts and forks change hourly. Always pull fresh.
+- **Verification tool failures**, see `references/fact-checking-pattern.md` in ghostwriter-terminal for the full workflow.

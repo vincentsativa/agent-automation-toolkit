@@ -9,7 +9,7 @@ category: email
 
 The full AgentMail email skill.
 
-**CRITICAL DISTINCTION — TWO SEPARATE EMAIL SYSTEMS:**
+**CRITICAL DISTINCTION, TWO SEPARATE EMAIL SYSTEMS:**
 
 | Trigger | Which system | Tool |
 |---|---|---|

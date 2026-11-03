@@ -12,13 +12,13 @@ AI news research and PhantomByte content generation.
 
 ## Pick the mode from the words. No third mode, no improvised pipeline.
 
-### Quick Scan Mode — DEFAULT for a question in chat
+### Quick Scan Mode, DEFAULT for a question in chat
 
 Triggers: "what are the top AI news stories today," "today's AI news," "today's AI headlines," "what's trending in AI today," "AI news brief," "give me today's AI stories," "what's happening in AI today," "get me up to speed on AI news." Any plain question about the day's AI news, with no request for a file, report, themes, or ideas.
 
-**HARD RULE — ONE PASS, THEN ANSWER.** A quick scan is one data step and one reply:
+**HARD RULE, ONE PASS, THEN ANSWER.** A quick scan is one data step and one reply:
 
-1. **ONE `terminal` call**: `python3 ~/.hermes/skills/content-swarm/ironpulse/scripts/quick_scan.py` — fetches TechCrunch AI, WIRED AI, and Google News AI, prints `<age>h | <source> | <headline>` for everything inside 24 hours, newest first. It runs in under a second and takes no arguments.
+1. **ONE `terminal` call**: `python3 ~/.hermes/skills/content-swarm/ironpulse/scripts/quick_scan.py`, fetches TechCrunch AI, WIRED AI, and Google News AI, prints `<age>h | <source> | <headline>` for everything inside 24 hours, newest first. It runs in under a second and takes no arguments.
 2. **Answer in chat** from that output. 1-2 lines per story, grouped by importance.
 
 Do not write your own fetch script or re-parse the feeds by hand; the script is the fetch. Its parser uses `email.utils.parsedate`, because Google News timestamps end in `GMT` and `strptime`'s `%z` rejects them.
@@ -33,11 +33,11 @@ Do NOT do any of the following in a quick scan. Each one is a violation:
 - Do NOT check the PhantomByte catalog or run dedup against data files.
 - Do NOT use browser tools, scrapling, or web_search for a scan; plain `curl` on the feed URLs is the whole job.
 
-**Target: two tool calls total — ONE script run, ONE answer. Zero other tool calls.** If you have made 3 data calls on a quick scan, you have already failed the mode. If a feed 404s or returns nothing recent, say so and move on with the feeds that worked. Never debug a feed at the user's expense.
+**Target: two tool calls total, ONE script run, ONE answer. Zero other tool calls.** If you have made 3 data calls on a quick scan, you have already failed the mode. If a feed 404s or returns nothing recent, say so and move on with the feeds that worked. Never debug a feed at the user's expense.
 
 ### Full Report Mode
 
-Triggers: "run ironpulse," "run ironpulse report," "generate ironpulse output," "give me a report," the file/Desktop copy, or a scheduled cron run. Also triggered by "run me an ironpulse report, with it, I want you to include three themes" — that is full workflow + inline themes + email.
+Triggers: "run ironpulse," "run ironpulse report," "generate ironpulse output," "give me a report," the file/Desktop copy, or a scheduled cron run. Also triggered by "run me an ironpulse report, with it, I want you to include three themes", that is full workflow + inline themes + email.
 
 Full mode = ranked story file + Desktop/OneDrive copy + Pinterest and X posts + themes + article ideas.
 
@@ -59,7 +59,7 @@ Full mode = ranked story file + Desktop/OneDrive copy + Pinterest and X posts + 
 - Do not modify cron jobs. `references/cron-and-delivery.md` states the rule and the reason.
 - Scheduled runs are not interactive runs: load `references/cron-and-delivery.md` before touching a cron, a delivery target, or the email step.
 
-## References — Load On Demand Only
+## References, Load On Demand Only
 
 | File | Load when |
 |---|---|

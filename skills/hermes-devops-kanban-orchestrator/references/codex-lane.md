@@ -1,4 +1,4 @@
-# Codex Lane — Hermes + Codex Dual-Lane Convention
+# Codex Lane, Hermes + Codex Dual-Lane Convention
 
 > **Source:** Absorbed from `kanban-codex-lane` (v1.0.0) into `kanban-orchestrator` as a reference.
 >

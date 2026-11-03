@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-IONOS DNS manager (hosting API) — for phantom-byte.com / vincentsativa.com.
+IONOS DNS manager (hosting API), for phantom-byte.com / vincentsativa.com.
 
 API base : https://api.hosting.ionos.com/dns/v1
 Auth     : header  X-API-Key: <prefix>.<secret>
@@ -103,7 +103,7 @@ def _upsert(domain, rtype, name, content, prio, ttl, apply_):
     recs.append(rec)
     print(f"WOULD set {rtype} {name} -> {content}" + (f" prio={prio}" if prio is not None else ""))
     if not apply_:
-        print("(dry-run — add --apply to write)")
+        print("(dry-run, add --apply to write)")
         return
     cmd_backup(domain)
     api("PUT", f"/zones/{zid}", {"name": z["name"], "type": z.get("type", "NATIVE"), "records": recs})
@@ -125,7 +125,7 @@ def _rm(domain, rtype, name, content, apply_):
         print("nothing matched")
         return
     if not apply_:
-        print("(dry-run — add --apply to write)")
+        print("(dry-run, add --apply to write)")
         return
     cmd_backup(domain)
     api("PUT", f"/zones/{zid}", {"name": z["name"], "type": z.get("type", "NATIVE"), "records": keep})

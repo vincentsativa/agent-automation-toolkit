@@ -11,9 +11,9 @@ Resumes, CVs, cover letters, and capability one-pagers for Vinny. The document i
 ## When to use
 - Vinny sends a resume or CV (usually `.odt`/`.docx`/`.pdf`) and asks whether it is good, or says rewrite it.
 - Vinny asks for a resume, cover letter, capability statement, or consulting/services one-pager.
-- Vinny sends a resume or CV back with ONE change to make ("word this differently", "change X", "drop that") and send it to him. That is an edit, not a rewrite — see the targeted-edit procedure below.
+- Vinny sends a resume or CV back with ONE change to make ("word this differently", "change X", "drop that") and send it to him. That is an edit, not a rewrite, see the targeted-edit procedure below.
 
-## Rule 0 — Evidence or omission
+## Rule 0, Evidence or omission
 
 Every bullet must answer "how big, how many, how long, how much." Numbers come from a live query run in THIS session, never from memory, never from a number carried forward out of `references/vinny-system-evidence.md`. A resume figure is a checkable fact; an invented one is a falsification he gets caught holding in an interview. His own resume text drifts too, so a count written inside it (published pages, scheduled jobs, article numbers) is a claim to re-verify, never a source to copy: re-run the query and use the live number even when the resume already states one.
 
@@ -24,15 +24,15 @@ If revenue, client names, or headcount cannot be verified, leave them out of the
 ### 1. Read the source document
 `read_file` inlines `.docx` and text-layer `.pdf`. `.odt` needs the extraction recipe in `references/document-format-extraction.md`. Never ask him to paste the contents of a document he already sent.
 
-### 2. Audit before rewriting — lead with the verdict
+### 2. Audit before rewriting, lead with the verdict
 The first sentence of the answer is the verdict: good, or not good and why. Then class the defects by kind, so he can see what is structural versus cosmetic:
 
-- **No evidence** — categories and adjectives where results belong. "Built and operated X" with no scale is not a credential.
-- **Missing timeframes** — a work item with no dates reads as unverifiable. "2004–Present" on the background line does not date the current work.
-- **Keyword dump** — a 14-line capability list standing in for substance. Keywords belong in a labeled TOOLING block after the evidence, not in place of it.
-- **Role ambiguity** — a document aimed at employment, contract work, consulting, and projects at once cannot be read as any of them.
-- **Format defects** — typos in the name, stray leading spaces, `.odt` for ATS ingestion.
-- **Verb and tense drift** — "experimented with" and "lessons learned" read hobbyist; mixed past/present tense on ongoing work.
+- **No evidence**, categories and adjectives where results belong. "Built and operated X" with no scale is not a credential.
+- **Missing timeframes**, a work item with no dates reads as unverifiable. "2004–Present" on the background line does not date the current work.
+- **Keyword dump**, a 14-line capability list standing in for substance. Keywords belong in a labeled TOOLING block after the evidence, not in place of it.
+- **Role ambiguity**, a document aimed at employment, contract work, consulting, and projects at once cannot be read as any of them.
+- **Format defects**, typos in the name, stray leading spaces, `.odt` for ATS ingestion.
+- **Verb and tense drift**, "experimented with" and "lessons learned" read hobbyist; mixed past/present tense on ongoing work.
 
 ### 3. Build the evidence inventory
 Re-run the live queries in `references/vinny-system-evidence.md` for every claim the document will make. Counts drift; a stale number is a lie with a timestamp.
@@ -41,7 +41,7 @@ Re-run the live queries in `references/vinny-system-evidence.md` for every claim
 Order that works for his material: name/title/contact line → SUMMARY (the framing paragraph) → SELECTED WORK with number-heavy bullets → topic sections (technical SEO, services) → TECHNICAL WRITING → TOOLING as labeled lines → BACKGROUND → AVAILABILITY.
 
 ### 5. Verify before delivering
-- `awk '{ if (length($0) > m) m = length($0) } END { print m }' <file>` — longest line must be long (body paragraphs are one unwrapped line each). Article 14; a wrapped file is rejected on sight.
+- `awk '{ if (length($0) > m) m = length($0) } END { print m }' <file>`, longest line must be long (body paragraphs are one unwrapped line each). Article 14; a wrapped file is rejected on sight.
 - Check the name and any roman numeral character by character. `III` written as `lll` is the single most damaging typo on a resume.
 - Grep for banned words and characters before delivery.
 - Confirm every figure in the document matches the query output from step 3.
@@ -53,7 +53,7 @@ Email both formats in one message via the `email-sender` skill: `.docx` for ATS 
 
 "Word this differently" is an edit, not an audit and not a rewrite. The document is already his; only the named text changes.
 
-1. Copy the source to a fresh scratch dir (`SCRATCH=$(mktemp -d /tmp/hermes-resume-XXXXXX)`) and work on the copy. Never edit the file in the cache directory he sent, and never regenerate the document from a re-typed draft — regenerating loses his styling and silently rewrites lines he did not ask you to touch.
+1. Copy the source to a fresh scratch dir (`SCRATCH=$(mktemp -d /tmp/hermes-resume-XXXXXX)`) and work on the copy. Never edit the file in the cache directory he sent, and never regenerate the document from a re-typed draft, regenerating loses his styling and silently rewrites lines he did not ask you to touch.
 2. Make the substitution at the file level per `references/document-format-extraction.md` (byte-level edit of `word/document.xml`). Do not rebuild the `.docx` with a layout script when one string changed.
 3. Assert the old string occurs exactly once before replacing, and afterwards grep the whole file for BOTH the new string and the old term. The old term must return zero hits everywhere in the document; a partial match elsewhere is a defect, not a detail.
 4. Confirm no other paragraph changed: print the full paragraph list and compare it to the text extracted from the original. Report the diff as one old line and one new line.
@@ -63,7 +63,7 @@ Email both formats in one message via the `email-sender` skill: `.docx` for ATS 
 
 Some lines on his resume carry a legal or reputational edge, and he knows better than you what he can survive on a background check. Edit what he named, then flag the risk in ONE line and offer the strictly-safer alternative.
 
-- Do not silently soften wording he did not ask you to change — quietly laundering a line is a change he did not authorize.
+- Do not silently soften wording he did not ask you to change, quietly laundering a line is a change he did not authorize.
 - Do not stall the edit behind a question. Do the work, deliver it, then flag.
 - A euphemism is not automatically safer than the plain phrase. Industry-standard terminology is a signal to anyone who reads that industry; if the term he asked for is still a signal, say which wording carries none and offer that as a single line.
 - Never present a menu. One line naming the risk, one line naming the alternative he can ask for.
@@ -127,10 +127,10 @@ A recruiter screening him by email asks a numbered list of capability questions 
 - **`.docx` or text-layer PDF, not `.odt`.** Many ATS parsers fail on ODF.
 - **Keep his voice, promote his strongest line.** The "this is a systems problem, not a model choice" framing is the best paragraph in his material and belongs in the SUMMARY at the top, not at the bottom under a closing header.
 - **Rewrite means rewrite, not redesign the person.** Do not add sections, credentials, or framing he did not have and did not ask for.
-- **One target.** A document aimed at every kind of engagement is read as none of them. If the headline is not a title a recruiter searches, say so in one line at delivery and proceed anyway — do not stall the work for a decision.
+- **One target.** A document aimed at every kind of engagement is read as none of them. If the headline is not a title a recruiter searches, say so in one line at delivery and proceed anyway, do not stall the work for a decision.
 - **Do not undersell.** He owned a multi-million-dollar exit, runs a real multi-host agent fleet, and has published hundreds of original pages. State it plainly with numbers rather than hedging.
 - **A limit named plainly beats scale implied.** When a posting asks for a scale he does not have (billions of messages, enterprise volume, a named platform's infrastructure), say the real scale in one sentence and pivot to diagnostic depth. Never let wording leave the reader free to infer a scale he cannot back.
 
 ## Reference files
-- `references/vinny-system-evidence.md` — the verifiable claims about his system with the exact command that proves each one. Re-run every query before use.
-- `references/document-format-extraction.md` — reading `.odt`/`.docx` sent by him, single-string edits to a `.docx` without a layout library, and generating a verified `.docx` from a plain-text draft.
+- `references/vinny-system-evidence.md`, the verifiable claims about his system with the exact command that proves each one. Re-run every query before use.
+- `references/document-format-extraction.md`, reading `.odt`/`.docx` sent by him, single-string edits to a `.docx` without a layout library, and generating a verified `.docx` from a plain-text draft.

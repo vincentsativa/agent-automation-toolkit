@@ -31,7 +31,7 @@ Follow the blogwatcher skill's Editorial Intelligence Brief Workflow for scannin
 
 **Each story gets a 5-6 sentence summary.** Not 1-2 sentences. Lead with the most important fact, then context, then impact. For the 6-9 anchor stories that will drive unwritten themes, use delegate_task with parallel browser tasks to get full-article summaries. For the remaining ~15 headlines, write summaries from headline + source context.
 
-**Synchronous delegate_task in cron context:** When running as a cron job (one-shot runner), delegate_task runs synchronously — results return before the turn ends. This differs from interactive sessions where subagents run in the background. You can rely on synchronous results for deep summaries in cron mode. Batch 3 tasks per call (max concurrency = 3), chain 2-3 rounds for 6-9 deep summaries.
+**Synchronous delegate_task in cron context:** When running as a cron job (one-shot runner), delegate_task runs synchronously, results return before the turn ends. This differs from interactive sessions where subagents run in the background. You can rely on synchronous results for deep summaries in cron mode. Batch 3 tasks per call (max concurrency = 3), chain 2-3 rounds for 6-9 deep summaries.
 
 ### 4. Unwritten Themes
 
@@ -46,7 +46,7 @@ Write the editorial brief to `~/blogwatcher-dump-YYYY-MM-DD.txt`.
 
 ### 6. Email Delivery
 
-Use the email-sender skill to email the file as an attachment to hello@phantom-byte.com. Subject: "AI Daily News Brief — YYYY-MM-DD (N stories, 5 unwritten themes)". Body: brief summary of what's attached.
+Use the email-sender skill to email the file as an attachment to hello@phantom-byte.com. Subject: "AI Daily News Brief, YYYY-MM-DD (N stories, 5 unwritten themes)". Body: brief summary of what's attached.
 
 ### 7. Windows Desktop Copy
 
@@ -78,13 +78,13 @@ step below is a single command against the file already on disk.
 ls -t ~/.hermes/cron/output/<job_id>/*.md | head -1   # read the last run's ## Response
 ```
 That response names the finished stages and the unfinished ones in order, which tells you
-exactly what to finish. Then `stat` the artifact it claims to have written — a response is a
+exactly what to finish. Then `stat` the artifact it claims to have written, a response is a
 claim, the file is evidence. A rebuilt brief is a fresh chance to introduce the errors the
 first build already cleared, and re-firing duplicates a report that may already have gone
 out.
 
 **Then finish the tail in order:**
-1. Stat the dump file. If present, copy it to `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` and confirm the copy landed with `md5sum` on BOTH paths — matching hashes are the proof, the `cp` exit code is not.
+1. Stat the dump file. If present, copy it to `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` and confirm the copy landed with `md5sum` on BOTH paths, matching hashes are the proof, the `cp` exit code is not.
 2. Email it from a fresh `mktemp -d` scratch dir per `email-sender-cron`. Assert `REFUSED RECIPIENTS: {}` and a `250 ... completed` reply; `send_message` returning without complaint is not a send.
 3. Run the cleanup script and read the totals it prints.
 4. Delete the dump file from `~/` and the run's scratch dir, leaving the desktop copy as the only copy.
@@ -105,7 +105,7 @@ diagnosis, not a coincidence. The resolution fix and the packaged probe are in
 
 ### 9. Telegram Notification
 
-Send ONE Telegram message confirming the email was sent. Do NOT paste document content. Format: "Email sent with today's editorial brief — N stories, 5 unwritten themes. File on your desktop."
+Send ONE Telegram message confirming the email was sent. Do NOT paste document content. Format: "Email sent with today's editorial brief, N stories, 5 unwritten themes. File on your desktop."
 
 **Cron/autonomous mode:** When running as a scheduled cron job (no user present), skip Telegram entirely. The cron delivery mechanism handles the final response. Do not attempt to send Telegram messages from a cron context.
 
@@ -123,7 +123,7 @@ Vinny's "no duplicates" rule is strict and phrase-based, not title-based. Tensor
 ## Pitfalls
 
 - **The run must not end early with stages outstanding.** This job's tail (copy, email, cleanup) is exactly what the turn ceiling eats first when the brief-building consumes the budget. Do not rebuild a finished brief to finish the tail: copy the file already on disk, send it, run the cleanup script. See step 10 for the recovery procedure, `hermes-cron-troubleshooting` Failure Mode #9 for the budget fix, and `agent-turn-efficiency` for the budget side.
-- **Separator lines carry em dashes.** Box-drawing rules and titled section headers are where `—` sneaks into an otherwise clean brief (a section header reading `SECTION 3: UNWRITTEN THEMES — NOT ON PHANTOMBYTE`, and a sign-off line). Grep the finished file for `—` before sending and replace with a comma; a zero-em-dash claim made without grepping the actual file is a guess.
+- **Separator lines carry em dashes.** Box-drawing rules and titled section headers are where `-` sneaks into an otherwise clean brief (a section header reading `SECTION 3: UNWRITTEN THEMES, NOT ON PHANTOMBYTE`, and a sign-off line). Grep the finished file for `-` before sending and replace with a comma; a zero-em-dash claim made without grepping the actual file is a guess.
 - **A job field is not a fix until the resolver reads it.** If the job record carries a `max_turns` and the run still dies at the global ceiling, the field is being persisted and ignored. Editing the brief's structure or trimming the story count does not fix that, and it costs the run its tail again on the next dispatch.
 - **Report per-stage state, never "the job ran."** Four stages means four pieces of evidence: the file at the destination path, the send confirmation, the DB totals, the draft written. A status field saying `ok` is evidence about the process, not about the work.
 - **Dedup by phrase, not by title.** A reworded headline passes title-matching while duplicating the exact same story. See step 2b.

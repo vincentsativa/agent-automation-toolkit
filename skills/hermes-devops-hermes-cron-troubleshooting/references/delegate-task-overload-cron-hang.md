@@ -1,4 +1,4 @@
-# Delegate Task Overload — Cron Job Hangs Without Delivery
+# Delegate Task Overload, Cron Job Hangs Without Delivery
 
 ## Symptom
 
@@ -29,7 +29,7 @@ The agent then tried to recover by spawning individual subagents in a loop. Each
 
 1. **In the cron prompt:** If the job needs to process multiple items in parallel, limit to 3 tasks per `delegate_task` call. Use sequential batches if more are needed.
 2. **In the agent's prompt:** Explicitly tell the agent to avoid `delegate_task` with more than 3 tasks, or to use sequential processing instead.
-3. **Scheduler-side:** Consider adding a per-job timeout that produces a delivery even on failure (e.g., "Job timed out after X minutes — partial results: ...").
+3. **Scheduler-side:** Consider adding a per-job timeout that produces a delivery even on failure (e.g., "Job timed out after X minutes, partial results: ...").
 
 ## Detection
 
@@ -38,4 +38,4 @@ When a user asks "is job X running?" and the job appears to have missed:
 1. Check agent.log FIRST: `grep <job_id> ~/.hermes/logs/agent.log | tail -20`
 2. Look for `delegate_task returned error` with "Too many tasks"
 3. Check if the last log entry shows subagent init without a subsequent delivery
-4. If the pattern matches, the job was killed mid-flight — do NOT re-fire without fixing the prompt to limit delegate_task count
+4. If the pattern matches, the job was killed mid-flight, do NOT re-fire without fixing the prompt to limit delegate_task count

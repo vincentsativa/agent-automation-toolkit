@@ -1,4 +1,4 @@
-# PhantomByte Coverage Gap Analysis — Site-Specific Extraction
+# PhantomByte Coverage Gap Analysis, Site-Specific Extraction
 
 ## Site Structure (as of July 2026)
 
@@ -8,7 +8,7 @@ The PhantomByte site at https://articles.phantom-byte.com uses `<article>` tags 
 Array.from(document.querySelectorAll('main article h3 a')).map(a => a.innerText)
 ```
 
-**works** for extracting archive article titles. However, the category sidebar uses `<li>` elements, not `<article>` tags — so `querySelectorAll('article')` returns nothing for the sidebar.
+**works** for extracting archive article titles. However, the category sidebar uses `<li>` elements, not `<article>` tags, so `querySelectorAll('article')` returns nothing for the sidebar.
 
 ## Working Extraction Patterns
 
@@ -38,7 +38,7 @@ CATEGORIES
 ▸ Industry Report 1
 ```
 
-These counts are visible in the snapshot from `browser_navigate` — no scrolling needed.
+These counts are visible in the snapshot from `browser_navigate`, no scrolling needed.
 
 ### Method 2: Console extraction of archive titles (for dedup)
 
@@ -69,17 +69,17 @@ Array.from(document.querySelectorAll('[class*="category"] li, aside li')).map(li
 2. Use `browser_snapshot(full=true)` to get the full page including the category sidebar
 3. Manually extract category names and counts from the snapshot text
 4. Identify gaps by comparing against the current news themes.
-   **Key gap pattern to watch for:** categories with high article counts that have a sub-topic with near-zero coverage. Example: AI Infrastructure has 51 articles but AI Agents has only 2 — the agent infrastructure angle is a massive gap hiding inside a well-covered category.
+   **Key gap pattern to watch for:** categories with high article counts that have a sub-topic with near-zero coverage. Example: AI Infrastructure has 51 articles but AI Agents has only 2, the agent infrastructure angle is a massive gap hiding inside a well-covered category.
 5. Cross-reference the latest PhantomByte article (pinned at top under "// LATEST") to avoid suggesting a topic just covered
 
 ## Current Category Snapshot (July 15, 2026)
 
 | Category | Count | Gap Assessment |
 |----------|-------|----------------|
-| All Notes | 130 | — |
+| All Notes | 130 |, |
 | AI & Investing | 1 | Near-zero |
 | AI & Society | 2 | Near-zero |
-| AI Agents | 6 | **Growing but still a gap** — up from 2, but still low vs 54 in AI Infrastructure |
+| AI Agents | 6 | **Growing but still a gap**, up from 2, but still low vs 54 in AI Infrastructure |
 | AI Collaboration | 1 | Near-zero |
 | AI Engineering | 21 | Well-covered |
 | AI Ethics | 1 | Near-zero |
@@ -99,15 +99,15 @@ Array.from(document.querySelectorAll('[class*="category"] li, aside li')).map(li
 
 When ranking article ideas, prioritize gaps in this order:
 
-1. **AI Agents infrastructure** — 51 articles on AI Infrastructure but only 2 tagged AI Agents. The agent infrastructure layer (isolation, telephony, grounding, review gates) is the single biggest uncovered topic. This is the #1 gap to recommend.
-2. **AI Research** — Only 3 articles. Good for paper-summary pieces.
-3. **AI Policy** — 6 articles. Good for geopolitics/regulation pieces.
-4. **Near-zero categories** (AI & Investing, AI Ethics, AI Strategy, etc.) — These are gaps but may be intentionally low because they're less aligned with the site's engineering audience. Only recommend if the news strongly supports it.
+1. **AI Agents infrastructure**, 51 articles on AI Infrastructure but only 2 tagged AI Agents. The agent infrastructure layer (isolation, telephony, grounding, review gates) is the single biggest uncovered topic. This is the #1 gap to recommend.
+2. **AI Research**, Only 3 articles. Good for paper-summary pieces.
+3. **AI Policy**, 6 articles. Good for geopolitics/regulation pieces.
+4. **Near-zero categories** (AI & Investing, AI Ethics, AI Strategy, etc.), These are gaps but may be intentionally low because they're less aligned with the site's engineering audience. Only recommend if the news strongly supports it.
 
 ## Known Pitfalls
 
-- The `document.querySelectorAll('article')` pattern returns empty for the sidebar — the sidebar uses `<li>` elements, not `<article>`.
-- The site is a static site (likely Astro or similar) — no JS rendering issues, but the DOM structure is non-standard.
-- The "// LATEST" pinned article at the top is the most recent — check its title before recommending to avoid suggesting a topic just published.
-- Category counts in the sidebar are accurate and up-to-date — trust them over any cached data.
-- **Counts drift over time** — the reference table above is a snapshot from a specific date. Always re-fetch fresh counts from the live site during each report session rather than relying on the cached table. The table serves as a baseline for trend detection, not a substitute for live data.
+- The `document.querySelectorAll('article')` pattern returns empty for the sidebar, the sidebar uses `<li>` elements, not `<article>`.
+- The site is a static site (likely Astro or similar), no JS rendering issues, but the DOM structure is non-standard.
+- The "// LATEST" pinned article at the top is the most recent, check its title before recommending to avoid suggesting a topic just published.
+- Category counts in the sidebar are accurate and up-to-date, trust them over any cached data.
+- **Counts drift over time**, the reference table above is a snapshot from a specific date. Always re-fetch fresh counts from the live site during each report session rather than relying on the cached table. The table serves as a baseline for trend detection, not a substitute for live data.

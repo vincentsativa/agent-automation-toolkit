@@ -9,13 +9,13 @@ Pattern for building self-contained local Windows GUI apps for Vinny that launch
 
 ## Packaging structure (copy this exactly)
 
-One folder on the real desktop (NOT OneDrive Desktop — Vinny's uploader lives at `C:\Users\<user>\Desktop\PhantomByteUploader\`, prompt library at `...\PhantomBytePromptLibrary\`):
+One folder on the real desktop (NOT OneDrive Desktop, Vinny's uploader lives at `C:\Users\<user>\Desktop\PhantomByteUploader\`, prompt library at `...\PhantomBytePromptLibrary\`):
 
-- `<app>.py` — the tkinter app (see below)
-- `launch.bat` — runs via the Python launcher with `pyw.exe` (windowless)
-- `setup_shortcuts.ps1` — PowerShell: creates desktop + Start Menu `.lnk`, points at `launch.bat`, sets `.ico`
-- `<name>.ico` — multi-size Windows icon resource
-- (optional) `icon.png` — source PNG for regeneration
+- `<app>.py`, the tkinter app (see below)
+- `launch.bat`, runs via the Python launcher with `pyw.exe` (windowless)
+- `setup_shortcuts.ps1`, PowerShell: creates desktop + Start Menu `.lnk`, points at `launch.bat`, sets `.ico`
+- `<name>.ico`, multi-size Windows icon resource
+- (optional) `icon.png`, source PNG for regeneration
 
 `launch.bat` content (exact):
 ```bat
@@ -49,7 +49,7 @@ Generate the PNG with `ImageDraw` (rounded rects + ellipses), then save multi-si
 ```python
 img.save("name.ico", format="ICO", sizes=[(s,s) for s in [16,32,48,64,128,256]])
 ```
-Verify with `file` / `identify` (must read "MS Windows icon resource - N icons"). The current deepseek model has NO vision — do not call vision_analyze on the icon, just trust the deterministic drawing code and verify via file type + that tkinter loads it (`iconbitmap`).
+Verify with `file` / `identify` (must read "MS Windows icon resource - N icons"). The current deepseek model has NO vision, do not call vision_analyze on the icon, just trust the deterministic drawing code and verify via file type + that tkinter loads it (`iconbitmap`).
 
 ## Centering (mandatory: Vinny wants the dashboard centered and fully on screen)
 
@@ -72,23 +72,23 @@ self.clipboard_append(prompt)
 
 ## CRITICAL PITFALLS (learned the hard way)
 
-1. **File LOCATION, not file CONTENT.** Vinny's article prompt says "the file location is added to the prompt where it says [ARTICLE OULINE TEXT]". The prior draft (in the session log) wrongly embedded the file *contents* into the prompt. The uploader reads paths; the prompt library substitutes the **path string** (`self.outline_path`) into the template — NOT `f.read()`. Read the file only if the prompt genuinely wants its text inline; for "add the file location" you substitute the path.
+1. **File LOCATION, not file CONTENT.** Vinny's article prompt says "the file location is added to the prompt where it says [ARTICLE OULINE TEXT]". The prior draft (in the session log) wrongly embedded the file *contents* into the prompt. The uploader reads paths; the prompt library substitutes the **path string** (`self.outline_path`) into the template, NOT `f.read()`. Read the file only if the prompt genuinely wants its text inline; for "add the file location" you substitute the path.
 
-2. **`\U` unicode-escape SyntaxError.** A Python triple-quoted template containing a Windows path like `C:\Users\...` raises `SyntaxError: (unicode error) 'unicodeescape' ... truncated \UXXXXXXXX escape` at write/lint time. Fix: make the template a raw string — `ARTICLE_PROMPT_TEMPLATE = r"""..."""`. Verify no `\U00` appears in the rendered output.
+2. **`\U` unicode-escape SyntaxError.** A Python triple-quoted template containing a Windows path like `C:\Users\...` raises `SyntaxError: (unicode error) 'unicodeescape' ... truncated \UXXXXXXXX escape` at write/lint time. Fix: make the template a raw string, `ARTICLE_PROMPT_TEMPLATE = r"""..."""`. Verify no `\U00` appears in the rendered output.
 
 3. **Prompts must be byte-for-byte as Vinny wrote them.** He said "make sure to follow the instructions AS written, the prompts must look exactly as they are above". Copy the wording exactly (including his typos like "actction pact", "DON NOT", "I want to been seen"). Do NOT correct or polish them.
 
-4. **No em dashes / dashes-as-commas in ANY output** — this is Vinny's standing writing rule (see `writing-style` skill). It applies to prompts he reuses and to the app's own text.
+4. **No em dashes / dashes-as-commas in ANY output**, this is Vinny's standing writing rule (see `writing-style` skill). It applies to prompts he reuses and to the app's own text.
 
-5. **Testing is mandatory** — "You must make sure this functions properly before telling me it's done." Two-tier test:
-   - **WSL/Xvfb:** `xvfb-run -a python3` — import the module, instantiate the App, invoke each button handler, assert `clipboard_get()` equals expected. Also assert window center = `(sw//2, sh//2)`.
-   - **Real Windows Python:** write a tiny smoke script, run via `powershell.exe -NoProfile -Command "& 'C:\...\py.exe' 'C:\...\_smoke.py'"`, assert it prints screen size, centered coords, no exception on `apply_icon()`. Windows Python 3.12 has tkinter; `pyw.exe` is windowless so stdout goes to the GUI session — use `py.exe` (console) for smoke-test stdout.
+5. **Testing is mandatory**, "You must make sure this functions properly before telling me it's done." Two-tier test:
+   - **WSL/Xvfb:** `xvfb-run -a python3`, import the module, instantiate the App, invoke each button handler, assert `clipboard_get()` equals expected. Also assert window center = `(sw//2, sh//2)`.
+   - **Real Windows Python:** write a tiny smoke script, run via `powershell.exe -NoProfile -Command "& 'C:\...\py.exe' 'C:\...\_smoke.py'"`, assert it prints screen size, centered coords, no exception on `apply_icon()`. Windows Python 3.12 has tkinter; `pyw.exe` is windowless so stdout goes to the GUI session, use `py.exe` (console) for smoke-test stdout.
 
 6. **Quoting hell running inline python on Windows.** `cmd.exe /c "py -c \"import tkinter\""` mangles quotes into `"import` errors. Always write a `_smoke.py` file and run it, never an inline `-c` through cmd/powershell from WSL.
 
 7. **Desktop path.** The OneDrive Desktop (`C:\Users\<user>\OneDrive\Desktop\`) holds Vinny's loose files/shortcuts, but the app FOLDER goes on the real Desktop (`C:\Users\<user>\Desktop\`). The uploader does exactly this. The desktop `.lnk` can point wherever you choose; just be consistent with the prior app.
 
-8. **The icon file must exist before `iconbitmap`** — guard with `os.path.isfile()` + try/except so the app still runs without it.
+8. **The icon file must exist before `iconbitmap`**, guard with `os.path.isfile()` + try/except so the app still runs without it.
 
 ## Verification checklist (before reporting done)
 

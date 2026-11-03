@@ -13,7 +13,7 @@ metadata:
     tags: [Linear, Project Management, Issues, GraphQL, API, Productivity]
 ---
 
-# Linear — Issue & Project Management
+# Linear, Issue & Project Management
 
 Manage Linear issues, projects, and teams directly via the GraphQL API using `curl`. No MCP server, no OAuth flow, no extra dependencies.
 
@@ -68,7 +68,7 @@ Linear uses `WorkflowState` objects with a `type` field. **6 state types:**
 | `completed` | Done |
 | `canceled` | Won't do |
 
-Each team has its own named states (e.g., "In Progress" is type `started`). To change an issue's status, you need the `stateId` (UUID) of the target state — query workflow states first.
+Each team has its own named states (e.g., "In Progress" is type `started`). To change an issue's status, you need the `stateId` (UUID) of the target state, query workflow states first.
 
 **Priority values:** 0 = None, 1 = Urgent, 2 = High, 3 = Medium, 4 = Low
 
@@ -277,7 +277,7 @@ https://linear.app/<workspace>/document/<slug>-<hexSlugId>
 
 The trailing hex segment is the `slugId`. Example: `https://linear.app/nousresearch/document/rfc-hermes-permission-gateway-discord-38359beef67c` → `slugId` is `38359beef67c`.
 
-**Important schema detail:** the Markdown body is in the `content` field. The ProseMirror JSON is in `contentState` (not `contentData` — that field does not exist and the API returns 400).
+**Important schema detail:** the Markdown body is in the `content` field. The ProseMirror JSON is in `contentState` (not `contentData`, that field does not exist and the API returns 400).
 
 ### Fetch a document by slugId
 
@@ -339,7 +339,7 @@ curl -s -X POST https://api.linear.app/graphql \
   -H "Content-Type: application/json" \
   -d '{"query": "{ issues(first: 20) { nodes { identifier title } pageInfo { hasNextPage endCursor } } }"}' | python3 -m json.tool
 
-# Next page — use endCursor from previous response
+# Next page, use endCursor from previous response
 curl -s -X POST https://api.linear.app/graphql \
   -H "Authorization: $LINEAR_API_KEY" \
   -H "Content-Type: application/json" \
@@ -373,8 +373,8 @@ Combine filters with `or: [...]` for OR logic (default is AND within a filter ob
 
 ## Important Notes
 
-- Always use `terminal` tool with `curl` for API calls — do NOT use `web_extract` or `browser`
-- Always check the `errors` array in GraphQL responses — HTTP 200 can still contain errors
+- Always use `terminal` tool with `curl` for API calls, do NOT use `web_extract` or `browser`
+- Always check the `errors` array in GraphQL responses, HTTP 200 can still contain errors
 - If `stateId` is omitted when creating issues, Linear defaults to the first backlog state
 - The `description` field supports Markdown
 - Use `python3 -m json.tool` or `jq` to format JSON responses for readability

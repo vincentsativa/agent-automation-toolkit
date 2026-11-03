@@ -1,20 +1,20 @@
 ---
 name: email-sender-cron
-description: Hard-won cron job email report patterns — money-making opportunity reports, article draft pre-send verification, execute_code limits, Telegram-in-response rules, and scrapling site research in cron. Use for any scheduled email-report cron job.
+description: Hard-won cron job email report patterns, money-making opportunity reports, article draft pre-send verification, execute_code limits, Telegram-in-response rules, and scrapling site research in cron. Use for any scheduled email-report cron job.
 ---
 
-# Email Sender — Cron Report Patterns
+# Email Sender, Cron Report Patterns
 
 Hard-won lessons for email-report cron jobs. Follow these exactly.
 
 ## Money-Making Opportunity Report Pattern
 
 - **Folder:** `~/Desktop/LOW BUDGET MONEY MAKING OPPORTUNITIES/`
-- **Filename:** `high-value-money-making-opportunities-YYYY-MM-DD.txt` (version with `-v2`, `-v3`, etc. as needed — **never overwrite** an existing file)
+- **Filename:** `high-value-money-making-opportunities-YYYY-MM-DD.txt` (version with `-v2`, `-v3`, etc. as needed, **never overwrite** an existing file)
 - **Verify by reading the file back** after writing it.
 - **Email subject:** `High-Value Money-Making Opportunities - YYYY-MM-DD`
 - **Email body:** count + Best Bet + startup cost + time to first paid validation + "report attached"
-- **Sign:** `— Bill`
+- **Sign:** `- Bill`
 - **Telegram:** put the notification in the FINAL response. Do NOT call `hermes send --to telegram`.
 
 ## Python String Literal Pitfall
@@ -25,12 +25,12 @@ Apostrophes in the subject or body break single-quoted Python strings. Use **dou
 
 **BLOCKED:** `execute_code` runs arbitrary local Python and is not available in cron contexts. Use `read_file` / `terminal` / `write_file` instead.
 
-## Scratch Scripts Must Be Unique Per Run (HARD RULE — verified Sept 17, 2026)
+## Scratch Scripts Must Be Unique Per Run (HARD RULE, verified Sept 17, 2026)
 
 Hermes refuses `write_file` on an existing file the current run never read
 (`tools/file_tools_write_guards.py::_stale_overwrite_blocker`). A fixed scratch path
 like `~/send_email.py` or `/tmp/extract_all.py` survives between runs, so
-the first run creates it and every later run is refused — and the refusal is appended
+the first run creates it and every later run is refused, and the refusal is appended
 to the delivered Telegram message as "⚠️ File-mutation verifier: N file edit(s) FAILED".
 That warning is what Vinny sees, and it means a cron step silently failed.
 
@@ -43,7 +43,7 @@ SCRATCH=$(mktemp -d /tmp/hermes-cron-XXXXXX) && echo "$SCRATCH"
 Then `write_file` to `<SCRATCH>/send.py` and run `python3 <SCRATCH>/send.py`. The dir is
 new each run, so no path collides and the guard cannot fire. Delete the dir when done.
 
-**If a `write_file` is refused, do NOT retry the same path** — make a new `mktemp -d` and
+**If a `write_file` is refused, do NOT retry the same path**, make a new `mktemp -d` and
 write there. Retrying a fixed path is exactly what produced the daily failures on
 `/tmp/extract_all.py` and `~/send_email.py`.
 
@@ -60,7 +60,7 @@ Before sending any article draft, verify:
 
 **Send-first-fix-later is a violation.** Verify first, then send.
 
-## IONOS Scheduled Mail Needs an Explicit From Identity (HARD RULE — verified Sept 22, 2026)
+## IONOS Scheduled Mail Needs an Explicit From Identity (HARD RULE, verified Sept 22, 2026)
 
 Staging a message into the IONOS Scheduled folder over the OX API (`POST
 /appsuite/api/mail/compose/<cid>/send` with `dateToSend`) is **not** a send, and the
@@ -95,7 +95,7 @@ time, then read the folder back and assert `From`, `To`, `Subject`, body, and
 
 ## Telegram Notification in Cron
 
-The final response IS the Telegram message. Do NOT call `hermes send --to telegram` — the cron system delivers your final response to the configured destination automatically.
+The final response IS the Telegram message. Do NOT call `hermes send --to telegram`, the cron system delivers your final response to the configured destination automatically.
 
 ## Scrapling for Site Research in Cron
 
@@ -105,4 +105,4 @@ Use scrapling's `Fetcher` from the Hermes venv (not `browser_navigate`):
 cd ~/.hermes/hermes-agent/venv && source bin/activate && python3 -c "..."
 ```
 
-**Pitfall:** `page.text` may return LENGTH 0, but `page.css(...)` still works — prefer CSS selectors for extraction.
+**Pitfall:** `page.text` may return LENGTH 0, but `page.css(...)` still works, prefer CSS selectors for extraction.

@@ -65,7 +65,7 @@ Key signals to embed in every PRLog release:
 - **Open-source stack**: Ollama, Hermes Agent, OpenClaw, Pi Coding Agent. Google should associate these with PhantomByte.
 - **Services with price points**: Concrete pricing signals that this is a real business, not a blog.
 - **AI agent debugging as a category**: vincentsativa.com is a dedicated debugging hub. This is a distinct service category Google should index.
-- **Operator name**: "Vinny Barreca" should appear in every release for author authority. NEVER call him "founder" — he is a systems builder / operator. Use "Vinny Barreca" or "systems builder Vinny Barreca" or just "Vinny Barreca."
+- **Operator name**: "Vinny Barreca" should appear in every release for author authority. NEVER call him "founder", he is a systems builder / operator. Use "Vinny Barreca" or "systems builder Vinny Barreca" or just "Vinny Barreca."
 
 ## Existing Press Releases on PRLog (Full inventory, verified live October 14, 2026)
 
@@ -78,7 +78,7 @@ RSS: https://pressroom.prlog.org/Phantom-Byte/latest.xml
 |---|------|-------|-----|
 | 1 | Feb 25, 2026 | PhantomByte: Build Your Custom AI Website, App, Bot, Script or Automation Solution Today | https://www.prlog.org/13129385 |
 | 2 | Mar 13, 2026 | PhantomByte Launches New Technical Hub for AI Infrastructure and Agent Orchestration Insights | https://www.prlog.org/13132702 |
-| 3 | Mar 26, 2026 | "The Local AI Setup That Actually Works" — The No-Nonsense Guide for Developers Tired of API Bills | https://www.prlog.org/13135458 |
+| 3 | Mar 26, 2026 | "The Local AI Setup That Actually Works", The No-Nonsense Guide for Developers Tired of API Bills | https://www.prlog.org/13135458 |
 | 4 | Apr 10, 2026 | PhantomByte Launches Free OpenClaw Setup Guide for Email Subscribers | https://www.prlog.org/13138530 |
 | 5 | May 4, 2026 | PhantomByte Launches Free AI Debugging Tutorials: Fix Broken Agents in 5 Days or Less | https://www.prlog.org/13143580 |
 | 6 | May 8, 2026 | PhantomByte Drops 61 AI Infrastructure Articles in Under 2 Months – All Free! | https://www.prlog.org/13144632 |

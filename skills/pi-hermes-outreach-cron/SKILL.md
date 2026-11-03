@@ -2,15 +2,15 @@
 name: hermes-outreach-cron
 description: >-
   Find, read, and change Vinny's cold-outreach email sending schedule. The
-  sender is NOT in the Windows pi workspace and NOT a system crontab — it is the
+  sender is NOT in the Windows pi workspace and NOT a system crontab, it is the
   WSL Hermes agent's own cron (`~/.hermes`, user `<linux-user>`, jobs in
   `~/.hermes/cron/jobs.json`). Use when Vinny says "change the 5am/7am cron",
   "the emails didn't send", "why are they scheduled for tomorrow", "make it send
   Monday-Friday / no weekends", "set the outreach time to 9pm/11pm", "stage N
   emails", "send N today", "outreach schedule", "daily outreach refill", or
   "prospect pool refill". When Vinny says just **"email"**, "the emails",
-  "the outreach" or "the campaign", he means THIS pipeline — the WSL
-  `~/money_ideas` sender — not Gmail, Outlook, n8n or any Windows mail tooling.
+  "the outreach" or "the campaign", he means THIS pipeline, the WSL
+  `~/money_ideas` sender, not Gmail, Outlook, n8n or any Windows mail tooling.
 ---
 
 # Hermes Outreach Cron (the real sender)
@@ -20,7 +20,7 @@ description: >-
 
 Vinny's IONOS cold-outreach is driven by **Hermes cron jobs inside WSL**, not by
 anything on the Windows side. If you are in a pi session, you are in
-Msys/Windows — you MUST route through WSL.
+Msys/Windows, you MUST route through WSL.
 
 ```bash
 wsl.exe -d Ubuntu -- bash -lc '<command>'
@@ -36,7 +36,7 @@ this. It lives here:
 | Cron CLI | `~/.local/bin/hermes cron {list,edit,run,runs,pause,resume}` |
 | Job scripts | `~/.hermes/scripts/*.sh` |
 | Workdir | `~/money_ideas` |
-| Version control | `github.com/vincentsativa/money_ideas` — **private**, branch `main`. Pushed from WSL via the stored git credential (the `gh` PAT is scoped and 404s on this repo; use `git push`). |
+| Version control | `github.com/vincentsativa/money_ideas`, **private**, branch `main`. Pushed from WSL via the stored git credential (the `gh` PAT is scoped and 404s on this repo; use `git push`). |
 | Credentials | `~/.config/phantombyte/mailer.env` (SMTP pass + postal address) |
 | Mailbox | `hello@example.com` (imap.ionos.com:993) |
 | Queued mail | IONOS `Scheduled` folder (send time in `X-OX-Date-To-Send`) |
@@ -65,7 +65,7 @@ with `csv_append.py`.
 **Measured on 2026-10-30, one batch, same machine:** 4 workers = 32 domains/min,
 **16 workers = 67 domains/min**, box load average 0.04. It is bound by other
 people's web servers, not CPU. Defaults are now `HARVEST_WORKERS=32` in the
-script and `WORKERS=16` in `harvest.sh` — do not lower them back to 4 out of
+script and `WORKERS=16` in `harvest.sh`, do not lower them back to 4 out of
 habit, and do not treat a flat sample as proof: check `pgrep -af find_contacts.py`
 ON THE BOX, because killing the WSL wrapper leaves the remote process running at
 the old worker count (that is exactly what happened on the first attempt).
@@ -126,7 +126,7 @@ profile markup is embedded as fixtures). It caught a live bug on the day it was
 written: `urlparse().path` drops the query string, so a `Disallow: /*?` rule could
 never match and a forbidding rule silently became a permitting one.
 
-### Pool appends go through `csv_append.py` — and never edit a running script
+### Pool appends go through `csv_append.py`, and never edit a running script
 
 **A master file was emptied on 2026-10-11.** `partner_contacts_master.csv` - 187 rows
 of contact history - was truncated to zero bytes mid-run and restored from a backup
@@ -142,7 +142,7 @@ the real cause:
    offset and bash resumes *part-way through a command*. That is what lost the guard
    and left only the truncating redirect. It also produced a phantom
    `syntax error near unexpected token 'else'` in a file `bash -n` had just called
-   clean — so a phantom syntax error from a script that parses fine is a symptom of
+   clean, so a phantom syntax error from a script that parses fine is a symptom of
    this, not a syntax bug. **Never edit a script while a process is executing it.**
 
 All pool appends now run through `csv_append.py`, where reading before writing is
@@ -161,7 +161,7 @@ Verified end to end after the fix by a real refill run: 6 new agency domains scr
 scanned, harvested and merged; `partner_contacts_master.csv` 187 -> 193 rows intact;
 eligible partner addresses **19 -> 22**; nothing sent.
 
-## Channel re-prioritisation, 2026-10-11 (Vinny) — read before changing any rate
+## Channel re-prioritisation, 2026-10-11 (Vinny), read before changing any rate
 
 **Buyer 100 -> 30/day. Agency 30 -> 50/day.** The evidence: the first real human
 reply in the mailbox arrived on the **agency** pitch (`user@example.com`,
@@ -172,7 +172,7 @@ reply rate on the partner channel versus 0% on the buyer channel.
 **This is a throttle, not a pause.** Vinny asked whether pausing the buyer
 channel outright was better. It is not, for three reasons:
 
-1. It costs nothing to keep running at 30/day — same cron, same scripts, no
+1. It costs nothing to keep running at 30/day, same cron, same scripts, no
    attention. A pause saves no labour.
 2. It keeps `hello@example.com` sending every weekday, which is the
    reputation the agency channel needs to stay warm. A silent domain is worse
@@ -203,7 +203,7 @@ its same-day 13:00 send. Send windows no longer overlap: buyer runs 09:00-11:54
 the **same day 09:00**, which is what keeps the read-back honest: the batch leaves
 the folder before the next midnight run, so the folder never holds two batches at
 once. (Before 2026-10-09 it staged for the *next* day, so at 01:30 the previous
-day's batch — sending that same 09:00 — was still present, and the whole-folder
+day's batch, sending that same 09:00, was still present, and the whole-folder
 count check would have failed from the second run on.) **Why 00:00 and not the
 old 01:30:** staging is same-day, so the folder is empty from the moment the
 morning send finishes (~12:00) until the staging run. At 01:30 Vinny looked at the
@@ -216,35 +216,35 @@ move this into the evening (e.g. 23:30) unless the verifier tier's reset time is
 confirmed first:** by then the day's partner run (09:30) and prefill (10:00) have
 spent it. Nothing runs the weekend, so nothing is queued for a weekend send.
 
-- **PROSPECT POOL REFILL (9pm Sat, Sun-Wed)** — only measures the pool; if
+- **PROSPECT POOL REFILL (9pm Sat, Sun-Wed)**, only measures the pool; if
   healthy it does nothing, if short it follows the `prospect-refill` skill. Sends
   no mail.
-- **DAILY OUTREACH REFILL (00:00 Mon-Fri)** — the one that stages the day's
+- **DAILY OUTREACH REFILL (00:00 Mon-Fri)**, the one that stages the day's
   emails: harvests bounces, cleans the pool, runs the gate chain, queues N
   messages into the IONOS `Scheduled` folder for **that day 09:00**, verifies by
-  read-back. It runs at 00:00 — after the 21:00 pool refill, before Vinny looks at
-  the folder — and 00:00 is the earliest a same-day batch can be staged.
-  **N is 30 as of 2026-10-11** (was 100) — see the re-prioritisation above.
-- **WEEKEND VERIFIER PREFILL (10am Sat/Sun, `--no-agent`)** — verifies up to 100
+  read-back. It runs at 00:00, after the 21:00 pool refill, before Vinny looks at
+  the folder, and 00:00 is the earliest a same-day batch can be staged.
+  **N is 30 as of 2026-10-11** (was 100), see the re-prioritisation above.
+- **WEEKEND VERIFIER PREFILL (10am Sat/Sun, `--no-agent`)**, verifies up to 100
   uncached pool addresses into `verify_cache.json`. **Sends no mail.** It exists
   because the hosted verifier tier is 100/day and does NOT roll over, and nothing
   sends on Friday or Saturday: those are two days of free capacity that would
   otherwise be thrown away, and a weekday run that re-verified the same
   addresses would spend them twice. Its stdout is delivered verbatim, so no model
   is involved and there is nothing to hallucinate.
-- **WEEKDAY VERIFIER PREFILL (10am Mon-Fri, `--no-agent`, added 2026-10-08)** —
+- **WEEKDAY VERIFIER PREFILL (10am Mon-Fri, `--no-agent`, added 2026-10-08)**, 
   the same idea for weekdays: spend the day's free verifier credits on the pool
   at 10am (after the 09:00 send, well before the next 00:00 staging) so the
   staging run meets fewer UNKNOWNs and can actually fill `--limit`. Sends no
   mail.
 - **PARTNER OUTREACH REFILL (9:30am Mon-Fri, `--no-agent`, added 2026-10-09,
-  moved 10:30 -> 09:30 on 2026-10-11)** —
+  moved 10:30 -> 09:30 on 2026-10-11)**, 
   stages the partner/agency batch (`partner_outreach.py`) for a **same-day 13:00**
   send. It runs mid-morning, not overnight, on purpose: the buyer job's
   read-back counts the **whole** `Scheduled` folder, so a partner batch sitting
   there when the buyer stages would fail the buyer's count. Staging and sending
   the same day means the partner messages are gone before the buyer's next 00:00
-  run — the two channels never occupy the folder at the same time. It also
+  run, the two channels never occupy the folder at the same time. It also
   harvests bounces first so a dead partner mailbox is suppressed before staging.
   Queues only; sends no mail. **Self-sourcing:** when the eligible pool is short
   it sources the next unused metros from `partner_metros4.txt` (fresh metros, not
@@ -253,7 +253,7 @@ spent it. Nothing runs the weekend, so nothing is queued for a weekend send.
   to a `partner_*_master.csv` pool, marks the metro in
   `partner_metros_done.txt`, and re-counts before staging. Measured 2026-10-09:
   Seattle added ~42 prospects and lifted eligible 7 -> 19. Measured 2026-10-11:
-  **only 19 eligible against a `LIMIT=50`** — this job is sourcing-limited, not
+  **only 19 eligible against a `LIMIT=50`**, this job is sourcing-limited, not
   rate-limited; do not raise `LIMIT` further without feeding the pool.
 
 ### Automations live in Hermes cron, never Windows
@@ -272,9 +272,9 @@ Scheduler, not a pi job, not n8n. Add one with:
 **`--model deepseek-v4.1-flash` is NOT optional.** Omit it and the job follows
 `hermes model` (the main agent model) at fire time. **Vinny switches the main
 agent model often**, so an unpinned job fires on whatever model happens to be
-active at that moment — that is the exact failure this prevents. Every job in
+active at that moment, that is the exact failure this prevents. Every job in
 this project is pinned to `deepseek-v4.1-flash`. Vinny had to fix this by hand
-after a job was created without it (2026-10-09). Set it at creation, every time —
+after a job was created without it (2026-10-09). Set it at creation, every time, 
 do not rely on the default and do not make him babysit it.
 
 The script itself goes in `~/.hermes/scripts/` (outside every repo), must be LF
@@ -283,7 +283,7 @@ and executable, and should `cd` to `money_ideas` and `source`
 
 ## The Mon-Fri / no-weekends rule (two places, do not remove either)
 
-1. **Cron expression** `0-4` on both jobs — they run **Sunday through Thursday
+1. **Cron expression** `0-4` on both jobs, they run **Sunday through Thursday
    nights only** (no Friday cron, no Saturday cron). Standard 5-field cron:
    `min hour dom month dow`; `0`=Sunday, `1`=Monday, ... `4`=Thursday,
    `5`=Friday, `6`=Saturday, `7`=Sunday.
@@ -295,7 +295,7 @@ and executable, and should `cd` to `money_ideas` and `source`
    explicit `START=...` env var still wins (used for a deliberate same-day test
    batch).
 
-The resulting cadence — Sunday stages Monday, Thursday stages Friday, and no
+The resulting cadence, Sunday stages Monday, Thursday stages Friday, and no
 Friday/Saturday cron at all:
 
 | Cron night | Stages/sends |
@@ -357,7 +357,7 @@ LIMIT=100 START="2026-09-30T11:00" GAP=2 bash ~/.hermes/scripts/daily_outreach_r
 ## Send N TODAY (test a fix)
 
 Set `START` to a slot still in the future today, e.g. 11:00. The folder must be
-empty first or the count check fails — see below.
+empty first or the count check fails, see below.
 
 ## Re-time an already-queued batch (move `Scheduled` -> today)
 
@@ -366,7 +366,7 @@ There is no reschedule script. Use the documented recovery:
 1. Back up the folder (read raw `BODY.PEEK[]` for every message).
 2. Empty it: `SELECT Scheduled`, then **UID SEARCH** for the uid set, then
    `UID STORE <uids> +FLAGS (\Deleted)`, then `EXPUNGE`. Do NOT feed the
-   numbers from `search()` into a `UID` command — `search()` returns *sequence*
+   numbers from `search()` into a `UID` command, `search()` returns *sequence*
    numbers, and `UID FETCH`/`UID STORE` on numbers that are not UIDs returns an
    empty set, so the flag is never set, `EXPUNGE` removes nothing, and the
    folder looks untouched (this happened on 2026-10-01). Verify the flag count
@@ -422,7 +422,7 @@ Must print `RESULT: OK`, with a first/last slot on the intended local day.
 
 The offer URL is tagged for attribution (`utm_source/medium/campaign/content`,
 plus `o` = offer and `c` = per-recipient click token). It must never be **read**
-with those parameters in it — a visible
+with those parameters in it, a visible
 `...?utm_source=outreach&utm_medium=email&...&c=<token>` reads like a tracking
 redirect to the one person it is not for (Vinny, 2026-10-01).
 
@@ -434,7 +434,7 @@ The invariant in one line: **clean text to the reader, tags in the href.**
 
 | Piece | Where |
 |---|---|
-| `clean_url`, `mask_tracked_urls_html`, `plain_body_to_html` | `outreach.py` — the only implementation |
+| `clean_url`, `mask_tracked_urls_html`, `plain_body_to_html` | `outreach.py`, the only implementation |
 | Staged path | `schedule_drafts.body_to_html` -> `outreach.plain_body_to_html` |
 | Direct sends / IMAP drafts | `outreach.send_one`, `stage_drafts.py` (multipart/alternative) |
 | Proof on read-back | `schedule_drafts.verify_scheduled`: `link_tracked` + `link_masked` |
@@ -465,7 +465,7 @@ The invariant in one line: **clean text to the reader, tags in the href.**
 
 - **A domain is not a person.** Two pool domains can share one contact address
   (same owner runs both), and when neither is in state yet both pass every
-  gate — the contacted-address gate only blocks an address it has already
+  gate, the contacted-address gate only blocks an address it has already
   SEEN. On 2026-10-01 that staged 8 people two near-identical emails for one
   morning. Fixed 2026-10-01: the run keeps one email per address (the twin is
   skipped for that run only, never suppressed).
@@ -481,9 +481,9 @@ The invariant in one line: **clean text to the reader, tags in the href.**
   `wsl.exe -d Ubuntu -u vincent -- python3 /mnt~/<file>`.
 
 - The sender is in **WSL Hermes cron**, not Windows. `hermes` from the pi shell
-  hits the *Windows* install — always use the full `wsl.exe -d Ubuntu -- bash -lc`
+  hits the *Windows* install, always use the full `wsl.exe -d Ubuntu -- bash -lc`
   route and `~/.local/bin/hermes`.
-- The 5am/7am jobs did **not** send — 7am *staged* 100 for `tomorrow 09:00`.
+- The 5am/7am jobs did **not** send, 7am *staged* 100 for `tomorrow 09:00`.
   Do not report "sent" from a staging run.
 - Editing jobs.json by hand is unnecessary; use `hermes cron edit`.
 - Quoting: running python heredocs through `wsl.exe ... bash -lc '...'` mangles

@@ -1,9 +1,9 @@
 ---
 name: bi-agent-blueprint
-description: Lead Gen Competitive Intelligence System — Playwright stealth automation for competitor registration, ad capture, advertiser resolution, and decision-maker mapping.
+description: Lead Gen Competitive Intelligence System, Playwright stealth automation for competitor registration, ad capture, advertiser resolution, and decision-maker mapping.
 ---
 
-# BI Agent Blueprint — Lead Gen Competitive Intelligence System
+# BI Agent Blueprint, Lead Gen Competitive Intelligence System
 
 ## Context
 Vinny's automated competitive intelligence system. Spins up headless browsers to register on competitor lead-gen sites, captures served ads, traces advertisers, maps decision makers.
@@ -11,19 +11,19 @@ Vinny's automated competitive intelligence system. Spins up headless browsers to
 ## Architecture (per blueprint doc_f20b26e93e4c_bi-agent-blueprint.md)
 
 ### Phase 1: Core Infrastructure
-- **p01_stealth_browser.py** — Playwright + playwright-stealth + fingerprint rotation (working ✓)
-- **p02_pii_generator.py** — Faker + SimpleLogin/SMS-Activate integration (planned)
-- **p03_flow_navigator.py** — Multi-step form detection + qualifier answering (working ✓)
+- **p01_stealth_browser.py**, Playwright + playwright-stealth + fingerprint rotation (working ✓)
+- **p02_pii_generator.py**, Faker + SimpleLogin/SMS-Activate integration (planned)
+- **p03_flow_navigator.py**, Multi-step form detection + qualifier answering (working ✓)
 
 ### Phase 2: Ad Capture System
-- **p04_ad_detector.py** — Creative detection + DOM scanning + screenshot
-- **p05_text_extractor.py** — DOM text + OCR fallback + DBA footer extraction
-- **p06_link_tracer.py** — Redirect chain capture → final landing URL
+- **p04_ad_detector.py**, Creative detection + DOM scanning + screenshot
+- **p05_text_extractor.py**, DOM text + OCR fallback + DBA footer extraction
+- **p06_link_tracer.py**, Redirect chain capture → final landing URL
 
 ### Phase 3: Advertiser Resolution
-- **p07_landing_analyzer.py** — Privacy Policy/ToS → legal entity extraction
-- **p08_dba_resolver.py** — DBA → company mapping database
-- **p09_decision_makers.py** — LinkedIn/Apollo.io → contact discovery
+- **p07_landing_analyzer.py**, Privacy Policy/ToS → legal entity extraction
+- **p08_dba_resolver.py**, DBA → company mapping database
+- **p09_decision_makers.py**, LinkedIn/Apollo.io → contact discovery
 
 ### Phase 4: Data Management
 - PostgreSQL schema + S3 creative storage
@@ -44,8 +44,8 @@ Vinny's automated competitive intelligence system. Spins up headless browsers to
 
 ### playwright-stealth API
 - The module is `playwright_stealth.stealth.Stealth` (class, not function)
-- Apply with: `Stealth(...).apply_stealth_sync(page)` — NOT `stealth(page, ...)`
-- `playwright_stealth.stealth` is a **module** — `from playwright_stealth import stealth` gives you the module, not a callable
+- Apply with: `Stealth(...).apply_stealth_sync(page)`, NOT `stealth(page, ...)`
+- `playwright_stealth.stealth` is a **module**, `from playwright_stealth import stealth` gives you the module, not a callable
 
 ### Python module naming
 - Phase files CANNOT start with digits in import paths
@@ -53,9 +53,9 @@ Vinny's automated competitive intelligence system. Spins up headless browsers to
 - Import via `sys.path.insert(0, str(Path(__file__).parent))` then `from p01_stealth_browser import ...`
 
 ### Playwright sync API
-- `playwright.sync_api.sync_playwright()` — use inside `with` context manager
-- `context.pages[0]` — always grab the existing page from persistent context, or `context.new_page()`
-- `page.wait_for_load_state("networkidle")` — preferred over fixed sleeps
+- `playwright.sync_api.sync_playwright()`, use inside `with` context manager
+- `context.pages[0]`, always grab the existing page from persistent context, or `context.new_page()`
+- `page.wait_for_load_state("networkidle")`, preferred over fixed sleeps
 
 ### Fingerprint rotation
 - Rotate: user-agent, viewport, timezone, locale, canvas noise seed

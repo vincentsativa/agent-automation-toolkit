@@ -11,7 +11,7 @@ part of the article deliverable and MUST be present in the emailed file, verifie
 char counts, before you send. Do not email the article without the social section.
 
 ## Write the X post in one pass
-Target ~180 chars (under the 190 limit) on the first attempt. Do NOT iterate on trims —
+Target ~180 chars (under the 190 limit) on the first attempt. Do NOT iterate on trims, 
 the trim loop is what stalled the prior session. A strong pattern that fits under 190:
 
 > Your GPU scheduler is leaving 33 points of utilization on the table. Same hardware,

@@ -57,9 +57,9 @@ Each service must be:
 **For each of the 10 services, document:**
 
 **A. Craigslist Title (exact)**
-- Outcome-focused format: "[Specific AI Outcome] — $[Price] Setup"
-- Pain-focused format: "Stop [Pain Point] — [AI Solution]"
-- Comparison-focused format: "Ditch [SaaS] — Self-Hosted [Alternative]"
+- Outcome-focused format: "[Specific AI Outcome], $[Price] Setup"
+- Pain-focused format: "Stop [Pain Point], [AI Solution]"
+- Comparison-focused format: "Ditch [SaaS], Self-Hosted [Alternative]"
 
 **B. What It Is (2–3 sentences)**
 - The specific business problem solved
@@ -93,34 +93,34 @@ Generated: [Date]
 Purpose: [One-line context]
 
 EXECUTIVE SUMMARY
-  — What the opportunity is
-  — Why open-source AI wins on Craigslist
-  — The differentiation thesis
+  - What the opportunity is
+  - Why open-source AI wins on Craigslist
+  - The differentiation thesis
 
 CRAIGSLIST RESEARCH FINDINGS
-  — Category volumes by city
-  — The "trash" that currently exists (list the spam titles found)
-  — The gap PhantomByte fills
+  - Category volumes by city
+  - The "trash" that currently exists (list the spam titles found)
+  - The gap PhantomByte fills
 
 THE 10 OPEN-SOURCE AI SERVICES
-  — Service 1 through Service 10, each with all subsections (A–F above)
+  - Service 1 through Service 10, each with all subsections (A–F above)
 
 CRAIGSLIST POSTING STRATEGY
-  — 8 rules that keep posts out of the trash pile
-  — A/B test title rotation examples
-  — Response protocol (reply timing, Loom video, 15-min demo offer)
-  — Pricing psychology tips
+  - 8 rules that keep posts out of the trash pile
+  - A/B test title rotation examples
+  - Response protocol (reply timing, Loom video, 15-min demo offer)
+  - Pricing psychology tips
 
 MONTHLY POSTING CALENDAR
-  — Week 1–4 rotation across tier-1 and tier-2 cities
-  — 14-day duplicate-avoidance rule
+  - Week 1–4 rotation across tier-1 and tier-2 cities
+  - 14-day duplicate-avoidance rule
 
-RED FLAGS — SERVICES TO AVOID
-  — List of vague/high-risk offerings NOT to touch (AI Marketing Agency, AI Consulting, AI Financial Advice, AI Medical Diagnosis, AI Legal Advice, etc.)
+RED FLAGS, SERVICES TO AVOID
+  - List of vague/high-risk offerings NOT to touch (AI Marketing Agency, AI Consulting, AI Financial Advice, AI Medical Diagnosis, AI Legal Advice, etc.)
 
 SUMMARY: THE PHANTOMBYTE DIFFERENTIATOR
-  — Why these posts win vs. existing spam
-  — Revenue model projection (leads → close rate → MRR)
+  - Why these posts win vs. existing spam
+  - Revenue model projection (leads → close rate → MRR)
 ```
 
 ### 5. Production Quality Gates

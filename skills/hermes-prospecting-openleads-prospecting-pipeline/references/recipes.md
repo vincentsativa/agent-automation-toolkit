@@ -64,7 +64,7 @@ Formats: `csv`, `json`, `ndjson`.
 | `find "fintech founders" -s yc -n 5` | 5 founders, 1 `safe` 98%, 4 `risky` 52 to 62% |
 | `enrich` with name + domain (`Jane Diaz / stripe.com`) | `safe` 98% |
 | `enrich` with name + domain (`Eric Zhu / axisanalysis.com`) | `risky` 62% |
-| `enrich` with company + domain only (Stripe, Notion, Ready, Axis) | all `bad`, no email — a person's name is required |
+| `enrich` with company + domain only (Stripe, Notion, Ready, Axis) | all `bad`, no email, a person's name is required |
 | `find "companies" -s companies --industry "software industry"` | 0 leads, `query.wikidata.org returned HTTP 502` |
 | `find "<category> in <city>" -n 6 --verified-only` (federated) | hung past 180s, killed |
 | `find "companies hiring" -s hn -n 6` | 0 leads |

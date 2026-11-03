@@ -1,4 +1,4 @@
-# Model-Spec Verification — Verified Mirror Sources (Aug 3, 2026)
+# Model-Spec Verification, Verified Mirror Sources (Aug 3, 2026)
 
 Session-tested fallback chain for model-launch stories when the primary source
 404s or bot-blocks. Captured so future reports don't re-discover the working
@@ -12,13 +12,13 @@ mirrors or risk fabricating specs.
 | WSJ | paywall timeout (do not attempt) |
 
 ## Working mirrors for Chinese model launches (fetch cleanly, carry full wire copy)
-- Channel News Asia — channelnewsasia.com/east-asia/...
-- ET EnterpriseAI — enterpriseai.economictimes.indiatimes.com/news/industry/...
-- Daily Sabah — dailysabah.com/business/economy/...
+- Channel News Asia, channelnewsasia.com/east-asia/...
+- ET EnterpriseAI, enterpriseai.economictimes.indiatimes.com/news/industry/...
+- Daily Sabah, dailysabah.com/business/economy/...
 - pressnewsagency.org
 - devdiscourse.com/article/technology/...
 
-## Confirmed figures — DeepSeek V4-Flash & Alibaba Qwen3.8-Max (Aug 3, 2026)
+## Confirmed figures, DeepSeek V4-Flash & Alibaba Qwen3.8-Max (Aug 3, 2026)
 DeepSeek V4-Flash:
 - $0.14 per million input tokens, $0.28 per million output tokens
 - avg 3 cents/test (Artificial Analysis) vs 86c Kimi K3, $1.86 GPT-5.6 Sol, $3.15 Claude Fable 5

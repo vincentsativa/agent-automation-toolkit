@@ -1,4 +1,4 @@
-# AI Trust & Authentication Infrastructure — Fact-Check Reference
+# AI Trust & Authentication Infrastructure, Fact-Check Reference
 Last updated: 2026-05-03
 
 ## Verified Facts (citable)
@@ -35,15 +35,15 @@ Last updated: 2026-05-03
 
 ## Unverified / Remove Unless Found
 
-- Oxford study about "warmth" making AI lie — no matching source found.
-- Spotify building a human verification pipeline for musicians — no documented system.
-- OpenAI + YubiKey partnership — no official announcement.
-- Italy specifically investigating AI hallucinations as consumer harm — unverified.
+- Oxford study about "warmth" making AI lie, no matching source found.
+- Spotify building a human verification pipeline for musicians, no documented system.
+- OpenAI + YubiKey partnership, no official announcement.
+- Italy specifically investigating AI hallucinations as consumer harm, unverified.
 
 ## Market Projections (label as projections)
 
-- 100M API calls/second from AI agents by 2028 — cite as market projection, not confirmed stat.
-- $30B verification TAM at $0.001 per verification — is derived math; label as estimate.
+- 100M API calls/second from AI agents by 2028, cite as market projection, not confirmed stat.
+- $30B verification TAM at $0.001 per verification, is derived math; label as estimate.
 
 ## Fast Sources
 - c2pa.org, contentcredentials.org

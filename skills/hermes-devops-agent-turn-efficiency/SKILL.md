@@ -19,7 +19,7 @@ out why one grew.
 - The overrun is recurring and needs a guard rather than another resolution to be
   careful. See Rule 5 and `references/turn-cap-enforcement.md`.
 
-## Rule 1 — Budget the turn before the first call
+## Rule 1, Budget the turn before the first call
 
 Ask "how many tool calls does the answer need?" before starting. Answer it, then do
 not exceed it without a reason the user would accept out loud. For a plain question
@@ -37,17 +37,17 @@ touches and replaces the deliverable with something the user never asked for. Sp
 the turn on the named input; if a wider source genuinely looks necessary, that is one
 line in the reply, not a research stage.
 
-## Rule 2 — Partial data answers the question
+## Rule 2, Partial data answers the question
 
 If most of the data parsed, answer with what parsed and state which slice was
 missing. A reply that names its own gap is complete. Silence while chasing the gap
-is not — the gap was never the question.
+is not, the gap was never the question.
 
 Never debug a feed, an API, or a parser on the user's time. A malformed record, a
 404'd URL, or an unparseable timestamp is a note in the reply, not a work item for
 this turn.
 
-## Rule 3 — Loading a skill is a tool call with a cost that compounds
+## Rule 3, Loading a skill is a tool call with a cost that compounds
 
 A skill loaded with `skill_view` stays in context for every remaining call in the
 turn. One 50KB skill loaded early inflates every call after it. Consequences:
@@ -59,7 +59,7 @@ turn. One 50KB skill loaded early inflates every call after it. Consequences:
 - Prefer the skill that states the rules for the mode in play, and let depth live in
   `references/` where it loads only when that depth is needed.
 
-## Rule 4 — Slim an oversized skill by splitting it, not by deleting it
+## Rule 4, Slim an oversized skill by splitting it, not by deleting it
 
 When a SKILL.md has grown past roughly 10KB, separate the two kinds of content:
 
@@ -73,16 +73,16 @@ When a SKILL.md has grown past roughly 10KB, separate the two kinds of content:
   many and removes the chance to improvise extra passes.
 
 Then add a pointer table in SKILL.md naming each reference and the condition that
-warrants loading it. Move content; do not summarize it away — verify each moved
+warrants loading it. Move content; do not summarize it away, verify each moved
 section is present in its new file before deleting the original. A split that loses
 content is worse than the oversized file it replaced.
 
-## Rule 5 — Enforce the budget in the runtime, not in your intentions
+## Rule 5, Enforce the budget in the runtime, not in your intentions
 
 A rule you have to remember is not a guard. Hermes ships no per-turn total tool-call
 ceiling: `tool_loop_guardrails.loop_caps` covers only `max_web_searches` and
 `max_subagents`, and the failure thresholds fire on repeated FAILURES or identical
-REPLAYS, never on "many different successful calls" — which is exactly the shape of a
+REPLAYS, never on "many different successful calls", which is exactly the shape of a
 pipeline overrun. Two settings plus one shell hook close it:
 
 - `agent.max_turns` caps iterations for a turn and forces a wrap-up call when reached.
@@ -90,7 +90,7 @@ pipeline overrun. Two settings plus one shell hook close it:
   ceiling, which is the only mechanism that stops a turn mid-flight.
 
 Full recipe, wire format, and the verified thresholds: `references/turn-cap-enforcement.md`.
-Pick the ceiling from measured data, not from taste — see "Sizing the Cap" below.
+Pick the ceiling from measured data, not from taste, see "Sizing the Cap" below.
 
 ## Sizing the Cap From Real Turns
 
@@ -107,7 +107,7 @@ rows = con.execute("select session_id, role from messages order by id").fetchall
 Then choose the ceiling where the tail starts, not where the median sits. Measured on
 this machine: median 3 calls, p90 18, p99 49, worst 120. A cap set near the median
 blocks legitimate work; a cap set past p99 changes nothing. Cron runs run longer and
-must not be blocked at all — a mid-report block silently truncates a report, which is
+must not be blocked at all, a mid-report block silently truncates a report, which is
 worse than the long turn it prevented.
 
 ## Diagnosing an Overrun from the Logs
@@ -140,7 +140,7 @@ provider problem without this evidence.
 - **Bound the diagnosis, then fix inside the same turn.** When the order is "fix it," the diagnosis is a means, not a stage, and every read must be on the causal path to the broken line. Reading a stack of source files, config sections, and unrelated skills to "understand the system" spends the budget that the repair itself needs, and the turn dies with the fix unapplied and the user waiting on a diagnosis he did not ask for. Pick the smallest set of sources that names the broken line, stop, and apply the edits. If the ceiling is hit mid-way, the ordered fix is the loss, not the diagnosis.
 - **Load an execution skill at the execution point, never during diagnosis.** A skill is a tool call that stays in context for the rest of the turn (Rule 3), so loading the mail-sender, the file-delivery, or the PDF skill while you are still working out WHY something failed pays its cost for nothing and looks like wandering. Load it when the step that needs it is the next thing being done. Reading a skill that is not the next step is the same overrun as a second parser for data the first one already returned.
 - **Say plainly whether the turn has written anything yet.** A user watching a stream of reads on his own config, caches, and project folders cannot tell inspection from mutation, and "I see you touching shit you shouldn't be" is the cost of leaving it implicit. When the work starts read-only, open with that in one line and name what the fix will be; the reads then read as diagnosis instead of unauthorized edits.
-- **A system audit is the overrun shape that eats the whole ceiling.** When the job is to verify EVERY element of a system (every package in every environment, every record in a zone, every route on a site), the enumeration is unbounded if each element costs its own call, and the turn dies mid-flight with the ordered fix unapplied. Hermes enforces a hard per-turn tool ceiling and it does not care that the probing was legitimate work: hit it and no further call runs, so the turn ends with a diagnosis and an unexecuted fix. Collapse the whole enumeration into ONE script that prints a table — resolve the environments, print the versions, run every smoke test, write the file — then fix from that one output. Budget the ORDERED work inside the first half of the ceiling, because the audit always looks cheaper before it starts than it turns out to be.
+- **A system audit is the overrun shape that eats the whole ceiling.** When the job is to verify EVERY element of a system (every package in every environment, every record in a zone, every route on a site), the enumeration is unbounded if each element costs its own call, and the turn dies mid-flight with the ordered fix unapplied. Hermes enforces a hard per-turn tool ceiling and it does not care that the probing was legitimate work: hit it and no further call runs, so the turn ends with a diagnosis and an unexecuted fix. Collapse the whole enumeration into ONE script that prints a table, resolve the environments, print the versions, run every smoke test, write the file, then fix from that one output. Budget the ORDERED work inside the first half of the ceiling, because the audit always looks cheaper before it starts than it turns out to be.
 - **Never hardcode a venv or interpreter path in a skill, a script, or a plan.** Hermes runs from versioned generation environments under `installs/<key>/environments/<id>/venv`, and the key changes on reinstall, so any path pasted into a document is stale by the next install. Resolve it live from `installs/<key>/facts.json` (key `packages.venv.environment`) every time. A skill that names one fixed venv path sends every later session to a dead interpreter.
 - **Never let a verification pass run BEFORE the deliverable it verifies is written.** When a job includes both produce and verify, an ordered deliverable exists at the end of it and the verification is a quality gate on that deliverable, not a prerequisite for starting it. Starting with fetches means the turn can be consumed entirely by fetching and end with no artifact, no matter how much was read. Source material already on disk (the outline's own source-traceability block, a saved data drop, a local file the user pointed at) counts as the grounding; write from it first, then spot-check only the claims still in doubt. Budget the fetch attempts for the WHOLE verification pass as a small fixed number, and fall back to the on-disk source when a fetch is slow or blocked.
 - **Reserve the tail of the budget for the last step.** The per-turn cap cuts the turn at a fixed count, so a turn that spends its whole budget probing and then discovers it needs one more write loses the write, and the reply goes out with the job unfinished and the gap named instead of closed. Count the calls already made as the turn proceeds, and collapse independent probes into one script call each rather than one call per question. The cap counts CALLS, not work, so many small cheap probes burn it exactly as fast as a few big ones.
@@ -177,9 +177,9 @@ provider problem without this evidence.
 
 ## Support Files
 
-- `references/turn-cap-enforcement.md` — the runtime guard recipe (agent.max_turns plus a `pre_tool_call` counter hook), wire format, and measured thresholds.
-- `references/slimming-oversized-skills.md` — how to split a SKILL.md that has outgrown roughly 10KB without losing content.
-- `references/fetching-pages-with-scrapling.md` — the fetch accessors that actually hold the page (`.html_content`, `get_all_text()`), the missing CLI `fetch` subcommand, and when a basic fetch beats a browser fetch. Load it when a fetch comes back blank and the turn is about to grow retries.
+- `references/turn-cap-enforcement.md`, the runtime guard recipe (agent.max_turns plus a `pre_tool_call` counter hook), wire format, and measured thresholds.
+- `references/slimming-oversized-skills.md`, how to split a SKILL.md that has outgrown roughly 10KB without losing content.
+- `references/fetching-pages-with-scrapling.md`, the fetch accessors that actually hold the page (`.html_content`, `get_all_text()`), the missing CLI `fetch` subcommand, and when a basic fetch beats a browser fetch. Load it when a fetch comes back blank and the turn is about to grow retries.
 
 ## Verification
 

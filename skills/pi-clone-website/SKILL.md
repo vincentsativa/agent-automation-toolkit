@@ -105,12 +105,12 @@ python ~\.pi\agent\skills\clone-website\build-guide.py ^
     --gumroad Product-Slug
 ```
 
-### Method B: Clone a Live Page (New — Learned from Pi Coding Agent)
+### Method B: Clone a Live Page (New, Learned from Pi Coding Agent)
 Use when user says "clone this website" pointing to a specific page URL.
 
 **Step 1: Fetch the live page as template**
 ```bash
-# This becomes your base — use browser_navigate to get the HTML
+# This becomes your base, use browser_navigate to get the HTML
 ```
 
 **Step 2: Read the content from Markdown**
@@ -153,7 +153,7 @@ Insert this snippet right before `<!-- Robots -->` in `<head>`:
 Ensure `<img src="...">` points to `assets/{filename}` not just `{filename}`.
 
 **Step 6: Remove em dashes**
-Replace `—` (U+2014) with ` - ` or just a space.
+Replace `-` (U+2014) with ` - ` or just a space.
 
 ### Step 4 (Both Methods): Deploy
 
@@ -176,25 +176,25 @@ Expected: `200 OK`
 
 ## Rules
 
-- **NO em dashes (`—`)** — use `-` or spaces. This applies to ALL text: titles, subtitles, badge, benefits, chapters, personas, CTA copy. Scan the finished HTML for `—` before deploying. Zero exceptions.
+- **NO em dashes (`-`)**, use `-` or spaces. This applies to ALL text: titles, subtitles, badge, benefits, chapters, personas, CTA copy. Scan the finished HTML for `-` before deploying. Zero exceptions.
 - **ALWAYS ask for the price if you don't know it.** Never assume a price. If the user doesn't state it, ASK: "Is this free or paid? What price?" Do NOT default to $9.99 or any other number. If it's free, set the price tag to `Free`, button to `Download Free - Instant Access`, and guarantee to `📥 Free download. No payment required. Instant digital delivery.`
 - **The badge text must be derived from the tutorial content.** Read the tutorial text and write a badge that captures what it is in Title-Case format (e.g. a cron tutorial → `Beginner-Friendly Agent Automation`, a multi-agent guide → `Production-Grade Agent Architecture`). Do NOT reuse the cloned page's badge verbatim if it doesn't fit the new content.
 - **ALWAYS add Google Analytics**, use ID `G-PDQCZE09E4`
-- **Image names** — clean to hyphens, no spaces
-- **Gumroad links** — `https://phantombyteai.gumroad.com/l/{slug}`
-- **Repo for vincentsativa.com is ALWAYS** `~\workspace\funnel-pages\` — do NOT clone fresh. **phantom-byte.com is a separate Cloud Run target** (see Deployment Targets above); never assume it uses this repo.
-- **Verify after deploy** — wait 15s then curl for 200
+- **Image names**, clean to hyphens, no spaces
+- **Gumroad links**, `https://phantombyteai.gumroad.com/l/{slug}`
+- **Repo for vincentsativa.com is ALWAYS** `~\workspace\funnel-pages\`, do NOT clone fresh. **phantom-byte.com is a separate Cloud Run target** (see Deployment Targets above); never assume it uses this repo.
+- **Verify after deploy**, wait 15s then curl for 200
 
 ## Lessons Learned (May 2026)
 
 1. **Use the local workspace repo**, don't clone fresh. The repo at `~\workspace\funnel-pages\` already has the right remote and CNAME config.
-2. **Image path must be `assets/{file}`** — the HTML is in the root, images are in `assets/`.
+2. **Image path must be `assets/{file}`**, the HTML is in the root, images are in `assets/`.
 3. **GA snippet goes before `<!-- Robots -->`**, not at the end of `<head>`.
-4. **Markdown files** need manual content extraction — the build script only supports labeled `[SECTION_LABEL]` format.
+4. **Markdown files** need manual content extraction, the build script only supports labeled `[SECTION_LABEL]` format.
 5. **Em dashes** in Markdown files are common and must be stripped. The build script handles this automatically; manual builds must handle it.
 6. **GitHub Pages takes ~10-15 seconds** to deploy after push. Always wait before verifying.
-7. **When writing full HTML manually**, keep the EXACT CSS from the template — only change content, never styles.
+7. **When writing full HTML manually**, keep the EXACT CSS from the template, only change content, never styles.
 8. **GitHub Pages deploys can fail transiently.** If `curl` returns `404` after a push but the file is confirmed on GitHub (check `raw.githubusercontent.com`), do NOT panic and do NOT go down a rabbit hole debugging the repo settings. Just push an empty commit to retrigger the build: `git commit --allow-empty -m "chore: trigger GitHub Pages rebuild" && git push`. Wait 30s and curl again. This fixes it every time.
 9. **Ask for the price.** If the user does not explicitly state the price (free or paid amount), ASK before building the CTA section. Defaulting to a paid price on a free tutorial is a critical error.
 10. **Badge text comes from the tutorial content**, not the cloned page. Write a fresh Title-Case badge that describes what THIS tutorial teaches (e.g. `Beginner-Friendly Agent Automation` for a cron tutorial). Reusing the source page's badge when the topic changed is wrong.
-11. **Hero padding and badge spacing must match the reference page.** When cloning a page, always check the hero section spacing against `https://vincentsativa.com/your-first-agent-cron-job.html` (the canonical reference). That page uses `.hero { padding: 40px 20px 60px; }` and `.badge { margin-bottom: 10px; }`. If the user says the gap between the nav header and the badge is too large, match those values exactly. Do NOT fiddle with the badge's own margin/padding repeatedly — that's almost never what they mean.
+11. **Hero padding and badge spacing must match the reference page.** When cloning a page, always check the hero section spacing against `https://vincentsativa.com/your-first-agent-cron-job.html` (the canonical reference). That page uses `.hero { padding: 40px 20px 60px; }` and `.badge { margin-bottom: 10px; }`. If the user says the gap between the nav header and the badge is too large, match those values exactly. Do NOT fiddle with the badge's own margin/padding repeatedly, that's almost never what they mean.

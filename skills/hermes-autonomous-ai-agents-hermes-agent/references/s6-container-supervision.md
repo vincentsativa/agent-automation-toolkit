@@ -6,7 +6,7 @@ Load for: adding/removing static services in the Hermes Docker image, diagnosing
 
 ## Architecture
 
-Hermes Docker images use s6-overlay for process supervision. The container's CMD is `/opt/hermes/docker/main-wrapper.sh` — leading-dash args reach the user's program via a shell wrapper.
+Hermes Docker images use s6-overlay for process supervision. The container's CMD is `/opt/hermes/docker/main-wrapper.sh`, leading-dash args reach the user's program via a shell wrapper.
 
 ### Adding a Static Service
 
@@ -27,6 +27,6 @@ Each profile has its own gateway process supervised by s6. Debugging steps:
 - Restart: `s6-svc -r /run/s6-rc/servicedirs/<profile>-gateway/`
 
 ### Common Pitfalls
-- `docker restart` doesn't re-read s6 config — must rebuild the image
+- `docker restart` doesn't re-read s6 config, must rebuild the image
 - Per-profile gateways inherit the parent container's env but also load profile-specific .env
 - Leading-dash args (`-p`, `-s`) need to pass through the main-wrapper.sh correctly

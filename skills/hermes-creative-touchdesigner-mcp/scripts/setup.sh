@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup.sh — Automated setup for twozero MCP plugin for TouchDesigner
+# setup.sh, Automated setup for twozero MCP plugin for TouchDesigner
 # Idempotent: safe to run multiple times.
 set -euo pipefail
 
@@ -15,7 +15,7 @@ MCP_ENDPOINT="http://localhost:${MCP_PORT}/mcp"
 
 manual_steps=()
 
-echo -e "\n${CYAN}═══ twozero MCP for TouchDesigner — Setup ═══${NC}\n"
+echo -e "\n${CYAN}═══ twozero MCP for TouchDesigner, Setup ═══${NC}\n"
 
 # ── 1. Check if TouchDesigner is running ──
 # Match on process *name* (not full cmdline) to avoid self-matching shells
@@ -33,7 +33,7 @@ fi
 if [[ -f "$TOX_PATH" ]]; then
     echo -e " ${OK} twozero.tox already exists at ${TOX_PATH}"
 else
-    echo -e " ${WARN} twozero.tox not found — downloading..."
+    echo -e " ${WARN} twozero.tox not found, downloading..."
     if curl -fSL -o "$TOX_PATH" "$TWOZERO_URL" 2>/dev/null; then
         echo -e " ${OK} Downloaded twozero.tox to ${TOX_PATH}"
     else

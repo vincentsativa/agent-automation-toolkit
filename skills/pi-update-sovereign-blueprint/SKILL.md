@@ -3,11 +3,11 @@ name: update-sovereign-blueprint
 description: Replaces the Sovereign AI Stack Blueprint PDF (lead magnet for email signups) on vincentsativa.com. Use when the user says "update the blueprint", "replace the PDF", "new version of the blueprint", "swap the tutorial PDF", "update the sovereign blueprint", "new pricing PDF", or similar phrasing about updating this specific tutorial/lead magnet.
 ---
 
-# Update Sovereign AI Stack Blueprint — vincentsativa.com
+# Update Sovereign AI Stack Blueprint, vincentsativa.com
 
 ## Overview
 
-Replaces the `The-Sovereign-AI-Stack-Blueprint.pdf` file served at `https://vincentsativa.com/assets/The-Sovereign-AI-Stack-Blueprint.pdf`. This is the lead magnet offered for email signups — pricing, hardware recommendations, and stack components change over time, so this PDF gets updated periodically.
+Replaces the `The-Sovereign-AI-Stack-Blueprint.pdf` file served at `https://vincentsativa.com/assets/The-Sovereign-AI-Stack-Blueprint.pdf`. This is the lead magnet offered for email signups, pricing, hardware recommendations, and stack components change over time, so this PDF gets updated periodically.
 
 **Domain:** vincentsativa.com (GitHub Pages)
 **Repo:** `~\workspace\funnel-pages\` (remote: `vincentsativa/phantom-byte-funnels`)
@@ -84,6 +84,6 @@ Expected: starts with `%PDF-1.x` or similar valid PDF header.
 ## Notes
 
 - **CDN cache:** The old PDF may be served for up to 10 minutes after push. Wait and retry if the old size/ETag is still showing.
-- **No other files need updating** — this PDF is linked from the email capture flow and various guide pages. The filename stays the same, so all existing links continue to work.
-- **No SEO or sitemap changes needed** — this is a static asset, not an HTML page.
+- **No other files need updating**, this PDF is linked from the email capture flow and various guide pages. The filename stays the same, so all existing links continue to work.
+- **No SEO or sitemap changes needed**, this is a static asset, not an HTML page.
 - **The PDF is the lead magnet** for email signups on vincentsativa.com. Keep the filename exactly as-is so the email automation doesn't break.

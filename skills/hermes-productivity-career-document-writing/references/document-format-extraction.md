@@ -2,7 +2,7 @@
 
 ## Reading a document Vinny sends
 
-`read_file` inlines `.docx`, `.pdf`, `.xlsx`, and `.pptx`. It does NOT inline `.odt` (OpenDocument). Do not ask him to paste the contents — extract it.
+`read_file` inlines `.docx`, `.pdf`, `.xlsx`, and `.pptx`. It does NOT inline `.odt` (OpenDocument). Do not ask him to paste the contents, extract it.
 
 ### .odt (OpenDocument Text)
 
@@ -23,7 +23,7 @@ text = re.sub(r'\n{3,}', '\n\n', text).strip()
 print(text)
 ```
 
-Run this through `execute_code` rather than a shell heredoc: the regex escaping survives, and the extracted text lands in context without a quoting fight. Preserve the original line structure — it is how you spot stray leading spaces and missing sections in the audit.
+Run this through `execute_code` rather than a shell heredoc: the regex escaping survives, and the extracted text lands in context without a quoting fight. Preserve the original line structure, it is how you spot stray leading spaces and missing sections in the audit.
 
 Inspect the archive contents first if the text comes back empty:
 
@@ -33,7 +33,7 @@ print(zipfile.ZipFile(odt_path).namelist())
 
 ## Editing one string inside an existing .docx
 
-Pick the method by scope. Restyling a document means rebuilding it with python-docx; changing one string means a byte-level edit of `word/document.xml` and nothing else. Do not reach for a layout library when one phrase changed — it is slower, it can fail on unrelated imports, and it re-lays-out text he did not ask you to touch.
+Pick the method by scope. Restyling a document means rebuilding it with python-docx; changing one string means a byte-level edit of `word/document.xml` and nothing else. Do not reach for a layout library when one phrase changed, it is slower, it can fail on unrelated imports, and it re-lays-out text he did not ask you to touch.
 
 `zipfile` from the standard library is enough, and it preserves every other part of the file byte for byte:
 
@@ -69,7 +69,7 @@ Rules that make this safe:
 
 ## Generating a .docx from a plain-text draft
 
-Write the draft as `.txt` first (single unwrapped line per body paragraph), verify it, then transform it into `.docx`. Do not hand-build the docx and the text separately — they drift.
+Write the draft as `.txt` first (single unwrapped line per body paragraph), verify it, then transform it into `.docx`. Do not hand-build the docx and the text separately, they drift.
 
 Style map that produces a clean, ATS-parseable result: name bold ~17pt, title line bold ~11pt, contact line ~10pt, section headings bold ~11.5pt in a dark accent color with space before, `- ` lines converted to `List Bullet` paragraphs, everything else a normal 10.5pt Calibri paragraph with modest space after. Set margins to 0.6in top/bottom and 0.75in left/right.
 

@@ -1,4 +1,4 @@
-# Codex CLI — Reference
+# Codex CLI, Reference
 
 [Codex](https://github.com/openai/codex) is OpenAI's autonomous coding agent CLI.
 
@@ -15,7 +15,7 @@ npm install -g @openai/codex
 - For Hermes-managed auth: `hermes auth add opencodex` with `model.provider: openai-codex`
 - Standalone credentials live under `~/.codex/auth.json`
 
-**Must run inside a git repository** — Codex refuses to run outside one.
+**Must run inside a git repository**, Codex refuses to run outside one.
 
 ## One-Shot Tasks
 
@@ -101,9 +101,9 @@ terminal(command="gh pr comment 86 --body '<review>'", workdir="~/project")
 
 ## Codex-Specific Rules
 
-1. **Always use `pty=true`** — Codex is an interactive terminal app and hangs without a PTY
-2. **Git repo required** — Codex won't run outside a git directory. Use `mktemp -d && git init` for scratch
-3. **Use `exec` for one-shots** — `codex exec "prompt"` runs and exits cleanly
-4. **`--full-auto` for building** — auto-approves changes within the sandbox
-5. **Background for long tasks** — use `background=true` and monitor with `process` tool
-6. **Parallel is fine** — run multiple Codex processes at once for batch work
+1. **Always use `pty=true`**, Codex is an interactive terminal app and hangs without a PTY
+2. **Git repo required**, Codex won't run outside a git directory. Use `mktemp -d && git init` for scratch
+3. **Use `exec` for one-shots**, `codex exec "prompt"` runs and exits cleanly
+4. **`--full-auto` for building**, auto-approves changes within the sandbox
+5. **Background for long tasks**, use `background=true` and monitor with `process` tool
+6. **Parallel is fine**, run multiple Codex processes at once for batch work

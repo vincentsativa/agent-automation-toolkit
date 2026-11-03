@@ -41,7 +41,7 @@ When the cron reports a failure and the folder is empty, stage the batch by hand
 1. `date` for the next future slot, and select the Scheduled folder over IMAP to confirm it is empty (`M.uid('SEARCH', None, 'ALL')`).
 2. Run the one command with the pinned interpreter and the real N.
 3. Post-flight read-back (`check_scheduled.py --expect N`) must print `RESULT: OK`, and spot-read the first and last folder entries for recipient and subject.
-IMAP note: `M.select()` and `M.uid('SEARCH', ...)` return a 2-tuple, so `M.search(None,'ALL')` with a 3-way unpack raises `ValueError: not enough values to unpack` — use `M.uid('SEARCH', None, 'ALL')`.
+IMAP note: `M.select()` and `M.uid('SEARCH', ...)` return a 2-tuple, so `M.search(None,'ALL')` with a 3-way unpack raises `ValueError: not enough values to unpack`, use `M.uid('SEARCH', None, 'ALL')`.
 
 ## What the command does
 `schedule_drafts.py` runs `outreach.py` as a dry run (the full gate chain), then schedules each message into the IONOS Scheduled folder over the Open-Xchange HTTP API with a real `dateToSend`, then reads every message back and verifies the body and the send time. The gate chain:
@@ -81,7 +81,7 @@ Back up `state.json` first; `schedule_drafts.py` already writes a `.bak-sched-*`
 
 Folder names are not the obvious ones, and a wrong name fails as zero results rather than as an error. The account has exactly: `Archive`, `Archive/2026`, `Drafts`, `INBOX`, `Scheduled`, `Sent Items`, `Spam`, `Trash`. There is NO `Sent` folder; outbound webmail mail lives in `Sent Items`. Selecting a folder that does not exist returns SELECT FAILED, and a search that ignores that status reports "no messages match", which reads as "it was never sent" when it was.
 
-**Select a folder whose name contains a space with IMAP quoting around the whole name:** `M.select('"Sent Items"', readonly=True)`. Passing the bare string raises `imaplib.IMAP4.error: EXAMINE command error: BAD [b'expected end of data instead of " Items"']` — the server reads the space as the end of the mailbox argument.
+**Select a folder whose name contains a space with IMAP quoting around the whole name:** `M.select('"Sent Items"', readonly=True)`. Passing the bare string raises `imaplib.IMAP4.error: EXAMINE command error: BAD [b'expected end of data instead of " Items"']`, the server reads the space as the end of the mailbox argument.
 
 **Do not derive the folder list with a regex over `M.list()`.** `M.list()[1]` returns lines like `b'(\\HasNoChildren) "/" INBOX'`, where only names containing a space are quoted as `"/" "Sent Items"`. A pattern that grabs the last quoted token therefore matches exactly one folder and silently narrows the scan to it, which reads as "no other mail exists" rather than as a parse failure. Either iterate the eight known names above and check the SELECT status for each, or take the final whitespace token and strip surrounding quotes.
 
@@ -91,7 +91,7 @@ A message sent through SMTP by script is not copied into `Sent Items` at all, so
 
 To find the thread with an address, do not search one folder. Loop the folders above, `UID FETCH (RFC822)` each message, and match the lowercased `From` plus `To` plus `Cc` headers against the address, then print date, direction, subject and body. That pulls the original outbound pitch and the reply in one pass instead of one email at a time.
 
-Interpreter: `python3` on PATH is not always the one holding the dependencies, and it is not the same one in an interactive shell, in cron, and in a wrapper script. `/usr/bin/python3` has `requests` and imports every module in the scheduling chain; scrapling-based page fetches run under `~/.venv/bin/python3`. Use the explicit path in every command, every script, and every cron wrapper rather than discovering the gap mid-run — a `ModuleNotFoundError` at import means nothing was staged and the day is lost.
+Interpreter: `python3` on PATH is not always the one holding the dependencies, and it is not the same one in an interactive shell, in cron, and in a wrapper script. `/usr/bin/python3` has `requests` and imports every module in the scheduling chain; scrapling-based page fetches run under `~/.venv/bin/python3`. Use the explicit path in every command, every script, and every cron wrapper rather than discovering the gap mid-run, a `ModuleNotFoundError` at import means nothing was staged and the day is lost.
 
 ## Free domain report (the findings sheet) for a prospect or partner
 

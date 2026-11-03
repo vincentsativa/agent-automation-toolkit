@@ -55,7 +55,7 @@ Google's Search Quality Raters evaluate pages on four dimensions. Check the cont
 - **Authoritativeness**: Is the website and author recognized as a go-to source? Build backlinks, get mentioned by other authoritative sites.
 - **Trust**: Is the page accurate, honest, safe, and reliable? Include clear attribution, publication dates, revision history, and contact info.
 
-For PhantomByte (AI R&D, Sovereign AI Stack, Cloud & Cyber Security), many topics are **YMYL (Your Money or Your Life)** — they can impact financial stability, health, safety, or societal well-being. YMYL content requires the highest E-E-A-T standards.
+For PhantomByte (AI R&D, Sovereign AI Stack, Cloud & Cyber Security), many topics are **YMYL (Your Money or Your Life)**, they can impact financial stability, health, safety, or societal well-being. YMYL content requires the highest E-E-A-T standards.
 
 **Action**: For each article, add an author byline with credentials, a "Last Updated" date, and inline citations to authoritative sources (research papers, official docs, recognized experts).
 
@@ -75,7 +75,7 @@ From Google's AI Optimization Guide:
 3. **Optimize local and business details** (if applicable): Include clear authorship, organization info, and contact details.
 
 4. **What NOT to do** (mythbusting from Google):
-   - Do NOT generate content solely for AI search — write for humans first
+   - Do NOT generate content solely for AI search, write for humans first
    - Do NOT try to "game" AI systems with hidden text or keyword stuffing
    - Do NOT create content that misrepresents expertise you don't have
    - Do NOT rely on AI-generated content without human review and fact-checking
@@ -113,11 +113,11 @@ From the GEO paper (Aggarwal et al., KDD 2024), these strategies boost visibilit
 
 ## Pitfalls
 
-- **E-E-A-T is not a ranking factor directly** — it's a rater framework. But Google's algorithms are trained on rater data, so content that scores well on E-E-A-T tends to rank better.
-- **GEO strategies are probabilistic** — no single change guarantees citation. Apply multiple strategies together.
-- **Generative engines change fast** — what works today may change. Revisit optimization quarterly.
-- **Don't over-optimize for AI at the expense of human readers** — Google's guide explicitly warns against this. Write for people first.
-- **YMYL topics face higher scrutiny** — PhantomByte's AI/cloud/security content is YMYL. Every claim needs a citation.
+- **E-E-A-T is not a ranking factor directly**, it's a rater framework. But Google's algorithms are trained on rater data, so content that scores well on E-E-A-T tends to rank better.
+- **GEO strategies are probabilistic**, no single change guarantees citation. Apply multiple strategies together.
+- **Generative engines change fast**, what works today may change. Revisit optimization quarterly.
+- **Don't over-optimize for AI at the expense of human readers**, Google's guide explicitly warns against this. Write for people first.
+- **YMYL topics face higher scrutiny**, PhantomByte's AI/cloud/security content is YMYL. Every claim needs a citation.
 
 ## Verification
 

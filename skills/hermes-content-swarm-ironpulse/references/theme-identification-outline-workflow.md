@@ -4,9 +4,9 @@ When Vinny provides a **data file directory** plus optionally a **draft article 
 
 ## Workflow
 
-1. **Read the draft article** (if provided with a path like `C:\Users\<user>\OneDrive\Desktop\ARTICLE 70 COMPLETE.txt`). Note its themes — these are EXCLUDED from the new theme proposals. Do NOT write about or overlap with the draft's subject matter.
+1. **Read the draft article** (if provided with a path like `C:\Users\<user>\OneDrive\Desktop\ARTICLE 70 COMPLETE.txt`). Note its themes, these are EXCLUDED from the new theme proposals. Do NOT write about or overlap with the draft's subject matter.
 
-2. **Scan articles.phantom-byte.com** to capture the full list of existing article titles and themes. This is the "already covered" set. Every proposed theme must be genuinely new — no overlap with existing coverage.
+2. **Scan articles.phantom-byte.com** to capture the full list of existing article titles and themes. This is the "already covered" set. Every proposed theme must be genuinely new, no overlap with existing coverage.
 
 3. **Read all data files** in the provided directory. The user will point to a folder like `TODAYS DATA FILES` on the desktop. **Path pitfall:** Vinny's OneDrive path is `/mnt/c/Users/<user>/OneDrive/Desktop/` not `/mnt/c/Users/<user>/Desktop/`. The OneDrive path is the correct one for data file folders that live on the desktop.
 

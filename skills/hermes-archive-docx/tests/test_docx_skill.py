@@ -21,7 +21,7 @@ from docx import Document
 SKILL = Path(__file__).resolve().parent.parent
 SCRIPTS = SKILL / "scripts"
 
-NON_ASCII = "Фамилия — ‘test’"
+NON_ASCII = "Фамилия, ‘test’"
 
 
 def make_png(path: Path) -> None:

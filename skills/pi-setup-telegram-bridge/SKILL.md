@@ -10,7 +10,7 @@ off the live machine, not remembered.
 
 ## What it actually is
 
-`npm:@llblab/pi-telegram` — a pi package (extension + bundled skills). It is **not** a service or
+`npm:@llblab/pi-telegram`, a pi package (extension + bundled skills). It is **not** a service or
 cron. The Telegram poller runs inside the pi process, pinned to that process id and session, so
 Telegram only answers while a pi session is open. Closing the terminal stops the bridge; the next
 pi session claims the lock and continues.
@@ -26,7 +26,7 @@ pi session claims the lock and continues.
 | Config | `~/.pi/agent/telegram.json` → `profiles.default.botToken`, `profiles.default.allowedUserId: 123456789` |
 | Runtime state | `~/.pi/agent/tmp/pi-telegram/state.json`, `logs.jsonl`, `sessions/<session-id>/inbox.json` |
 
-`botToken` is stored in `telegram.json` (0600). Do not copy the token into any notes file — read it
+`botToken` is stored in `telegram.json` (0600). Do not copy the token into any notes file, read it
 from that file, or from `TELEGRAM_BOT_TOKEN` / `TELEGRAM_BOT_KEY` / `TELEGRAM_TOKEN` / `TELEGRAM_KEY`
 env vars, which the extension accepts as aliases.
 
@@ -37,7 +37,7 @@ env vars, which the extension accepts as aliases.
    (Git variant: `pi install git:github.com/llblab/pi-telegram`.) Restart pi afterwards so the
    package loads and its bundled skills appear.
 2. Get a bot token from [@BotFather](https://t.me/BotFather) (`/newbot`). A **second, separate bot**
-   if this Windows session keeps running — see the conflict note below.
+   if this Windows session keeps running, see the conflict note below.
 3. Pre-seed the owner before connecting, so the first stranger to send `/start` cannot pair:
    write `~/.pi/agent/telegram.json`
    ```json
@@ -62,7 +62,7 @@ env vars, which the extension accepts as aliases.
 
 Polling ownership is a per-profile singleton lock keyed to the process. Two machines cannot poll
 the same bot token: ten consecutive `getUpdates` conflicts stop that instance's transport with a
-`persistent-conflict` diagnostic, and it does not auto-retry — recovery is removing the competing
+`persistent-conflict` diagnostic, and it does not auto-retry, recovery is removing the competing
 client and running `/telegram-connect` again. So on the box: use a different bot, or shut the
 Windows session down first.
 

@@ -5,12 +5,12 @@
 ## Workflow
 
 1. **Identify every named claim** in the outline: specific people, quotes, dates, documents, numbers, URLs.
-2. **Verify each with targeted searches** — not open-ended topic research. Check:
+2. **Verify each with targeted searches**, not open-ended topic research. Check:
    - The vendor's own site (announcements, blog posts, system cards)
    - Reputable tech journalism (The Verge, WIRED, Reuters, WSJ, Ars Technica, CyberScoop)
    - Academic or benchmark sources (Epoch AI, arXiv)
    - Daily data files Vinny provides (IronPulse, TensorFeed, blogwatcher dumps)
-3. **If a claim cannot be verified** — omit it. Do not include unverified claims unlabeled. Adjust surrounding prose if the omission breaks the argument.
+3. **If a claim cannot be verified**, omit it. Do not include unverified claims unlabeled. Adjust surrounding prose if the omission breaks the argument.
 4. **Add a SOURCES section** at the end of the article listing every primary source URL used. Format:
    ```
    - Publication: "Article Title" (date) - URL

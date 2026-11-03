@@ -4,15 +4,15 @@
 
 ### Sources Checked (July 19, 2026)
 
-1. **help.pinterest.com** — Business help center articles on creating content, optimizing profiles, and best practices. None specify a recommended number of pins per day.
+1. **help.pinterest.com**, Business help center articles on creating content, optimizing profiles, and best practices. None specify a recommended number of pins per day.
 
-2. **business.pinterest.com** — Business landing pages and guides. No posting frequency guidance found.
+2. **business.pinterest.com**, Business landing pages and guides. No posting frequency guidance found.
 
-3. **create.pinterest.com** — Creator hub with "best practices" and "tips" sections. No daily cadence recommendations.
+3. **create.pinterest.com**, Creator hub with "best practices" and "tips" sections. No daily cadence recommendations.
 
-4. **Pinterest Academy** (pinterestacademy.com) — Courses cover campaign setup, creative strategy, and measurement. No posting frequency content.
+4. **Pinterest Academy** (pinterestacademy.com), Courses cover campaign setup, creative strategy, and measurement. No posting frequency content.
 
-5. **help.pinterest.com/en/guide/all-about-pinterest** — General guide to the platform. Covers what Pinterest is, how to search, how to save pins. No posting frequency advice.
+5. **help.pinterest.com/en/guide/all-about-pinterest**, General guide to the platform. Covers what Pinterest is, how to search, how to save pins. No posting frequency advice.
 
 ### Result
 
@@ -32,7 +32,7 @@ Tailwind (tailwindapp.com) is the largest Pinterest scheduler/analytics platform
 
 From *"Pinterest for Shopify: 12 Do's and Don'ts That Drive Real Sales"* (March 26, 2026):
 - **5-10 fresh pins/day** is what successful Shopify stores publish
-- **3 pins/day minimum** — "3 Pins per day is better than dumping 30 Pins once a week"
+- **3 pins/day minimum**, "3 Pins per day is better than dumping 30 Pins once a week"
 - Consistency is the key factor: "Pinterest rewards fresh content over time. Rather than publishing a large batch once and disappearing, it's better to add new Pins consistently."
 - "Consistency helps Pinterest understand your account and keeps your content circulating."
 
@@ -41,7 +41,7 @@ From *"Pinterest for Shopify: 12 Do's and Don'ts That Drive Real Sales"* (March 
 From *"Valentine's Day Marketing on Pinterest: Strategy, Timing, and Execution"* (January 7, 2026):
 - Overposting leads to follower fatigue and reduced engagement
 - Pinterest's spam filters flag accounts that post too much too quickly
-- Tailwind's **Pin Spacing** feature exists specifically to prevent this — it enforces minimum intervals between similar pins
+- Tailwind's **Pin Spacing** feature exists specifically to prevent this, it enforces minimum intervals between similar pins
 - "Post with intent, not just frequency."
 
 ### The Power-Law Curve
@@ -70,5 +70,5 @@ From *"Tailwind Turbo Beta Results"* (February 2, 2026):
 When the user asks about Pinterest posting strategy:
 1. Start with: "Pinterest does not publish a recommended posting frequency in their official documentation."
 2. If they want community consensus or third-party data, say so explicitly: "The numbers you'll see online (X/day) come from community experience and scheduling tool analytics, not from Pinterest itself."
-3. Offer to research third-party sources (Tailwind, creator case studies) if the user wants that data — but label it clearly as non-official.
+3. Offer to research third-party sources (Tailwind, creator case studies) if the user wants that data, but label it clearly as non-official.
 4. If researching Tailwind specifically: their blog is at tailwindapp.com/blog. Search it for "how many pins per day" or browse the Pinterest Marketing category. Key articles are from 2025-2026.

@@ -20,13 +20,13 @@ Configuring which app Windows opens by default (browser, http/https, etc.) from 
 
 ## The write block (UCPD)
 
-- Windows 11 25H2 (build 26200) runs `UCPD.sys` — a kernel filesystem-filter driver, group `FSFilter Activity Monitor`, service state RUNNING. Its documented job is to veto programmatic/silent writes to the default-app `UserChoice` keys, even for the owning user.
+- Windows 11 25H2 (build 26200) runs `UCPD.sys`, a kernel filesystem-filter driver, group `FSFilter Activity Monitor`, service state RUNNING. Its documented job is to veto programmatic/silent writes to the default-app `UserChoice` keys, even for the owning user.
 - A direct write returns: `reg.exe add ... UserChoice ... → ERROR: Access is denied.`
-- **IMPORTANT — separate proven from assumed.** "The write is blocked" is proven by the `Access is denied.` output. "UCPD is the cause" is an assumption unless proven — the block could equally be hash validation (Windows rejects any `Hash` that does not match the ProgId) or the key's ACL. Run the diagnostic, report what it showed, and don't overclaim the mechanism.
+- **IMPORTANT, separate proven from assumed.** "The write is blocked" is proven by the `Access is denied.` output. "UCPD is the cause" is an assumption unless proven, the block could equally be hash validation (Windows rejects any `Hash` that does not match the ProgId) or the key's ACL. Run the diagnostic, report what it showed, and don't overclaim the mechanism.
 
 ## The working path (OS-sanctioned UI)
 
-The reliable way to change the default is to open the OS settings page and let the user (or a click) apply it — this works WITH UCPD running because you use Windows' own UI rather than fighting the kernel filter. The Hermes WSL2 guide endorses `wslview` / `explorer.exe` for opening things with the Windows default handler.
+The reliable way to change the default is to open the OS settings page and let the user (or a click) apply it, this works WITH UCPD running because you use Windows' own UI rather than fighting the kernel filter. The Hermes WSL2 guide endorses `wslview` / `explorer.exe` for opening things with the Windows default handler.
 
 ```bash
 explorer.exe "ms-settings:defaultapps"   # open Windows' default-apps settings page
@@ -38,11 +38,11 @@ This is the honest answer when someone asks "can it be done from WSL?": the sett
 
 Hermes' real-profile browsing (`browser.use_real_profile: true`) **fails closed
 unless the default browser is a supported Chromium**. On this box the default
-is Comet, so the flag being set does NOT mean the feature runs — it never
+is Comet, so the flag being set does NOT mean the feature runs, it never
 snapshots `~/.hermes/browser-profile/`. Full diagnostics + the `detect_default_chromium()`
 gate in `references/real-profile-browsing.md`.
 
 ## WSL interop pitfalls
 
 - **UNC cwd breaks cmd.exe.** If the shell's cwd is under `\\wsl.localhost\...` (e.g. `cd /tmp` inside WSL), `cmd.exe` / `reg.exe` fail with `UNC paths are not supported. Defaulting to Windows directory.` Fix: `cd /mnt/c` (or any drive-letter path) before running Windows tools.
-- `reg.exe`, `cmd.exe`, `explorer.exe`, `icacls` all work from WSL but inherit this cwd constraint and cmd.exe quoting rules — prefer `reg.exe` (not `regedit`) and quote Windows paths as `"...\\..."`.
+- `reg.exe`, `cmd.exe`, `explorer.exe`, `icacls` all work from WSL but inherit this cwd constraint and cmd.exe quoting rules, prefer `reg.exe` (not `regedit`) and quote Windows paths as `"...\\..."`.

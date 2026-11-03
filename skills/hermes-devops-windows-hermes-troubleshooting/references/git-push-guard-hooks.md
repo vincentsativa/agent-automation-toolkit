@@ -22,7 +22,7 @@ code="$(curl -s -o /dev/null -w '%{http_code}' -m 15 "$api" 2>/dev/null || print
 
 When curl writes its `%{http_code}` output and THEN exits non-zero (timeout during the transfer, connection reset after headers), the `||` branch runs too and its output is APPENDED, not substituted. The variable holds `200000`. Any guard comparing that value against `200` / `404` matches nothing and falls through to its "cannot verify, refuse" branch. Symptom: a plausible-but-impossible HTTP code in the error text, and every push blocked with a connectivity-sounding message while the network is fine.
 
-Correct form — capture to a file, then validate the shape:
+Correct form, capture to a file, then validate the shape:
 
 ```bash
 out="$(mktemp)"
@@ -37,14 +37,14 @@ esac
 
 ## Second defect in the same class: a literal placeholder header
 
-A fallback probe that sends `-H "Authorization: Bearer ***"` (the token redacted in a log or a docstring) can never authenticate. The failure is silent: the probe returns 401/404, the guard treats it as unverified, and the real token is never used. Never hand-redact a token into a code path that actually needs it — read it at call time.
+A fallback probe that sends `-H "Authorization: Bearer ***"` (the token redacted in a log or a docstring) can never authenticate. The failure is silent: the probe returns 401/404, the guard treats it as unverified, and the real token is never used. Never hand-redact a token into a code path that actually needs it, read it at call time.
 
 ## Verifying a guard change
 
 Two separate checks, both required:
 
-1. **The fix works** — run the real failing script end to end with the Windows toolchain (see the Windows-cron section in SKILL.md) and confirm the effect server-side.
-2. **The protection still works** — invoke the hook directly with a known-public slug and assert exit 1:
+1. **The fix works**, run the real failing script end to end with the Windows toolchain (see the Windows-cron section in SKILL.md) and confirm the effect server-side.
+2. **The protection still works**, invoke the hook directly with a known-public slug and assert exit 1:
 
    ```bash
    bash /mnt/c/Users/<user>/.githooks/pre-push origin https://github.com/<public-owner>/<repo>; echo "EXIT=$?"

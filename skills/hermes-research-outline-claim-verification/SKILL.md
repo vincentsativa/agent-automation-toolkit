@@ -75,6 +75,6 @@ title. No citation rests on a brief's paraphrase of a source.
 
 ## References
 
-- `references/source-extraction-recipes.md` — concrete fetch and extract
+- `references/source-extraction-recipes.md`, concrete fetch and extract
   patterns per source type (preprint abstract pages, forum listings, product
   sites, self-hosted article archives, status probing without a browser).

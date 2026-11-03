@@ -1,4 +1,4 @@
-# OpenCode — Reference
+# OpenCode, Reference
 
 [OpenCode](https://opencode.ai) is a provider-agnostic, open-source AI coding agent with a TUI and CLI.
 
@@ -70,13 +70,13 @@ process(action="log", session_id="<id>")
 # Send follow-up input
 process(action="submit", session_id="<id>", data="Now add error handling for token expiry")
 
-# Exit cleanly — Ctrl+C
+# Exit cleanly, Ctrl+C
 process(action="write", session_id="<id>", data="\x03")
 # Or just kill
 process(action="kill", session_id="<id>")
 ```
 
-**Important:** Do NOT use `/exit` — it is not a valid OpenCode command and opens an agent selector dialog instead. Use Ctrl+C (`\x03`) or `process(action="kill")`.
+**Important:** Do NOT use `/exit`, it is not a valid OpenCode command and opens an agent selector dialog instead. Use Ctrl+C (`\x03`) or `process(action="kill")`.
 
 ### TUI Keybindings
 
@@ -171,7 +171,7 @@ Success: output includes `OPENCODE_SMOKE_OK`, exits without errors.
 ## OpenCode-Specific Pitfalls
 
 - Interactive TUI requires `pty=true`. `opencode run` does NOT need pty.
-- `/exit` is NOT valid — use Ctrl+C
+- `/exit` is NOT valid, use Ctrl+C
 - PATH mismatch can select wrong binary
 - Enter may need to be pressed twice in TUI
 - Avoid sharing workdir across parallel sessions

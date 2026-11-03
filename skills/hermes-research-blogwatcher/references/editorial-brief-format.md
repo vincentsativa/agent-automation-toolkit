@@ -30,7 +30,7 @@ Number each headline sequentially [1], [2], etc. Each entry has:
 
 For the 6-9 anchor stories that drive your unwritten themes or are the biggest news of the day:
 
-**Use `delegate_task` with parallel browser tasks** — chain 2-3 rounds of 3 concurrent tasks each. This completes 6-9 full-article summaries in ~60-90 seconds total instead of sequential browsing which takes 3-5 minutes.
+**Use `delegate_task` with parallel browser tasks**, chain 2-3 rounds of 3 concurrent tasks each. This completes 6-9 full-article summaries in ~60-90 seconds total instead of sequential browsing which takes 3-5 minutes.
 
 ```python
 # Round 1: 3 most important stories
@@ -44,7 +44,7 @@ delegate_task(tasks=[
 delegate_task(tasks=[...])
 ```
 
-**Pick stories to browse in depth** — not every headline needs browsing. Criteria:
+**Pick stories to browse in depth**, not every headline needs browsing. Criteria:
 - Stories that will anchor an unwritten theme (need accurate claims to support the angle)
 - Stories with controversial or surprising claims (verify they're real, not editorialized headlines)
 - Stories from sources you don't have context for (new domains, niche outlets)
@@ -56,7 +56,7 @@ delegate_task(tasks=[...])
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-UNWRITTEN THEMES — NOT ON PHANTOMBYTE
+UNWRITTEN THEMES, NOT ON PHANTOMBYTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Theme N: "PROVOCATIVE ARTICLE TITLE"
@@ -75,10 +75,10 @@ Why it hasn't been covered: Cite the closest existing PhantomByte article, the d
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 END OF BRIEF
-Generated YYYY-MM-DD by Hermes Agent — Blogwatcher Intelligence
+Generated YYYY-MM-DD by Hermes Agent, Blogwatcher Intelligence
 ```
 
 ## Source Filtering Notes
-- The Python `--all` date-pass already includes all sources. Wired Ideas produces many non-AI articles (Dyson vacuums, soccer physics, home battery reviews, EV interviews) — they'll appear in the pool but can be filtered out.
-- The Decoder is a dedicated AI/tech news source. Every article it publishes is relevant — do not skip it.
+- The Python `--all` date-pass already includes all sources. Wired Ideas produces many non-AI articles (Dyson vacuums, soccer physics, home battery reviews, EV interviews), they'll appear in the pool but can be filtered out.
+- The Decoder is a dedicated AI/tech news source. Every article it publishes is relevant, do not skip it.
 - Never run per-blog `--blog` calls just to confirm source freshness. The `--all` Python pass already gives you that data.

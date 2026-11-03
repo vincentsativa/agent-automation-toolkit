@@ -1,11 +1,11 @@
 ---
 name: update-windows-hermes
-description: Update the Windows-native Hermes agent (user `<windows-user>`, AppData\Local\hermes) — the install accessible from the MSYS/Windows shell directly, WITHOUT WSL. Use when the user says "update my windows hermes agent", "update the windows hermes", or anything about updating the Hermes agent on Windows. Runs the full update, handles the hermes.exe file-lock problem, snapshots local edits, and repairs the "Telegram/agent stopped working after update" stale-venv ABI failure, then reports truthfully.
+description: Update the Windows-native Hermes agent (user `<windows-user>`, AppData\Local\hermes), the install accessible from the MSYS/Windows shell directly, WITHOUT WSL. Use when the user says "update my windows hermes agent", "update the windows hermes", or anything about updating the Hermes agent on Windows. Runs the full update, handles the hermes.exe file-lock problem, snapshots local edits, and repairs the "Telegram/agent stopped working after update" stale-venv ABI failure, then reports truthfully.
 ---
 
 # Update Windows Hermes Agent
 
-## ⚠️ CRITICAL: There are TWO Hermes installs — use the Windows one here.
+## ⚠️ CRITICAL: There are TWO Hermes installs, use the Windows one here.
 
 | | Windows (THIS ONE) | WSL Ubuntu |
 |---|---|---|
@@ -17,7 +17,7 @@ description: Update the Windows-native Hermes agent (user `<windows-user>`, AppD
 
 **The pi shell runs in MSYS/Windows by default**, so a bare `hermes` command here resolves to THIS (Windows) install. Use the full exe path. Do NOT confuse it with the WSL agent.
 
-> **Use `bin\hermes.exe`, NOT the old `hermes-agent\venv\Scripts\hermes.exe`.** That in-tree venv is retired (pre-PM) and is now quarantined — see failure mode #2. `bin\hermes.exe` is the minted store-Python launcher and is the correct entry point. `hermes version` is **not** a command; use `hermes --version`.
+> **Use `bin\hermes.exe`, NOT the old `hermes-agent\venv\Scripts\hermes.exe`.** That in-tree venv is retired (pre-PM) and is now quarantined, see failure mode #2. `bin\hermes.exe` is the minted store-Python launcher and is the correct entry point. `hermes version` is **not** a command; use `hermes --version`.
 
 ---
 
@@ -51,7 +51,7 @@ error: failed to remove file ...\Scripts\hermes.exe ... being used by another pr
 
 ## Known failure mode #2: Telegram/agent "stopped working" after a Python upgrade
 
-**This is the most common post-update symptom.** Telegram is *not* actually down — it connects, polls, and logs inbound messages. But **every agent turn fails**, and the bot never replies.
+**This is the most common post-update symptom.** Telegram is *not* actually down, it connects, polls, and logs inbound messages. But **every agent turn fails**, and the bot never replies.
 
 ### Symptom
 
@@ -64,9 +64,9 @@ ERROR gateway.run: Supervised task hosted_room_worker died: ModuleNotFoundError(
 
 ### Cause
 
-The update upgraded the runtime Python (e.g. 3.11 → 3.14) and moved deps to the managed env. The retired in-tree `hermes-agent\venv` (cp311 binaries) still exists, and `gateway/run.py` → `_ensure_windows_gateway_venv_imports()` **hardcodes `project_root / "venv"`**, finds it, and **inserts its `Lib\site-packages` at the FRONT of `sys.path`** — shadowing the working 3.14 `pydantic`. The 3.14 interpreter then cannot load the cp311 `_pydantic_core` extension.
+The update upgraded the runtime Python (e.g. 3.11 → 3.14) and moved deps to the managed env. The retired in-tree `hermes-agent\venv` (cp311 binaries) still exists, and `gateway/run.py` → `_ensure_windows_gateway_venv_imports()` **hardcodes `project_root / "venv"`**, finds it, and **inserts its `Lib\site-packages` at the FRONT of `sys.path`**, shadowing the working 3.14 `pydantic`. The 3.14 interpreter then cannot load the cp311 `_pydantic_core` extension.
 
-Upstream fixed the general case in PR #122161 (“never activate legacy venv”), but **missed this gateway code path** — `origin/main` is still identical as of 2026-09-25. Updating will NOT fix it; the stale venv must be removed.
+Upstream fixed the general case in PR #122161 (“never activate legacy venv”), but **missed this gateway code path**, `origin/main` is still identical as of 2026-09-25. Updating will NOT fix it; the stale venv must be removed.
 
 ### Diagnose (quick)
 
@@ -81,7 +81,7 @@ PID=$(grep -o '"pid": *[0-9]*' "$BASE/gateway.pid" 2>/dev/null | grep -o '[0-9]*
 powershell.exe -NoProfile -Command "Get-Process -Id $PID | Select-Object -ExpandProperty Modules | Where-Object { \$_.FileName -like '*pydantic*' } | Select-Object ModuleName,FileName | Format-Table -Auto -Wrap"
 ```
 
-If the loaded module is `hermes-agent\venv\...\pydantic_core` (cp311), that's the bug. Optional deeper check — the live gateway env:
+If the loaded module is `hermes-agent\venv\...\pydantic_core` (cp311), that's the bug. Optional deeper check, the live gateway env:
 
 ```bash
 TOOLS_PY="$(ls -d "$BASE"/tools/python-*/ | head -1)python.exe"   # e.g. tools/python-3.14.7+.../python.exe
@@ -123,7 +123,7 @@ fi
 "$HERMES" gateway start 2>&1 | tail -4
 ```
 
-No code edits — this is filesystem state, so future updates won't churn. If `hermes-agent\venv` ever reappears after an update, just re-run the `mv`.
+No code edits, this is filesystem state, so future updates won't churn. If `hermes-agent\venv` ever reappears after an update, just re-run the `mv`.
 
 ### Verify the fix
 
@@ -161,7 +161,7 @@ ls -la "$HERMES"
 cd ~/AppData/Local/hermes/hermes-agent && git rev-parse --short HEAD
 ```
 
-Note: `hermes update --check` can hit transient network errors (`✗ Network error`). `hermes --version` already reports "Update available: N commits behind" — trust that, and `git fetch` to confirm:
+Note: `hermes update --check` can hit transient network errors (`✗ Network error`). `hermes --version` already reports "Update available: N commits behind", trust that, and `git fetch` to confirm:
 
 ```bash
 cd ~/AppData/Local/hermes/hermes-agent
@@ -208,7 +208,7 @@ A Python upgrade leaves the retired in-tree venv behind. Confirm it is absent (o
 
 ```bash
 BASE="~/AppData/Local/hermes"
-ls -d "$BASE/hermes-agent/venv" 2>/dev/null && echo "⚠ stale in-tree venv present — quarantine it (failure mode #2)"
+ls -d "$BASE/hermes-agent/venv" 2>/dev/null && echo "⚠ stale in-tree venv present, quarantine it (failure mode #2)"
 ```
 
 ### 7. Verify
@@ -226,6 +226,6 @@ Success = version shows the right Python + "Up to date", gateway process running
 - **Agent turns fail with `pydantic_core._pydantic_core` (Telegram gets no replies)** → failure mode #2: quarantine `hermes-agent\venv`, restart the gateway.
 - **`os error 32` / "another process is holding it open"** → a gateway/desktop process still runs. Repeat step 4 and re-run step 5.
 - **`HTTP 429 Too Many Requests` on ZIP fallback** → the updater hit the release-server rate limit. Wait ~1 min and re-run `hermes update --yes --force`.
-- **Stash conflict on `contributors/emails/*`** → upstream deletes these tracking files; the updater leaves the codebase clean. `git stash list` preserves your changes — apply with `git stash apply <ref>` if needed.
+- **Stash conflict on `contributors/emails/*`** → upstream deletes these tracking files; the updater leaves the codebase clean. `git stash list` preserves your changes, apply with `git stash apply <ref>` if needed.
 - **Gateway not restarted after update** → `"$HERMES" gateway start` (or `gateway status`).
 - **`✗ Gateway service is not installed` on start** → normal; this install runs the gateway manually via direct spawn. The message is informational.

@@ -1,10 +1,10 @@
-# MailerLite API — Known Limitations (discovered May 2026)
+# MailerLite API, Known Limitations (discovered May 2026)
 
 ## Authentication
 - **API Key endpoint:** https://dashboard.mailerlite.com/integrations/api
 - **Base URL:** https://connect.mailerlite.com/api
 - **Auth header:** `Authorization: Bearer <key>`
-- **Old key (dead):** eyJ0eX...K6mO — rotated after Cloud Run proxy deployment
+- **Old key (dead):** eyJ0eX...K6mO, rotated after Cloud Run proxy deployment
 - **Current key:** stored in ~/.hermes/credentials.md, also in Cloud Run env var for proxy
 
 ## Account Info
@@ -25,16 +25,16 @@
 - ✅ List everything: automations, groups, subscribers, webhooks, campaigns
 
 ## API Cannot Do (for newer/post-2022 accounts)
-- ❌ **Cannot set email content** (HTML/plain) — PUT on email steps creates the step but ignores content. Email ID is created but body stays as MailerLite default placeholder "Edit this email".
-- ❌ **Cannot enable automations** — PUT with `{"enabled": true}` accepts the request but returns `enabled: false`. API returns `complete_workflow: false` in trigger_data and refuses to toggle it.
-- ❌ **Cannot add delay step properties** (value/unit/name) — same PUT issue. Delay steps created via POST are fine, but any subsequent PUT on delay steps fails validation requiring fields that weren't needed at creation.
-- ❌ **Cannot reorder steps after creation** — PUT on any step resets `parent_id` to null regardless of what you pass, breaking the parent chain.
-- ❌ **Cannot populate email content in a single POST** — POST only accepts type/name/subject/from for email steps, no email content body.
-- ❌ **Dashboard API v2** (dashboard.mailerlite.com/api/v2/) returns 403 from external — requires session cookies, not API key. Browser automation of the dashboard is blocked by Cloudflare Turnstile.
+- ❌ **Cannot set email content** (HTML/plain), PUT on email steps creates the step but ignores content. Email ID is created but body stays as MailerLite default placeholder "Edit this email".
+- ❌ **Cannot enable automations**, PUT with `{"enabled": true}` accepts the request but returns `enabled: false`. API returns `complete_workflow: false` in trigger_data and refuses to toggle it.
+- ❌ **Cannot add delay step properties** (value/unit/name), same PUT issue. Delay steps created via POST are fine, but any subsequent PUT on delay steps fails validation requiring fields that weren't needed at creation.
+- ❌ **Cannot reorder steps after creation**, PUT on any step resets `parent_id` to null regardless of what you pass, breaking the parent chain.
+- ❌ **Cannot populate email content in a single POST**, POST only accepts type/name/subject/from for email steps, no email content body.
+- ❌ **Dashboard API v2** (dashboard.mailerlite.com/api/v2/) returns 403 from external, requires session cookies, not API key. Browser automation of the dashboard is blocked by Cloudflare Turnstile.
 
 ## Workarounds
 - For simple automations (1 email, no delay): create shell + trigger via API, then user enables + adds email content in dashboard (~30s each)
-- For multi-step automations (challenge with delays): user must build in dashboard from scratch — API cannot construct one correctly end-to-end
+- For multi-step automations (challenge with delays): user must build in dashboard from scratch, API cannot construct one correctly end-to-end
 - The "Playbook Delivery" and "Flowchart Delivery" automations were created by May 1 Pi run and are `enabled: true` with some content (the API was able to set more on older accounts or via a different flow)
 
 ## Groups (active)
@@ -60,4 +60,4 @@
 - **Source:** /mnt/c/Users/<user>/workspace/phantom-byte-funnels/mailerlite-proxy/
 - **Maps group slugs to IDs server-side** (playbook → 186325633265042550, etc.)
 - **Rate limiting:** 5 req/min per IP
-- **Old proxy (dead):** mailerlite-proxy-mvcy5omgra-uc.a.run.app — redirects to static thanks page
+- **Old proxy (dead):** mailerlite-proxy-mvcy5omgra-uc.a.run.app, redirects to static thanks page

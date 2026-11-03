@@ -28,9 +28,9 @@ This umbrella skill covers three visual-creation workflows from the [baoyu-skill
 ### image_generate Tool Usage
 
 The `image_generate` tool has this schema:
-- `prompt` (string) — the text prompt
-- `aspect_ratio` — one of `landscape`, `portrait`, `square`
-- **Returns a URL**, not a local file — always download afterwards
+- `prompt` (string), the text prompt
+- `aspect_ratio`, one of `landscape`, `portrait`, `square`
+- **Returns a URL**, not a local file, always download afterwards
 
 Aspect ratio mapping:
 - `16:9`, `4:3`, `3:2` → `landscape`
@@ -58,7 +58,7 @@ Before calling `image_generate`, ALWAYS write the prompt to a file under `prompt
 ### Core Principles (All Workflows)
 - **Data integrity**: preserve source statistics verbatim. "73% increase" stays "73% increase"
 - **Strip secrets**: scan source content for API keys, tokens, credentials before writing any output
-- **Don't illustrate metaphors literally** — visualize the underlying concept
+- **Don't illustrate metaphors literally**, visualize the underlying concept
 
 ### Output Directory Conventions
 

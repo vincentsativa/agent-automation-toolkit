@@ -24,8 +24,8 @@ None for a non-existent file, and `file_state.check_stale` returns None on a mis
 file before it consults the sibling-writer record.
 
 Scope is deliberately narrow. Considered only:
-  * a .py/.sh written DIRECTLY under /tmp or /var/tmp (depth 1) — scratch helpers
-  * ~/send_*.py — cron email scripts
+  * a .py/.sh written DIRECTLY under /tmp or /var/tmp (depth 1), scratch helpers
+  * ~/send_*.py, cron email scripts
 Never touched: data files (.json/.txt/.html), anything in a subdirectory, anything
 outside those roots, and any path that is not a regular file or symlink.
 

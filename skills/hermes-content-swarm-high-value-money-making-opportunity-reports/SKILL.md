@@ -6,18 +6,18 @@ trigger: "daily money-making opportunity report, high-value opportunities from t
 
 # High-Value Money-Making Opportunity Reports
 
-Recurring daily cron workflow: read the day's AI-news data files in `Desktop/TODAYS DATA FILES/`, filter out weak/trendy/duplicate ideas, produce a ranked report of high-value opportunities, save it, and email it to Vinny. The goal is NOT a content pipeline — it's finding throwaway, low-cost, sellable opportunities a technical solo operator can validate this week.
+Recurring daily cron workflow: read the day's AI-news data files in `Desktop/TODAYS DATA FILES/`, filter out weak/trendy/duplicate ideas, produce a ranked report of high-value opportunities, save it, and email it to Vinny. The goal is NOT a content pipeline, it's finding throwaway, low-cost, sellable opportunities a technical solo operator can validate this week.
 
 ## Input Data Files (Desktop/TODAYS DATA FILES/)
-Read EVERY data file — do not skip files because they look similar. Typical files:
-- `20-AI-News-Stories-YYYY-MM-DD.md` — 20-25 fresh news stories with per-story stats
-- `blogwatcher-dump-YYYY-MM-DD.txt` — 24-ish headlines + summaries + "unwritten themes"
-- `ironpulse-YYYY-MM-DD.txt` — top ~20 ranked AI stories
-- `tensorfeed_report_YYYY-MM-DD.txt` — top headlines + arXiv papers + emerging themes
-- `outlineN-*.txt` — PhantomByte article outlines (STRONG opportunity signals; read these first, they already distil a thesis + evidence)
-- `pinterest_posts_*`, `social-media-questions-*` — secondary/contextual
+Read EVERY data file, do not skip files because they look similar. Typical files:
+- `20-AI-News-Stories-YYYY-MM-DD.md`, 20-25 fresh news stories with per-story stats
+- `blogwatcher-dump-YYYY-MM-DD.txt`, 24-ish headlines + summaries + "unwritten themes"
+- `ironpulse-YYYY-MM-DD.txt`, top ~20 ranked AI stories
+- `tensorfeed_report_YYYY-MM-DD.txt`, top headlines + arXiv papers + emerging themes
+- `outlineN-*.txt`, PhantomByte article outlines (STRONG opportunity signals; read these first, they already distil a thesis + evidence)
+- `pinterest_posts_*`, `social-media-questions-*`, secondary/contextual
 
-Extract concrete signals: new product/API releases, open-source tools/models, security incidents/breaches, AI cost increases/savings, new regulations/policy, platform changes, adoption/ROI evidence, new implementation methods. A news story is only evidence of a possible trigger — not proof of a business.
+Extract concrete signals: new product/API releases, open-source tools/models, security incidents/breaches, AI cost increases/savings, new regulations/policy, platform changes, adoption/ROI evidence, new implementation methods. A news story is only evidence of a possible trigger, not proof of a business.
 
 ## Dedup Against the Opportunity Catalog (CRITICAL)
 The catalog lives in `Desktop/LOW BUDGET MONEY MAKING OPPORTUNITIES/high-value-money-making-opportunities-*.txt` going back weeks (plus older `low-budget-*` and `opportunities-*` files). **Before writing anything, read at least the previous day's report fully and skim the prior week's titles** (grep `^# [0-9]` for the ranked titles).
@@ -35,18 +35,18 @@ Check duplicates rigorously. Renamed versions of an old idea, or an old idea wit
 
 ## Opportunity Quality Gate
 Include an opportunity only if it scores **20/25 or higher**. Score each 1-5:
-1. **Pain and urgency** — does a specific buyer have an expensive/risky/revenue-impacting problem right now?
-2. **Buyer reachability** — can I identify/contact ≥50 likely buyers this week (LinkedIn, GitHub, directories, communities, job posts)?
-3. **Willingness to pay** — can I sell a paid audit/setup/pilot for ≥$500 before building SaaS?
-4. **Fast validation** — sales asset + outreach within 24h, first paid engagement in 1-5 days?
-5. **Repeatability/expansion** — can ≥70% of delivery be standardized? Clear upsell to retainer/managed/SaaS?
+1. **Pain and urgency**, does a specific buyer have an expensive/risky/revenue-impacting problem right now?
+2. **Buyer reachability**, can I identify/contact ≥50 likely buyers this week (LinkedIn, GitHub, directories, communities, job posts)?
+3. **Willingness to pay**, can I sell a paid audit/setup/pilot for ≥$500 before building SaaS?
+4. **Fast validation**, sales asset + outreach within 24h, first paid engagement in 1-5 days?
+5. **Repeatability/expansion**, can ≥70% of delivery be standardized? Clear upsell to retainer/managed/SaaS?
 
 If fewer than 3 score 20+, return fewer than 3. Do NOT lower the standard to fill a quota.
 
 ## Hard Rejection Rules
 Reject ideas depending on: vague trend/hype/single news story with no reachable buyer; building an app/marketplace/SaaS/game/course/audience/community BEFORE validating a paid service; consumer speculation/affiliate/ad-revenue/virality/platform algorithms; generic AI content/consulting/prompt packs/commodity Fiverr work; unverifiable AI-detection claims; legal/medical/employment/financial/regulatory advice without a qualified partner; guaranteed security/compliance claims; hardware/inventory/paid-ads/paid-tools or >$500 costs before first payment; a vendor feature that makes the service unnecessary (unless there's a real implementation/audit wedge); long enterprise sales cycles (unless a smaller buyer can be sold first).
 
-Frame security/compliance work as scoped assessments, testing, risk reduction, technical implementation, or remediation support — NEVER claim legal conclusions, guarantees, certification, or complete protection.
+Frame security/compliance work as scoped assessments, testing, risk reduction, technical implementation, or remediation support, NEVER claim legal conclusions, guarantees, certification, or complete protection.
 
 ## Report Format (exact, per opportunity)
 ```
@@ -86,7 +86,7 @@ Only force ideas from categories the day's files support:
 
 ## Save + Delivery
 - **Save:** `Desktop/LOW BUDGET MONEY MAKING OPPORTUNITIES/high-value-money-making-opportunities-YYYY-MM-DD.txt`. If it exists, use `-v2`, `-v3`, etc. Do NOT overwrite. Verify by reading back first ~12 lines.
-- **Email + Telegram:** follow the `email-sender-cron` skill (folder path, subject `High-Value Money-Making Opportunities - YYYY-MM-DD`, body must contain # opportunities + best bet + startup cost + time to first paid validation + "report attached", sign `— Bill`). The email-sender-cron skill also documents the SMTP pre-flight audit, single/multi-attachment patterns, and the cron auto-delivery rule (final response IS the Telegram message — do NOT call `hermes send`).
+- **Email + Telegram:** follow the `email-sender-cron` skill (folder path, subject `High-Value Money-Making Opportunities - YYYY-MM-DD`, body must contain # opportunities + best bet + startup cost + time to first paid validation + "report attached", sign `- Bill`). The email-sender-cron skill also documents the SMTP pre-flight audit, single/multi-attachment patterns, and the cron auto-delivery rule (final response IS the Telegram message, do NOT call `hermes send`).
 - **Final response** per FINAL RESPONSE RULE: 1) # qualified opportunities, 2) best bet, 3) saved file path, 4) email delivery status, 5) Telegram delivery status, 6) any failure preventing delivery. Do not paste the full report into chat.
 
 ## Next-Offer Rescue Shortlist (pre-checkable $500 offers modeled after deliverability rescue)
@@ -107,11 +107,11 @@ Checks expected on every comparison:
 The winning single idea follows Vinny's own filter: largest buyer pool verifiable before outreach, cheapest pre-check, a defect invisible to the owner but provable by the seller, a fix the owner can see the same day (that becomes the testimonial), and a flat price with a monthly monitor after it.
 
 ## Voice / Style
-Report body uses no em dashes (use commas/periods/parentheses). Signature `— Bill` is required only in the EMAIL body for the daily cron variant (an em dash here is intentional per email-sender rule); the next-offer shortlist signs as instructed, currently Frank.
+Report body uses no em dashes (use commas/periods/parentheses). Signature `- Bill` is required only in the EMAIL body for the daily cron variant (an em dash here is intentional per email-sender rule); the next-offer shortlist signs as instructed, currently Frank.
 
 ## Pitfalls
 - Duplicate-check laziness is the #1 failure mode. Always read the prior day's report + grep the prior week's titles before accepting a candidate.
 - Never present an existing PhantomByte service as a fresh opportunity. Repackaging the deliverability rescue as a titled product with a $29/mo monitor and a placement check is the same business with wrong numbers, and Vinny spots it immediately.
 - Do NOT invent model specs, benchmark numbers, or cost figures. Every stat must trace to a data file (cite the filename + fact).
-- Don't force an idea from every priority category — only from categories today's files actually support.
-- A vendor feature that makes the service redundant is a rejection, not an opportunity — unless there's a real integration/audit wedge.
+- Don't force an idea from every priority category, only from categories today's files actually support.
+- A vendor feature that makes the service redundant is a rejection, not an opportunity, unless there's a real integration/audit wedge.

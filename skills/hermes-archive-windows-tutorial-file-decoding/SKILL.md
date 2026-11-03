@@ -30,7 +30,7 @@ open('/tmp/<name>_clean.txt','w').write(clean)
 ```
 
 Notes:
-- UTF-16LE decode often fails with "truncated data" at the tail — that does NOT mean the file is UTF-16. Fall through to UTF-8.
+- UTF-16LE decode often fails with "truncated data" at the tail, that does NOT mean the file is UTF-16. Fall through to UTF-8.
 - Garbled head + readable tail (UTF-16 `\x00` runs / CJK mojibake in the first lines, clean English after) means a misdetected header. Slice from the first real English title phrase.
 - After slicing, use `sed -n 'N,MP' /tmp/<name>_clean.txt` (NOT `read_file`, which still flags it binary) to page through the content.
 
@@ -41,5 +41,5 @@ Notes:
 
 ## Pitfalls
 - The `$` in folder names (`... - $14.99 TUTORIAL`) is shell-interpreted. Always single-quote the path in terminal commands, never double-quote.
-- `read_file` will keep flagging these as binary even after you know they're UTF-8 — don't retry it; use sed/python on the decoded temp copy.
+- `read_file` will keep flagging these as binary even after you know they're UTF-8, don't retry it; use sed/python on the decoded temp copy.
 - If every encoding fails and there's genuinely no clean English run, report the blocker to Vinny rather than fabricating content from the garbled bytes.

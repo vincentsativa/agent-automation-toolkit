@@ -15,14 +15,14 @@ PhantomByte Search Console runs ~0.6% avg CTR near position 9-10 (Google's expec
 
 Two rules for every title:
 1. **Keep the primary keyword in it.** If the page targets one phrase, that phrase must appear in the title so it matches the searcher's intent and can rank.
-2. **Make a specific promise or name the reader's problem — never just label the topic.** A topic label ("Data Center Control Problem") competes as a headline; a problem title ("Your Grid Failed in 2 Seconds. The 4-Layer Stack That Stops It") competes as an answer.
+2. **Make a specific promise or name the reader's problem, never just label the topic.** A topic label ("Data Center Control Problem") competes as a headline; a problem title ("Your Grid Failed in 2 Seconds. The 4-Layer Stack That Stops It") competes as an answer.
 
 Add the click trigger: a concrete number (time, %, count), a named enemy ("Your Agent's Confidence Isn't Real"), or a direct stake ("Costs You 66% Accuracy"). Keep the existing PhantomByte patterns: second-person "Your X", declarative statement, concrete thing named.
 
 ### Worked examples (keyword → old label → CTR title)
 
 - `data center control` → "Data Center Control Problem, Not a Generation Problem" → **"Your Grid Took 2 Seconds to Fail. The 4-Layer Control Stack That Catches It"**
-- `agent memory` → "Your Agent's Memory Is a Dataset" → **"Your Agent's Memory Is a Dataset You Don't Own — and It's Costing You 8x per Handoff"** (keeps keyword, adds cost + stake)
+- `agent memory` → "Your Agent's Memory Is a Dataset" → **"Your Agent's Memory Is a Dataset You Don't Own, and It's Costing You 8x per Handoff"** (keeps keyword, adds cost + stake)
 - `confidence layer` → "Your Agent Does Not Know It Is Failing" → **"Your Agent Is Failing Right Now. A Zero-Overhead Probe That Predicts It Before It Happens"**
 - `evaluation harness` → "Your Evaluation Harness Moves Your Benchmarks" → **"One Team Moved Their Solve Rate 4.3x With the Harness, Not the Model. Copy It"**
 

@@ -12,11 +12,11 @@ verifies their email addresses, then writes a prospect sheet he can send from.
 The whole loop is: **offer -> ICP -> target count -> contacts -> verified emails -> sheet.**
 One agent does all of it. Do not delegate any step.
 
-## Rule 0 — Single agent, one pass
+## Rule 0, Single agent, one pass
 No `delegate_task`, no subagents, no parallel agents. Run the steps in order in
 this session and keep every artifact in a workspace folder.
 
-## Rule 1 — This pipeline finds and verifies. It does not send.
+## Rule 1, This pipeline finds and verifies. It does not send.
 Use `find`, `enrich`, `verify`, `sources`, `doctor`. Do **not** run
 `openleads run`, `openleads send`, `openleads drip --live`, or `openleads
 schedule` unless Vinny asks for sending in that specific turn. Vinny's outreach
@@ -24,7 +24,7 @@ goes out through his own mail setup (`email-sender` skill, IONOS SMTP from
 hello@phantom-byte.com), not from OpenLeads. Sending is a separate decision with
 its own deliverability risk, so never fire it as a side effect of a search.
 
-## Rule 2 — Never invent a number
+## Rule 2, Never invent a number
 Every count in the ICP, every tier, and every email in the sheet must come from
 an actual command run whose CSV you keep. Never estimate a lead count, never
 write a company name you did not receive back. If a source returns nothing, the
@@ -56,7 +56,7 @@ hard sell there regardless of how real the finding is. Weight toward commercial
 and professional categories, and toward firms with staff, a marketing budget, and
 a mail system somebody actually manages.
 
-## Rule 3 — Tiers are the send policy
+## Rule 3, Tiers are the send policy
 OpenLeads grades each email `safe`, `risky`, or `bad` with a confidence percent.
 - `safe` (usually 98%) = verified from the company's own published address or
   ground-truth pattern. Send first.
@@ -65,20 +65,20 @@ OpenLeads grades each email `safe`, `risky`, or `bad` with a confidence percent.
 - `bad` / `none` = no email. Discard for sending; keep only as company intel.
 Report the tier counts in the sheet header so Vinny can size the send batch.
 
-## Rule 4 — No phone calls
+## Rule 4, No phone calls
 Vinny has hearing loss and does not take calls. Never put a phone number in a
 prospect sheet, an ICP, or a follow-up plan. Where a normal sales process wants
 a call, substitute email plus a written one-pager or a recorded walkthrough.
 Every sheet should be labeled email-only contact.
 
-## Rule 5 — Diagnose before contacting when a public check exists
+## Rule 5, Diagnose before contacting when a public check exists
 If the offer depends on a defect Vinny can verify remotely (mail records, dead
 contact forms, mobile layout, HTTPS, missing DMARC), run the check across the
 prospect list first and record the finding per row. A cold email that carries a
 true, specific finding about their own domain beats any generic pitch. See the
 `local-small-business-clients` skill, `references/prospect-diagnosis-scripts.md`.
 
-## Rule 6 — License: personal use, Vinny's call
+## Rule 6, License: personal use, Vinny's call
 
 Vinny's stated use is **personal: finding clients for his own services.** That sits
 inside the PolyForm Noncommercial 1.0.0 grant (personal, research, educational,
@@ -92,7 +92,7 @@ it.
 
 ---
 
-## Step 1 — Turn the offer into an ICP
+## Step 1, Turn the offer into an ICP
 
 Vinny gives one sentence, in some form of this shape:
 
@@ -130,7 +130,7 @@ become a discovery signal. Three shapes:
 - **Not exposed anywhere free** -> say so plainly and propose the closest
   proxy signal that IS exposed. Do not pretend the free sources filter on it.
 
-## Step 2 — Decide how many targets
+## Step 2, Decide how many targets
 
 Never pick a round number out of the air. Compute it and show the arithmetic
 with the assumption that each number rests on. Cold-email math:
@@ -152,7 +152,7 @@ the offer copy, the problem signal, and the tier mix all need one real batch
 behind them before volume means anything. Scale only after a batch produces
 replies.
 
-## Step 3 — Route to the right source
+## Step 3, Route to the right source
 
 OpenLeads federates automatically, but for this ICP pin the source with
 `-s <name>` so the run is repeatable and you can name what returned what. What
@@ -179,7 +179,7 @@ part of it the sources can actually honor and how the rest gets covered (usually
 list Vinny supplies, resolved with `enrich`). Many jobs have no size band, which
 makes this a non-issue.
 
-## Step 3b — Freespoke as a second local sweep
+## Step 3b, Freespoke as a second local sweep
 
 `~/money_ideas/freespoke_finder.py` (mirror and notes at
 `scripts/freespoke_finder.README.txt`). Freespoke's web search renders a
@@ -226,7 +226,7 @@ Rules that make it work:
   a card whose website field points at `foursquare.com`. Dedupe on domain, then
   name.
 
-## Step 3c — Pasting a list from ChatGPT or anywhere else
+## Step 3c, Pasting a list from ChatGPT or anywhere else
 
 `~/money_ideas/parse_domain_list.py`. Vinny has a ChatGPT
 subscription and can get a name plus website list in one prompt for any industry
@@ -258,7 +258,7 @@ Rules:
 - **The parser is not ChatGPT specific.** Any pasted list carrying URLs works,
   including markdown tables and bulleted lists.
 
-## Step 4 — Run and collect
+## Step 4, Run and collect
 
 Work in a workspace folder and append every run to files, so counts survive a
 long run and you can verify the total against what was asked.
@@ -283,7 +283,7 @@ Then read the CSV back, filter and count in code (never by hand), and merge the
 per-source files into one deduped sheet on the domain + email key. Report safe,
 risky, and bad counts separately.
 
-## Step 5 — The prospect sheet
+## Step 5, The prospect sheet
 
 One CSV plus one short header block. Columns, in the order OpenLeads emits them
 plus your additions:

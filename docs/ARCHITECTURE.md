@@ -34,7 +34,7 @@ scheduled work without a human in the loop.
 
 Anything an agent can get wrong by being optimistic is a script. Whether a job posting is
 still live, whether an attachment arrived intact, whether a DNS record now points where it
-should, whether a report's numbers describe the pool it claims to describe — all of that is
+should, whether a report's numbers describe the pool it claims to describe, all of that is
 checked by code that exits non-zero, not by a model saying it looks fine.
 
 The pipeline shape that follows from this is always the same:
@@ -86,7 +86,7 @@ silently dead schedule.
 nightly schedule: config, skills, memories, cron definitions. It is pure Python rather
 than Bash because the cron runner resolves relative script paths to Windows absolute paths
 and hands them to Bash, where `\U`, `\D`, `\A` are read as escape sequences and the path is
-destroyed — exit code 127, every night, with the job reporting "ok". That trap and its
+destroyed, exit code 127, every night, with the job reporting "ok". That trap and its
 evidence are recorded in the corresponding skill.
 
 ## What is not in this repo

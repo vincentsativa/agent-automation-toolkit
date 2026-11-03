@@ -1,4 +1,4 @@
-# Pinterest Search Research Example — session 2026-05-22
+# Pinterest Search Research Example, session 2026-05-22
 
 ## Board Audited
 - **URL:** https://www.pinterest.com/PhantomByteAI/ai-emerging-tech-hub/
@@ -17,7 +17,7 @@
 4. "Cultural counter-revolution" rebellion against AI (Jack Antonoff rant, UCF graduates, Stanford research on overworked AI agents developing Marxist tendencies)
 5. n8n + OpenAI/Perplexity no-code AI agent pipeline tutorial
 6. Sovereign AI Stack Blueprint (local AI with Ollama, Hermes, self-hosted ChatGPT-level AI)
-7. "Trust Meltdown" — Microsoft/Claude Code, Musk vs Altman court, Claude system prompt leak, Meta layoffs, 70% of Americans oppose AI data centers
+7. "Trust Meltdown", Microsoft/Claude Code, Musk vs Altman court, Claude system prompt leak, Meta layoffs, 70% of Americans oppose AI data centers
 
 **Theme buckets:**
 - AI news (breaking developments, corporate moves)
@@ -42,7 +42,7 @@ These are real user search terms with platform-validated volume. "Machine learni
 **Search result page (observed top pins):**
 - "Artificial Intelligence Tutorial for Beginners"
 - "Machine Learning Roadmap 2025 / 2026"
-- "Agentic AI — full stack framework" (5-layer breakdown)
+- "Agentic AI, full stack framework" (5-layer breakdown)
 - "AI Evolution: From Response to Action" (LinkedIn)
 - "Deep Learning" 
 - "AI coding agents"
@@ -58,7 +58,7 @@ These are real user search terms with platform-validated volume. "Machine learni
 | **Generative AI** | Top Pinterest autocomplete; highly searched | Title + Description |
 | **Future Technology** | Top Pinterest autocomplete; broader reach | Title |
 | **AI Security** | Niche but specific to the board's unique content (Veil, Claude Code .env scanning) | Description |
-| **Local AI** | Niche (Ollama, sovereign stack) — differentiator for this board | Description |
+| **Local AI** | Niche (Ollama, sovereign stack), differentiator for this board | Description |
 | **Robotics** + **Quantum Computing** | Emerging tech tags; present in autocomplete | Description |
 | **AI Ethics** | Unique to this board's coverage (trust meltdown, society backlash) | Description |
 
@@ -68,7 +68,7 @@ These are real user search terms with platform-validated volume. "Machine learni
 ```
 AI News & Agentic Tech Hub | Machine Learning, Generative AI & Future Technology 🚀
 ```
-(92 chars — front-loads "AI news" and "agentic AI", includes machine learning, generative AI, future technology, and emoji for CTR)
+(92 chars, front-loads "AI news" and "agentic AI", includes machine learning, generative AI, future technology, and emoji for CTR)
 
 **New Description:**
 ```
@@ -76,13 +76,13 @@ Your ultimate hub for artificial intelligence news and emerging technology. Disc
 
 #artificialintelligence #agenticai #machinelearning #generativeai #emergingtech #futuretechnology #aisecurity #localai
 ```
-(455 chars primary + hashtags — front 50 chars contain "artificial intelligence", keyword density of 9 distinct high-value terms, value proposition "your ultimate hub", clear CTA "stay ahead")
+(455 chars primary + hashtags, front 50 chars contain "artificial intelligence", keyword density of 9 distinct high-value terms, value proposition "your ultimate hub", clear CTA "stay ahead")
 
 ## Why This Performs Better Than Original
 
 | Dimension | Original | Optimized |
 |---|---|---|
-| **Title length** | 23 chars | 92 chars — more algorithm surface area |
+| **Title length** | 23 chars | 92 chars, more algorithm surface area |
 | **Keyword count in title** | 2 (AI, Emerging Tech) | 6 (AI news, agentic tech, machine learning, generative AI, future technology) |
 | **Description keyword density** | Low (1-2 repeats) | High (9 distinct terms woven naturally) |
 | **First 50 chars contain keyword** | No | Yes ("artificial intelligence") |
@@ -92,4 +92,4 @@ Your ultimate hub for artificial intelligence news and emerging technology. Disc
 
 ## Key Takeaway
 
-Always base Pinterest SEO on **two inputs**: what the board actually contains (content audit) and what users actually search for (autocomplete). The original description was keyword-light because it was written for human reading, not algorithm indexing. The optimized version balances both — readable sentences with embedded search terms.
+Always base Pinterest SEO on **two inputs**: what the board actually contains (content audit) and what users actually search for (autocomplete). The original description was keyword-light because it was written for human reading, not algorithm indexing. The optimized version balances both, readable sentences with embedded search terms.

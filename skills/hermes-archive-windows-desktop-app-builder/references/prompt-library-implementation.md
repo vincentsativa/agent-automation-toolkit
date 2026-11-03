@@ -1,11 +1,11 @@
-# PhantomByte Prompt Library — implementation notes (Aug 22, 2026)
+# PhantomByte Prompt Library, implementation notes (Aug 22, 2026)
 
 Built as the second app in this pattern (first was the Article Uploader on Aug 21).
 
 ## App: `C:\Users\<user>\Desktop\PhantomBytePromptLibrary\prompt_library.py`
 
 - **5 prompt tools**, each a button. Static prompts (outline, article-image) copy verbatim; templated prompts (article, X, Pinterest) substitute a value then copy.
-- **Article prompt** substitutes the OUTLINE FILE *path* into `Outline: {outline}` — NOT file contents. Vinny's wording: "the file location is added to the prompt where it says [ARTICLE OULINE TEXT]".
+- **Article prompt** substitutes the OUTLINE FILE *path* into `Outline: {outline}`, NOT file contents. Vinny's wording: "the file location is added to the prompt where it says [ARTICLE OULINE TEXT]".
 - **X/Pinterest** read from an `tk.Entry`, substitute into `...telling a story: {post}` / `...for the following: {post}`.
 - Build+copy flow: `self.clipboard_clear(); self.clipboard_append(prompt)`.
 - Live "LAST BUILT PROMPT" ScrolledText preview shows the last copied prompt.

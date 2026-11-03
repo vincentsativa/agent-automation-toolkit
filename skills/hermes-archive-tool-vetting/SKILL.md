@@ -12,27 +12,27 @@ Use when Vinny asks "is this safe?", "would this help us?", "is this useful?", o
 
 **Two questions, in order:**
 
-1. **What problem does this actually solve?** — Be precise. Not "web scraping." Is it access (getting past blocks, proxies, residential IPs, anti-bot evasion) or extraction (HTML-to-markdown, formatting, parsing, LLM-ready output)?
+1. **What problem does this actually solve?**, Be precise. Not "web scraping." Is it access (getting past blocks, proxies, residential IPs, anti-bot evasion) or extraction (HTML-to-markdown, formatting, parsing, LLM-ready output)?
 
-2. **Is that problem one Vinny has?** — Map against what's already in the stack. Don't evaluate in a vacuum.
+2. **Is that problem one Vinny has?**, Map against what's already in the stack. Don't evaluate in a vacuum.
 
 ## The Critical Distinction
 
 | Category | Solves | Examples |
 |---|---|---|
-| **Access tools** | Getting past the wall — proxy rotation, residential IPs, anti-bot evasion, CAPTCHA solving | Firecrawl, BrightData, ScrapingBee, residential proxy services |
-| **Extraction tools** | Formatting what's on the other side — HTML to markdown, structured data, LLM-ready output | Crawl4AI, Deepcrawl, CRW, WebReaper, GroktoCrawl |
+| **Access tools** | Getting past the wall, proxy rotation, residential IPs, anti-bot evasion, CAPTCHA solving | Firecrawl, BrightData, ScrapingBee, residential proxy services |
+| **Extraction tools** | Formatting what's on the other side, HTML to markdown, structured data, LLM-ready output | Crawl4AI, Deepcrawl, CRW, WebReaper, GroktoCrawl |
 
-**Firecrawl is an access tool that also does extraction.** Most open-source "Firecrawl alternatives" are extraction-only. They are not the same thing. The hard problem is access, and that costs real money — there is no open-source equivalent.
+**Firecrawl is an access tool that also does extraction.** Most open-source "Firecrawl alternatives" are extraction-only. They are not the same thing. The hard problem is access, and that costs real money, there is no open-source equivalent.
 
 ## Vinny's Existing Stack (relevant to tool evaluation)
 
-- **TensorFeed** — API access to HN, ZDNet, The Verge, WIRED, MIT Tech Review
-- **Blogwatcher** — RSS/Atom monitoring for blog lists
-- **Scrapling** — stealth scraping framework (fingerprint spoofing, but still runs on your IP)
-- **Rotunda browser** — agent-first Firefox fork (stealth browsing, same IP problem)
-- **Browser tools** — full browser automation for JS rendering
-- **IronPulse** — daily AI news pipeline
+- **TensorFeed**, API access to HN, ZDNet, The Verge, WIRED, MIT Tech Review
+- **Blogwatcher**, RSS/Atom monitoring for blog lists
+- **Scrapling**, stealth scraping framework (fingerprint spoofing, but still runs on your IP)
+- **Rotunda browser**, agent-first Firefox fork (stealth browsing, same IP problem)
+- **Browser tools**, full browser automation for JS rendering
+- **IronPulse**, daily AI news pipeline
 
 ## Evaluation Template
 
@@ -41,7 +41,7 @@ When Vinny asks about a tool, structure the answer as:
 1. **What it is** (one sentence)
 2. **What problem it actually solves** (access vs. extraction vs. something else)
 3. **Does Vinny have that problem?** (map to stack above)
-4. **Verdict** — clear yes/no/maybe with reasoning
+4. **Verdict**, clear yes/no/maybe with reasoning
 
 ## Pitfalls
 

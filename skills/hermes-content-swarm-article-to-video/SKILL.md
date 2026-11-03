@@ -1,6 +1,6 @@
 ---
 name: article-to-video
-description: "Turn a written article (text file) into a narrated HD short-form video with stock footage, subtitles, and background music using MoneyPrinterTurbo. Strips the FOR PI ONLY / keyword research footer (explicitly, before running the CLI — it is NOT automatic). Run this whenever the user hands you an article file and says 'turn it into a video' or similar."
+description: "Turn a written article (text file) into a narrated HD short-form video with stock footage, subtitles, and background music using MoneyPrinterTurbo. Strips the FOR PI ONLY / keyword research footer (explicitly, before running the CLI, it is NOT automatic). Run this whenever the user hands you an article file and says 'turn it into a video' or similar."
 version: 1.0.0
 author: Vinny Barreca
 license: MIT
@@ -64,9 +64,9 @@ grep -c "FOR PI ONLY" /tmp/cleaned_article.txt   # must return 0
 
 Before running, ask the user which aspect ratio they want. Offer all three as choices via `clarify`:
 
-1. **1080x1920 Portrait (9:16)** — YouTube Shorts, TikTok, Reels, Pinterest video pins
-2. **1920x1080 Landscape (16:9)** — YouTube main channel, widescreen
-3. **1080x1080 Square (1:1)** — Pinterest feed, Instagram feed
+1. **1080x1920 Portrait (9:16)**, YouTube Shorts, TikTok, Reels, Pinterest video pins
+2. **1920x1080 Landscape (16:9)**, YouTube main channel, widescreen
+3. **1080x1080 Square (1:1)**, Pinterest feed, Instagram feed
 
 Default to portrait (9:16) if they say "whatever" or don't care.
 
@@ -83,12 +83,12 @@ cd ~/MoneyPrinterTurbo && uv run python cli.py \
 ```
 
 Key flags explained:
-- `--video-subject` — The article title, used as fallback script title (required by CLI)
-- `--video-script` — The full cleaned article text piped in via `$(cat ...)`
-- `--video-source pexels` — Fetches stock footage from Pexels (free tier)
-- `--voice-name` — TTS voice. `en-US-JennyNeural` is a good default. Others: `en-US-GuyNeural`, `en-GB-SoniaNeural`
-- `--bgm-type random` — Adds royalty-free background music
-- `--subtitle-enabled` — Generates timed subtitles overlaid on the video
+- `--video-subject`, The article title, used as fallback script title (required by CLI)
+- `--video-script`, The full cleaned article text piped in via `$(cat ...)`
+- `--video-source pexels`, Fetches stock footage from Pexels (free tier)
+- `--voice-name`, TTS voice. `en-US-JennyNeural` is a good default. Others: `en-US-GuyNeural`, `en-GB-SoniaNeural`
+- `--bgm-type random`, Adds royalty-free background music
+- `--subtitle-enabled`, Generates timed subtitles overlaid on the video
 
 ### Step 6: Deliver the Result
 
@@ -220,7 +220,7 @@ Find the full list in the MoneyPrinterTurbo voice reference or test with any Edg
 
 5. **Config not set.** Ensure `~/MoneyPrinterTurbo/config.toml` has `pexels_api_keys` populated before running. The CLI will error with a clear message if the key is missing.
 
-6. **`storage/local_videos/` doesn't exist on fresh install.** The directory is not created by the repo. Before copying local footage, run `mkdir -p ~/MoneyPrinterTurbo/storage/local_videos/` or the `cp` will fail. The same applies to `storage/tasks/` — MoneyPrinterTurbo creates it at runtime, but it's safe to ensure it exists.
+6. **`storage/local_videos/` doesn't exist on fresh install.** The directory is not created by the repo. Before copying local footage, run `mkdir -p ~/MoneyPrinterTurbo/storage/local_videos/` or the `cp` will fail. The same applies to `storage/tasks/`, MoneyPrinterTurbo creates it at runtime, but it's safe to ensure it exists.
 
 7. **CLI timeout on long renders.** MoneyPrinterTurbo's video pipeline can take 5-10 minutes. The default foreground timeout of 300s may not be enough. Use `background=true` with `notify_on_complete=true`, then poll and wait. Do NOT set a short timeout and kill the process mid-render.
 
@@ -234,7 +234,7 @@ Find the full list in the MoneyPrinterTurbo voice reference or test with any Edg
 
 ## Verification Checklist
 
-- [ ] Article text cleaned — no FOR PI ONLY / keyword research sections remain
+- [ ] Article text cleaned, no FOR PI ONLY / keyword research sections remain
 - [ ] Cleaned text written to temp file
 - [ ] `uv run python cli.py` executed with correct flags
 - [ ] Video file exists at the reported path

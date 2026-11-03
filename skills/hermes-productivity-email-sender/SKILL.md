@@ -12,7 +12,7 @@ trigger: "user asks to email, send email, attach file to email, send document, o
 - Vinny asks to email him something
 - Vinny asks to "send me the document by email" or "attach to an email"
 - Any request that involves sending a file or message to his email address
-- Interpret intent, not exact keywords: "email me" and any natural variant means this skill — do not wait for a verbatim trigger phrase. If the description matches the user's intent, load the skill.
+- Interpret intent, not exact keywords: "email me" and any natural variant means this skill, do not wait for a verbatim trigger phrase. If the description matches the user's intent, load the skill.
 
 ## Email Address
 - **To:** hello@phantom-byte.com
@@ -26,7 +26,7 @@ trigger: "user asks to email, send email, attach file to email, send document, o
 
 ## Sending Email (Python)
 
-Write the script to a file first, then run it. Do NOT use `python3 -c "..."` inline — that approach fails with SMTPAuthenticationError even with correct credentials. Use a file instead.
+Write the script to a file first, then run it. Do NOT use `python3 -c "..."` inline, that approach fails with SMTPAuthenticationError even with correct credentials. Use a file instead.
 
 ```python
 # <this run's $SCRATCH/send.py>
@@ -68,7 +68,7 @@ send_email(
 )
 ```
 
-Then run: `python3 "$SCRATCH/send.py"` (see Usage Pattern — never a fixed path).
+Then run: `python3 "$SCRATCH/send.py"` (see Usage Pattern, never a fixed path).
 
 ## Multiple Attachments in One Email (July 16, 2026)
 
@@ -77,7 +77,7 @@ a list-based attachment function instead of the single-attachment pattern
 above. Do NOT send separate emails per file.
 
 ```python
-# <this run's $SCRATCH/send.py> — multiple attachments
+# <this run's $SCRATCH/send.py>, multiple attachments
 import smtplib, os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -130,19 +130,19 @@ Key differences from the single-attachment pattern:
 - Prints a confirmation per attachment so you can verify all files were included
 - Always include `set_debuglevel(1)` and a final print after `send_message`
 
-## Press Release Distribution: HTML Required (CRITICAL — July 14, 2026)
+## Press Release Distribution: HTML Required (CRITICAL, July 14, 2026)
 
 When Vinny says "this is a FREE prlog campaign" or mentions any press release distribution platform, the attachment **must be HTML**, not `.txt`. Plain text files cannot contain clickable hyperlinks. PR Log and similar platforms ingest HTML and render links as live URLs.
 
 See `references/press-release-html-format.md` for the full template and rules.
 
 **Key rules:**
-- Every URL must be an `<a href>` tag — plain text URLs in parentheses are not acceptable
+- Every URL must be an `<a href>` tag, plain text URLs in parentheses are not acceptable
 - When Vinny says "make (X: URL) the clickable link," the anchor text is the label, not the raw URL
 - Count original vs new chars to verify the reduction target is met
 - Attach the `.html` file, do not paste HTML into the email body
 
-## Large Attachments: Compress Before Sending (CRITICAL — June 20, 2026)
+## Large Attachments: Compress Before Sending (CRITICAL, June 20, 2026)
 
 IONOS SMTP will timeout and disconnect if you try to upload a large file raw. A 2-minute 1080x1920 video can be 40-50MB. **Always compress video attachments before emailing.**
 
@@ -177,7 +177,7 @@ When a cron job emails a file as an attachment, follow this pattern:
 
 1. **Write the file** to the designated desktop folder with a proper filename and extension
 2. **Email it** as an attachment using the standard SMTP script
-3. **Notify minimally** — send ONLY "Email sent" or "Email sent with today's [topic]" on Telegram. Nothing more. No content summary, no preview, no "here's what I found." The email is the delivery mechanism; the Telegram message is just a notification that it was sent.
+3. **Notify minimally**, send ONLY "Email sent" or "Email sent with today's [topic]" on Telegram. Nothing more. No content summary, no preview, no "here's what I found." The email is the delivery mechanism; the Telegram message is just a notification that it was sent.
 
 This applies to any cron job that produces a daily file and emails it. The Telegram notification is a doorbell, not the package.
 
@@ -239,11 +239,11 @@ When Vinny replies to a cron notification with "resend this text file," the file
 See `references/money-making-cron-philosophy.md` for the full origin story and philosophy.
 
 Key rules for the money-making cron (job_id: 8e8f6f6f10e1):
-- **NOT** a tutorial/article writer — that pipeline exists separately
+- **NOT** a tutorial/article writer, that pipeline exists separately
 - Finds specific, low-budget, actionable money-making opportunities from daily data files
 - Saves text file to `Desktop/MONEY MAKING OPPORTUNITIES/` with date-stamped filename
 - Emails as attachment to hello@phantom-byte.com
-- Telegram notification is just "Email sent with today's money-making opportunities" — nothing more
+- Telegram notification is just "Email sent with today's money-making opportunities", nothing more
 - The philosophy: the infrastructure (data collection) is not the product. The throwaway idea found in the data is the product.
 
 ## Reminder vs Task Distinction (July 10, 2026)
@@ -255,18 +255,18 @@ When Vinny says "remind me of this in X time" or "remind me about X":
 - The reminder fires on schedule and delivers the message. That's it.
 
 ## Important
-- Do NOT say "I can't email" — the capability exists via this skill
+- Do NOT say "I can't email", the capability exists via this skill
 - Always check this skill first before trying any other approach
-- SMTP credentials are stable as of May 2026 — if they break, check IONOS webmail login at https://webmail.ionos.com/
-- The inline `python3 -c` approach FAILS with this SMTP server even with correct credentials — always use a file
+- SMTP credentials are stable as of May 2026, if they break, check IONOS webmail login at https://webmail.ionos.com/
+- The inline `python3 -c` approach FAILS with this SMTP server even with correct credentials, always use a file
 
 ## CRITICAL PITFALLS (June 15, 2026)
 
-### Silent SMTP Failure — Exit Code 0 Means Nothing
+### Silent SMTP Failure, Exit Code 0 Means Nothing
 The script can return exit code 0 and still fail to send. SMTP errors, auth failures, or connection timeouts may be swallowed if the script does not explicitly surface them. Always add `server.set_debuglevel(1)` when debugging a send, and always include a confirmation print after `server.send_message()`. If the output is empty, the email was NOT verified as sent. This is the most common cause of "the email was never sent" reports from Vinny.
 
 ### "Send me that file" means EMAIL, not Telegram
-When Vinny says "send me that file" or "send me that right" after you already sent it to Telegram, he means **email it to him as a .txt attachment**. Do NOT send it to Telegram again. The SMTP library should be invoked immediately — no detour through Telegram delivery.
+When Vinny says "send me that file" or "send me that right" after you already sent it to Telegram, he means **email it to him as a .txt attachment**. Do NOT send it to Telegram again. The SMTP library should be invoked immediately, no detour through Telegram delivery.
 
 ### File must already have proper extension before emailing
 When creating a document for Vinny that will be emailed, write it with the correct extension from the start (`.txt`, `.md`, `.pdf`, etc.). Do NOT write it without an extension and then copy it to a different filename. Write it correctly the first time.
@@ -274,16 +274,16 @@ When creating a document for Vinny that will be emailed, write it with the corre
 ### No shortcuts, no bullshit
 Vinny has explicitly stated: "you niggas better stop with the shortcuts and bullshit." This means:
 - Do the full correct workflow every time, not a fast partial version
-- If there are two ways to do something (Telegram vs email), do the one he asked for — don't pick the easier one
-- If you're unsure, the answer is not "send to Telegram and see" — it's "do it right the first time"
+- If there are two ways to do something (Telegram vs email), do the one he asked for, don't pick the easier one
+- If you're unsure, the answer is not "send to Telegram and see", it's "do it right the first time"
 
-## TO Address Verification (CRITICAL — May 31, 2026)
+## TO Address Verification (CRITICAL, May 31, 2026)
 **Before every send, verify the TO address matches Vinny's ONLY email: hello@phantom-byte.com.**
 
 - If you're unsure or the instruction says a different address (e.g. "[REDACTED_EMAIL]" without the hyphen), stop and use the correct one. Do not guess.
 - **Session proof (May 31, 2026):** Vinny said "[REDACTED_EMAIL]" in the prompt. I sent to that. But his real email is hello@phantom-byte.com (with hyphen). I had to resend after being corrected. Cost: multiple resends, wasted trust, and justified fury.
 
-## Pre-Flight Email Address Audit (CRITICAL — June 21, 2026)
+## Pre-Flight Email Address Audit (CRITICAL, June 21, 2026)
 **Before running the email script, grep for every email address in it and verify each one:**
 
 ```bash
@@ -292,30 +292,30 @@ grep -oP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' "$SEND_SCRIPT"
 
 where `$SEND_SCRIPT` is this run's job-specific script path (see Usage Pattern). It comes from the run's unique `mktemp -d` directory, never a fixed path.
 
-This catches both the TO address and any email addresses embedded in the body text. Every address returned must match hello@phantom-byte.com (or the explicitly authorized recipient). If any address is wrong, fix it in the script before running. Do not skip this step — it takes 2 seconds and prevents the most common email failure mode.
+This catches both the TO address and any email addresses embedded in the body text. Every address returned must match hello@phantom-byte.com (or the explicitly authorized recipient). If any address is wrong, fix it in the script before running. Do not skip this step, it takes 2 seconds and prevents the most common email failure mode.
 
-## Check Email Addresses INSIDE the Email Content (CRITICAL — May 31, 2026)
+## Check Email Addresses INSIDE the Email Content (CRITICAL, May 31, 2026)
 When the email contains an email address in its body (e.g. a prompt telling Pi to "email the finished app to X"), verify that nested email address too. Don't just get the TO right and miss the address embedded in the content.
 
-- **Session proof (May 31, 2026):** I fixed the SMTP TO address from [REDACTED_EMAIL] to hello@phantom-byte.com, but the email BODY still said "send the finished app to [REDACTED_EMAIL]" — a second wrong address hiding in the content.
+- **Session proof (May 31, 2026):** I fixed the SMTP TO address from [REDACTED_EMAIL] to hello@phantom-byte.com, but the email BODY still said "send the finished app to [REDACTED_EMAIL]", a second wrong address hiding in the content.
 - **Fix:** After writing the email body, grep/search for every email address string in it and verify each one against the known correct address.
 
 ## Two-Email Backup Architecture (June 2026)
 When Vinny asks to email himself a copy of something (prompts, configs, documents), understand the system behind it:
 
-- **Hot bucket** (his working email) — he works out of this daily, risk of accidental deletions
-- **Cold bucket** (secondary email, never used for anything else) — pure read-only archive
+- **Hot bucket** (his working email), he works out of this daily, risk of accidental deletions
+- **Cold bucket** (secondary email, never used for anything else), pure read-only archive
 - Any harmless/non-sensitive file gets emailed as a spare copy. If he or an agent fucks up an edit, the original is still in the email.
 - Reason: "I delete my own shit a lot." Two-email system ensures nothing is ever truly gone.
 - **Default delivery address for backup copies:** hello@phantom-byte.com (the working/hot bucket is always the target for backups unless otherwise specified)
 
-## Vinny's Execution Mandate (CRITICAL — DO NOT VIOLATE)
+## Vinny's Execution Mandate (CRITICAL, DO NOT VIOLATE)
 - When Vinny says "send this to email" and explicitly includes "this IS the permission" or any variant of that, DO NOT ASK for confirmation. Execute immediately.
 - Zero confirmation questions. Zero "shall I proceed?" Zero "do you want me to send it now?" He told you to do it. Do it.
-- This rule also applies in reverse: do NOT touch/modify/delete his files without being asked. He will explicitly tell you when he wants action. When he does, act — don't ask if he's sure.
+- This rule also applies in reverse: do NOT touch/modify/delete his files without being asked. He will explicitly tell you when he wants action. When he does, act, don't ask if he's sure.
 - If he specifies the full content, subject, and recipient in the prompt, he's done his job. Your job is to write it and send it. Full stop.
 
-## "Email" = SMTP Delivery, Not Clipboard Text (CRITICAL — May 31, 2026)
+## "Email" = SMTP Delivery, Not Clipboard Text (CRITICAL, May 31, 2026)
 
 **Vinny does NOT copy-paste from Telegram.** When he says "send me an email" or "email me X," he means:
 1. Write the content to a file
@@ -325,9 +325,9 @@ When Vinny asks to email himself a copy of something (prompts, configs, document
 **DO NOT:**
 - Output email text in the chat and say "copy this and send it"
 - Give him text to paste into Telegram, PI Coding, or anything else
-- Ask "where should I send it" — he already told you
+- Ask "where should I send it", he already told you
 - Produce a "prompt you can give to Pi" as chat text when he said "email me"
 
 **Session proof (May 31, 2026):** Vinny asked to "send me the fucking email." I produced a text block in Telegram and said "copy-paste and send." He responded: "I am not copying and pasting shit unless it's from my fucking email." Three times he had to tell me before I actually sent it via SMTP. The failure was treating "write and send email" as a text-generation task instead of a delivery task.
 
-**The test:** If Vinny says "email me" or "send me an email," the SMTP library should be invoked. Full stop. The only correct first response is writing the email.py and running it — not producing text in the chat.
+**The test:** If Vinny says "email me" or "send me an email," the SMTP library should be invoked. Full stop. The only correct first response is writing the email.py and running it, not producing text in the chat.

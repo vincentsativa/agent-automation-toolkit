@@ -173,7 +173,7 @@ search_files("similar_pattern", path="src/", file_glob="*.py")
 ### 2. Compare Against References
 
 - If implementing a pattern, read the reference implementation COMPLETELY
-- Don't skim — read every line
+- Don't skim, read every line
 - Understand the pattern fully before applying
 
 ### 3. Identify Differences
@@ -245,11 +245,11 @@ search_files("similar_pattern", path="src/", file_glob="*.py")
 # Run the specific regression test
 pytest tests/test_module.py::test_regression -v
 
-# Run full suite — no regressions
+# Run full suite, no regressions
 pytest tests/ -q
 ```
 
-### 4. If Fix Doesn't Work — The Rule of Three
+### 4. If Fix Doesn't Work, The Rule of Three
 
 - **STOP.**
 - Count: How many fixes have you tried?
@@ -271,11 +271,11 @@ pytest tests/ -q
 
 **Discuss with the user before attempting more fixes.**
 
-This is NOT a failed hypothesis — this is a wrong architecture.
+This is NOT a failed hypothesis, this is a wrong architecture.
 
 ---
 
-## Red Flags — STOP and Follow Process
+## Red Flags, STOP and Follow Process
 
 If you catch yourself thinking:
 - "Quick fix for now, investigate later"
@@ -312,7 +312,7 @@ If you catch yourself thinking:
 - **The Consensus Lie**: Agreeing with a user's frustration while still proposing the same failed approach that led to the frustration.
 - **Over-Promising**: Using phrases like "I'll fix this now" without a verified path to resolution.
 - **The Shortcut Fallacy**: Opting for a service restart or cache clear when the root cause is a fundamental logic failure in the codebase/config interpretation.
-- **The Deletion Trap**: Deleting files or directories without first verifying they don't contain unique data. When asked to clean up duplicates, always diff first — compare content, check for orphaned support files (references/, scripts/, templates/), rescue anything unique, then delete. "Just delete it" without investigation is the same class of error as "just fix it" without root cause. This applies to: duplicate skill trees, stale branches, temp directories, old config files — anything that might hold data not present in the canonical location.
+- **The Deletion Trap**: Deleting files or directories without first verifying they don't contain unique data. When asked to clean up duplicates, always diff first, compare content, check for orphaned support files (references/, scripts/, templates/), rescue anything unique, then delete. "Just delete it" without investigation is the same class of error as "just fix it" without root cause. This applies to: duplicate skill trees, stale branches, temp directories, old config files, anything that might hold data not present in the canonical location.
 
 ## Quick Reference
 
@@ -329,19 +329,19 @@ If you catch yourself thinking:
 
 Use these Hermes tools during Phase 1:
 
-- **`search_files`** — Find error strings, trace function calls, locate patterns
-- **`read_file`** — Read source code with line numbers for precise analysis
-- **`terminal`** — Run tests, check git history, reproduce bugs
-- **`web_search`/`web_extract`** — Research error messages, library docs
+- **`search_files`**, Find error strings, trace function calls, locate patterns
+- **`read_file`**, Read source code with line numbers for precise analysis
+- **`terminal`**, Run tests, check git history, reproduce bugs
+- **`web_search`/`web_extract`**, Research error messages, library docs
 
 ### Language-Specific Debugging References
 
 When you need to drop into an interactive debugger (beyond log statements), consult these reference files:
 
-- **Python** — `references/python-debugging.md` — `breakpoint()`/pdb REPL commands, `debugpy` remote debugging (DAP), `remote-pdb` for agent-friendly interactive debugging, pytest integration, post-mortem, Hermes-specific processes (gateway, tui_gateway, _SlashWorker), and common pitfalls (xdist, asyncio, threads, forks).
-- **Node.js** — `references/node-debugging.md` — `node inspect` REPL commands, attaching to running processes via `SIGUSR1`, programmatic CDP scripting with `chrome-remote-interface`, ui-tui/Ink debugging, Vitest under debugger, heap snapshots & CPU profiles, and common pitfalls (sourcemaps, port collisions, child process inspection).
-- **Cron Duplicate Runs** — `references/debugging-cron-duplicate-runs.md` — Root cause analysis of Hermes cron scheduler duplicate-fire bug. Covers the `fcntl.flock` intra-process blind spot, `advance_next_run` vs `mark_job_run` race, and the "ghost fire" pattern (scheduled job + afternoon duplicate). Three fix options: RLock sandwich, `running_at` timestamp, or both combined.
-- **Duplicate Cleanup** — `references/duplicate-cleanup-workflow.md` — 5-phase process for safely removing duplicate files/directories: discover all copies, inventory content, rescue unique data, verify completeness, then delete. Covers the "Deletion Trap" pitfall.
+- **Python**, `references/python-debugging.md`, `breakpoint()`/pdb REPL commands, `debugpy` remote debugging (DAP), `remote-pdb` for agent-friendly interactive debugging, pytest integration, post-mortem, Hermes-specific processes (gateway, tui_gateway, _SlashWorker), and common pitfalls (xdist, asyncio, threads, forks).
+- **Node.js**, `references/node-debugging.md`, `node inspect` REPL commands, attaching to running processes via `SIGUSR1`, programmatic CDP scripting with `chrome-remote-interface`, ui-tui/Ink debugging, Vitest under debugger, heap snapshots & CPU profiles, and common pitfalls (sourcemaps, port collisions, child process inspection).
+- **Cron Duplicate Runs**, `references/debugging-cron-duplicate-runs.md`, Root cause analysis of Hermes cron scheduler duplicate-fire bug. Covers the `fcntl.flock` intra-process blind spot, `advance_next_run` vs `mark_job_run` race, and the "ghost fire" pattern (scheduled job + afternoon duplicate). Three fix options: RLock sandwich, `running_at` timestamp, or both combined.
+- **Duplicate Cleanup**, `references/duplicate-cleanup-workflow.md`, 5-phase process for safely removing duplicate files/directories: discover all copies, inventory content, rescue unique data, verify completeness, then delete. Covers the "Deletion Trap" pitfall.
 
 ### With delegate_task
 
@@ -355,7 +355,7 @@ delegate_task(
     1. Read the error message carefully
     2. Reproduce the issue
     3. Trace the data flow to find root cause
-    4. Report findings — do NOT fix yet
+    4. Report findings, do NOT fix yet
 
     Error: [paste full error]
     File: [path to failing code]

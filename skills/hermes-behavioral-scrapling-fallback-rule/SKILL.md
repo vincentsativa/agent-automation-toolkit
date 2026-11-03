@@ -1,7 +1,7 @@
 ---
 name: scrapling-fallback-rule
 description: "HARD RULE: scrapling on block. Track blocked sites."
-trigger: "ALWAYS active. Hard behavioral rule for every web access attempt — browser_navigate, web_search, web_extract, curl, or any tool that fetches from an external website."
+trigger: "ALWAYS active. Hard behavioral rule for every web access attempt, browser_navigate, web_search, web_extract, curl, or any tool that fetches from an external website."
 ---
 
 # HARD RULE: Scrapling First, Browser Only for Interactive Pages
@@ -12,7 +12,7 @@ This is a **non-negotiable behavioral rule**. Follow it on every web access atte
 
 ### Step 1: Use Scrapling FIRST for ALL content fetching
 
-For ANY web content fetch — search results, news articles, blog posts, documentation, API responses, any URL — use **scrapling Fetcher** via `terminal()` or `execute_code()` as the DEFAULT tool. Do NOT reach for browser_navigate first.
+For ANY web content fetch, search results, news articles, blog posts, documentation, API responses, any URL, use **scrapling Fetcher** via `terminal()` or `execute_code()` as the DEFAULT tool. Do NOT reach for browser_navigate first.
 
 ```python
 from scrapling.fetchers import Fetcher
@@ -45,7 +45,7 @@ page = sf.fetch("URL", headless=True, network_idle=True)
 
 ### Step 4: Escalate to Rotunda when StealthyFetcher gets blocked
 
-If StealthyFetcher returns 403/429/CAPTCHA, launch **Rotunda** — a Firefox fork with Juggler protocol that evades automation detection and humanizes input (keystroke cadence, mouse path prediction, natural typing speed).
+If StealthyFetcher returns 403/429/CAPTCHA, launch **Rotunda**, a Firefox fork with Juggler protocol that evades automation detection and humanizes input (keystroke cadence, mouse path prediction, natural typing speed).
 
 ```python
 import os
@@ -63,7 +63,7 @@ with sync_playwright() as p:
     browser.close()
 ```
 
-Rotunda makes you look human without lying about your fingerprint — real GPU, real OS, real IP from your home network. It only removes automation signatures.
+Rotunda makes you look human without lying about your fingerprint, real GPU, real OS, real IP from your home network. It only removes automation signatures.
 
 ### Step 5: Combine both for maximum effectiveness
 

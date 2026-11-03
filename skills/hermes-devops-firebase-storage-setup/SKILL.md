@@ -29,4 +29,4 @@ Bucket format is `<project-id>.firebasestorage.app` (NOT .appspot.com).
 ## Pitfalls
 
 - Ensure Storage is enabled in the Firebase Console before API calls (the API can't create it).
-- Service-account key is a secret — chmod 600.
+- Service-account key is a secret, chmod 600.

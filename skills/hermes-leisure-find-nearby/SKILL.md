@@ -8,7 +8,7 @@ metadata:
     related_skills: []
 ---
 
-# Find Nearby — Local Place Discovery
+# Find Nearby, Local Place Discovery
 
 Find restaurants, cafes, bars, pharmacies, and other places near any location. Uses OpenStreetMap (free, no API keys). Works with:
 
@@ -38,8 +38,8 @@ python3 SKILL_DIR/scripts/find_nearby.py --near "90210" --type pharmacy --json
 
 | Flag | Description | Default |
 |------|-------------|---------|
-| `--lat`, `--lon` | Exact coordinates | — |
-| `--near` | Address, city, zip, or landmark (geocoded) | — |
+| `--lat`, `--lon` | Exact coordinates |, |
+| `--near` | Address, city, zip, or landmark (geocoded) |, |
 | `--type` | Place type (repeatable for multiple) | restaurant |
 | `--radius` | Search radius in meters | 1500 |
 | `--limit` | Max results | 15 |
@@ -57,7 +57,7 @@ python3 SKILL_DIR/scripts/find_nearby.py --near "90210" --type pharmacy --json
 
 3. **Run the script** with appropriate flags. Use `--json` if you need to process results programmatically.
 
-4. **Present results** with names, distances, and Google Maps links. If the user asked about hours or "open now," check the `hours` field in results — if missing or unclear, verify with `web_search`.
+4. **Present results** with names, distances, and Google Maps links. If the user asked about hours or "open now," check the `hours` field in results, if missing or unclear, verify with `web_search`.
 
 5. **For directions**, use the `directions_url` from results, or construct: `https://www.google.com/maps/dir/?api=1&origin=<LAT>,<LON>&destination=<LAT>,<LON>`
 
@@ -65,5 +65,5 @@ python3 SKILL_DIR/scripts/find_nearby.py --near "90210" --type pharmacy --json
 
 - If results are sparse, widen the radius (1500 → 3000m)
 - For "open now" requests: check the `hours` field in results, cross-reference with `web_search` for accuracy since OSM hours aren't always complete
-- Zip codes alone can be ambiguous globally — prompt the user for country/state if results look wrong
+- Zip codes alone can be ambiguous globally, prompt the user for country/state if results look wrong
 - The script uses OpenStreetMap data which is community-maintained; coverage varies by region

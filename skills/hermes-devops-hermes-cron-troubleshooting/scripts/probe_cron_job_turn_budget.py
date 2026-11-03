@@ -13,7 +13,7 @@ resolver and asserts both directions:
 The inherit cases are the guard on the guard: a fix that raises every job to the override
 value silently changes every other job on the box, so they must be asserted, not assumed.
 
-Run it under the install venv so the import is real — resolve the interpreter, never
+Run it under the install venv so the import is real, resolve the interpreter, never
 hardcode it:
 
     grep -o '"/[^"]*environments/[^"]*venv"' ~/.hermes/installs/*/facts.json
@@ -88,9 +88,9 @@ def main() -> int:
         print("%-45s want=%-5s got=%-5s %s" % (label, want, got, "PASS" if ok else "FAIL"))
 
     if failures:
-        print("\nRESULT: %d case(s) FAILED — the job's own max_turns is not the value the run gets." % failures)
+        print("\nRESULT: %d case(s) FAILED, the job's own max_turns is not the value the run gets." % failures)
     else:
-        print("\nRESULT: ALL PASS — per-job override wins, absent field still inherits the global.")
+        print("\nRESULT: ALL PASS, per-job override wins, absent field still inherits the global.")
     return 1 if failures else 0
 
 

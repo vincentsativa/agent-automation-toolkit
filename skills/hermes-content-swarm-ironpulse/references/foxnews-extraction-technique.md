@@ -1,4 +1,4 @@
-# Fox News AI — Story Extraction Technique
+# Fox News AI, Story Extraction Technique
 
 ## Why This Exists
 
@@ -44,9 +44,9 @@ Array.from(articles).map(a => {
 
 ## Known Pitfalls
 
-- **Fox Business links return 404** — Any story link pointing to `foxbusiness.com` will result in a 404 when navigated to. Only `foxnews.com`-hosted articles are reliably accessible.
+- **Fox Business links return 404**, Any story link pointing to `foxbusiness.com` will result in a 404 when navigated to. Only `foxnews.com`-hosted articles are reliably accessible.
 - **Article URL navigation returns 404 (May 2026):** Even `foxnews.com`-hosted article URLs can return 404 when navigated to directly from the category listing. Extract full story content from the category page snapshot rather than opening individual article URLs. If you must get article detail, try the snapshot approach first.
-- **Article text is not accessible** — Even when you can navigate to a Fox News article, the page text may be blocked behind a paywall or bot detection.
-- **No timestamps visible** — Fox News AI category page does not display relative timestamps for most stories. Verify recency via Google News cross-reference instead.
-- **No datetime attributes** — The `<time>` elements on Fox News may be absent or lack `datetime` attributes.
-- **Stories may be older** — Fox News AI section aggregates stories from days/weeks prior. Verify timestamps before including.
+- **Article text is not accessible**, Even when you can navigate to a Fox News article, the page text may be blocked behind a paywall or bot detection.
+- **No timestamps visible**, Fox News AI category page does not display relative timestamps for most stories. Verify recency via Google News cross-reference instead.
+- **No datetime attributes**, The `<time>` elements on Fox News may be absent or lack `datetime` attributes.
+- **Stories may be older**, Fox News AI section aggregates stories from days/weeks prior. Verify timestamps before including.

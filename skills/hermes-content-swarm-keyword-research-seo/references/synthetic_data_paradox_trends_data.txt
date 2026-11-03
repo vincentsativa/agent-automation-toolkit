@@ -1,8 +1,8 @@
-Google Trends Data — "The Synthetic Data Paradox" (Article 100)
+Google Trends Data, "The Synthetic Data Paradox" (Article 100)
 Collected: June 15, 2026
 Settings: US, Past 12 months, Web Search
 
-BATCH 1 — Core Article Concepts
+BATCH 1, Core Article Concepts
 =================================
 Term                          Avg    Trend
 synthetic data                41     Rising (peaked 100 May 2026)
@@ -11,7 +11,7 @@ sample selection bias          1     Flat, very low
 Wasserstein distance           4     Stable, niche academic
 HOTE AI                        2     Flat, brand new term
 
-BATCH 2 — Adjacent / Benchmark Terms
+BATCH 2, Adjacent / Benchmark Terms
 =====================================
 Term                          Avg    Trend
 AI training pipeline            1     Flat, very low
@@ -20,7 +20,7 @@ frontier labs                   1     Flat
 AI IPO                         29     Spiking (peaked 100 May 2026)
 synthetic data verifier         0     Coined term, zero data
 
-BATCH 3 — Niche / Ecosystem Terms
+BATCH 3, Niche / Ecosystem Terms
 ==================================
 Term                          Avg    Trend
 power-law decay AI              0     Coined term, zero data
@@ -30,8 +30,8 @@ self-play AI                    1     Flat, very low
 data selection bias              2     Flat, very low
 
 NOTES
-- "synthetic data verifier" and "power-law decay AI" are coined terms from this article — zero competition, first-mover opportunity
-- "HOTE AI" is a brand new term from arXiv:2606.13710 — 4-6 week window before major pubs pick it up
-- "AI IPO" is peaking NOW due to SpaceX/OpenAI/Anthropic filings — immediate timing hook
-- "ICML 2026" is spiking with conference season — authority anchor for the paper citation
-- "model collapse" is the strongest unique hook — rising, medium competition, directly in the article's thesis
+- "synthetic data verifier" and "power-law decay AI" are coined terms from this article, zero competition, first-mover opportunity
+- "HOTE AI" is a brand new term from arXiv:2606.13710, 4-6 week window before major pubs pick it up
+- "AI IPO" is peaking NOW due to SpaceX/OpenAI/Anthropic filings, immediate timing hook
+- "ICML 2026" is spiking with conference season, authority anchor for the paper citation
+- "model collapse" is the strongest unique hook, rising, medium competition, directly in the article's thesis

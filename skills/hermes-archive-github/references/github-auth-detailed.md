@@ -1,4 +1,4 @@
-# GitHub Authentication — Detailed Reference
+# GitHub Authentication, Detailed Reference
 
 ## SSH Key Authentication (Full Setup)
 

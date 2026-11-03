@@ -16,11 +16,11 @@ discovery step, which is a real cost for a file that was fine.
 
 ## Procedure
 
-**1 — Read the whole file and list its headings.** Heading level tells you which side
+**1, Read the whole file and list its headings.** Heading level tells you which side
 of the line each section sits on. Top-level sections that describe a different MODE
 are the candidates to move; subsections that constrain every mode stay.
 
-**2 — Classify each top-level section as always-on or depth.**
+**2, Classify each top-level section as always-on or depth.**
 
 Always-on, stays in SKILL.md:
 
@@ -39,12 +39,12 @@ Depth, moves to `references/`:
 - Editorial or policy material for downstream content work.
 - Variant modes (weekly, consolidated, no-research).
 
-**3 — Write the reference files first, before touching SKILL.md.** Name each by TOPIC:
+**3, Write the reference files first, before touching SKILL.md.** Name each by TOPIC:
 `full-report-workflow.md`, `rss-sources.md`, `cron-and-delivery.md`,
 `editorial-workflow.md`. Give each a one-line header saying it is loaded on demand
 and the condition that warrants it.
 
-**4 — Verify the move is lossless before deleting anything.** For each reference,
+**4, Verify the move is lossless before deleting anything.** For each reference,
 confirm the sections landed by probing for content unique to each moved block:
 
 ```python
@@ -56,12 +56,12 @@ for probe in ["<unique heading>", "<unique literal>", "<unique command>"]:
 Count bytes before and after. Moved bytes plus the new SKILL.md should account for
 the original; a shortfall means a block was dropped.
 
-**5 — Rewrite SKILL.md around the rules.** Keep the mode decision, the cheap-mode
+**5, Rewrite SKILL.md around the rules.** Keep the mode decision, the cheap-mode
 budget with its prohibitions, the trigger discipline, and the pitfalls. Add a pointer
 table:
 
 ```markdown
-## References — Load On Demand Only
+## References, Load On Demand Only
 
 | File | Load when |
 |---|---|
@@ -72,7 +72,7 @@ table:
 Close with the negative: "Do NOT load the full-mode, cron, or editorial references
 for a quick scan." A pointer table without that line gets ignored on the cheap path.
 
-**6 — Extract any fixed command sequence into `scripts/`.** If a mode is "fetch these
+**6, Extract any fixed command sequence into `scripts/`.** If a mode is "fetch these
 then parse like so," that is one script, not a set of instructions to re-derive. A
 script also caps the turn: one call replaces however many the instructions would
 have taken, and it removes the opening for extra improvised passes.
@@ -96,8 +96,8 @@ style path can move to `/rss/ai-artificial-intelligence/index.xml` with no redir
 ## Parsing Dates Out of Feeds and Search Feeds
 
 Use `email.utils.parsedate` for RSS and Atom timestamps, not a hardcoded
-`strptime` format. Feeds write zones inconsistently — `+0000` in one item and the
-literal `GMT` in the next — and `strptime`'s `%z` accepts the numeric form while
+`strptime` format. Feeds write zones inconsistently, `+0000` in one item and the
+literal `GMT` in the next, and `strptime`'s `%z` accepts the numeric form while
 rejecting `GMT`. The failure is total and silent: every item is skipped, the count
 comes back zero, and the run looks like a day with no news. Google News search feeds
 are the common offender.

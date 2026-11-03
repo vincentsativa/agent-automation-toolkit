@@ -1,8 +1,8 @@
-# Coverage Gap Analysis — articles.phantom-byte.com
+# Coverage Gap Analysis, articles.phantom-byte.com
 
 Use this technique when analyzing PhantomByte's existing content to find gap topics for article recommendations.
 
-## Extraction Strategy — Browser Console (Primary)
+## Extraction Strategy, Browser Console (Primary)
 
 **The site's DOM structure supports `querySelectorAll('article h3 a, article h3')` reliably.** This was verified on July 5, 2026 returning 240 results from the full archive page. The old workaround (snapshot-first, complex fallback chain) is no longer needed.
 
@@ -77,12 +77,12 @@ For each category, count articles. Any category with 0-2 articles is a candidate
 - Have research support (recent papers, real incidents) to anchor the angle
 
 **Strong gap signals as of July 12, 2026:**
-- **Distributed / Edge AI Inference** — zero coverage. All 54 AI Infrastructure articles focus on centralized deployment. LLMlet (P2P browser inference), Sunrun (residential compute), DeepSeek (custom chip), NVIDIA Vera (edge CPU) are all uncovered.
-- **AI in Education / Cognitive Dependency** — zero coverage. Brown University 96% to 48% experiment is a major data point with no PhantomByte article.
-- **AI Vendor Dependency as Financial Risk** — zero coverage. S&P downgrading Oracle citing OpenAI as a credit risk is a new category of risk.
-- **Data Annotation / AI Labor Supply Chain** — one article (#120, Mechanical Turk shutdown). Still thin for the scope of the topic.
-- **Physical AI / Robotics** — zero coverage. China's Orca world model learning robotics from video alone is uncovered.
-- **AI Data Center Siting / Community Opposition** — zero coverage. Oracle's $43B Michigan data center fight, grassroots opposition spreading.
+- **Distributed / Edge AI Inference**, zero coverage. All 54 AI Infrastructure articles focus on centralized deployment. LLMlet (P2P browser inference), Sunrun (residential compute), DeepSeek (custom chip), NVIDIA Vera (edge CPU) are all uncovered.
+- **AI in Education / Cognitive Dependency**, zero coverage. Brown University 96% to 48% experiment is a major data point with no PhantomByte article.
+- **AI Vendor Dependency as Financial Risk**, zero coverage. S&P downgrading Oracle citing OpenAI as a credit risk is a new category of risk.
+- **Data Annotation / AI Labor Supply Chain**, one article (#120, Mechanical Turk shutdown). Still thin for the scope of the topic.
+- **Physical AI / Robotics**, zero coverage. China's Orca world model learning robotics from video alone is uncovered.
+- **AI Data Center Siting / Community Opposition**, zero coverage. Oracle's $43B Michigan data center fight, grassroots opposition spreading.
 
 ## Writing the Gap Rationale
 
@@ -102,4 +102,4 @@ Why it hasn't been covered: Cite the closest existing PhantomByte article (title
 
 ## When to Use
 
-This is Step 3 of the editorial brief workflow — after fetching headlines and identifying themes, use gap analysis to rank article recommendations.
+This is Step 3 of the editorial brief workflow, after fetching headlines and identifying themes, use gap analysis to rank article recommendations.

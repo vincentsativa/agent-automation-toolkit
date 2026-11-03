@@ -26,7 +26,7 @@ All agents use `kimi-k2.6:cloud` with `reasoning_effort: low`.
 - Research data file path(s) or directory (e.g., OpenClaw swarm report, IronPulse output, or any research document)
 - Topic angle / story direction
 
-**How Vinny discovers topics (important context):** Vinny typically surfaces article topics through interactive discussion of Ironpulse reports — not through pre-written briefs. He treats the Ironpulse output as an opening bid and uses conversation to find the patterns and angles worth writing about. By the time Article Blaster is invoked, the topic is already clear from that discussion. Don't suggest alternative topics or re-litigate the angle — blast what he gave you.
+**How Vinny discovers topics (important context):** Vinny typically surfaces article topics through interactive discussion of Ironpulse reports, not through pre-written briefs. He treats the Ironpulse output as an opening bid and uses conversation to find the patterns and angles worth writing about. By the time Article Blaster is invoked, the topic is already clear from that discussion. Don't suggest alternative topics or re-litigate the angle, blast what he gave you.
 
 Save these as context variables for all subsequent agents.
 
@@ -114,10 +114,10 @@ Spawn 2 agents simultaneously. Both receive the synthesis documents and keyword 
 
 **After Writer Agent completes, before spawning Social+QA:**
 1. Verify draft file exists at the exact expected path
-2. If file not found, FAIL and report — do NOT search for alternatives
+2. If file not found, FAIL and report, do NOT search for alternatives
 3. Update `paths.txt` with confirmed draft path
 
-**Social+QA Agent reads `paths.txt` for all file locations — never hardcode or guess paths.**
+**Social+QA Agent reads `paths.txt` for all file locations, never hardcode or guess paths.**
 
 ### Phase 5: Delivery
 
@@ -343,7 +343,7 @@ Save QA report to: [qa path from paths.txt]
 9. **Verify keywords file exists** at exact path in paths.txt
 10. Execute Phase 4: spawn writer agent via `delegate_task`
 11. Wait for completion.
-12. **Verify draft file exists** at exact path. If missing, FAIL — do not proceed.
+12. **Verify draft file exists** at exact path. If missing, FAIL, do not proceed.
 13. Execute Phase 5: spawn social/QA agent via `delegate_task` (reads paths.txt for all locations)
 14. Wait for completion.
 15. Deliver file paths only (UNC format for Telegram)

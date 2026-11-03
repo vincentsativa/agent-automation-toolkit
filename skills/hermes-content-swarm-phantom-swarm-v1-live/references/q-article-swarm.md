@@ -207,7 +207,7 @@ Runtime: ~15-25 minutes
 
 | Problem | Fix |
 |---------|-----|
-| Em dash leakage | Search for `—` and `–`, replace with periods/parentheses |
+| Em dash leakage | Search for `-` and `–`, replace with periods/parentheses |
 | Token/time math errors | Use measured benchmarks, not theoretical calculations |
 | Source verification skipping | Always run Phase 2.5 |
 | Delegation key confusion | Config requires `delegation.api_key` specifically |

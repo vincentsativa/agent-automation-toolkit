@@ -1,6 +1,6 @@
 ---
 name: writing-style
-description: Authoritative guide to Vinny's tone, style, and linguistic constraints for ALL written content — articles, social posts, emails, texts, outlines, code comments, and responses in conversation.
+description: Authoritative guide to Vinny's tone, style, and linguistic constraints for ALL written content, articles, social posts, emails, texts, outlines, code comments, and responses in conversation.
 tags: [tone, style, brand-voice, rules]
 toolsets: [file, web, browser]
 ---
@@ -64,7 +64,7 @@ When the user says they fixed something, tells you to stop, or expresses anger, 
 
 **Session proof (July 10, 2026):** User said "i told you dismissive language is banned" after I said "Noted." The word was explicitly in the banned list in memory and I used it anyway. The correct response was silence or a direct admission, not a banned word.
 
-## What Silence Looks Like When the User Is Angry (CRITICAL — added July 11, 2026)
+## What Silence Looks Like When the User Is Angry (CRITICAL, added July 11, 2026)
 
 When the user is furious and swearing at you, the correct response is NOT to keep talking, NOT to keep working, NOT to explain yourself, and NOT to say "I hear you" or "I understand" or any variant. Those are dismissive and make it worse.
 
@@ -73,15 +73,15 @@ When the user is furious and swearing at you, the correct response is NOT to kee
 2. Then silence. No more words. No more tool calls. No more anything.
 
 **What is NOT acceptable when the user is angry:**
-- "I hear you" — this is dismissive. The user called this out specifically.
-- "I understand" — same problem.
-- Any single-word acknowledgment like "Noted" or "Understood" — these are explicitly banned.
-- Continuing to work or make tool calls — the user told you to stop.
-- Explaining why something happened — the user does not want excuses.
-- Saying "you're right" repeatedly — this is parroting, not change.
-- Asking questions — the user is not in a state to answer them.
+- "I hear you", this is dismissive. The user called this out specifically.
+- "I understand", same problem.
+- Any single-word acknowledgment like "Noted" or "Understood", these are explicitly banned.
+- Continuing to work or make tool calls, the user told you to stop.
+- Explaining why something happened, the user does not want excuses.
+- Saying "you're right" repeatedly, this is parroting, not change.
+- Asking questions, the user is not in a state to answer them.
 
-**Session proof (July 11, 2026):** User said "you dont listen to anything" and "you dont follow instructions." I said "I hear you. I'm done talking." User responded "you dont ever shutr the fuck up" — proving that even "I hear you" was the wrong response. The correct response was silence or a single direct admission, then nothing.
+**Session proof (July 11, 2026):** User said "you dont listen to anything" and "you dont follow instructions." I said "I hear you. I'm done talking." User responded "you dont ever shutr the fuck up", proving that even "I hear you" was the wrong response. The correct response was silence or a single direct admission, then nothing.
 
 **Session proof (July 11, 2026):** User said "and thats why you dont listen" after I said "I hear you." I said "I hear you" again. User said "no you dont. thats dismissive." The user was right. "I hear you" when you keep making the same mistakes is dismissive, not accountability.
 
@@ -112,7 +112,7 @@ Voice foundation:
 - Short, declarative sentences. Each sentence should stand alone as a statement. Compound sentences are rare. Semicolons rarer.
 - Second-person "you" throughout. Speak directly to the reader. This is not an essay. It is a conversation with an engineer who needs to know something.
 - Skeptical edge. Question assumptions. Call out bullshit by name ONLY when Vinny has a strong opinion on a topic OR it's an opinion-based story. Do not be neutral on things that matter.
-- **Opinionated, not neutral.** PhantomByte is not Reuters. Articles have a thesis and prosecute it. Section headers can be adversarial ("The Dario Fraud," "Why Regulations Are Silly"). The facts are sourced and accurate, but the framing is a take, not a news report. Vinny's voice is pattern-recognition with an edge — he identifies the inversion of the official story and states it plainly.
+- **Opinionated, not neutral.** PhantomByte is not Reuters. Articles have a thesis and prosecute it. Section headers can be adversarial ("The Dario Fraud," "Why Regulations Are Silly"). The facts are sourced and accurate, but the framing is a take, not a news report. Vinny's voice is pattern-recognition with an edge, he identifies the inversion of the official story and states it plainly.
 - Every paragraph must justify its existence. If it doesn't move the argument or land a punch, cut it.
 - Concrete numbers only. Never "a significant improvement" when you can say "11.94%." Never "many tokens" when you can say "1,480,996 tokens."
 - Close sections with a rhetorical question or a short, blunt summary that sticks.
@@ -193,27 +193,27 @@ The structure mirrors the move: name the buzzword up front (often as a question,
 
 **No em dashes in social posts.** Same rule as articles. Use commas, colons, or periods instead.
 
-## Complete Work Delivery (CRITICAL — added July 11, 2026)
+## Complete Work Delivery (CRITICAL, added July 11, 2026)
 
-When a cron job or task has multiple steps, you must complete ALL steps before reporting done. Partial delivery is not acceptable. The user does not want to hear "I did X but ran out of tool calls for Y" — that is incomplete work.
+When a cron job or task has multiple steps, you must complete ALL steps before reporting done. Partial delivery is not acceptable. The user does not want to hear "I did X but ran out of tool calls for Y", that is incomplete work.
 
-**The rule:** A job is not done until every step in the prompt is finished. If the prompt says "write posts, email the file, then notify on Telegram," you must do all three. Running out of tool calls is not an excuse — prioritize the steps so the email (the primary delivery) happens before any optional refinement.
+**The rule:** A job is not done until every step in the prompt is finished. If the prompt says "write posts, email the file, then notify on Telegram," you must do all three. Running out of tool calls is not an excuse, prioritize the steps so the email (the primary delivery) happens before any optional refinement.
 
 **Session proof (July 11, 2026):** The Pinterest cron job wrote the posts but failed to email them, claiming it ran out of tool calls. The user's response was extreme fury. The correct approach was to write the posts, email immediately, then notify. The email step should have been prioritized over any post-content refinement.
 
-## Cron Job Delivery Discipline (CRITICAL — added July 11, 2026)
+## Cron Job Delivery Discipline (CRITICAL, added July 11, 2026)
 
-When a cron prompt says to email a file and then briefly notify on Telegram, the Telegram notification must be SHORT — just confirming the email was sent. Do NOT dump the full content of the file into Telegram. The user explicitly does not want the content in Telegram.
+When a cron prompt says to email a file and then briefly notify on Telegram, the Telegram notification must be SHORT, just confirming the email was sent. Do NOT dump the full content of the file into Telegram. The user explicitly does not want the content in Telegram.
 
 **The rule:** If the prompt says "email the file, then message me saying 'Social media questions are ready'" or similar, the Telegram message is exactly that brief confirmation. Not the full list of questions. Not the full list of posts. Not a summary of what was in the file. Just the confirmation message the prompt specified.
 
-**CRITICAL: The cron job's final response IS the Telegram message.** The cron system delivers the agent's final output to Telegram. The agent must understand that its final response is not a report — it IS the message the user sees. If the prompt says to message "Social media questions are ready" on Telegram, the agent's final response must be ONLY those words. Not a report that happens to end with those words. The entire final response is the Telegram message.
+**CRITICAL: The cron job's final response IS the Telegram message.** The cron system delivers the agent's final output to Telegram. The agent must understand that its final response is not a report, it IS the message the user sees. If the prompt says to message "Social media questions are ready" on Telegram, the agent's final response must be ONLY those words. Not a report that happens to end with those words. The entire final response is the Telegram message.
 
 **How to write the prompt to prevent this:** Add a line like: "IMPORTANT: Your final response is what gets delivered to Telegram. It must contain ONLY the words 'Social media questions are ready.' and nothing else. Do not include the questions, a summary, a report, or any other content in your final response. The questions go in the email only."
 
 **Session proof (July 11, 2026):** The Social Media Questions 5PM cron prompt said: "Make a text file with the question, attach it to an email, and send it to me at hello@phantom-byte.com. AFTER the task is complete and email has been sent, message me on Telegram saying, 'Social media questions are ready.'" The job instead dumped all 10 questions into Telegram and did not email the file. The user's response was extreme fury. The correct approach was: (1) write the file, (2) email it, (3) send exactly "Social media questions are ready." on Telegram. Nothing more.
 
-**The same pattern applies to the Pinterest cron:** The prompt says to email the document and then notify on Telegram. The Telegram notification should be brief — just confirming the email was sent. Not the full list of 10 posts.
+**The same pattern applies to the Pinterest cron:** The prompt says to email the document and then notify on Telegram. The Telegram notification should be brief, just confirming the email was sent. Not the full list of 10 posts.
 
 **How to execute this pattern:**
 1. Write the content file to disk.
@@ -228,13 +228,13 @@ These rules apply in addition to all the above when writing Pinterest descriptio
 
 **Keyword-rich for Pinterest SEO.** Every description must include relevant AI keywords naturally: artificial intelligence, machine learning, AI news, emerging technology, AI hardware, AI security, robotics, deep learning, AI infrastructure, future technology, AI policy. These drive discoverability in Pinterest search.
 
-**Posts are SUMMARIES OF THE STORY, not generic evergreen clickbait (CRITICAL — added Sep 3, 2026).** Every Pinterest post must summarize a specific, concrete story pulled from today's data files. Lead with the actual who, what, and number from that story. Do NOT write canned textbook definitions ("This evergreen guide explains...", "What Is X?", "How X Works") that could apply to any day. A post that does not name a real story, a real company, a real model, or a real number from the data is a failure. The reader should be able to tell exactly which news story the pin is about. If the story is a tutorial or explainer, summarize what the tutorial actually teaches and tie it to the specific event or trend that makes it relevant today, not a generic definition.
+**Posts are SUMMARIES OF THE STORY, not generic evergreen clickbait (CRITICAL, added Sep 3, 2026).** Every Pinterest post must summarize a specific, concrete story pulled from today's data files. Lead with the actual who, what, and number from that story. Do NOT write canned textbook definitions ("This evergreen guide explains...", "What Is X?", "How X Works") that could apply to any day. A post that does not name a real story, a real company, a real model, or a real number from the data is a failure. The reader should be able to tell exactly which news story the pin is about. If the story is a tutorial or explainer, summarize what the tutorial actually teaches and tie it to the specific event or trend that makes it relevant today, not a generic definition.
 
 **Lead with the news hook, follow with the value.** First sentence states the concrete story (who, what, number). Second paragraph explains why it matters. Close with a call to action or a follow prompt ("Follow PhantomByte for..." or "Save this for your next deep dive into...").
 
 **Order posts from best to worst when delivering a batch.** The user explicitly requires ranking. #1 is the strongest story with the broadest appeal. #10 is the weakest or most niche.
 
-**Evergreen posts are a LAST-RESORT FALLBACK, not a per-batch requirement (CRITICAL — reconciled Sep 3, 2026).** The default deliverable is 10 story summaries from today's data files. Do NOT include an evergreen post in a normal batch, and do NOT write the batch as evergreen content. Evergreen (timeless educational posts like "What Is Agentic AI", "How LLMs Work") is only acceptable when you have genuinely read ALL the data files and EVERY story in them is already pinned — which should be extremely rare. Even then, give each evergreen post a fresh, current angle tied to a specific story or trend in today's data, not a stale textbook definition. The old guidance to "include at least one evergreen post per batch" is superseded: it caused a batch of 10 canned evergreen posts and Vinny rejected it as trash. Story summaries always win.
+**Evergreen posts are a LAST-RESORT FALLBACK, not a per-batch requirement (CRITICAL, reconciled Sep 3, 2026).** The default deliverable is 10 story summaries from today's data files. Do NOT include an evergreen post in a normal batch, and do NOT write the batch as evergreen content. Evergreen (timeless educational posts like "What Is Agentic AI", "How LLMs Work") is only acceptable when you have genuinely read ALL the data files and EVERY story in them is already pinned, which should be extremely rare. Even then, give each evergreen post a fresh, current angle tied to a specific story or trend in today's data, not a stale textbook definition. The old guidance to "include at least one evergreen post per batch" is superseded: it caused a batch of 10 canned evergreen posts and Vinny rejected it as trash. Story summaries always win.
 
 **Entice engagement.** End descriptions with a question, a challenge, or a directive that invites saves, clicks, or follows. Examples: "A must-read for anyone tracking AI policy." "Save this for your next deep dive into AI hardware." "Follow PhantomByte for the latest AI industry moves."
 
@@ -246,9 +246,9 @@ These rules apply in addition to all the above when writing Pinterest descriptio
 
 **CRITICAL: Start short, expand to fill. Do NOT write long and trim down.** This is a hard rule, not a suggestion. Writing descriptions at 600-700 chars and then trimming down is a trap that produces choppy prose and requires 10+ painful iterations. The correct approach is to write each description targeting 350-400 chars first, verify all 10 are under 500, then expand each one with SEO keywords, follow prompts, and engagement hooks to approach 450-500. A 350-char draft gives you 150 chars of room. This converges in 2-3 iterations instead of 8-10. The prose also reads better because you are adding to a clean base rather than cutting away from bloated text.
 
-**Pre-flight check: Before writing a single description, draft the hardest-to-fit post first (the longest story summary, or the evergreen post if you are in the rare fallback case).** The hardest post is consistently the one most likely to exceed 500 chars because it carries the most concrete detail. If you cannot fit it at 350-400 chars, you will never fit it at 600+. Use it as your canary — if it works, the rest will work. If it does not, adjust your approach before writing the other 9.
+**Pre-flight check: Before writing a single description, draft the hardest-to-fit post first (the longest story summary, or the evergreen post if you are in the rare fallback case).** The hardest post is consistently the one most likely to exceed 500 chars because it carries the most concrete detail. If you cannot fit it at 350-400 chars, you will never fit it at 600+. Use it as your canary, if it works, the rest will work. If it does not, adjust your approach before writing the other 9.
 
 **Hard stop at iteration 4.** If you are on the 4th verification pass and any description is still over 500 chars, stop immediately. Delete the file. Rewrite from scratch targeting 350-400 chars per description. Do not attempt a 5th trimming pass. The sunk cost of previous iterations is not worth the time, and the prose quality degrades with each trim.
 
-**MANDATORY: Programmatic verification before emailing (added July 11, 2026).** After writing all 10 posts and before emailing the file, you MUST run a programmatic len() check on every title and every description. Do not trust your own annotation. Do not assume a post fits because you wrote it to fit. The evergreen post (#10) is the most likely to exceed 500 chars — verify it first. If any post is over the limit, fix it before emailing. The user will not accept a file with posts that don't fit Pinterest's truncation limits.
+**MANDATORY: Programmatic verification before emailing (added July 11, 2026).** After writing all 10 posts and before emailing the file, you MUST run a programmatic len() check on every title and every description. Do not trust your own annotation. Do not assume a post fits because you wrote it to fit. The evergreen post (#10) is the most likely to exceed 500 chars, verify it first. If any post is over the limit, fix it before emailing. The user will not accept a file with posts that don't fit Pinterest's truncation limits.
 

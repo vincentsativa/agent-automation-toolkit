@@ -6,7 +6,7 @@ decorative rulers (including ═ box-drawing), fenced/indented code blocks, bull
 numbered items, checklists, bold lines, and normal paragraphs with inline markdown.
 
 IMPORTANT: Consecutive paragraph lines are buffered into single <p> tags.
-Do NOT emit one <p> per line — that produces fragmented, unreadable paragraphs.
+Do NOT emit one <p> per line, that produces fragmented, unreadable paragraphs.
 
 Usage:
     python plain-text-to-html.py <input.txt> <output.html>
@@ -120,7 +120,7 @@ def parse(src_path, out_path):
                 i += 1
             break
 
-        # No TOC found — hit a body section header
+        # No TOC found, hit a body section header
         if re.match(r"^(PART\s+(ONE|TWO|THREE|FOUR|FIVE|SIX)\b|[IVX]+\.\s)", stripped) or \
            re.fullmatch(r"[A-Z][A-Z\s,:/'\-&]+(\?|:)?$", stripped) or \
            re.fullmatch(r"=+\s+.*\s+=+", stripped):

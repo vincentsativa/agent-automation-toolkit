@@ -27,7 +27,7 @@ prices = re.findall(r'"price_cents":(\d+)', snippet)
 perms = re.findall(r'"permalink":"([^"]+)"', snippet)
 
 for name, price, perm in zip(names, prices, perms):
-    print(f"{name} — ${int(price)/100:.2f}")
+    print(f"{name}, ${int(price)/100:.2f}")
 ```
 
 ## Why This Matters

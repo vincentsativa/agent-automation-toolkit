@@ -12,16 +12,16 @@ Vinny's exact words: *"I report something broken, you tell me the problem, then 
 
 ## The Four Steps (in order, do NOT skip or merge them)
 
-1. **Diagnose** — find the real root cause, not the surface symptom. Read logs, reproduce it, inspect actual state. Name the actual cause out loud.
-2. **Fix** — change the thing that actually causes it. Root-cause fix, not a band-aid, not a stub, not a workaround that hides it.
-3. **Test** — verify the fix with a REAL run. Not "should work," not an assertion, not a description. Execute it.
-4. **Prove** — report the evidence: exit code 0, `execution_success: true`, the delivered artifact, the file that landed, the check that passes. Only then say "fixed."
+1. **Diagnose**, find the real root cause, not the surface symptom. Read logs, reproduce it, inspect actual state. Name the actual cause out loud.
+2. **Fix**, change the thing that actually causes it. Root-cause fix, not a band-aid, not a stub, not a workaround that hides it.
+3. **Test**, verify the fix with a REAL run. Not "should work," not an assertion, not a description. Execute it.
+4. **Prove**, report the evidence: exit code 0, `execution_success: true`, the delivered artifact, the file that landed, the check that passes. Only then say "fixed."
 
 ## NEVER acceptable
 
 - Telling Vinny the problem and stopping without fixing it.
 - Declaring "done" on a change you never executed.
-- "It should work on the next run" — run it NOW to prove it.
+- "It should work on the next run", run it NOW to prove it.
 - A stub/placeholder/simulated result presented as real.
 - Pretending you fixed something you didn't.
 
@@ -67,7 +67,7 @@ When you have already offered the fix and he answers with a statement of the pro
 - Show the original lines are present and the rewrite is gone, by grep, in the reply.
 - Check for stray artifacts the detour left behind: sent-markers, temp files, probe dirs, records, entries in another agent's store.
 - Confirm any job, config, or skill you touched is untouched, by reading its record back.
-- Then say what was restored in one or two lines. No menu, no re-pitch, no "if you ever want it fixed" — he told you he does not care about it.
+- Then say what was restored in one or two lines. No menu, no re-pitch, no "if you ever want it fixed", he told you he does not care about it.
 
 ## Concrete verification patterns
 

@@ -12,10 +12,10 @@ A sixth plain-text document format confirmed in July 2026. Used for the "Buildin
 | Tables | None | None | Pipe tables | None | Pipe tables | **Pipe tables** |
 | Code blocks | Indented + fenced | Indented + fenced | Indented ollama commands | Indented + fenced | Mixed indentation | **Fenced only** (```python) |
 | Metadata | Title + subtitle + reading time | Title + subtitle + metadata | Title + author + contact | Title + subtitle | Title only | **Multi-line title** (3 lines) + metadata (reading time, word count, difficulty) |
-| ALL-CAPS regex | Standard | Standard | Standard | Standard | N/A | **Extended** — includes `$`, digits, periods for headers like "WHY THIS COMMANDS $14.99" |
-| Bullet continuations | No | No | No | No | No | **Yes** — indented continuation lines merge into previous `<li>` |
+| ALL-CAPS regex | Standard | Standard | Standard | Standard | N/A | **Extended**, includes `$`, digits, periods for headers like "WHY THIS COMMANDS $14.99" |
+| Bullet continuations | No | No | No | No | No | **Yes**, indented continuation lines merge into previous `<li>` |
 | Checklist items | `☐ ` / `✅ ` | `☐ ` / `✅ ` | None | `[ ]` | None | **`- [ ]`** markdown-style checklists |
-| Cover title | Single H1 | Single H1 | Single H1 | Single H1 | Single H1 | **Split H1 + subtitle** — first 2 lines in H1, rest in cover-sub |
+| Cover title | Single H1 | Single H1 | Single H1 | Single H1 | Single H1 | **Split H1 + subtitle**, first 2 lines in H1, rest in cover-sub |
 
 ## Structure
 
@@ -60,7 +60,7 @@ WHY THIS COMMANDS $14.99
 
 ## Cover title handling (CRITICAL)
 
-Multi-line titles (3+ lines) must be split into H1 + subtitle. Do NOT join all lines into one H1 — the user rejected this as unreadable.
+Multi-line titles (3+ lines) must be split into H1 + subtitle. Do NOT join all lines into one H1, the user rejected this as unreadable.
 
 ```python
 # Split: first 2 lines = H1, rest = cover-sub
@@ -76,10 +76,10 @@ The `<title>` tag uses `main_title` only (not the full joined string).
 
 Three levels:
 
-1. **MODULE N: headers** — `MODULE 1: WHY SINGLE-PROVIDER STACKS...` → `<h2>`
-2. **Wrapped ALL-CAPS** — `=== THE PROBLEM ===` or `════ WHY THIS COMMANDS $14.99 ════` → `<h2>` (strip `═= ` wrappers)
-3. **ALL-CAPS sub-headers** — `THE PROBLEM`, `WHAT YOU WALK AWAY WITH`, `WHY THIS COMMANDS $14.99` → `<h3>`
-4. **Bold short lines** — `**The 12-Month Lead Is Now a 7-Week Lead**` → `<h4 class="bold-heading">`
+1. **MODULE N: headers**, `MODULE 1: WHY SINGLE-PROVIDER STACKS...` → `<h2>`
+2. **Wrapped ALL-CAPS**, `=== THE PROBLEM ===` or `════ WHY THIS COMMANDS $14.99 ════` → `<h2>` (strip `═= ` wrappers)
+3. **ALL-CAPS sub-headers**, `THE PROBLEM`, `WHAT YOU WALK AWAY WITH`, `WHY THIS COMMANDS $14.99` → `<h3>`
+4. **Bold short lines**, `**The 12-Month Lead Is Now a 7-Week Lead**` → `<h4 class="bold-heading">`
 
 ## ALL-CAPS regex for this format
 
@@ -128,4 +128,4 @@ This format uses **fenced code blocks only** (```python ... ```). No indented co
 The final section ("WHY THIS COMMANDS $14.99") is preceded by a checklist. If the last page has fewer than ~12 lines, force a page-break before the checklist to push it to a fresh page with the closing section.
 
 ## See also
-- `scripts/build-agent-tutorial-to-html.py` — runnable parser for this format
+- `scripts/build-agent-tutorial-to-html.py`, runnable parser for this format

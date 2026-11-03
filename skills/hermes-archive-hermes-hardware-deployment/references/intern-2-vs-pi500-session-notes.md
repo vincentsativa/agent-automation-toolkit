@@ -29,12 +29,12 @@ The Autonomous AI Intern 2 is a purpose-built Hermes appliance from autonomous.a
 - **No voice hardware**
 
 ## User's Use Case
-Running Hermes with the dashboard, plus "other stuff" — general desktop use alongside the agent.
+Running Hermes with the dashboard, plus "other stuff", general desktop use alongside the agent.
 
 ## Key Insights from Conversation
 
 ### The "Free Your Laptop" Argument
-The user's real problem: their laptop is a server they can't take anywhere. One Pi 500 frees it completely. One agent runs 24/7 at home on the Pi 500 — crons, dashboard, always on. The laptop goes in the bag for travel. If they need a second agent while out, fire it up on the laptop. $400 to unchain a laptop is a bargain.
+The user's real problem: their laptop is a server they can't take anywhere. One Pi 500 frees it completely. One agent runs 24/7 at home on the Pi 500, crons, dashboard, always on. The laptop goes in the bag for travel. If they need a second agent while out, fire it up on the laptop. $400 to unchain a laptop is a bargain.
 
 ### At the Same $400, Pi 500 Wins
 Both options cost ~$400 when you factor in peripherals for the Intern 2. The Pi 500 has 2-3x the RAM (8-16 GB vs 6 GB) and a faster CPU (2.4 GHz vs 2.0 GHz). The Intern 2's only advantages are voice hardware and preloaded Hermes. One curl command to install Hermes is not a meaningful difference.
@@ -42,7 +42,7 @@ Both options cost ~$400 when you factor in peripherals for the Intern 2. The Pi 
 ### The Business Model Angle
 The user realized they could sell Pi 500 setups to small businesses. Key selling points:
 - Low risk ($400, disposable)
-- "Not on your machine" — no security fear, no IT approval
+- "Not on your machine", no security fear, no IT approval
 - Repairable with $10-15 parts
 - Pair with Ollama Pro for a complete local-AI stack
 - Hardware margin + recurring service revenue

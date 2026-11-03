@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Linear GraphQL API CLI — zero dependencies, stdlib only.
+"""Linear GraphQL API CLI, zero dependencies, stdlib only.
 
 Usage:
   linear_api.py <command> [args...]
@@ -80,7 +80,7 @@ def gql(query: str, variables: dict[str, Any] | None = None) -> dict[str, Any]:
         data=data,
         headers={
             "Content-Type": "application/json",
-            "Authorization": key,  # Personal API key — NO `Bearer` prefix
+            "Authorization": key,  # Personal API key, NO `Bearer` prefix
             "User-Agent": "hermes-agent-linear-skill/1.0",
         },
         method="POST",
@@ -324,7 +324,7 @@ def cmd_get_document(args: argparse.Namespace) -> None:
         }"""
         emit(gql(q, {"id": ref}).get("document"))
     else:
-        # Query the collection and filter by slugId — the doc() query only accepts UUIDs.
+        # Query the collection and filter by slugId, the doc() query only accepts UUIDs.
         q = """query($slug: String!) {
           documents(filter: { slugId: { eq: $slug } }, first: 1) {
             nodes {
@@ -339,7 +339,7 @@ def cmd_get_document(args: argparse.Namespace) -> None:
 
 
 def cmd_search_documents(args: argparse.Namespace) -> None:
-    # Linear doesn't have a first-class searchDocuments — use title filter as a fallback.
+    # Linear doesn't have a first-class searchDocuments, use title filter as a fallback.
     q = """query($term: String!, $first: Int!) {
       documents(filter: { title: { containsIgnoreCase: $term } }, first: $first) {
         nodes { id title slugId url updatedAt }

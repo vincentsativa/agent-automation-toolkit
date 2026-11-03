@@ -4,7 +4,7 @@
 
 When Vinny says "this is a FREE prlog campaign" or mentions any press release distribution platform (PR Log, PRWeb, Newswire, EIN Presswire, 24-7 Press Release, etc.), the attachment **must be HTML**, not `.txt`.
 
-Plain text files cannot contain clickable hyperlinks. Press release distribution platforms ingest HTML and render the links as live URLs. A `.txt` file with a URL in parentheses is not a clickable link — it's dead text.
+Plain text files cannot contain clickable hyperlinks. Press release distribution platforms ingest HTML and render the links as live URLs. A `.txt` file with a URL in parentheses is not a clickable link, it's dead text.
 
 ## The correction (July 14, 2026)
 
@@ -37,7 +37,7 @@ email@example.com</p>
 ## Rules
 
 1. **Every URL in the body must be an `<a href>` tag.** Plain text URLs in parentheses are not acceptable for PR Log.
-2. **Inline links** — when Vinny says "make (X: URL) the clickable link," the anchor text is the label (e.g. "Daily field notes"), not the raw URL.
-3. **Link list at bottom** — also include a separate link list section with full clickable URLs for every property.
-4. **Shorten by X%** — count the original body text chars (excluding the instruction line), count the new HTML body text (strip tags, collapse whitespace), verify the reduction is at or above the target. If under, cut more.
-5. **Attach the .html file** via SMTP attachment. Do not paste HTML into the email body — attach it as a file.
+2. **Inline links**, when Vinny says "make (X: URL) the clickable link," the anchor text is the label (e.g. "Daily field notes"), not the raw URL.
+3. **Link list at bottom**, also include a separate link list section with full clickable URLs for every property.
+4. **Shorten by X%**, count the original body text chars (excluding the instruction line), count the new HTML body text (strip tags, collapse whitespace), verify the reduction is at or above the target. If under, cut more.
+5. **Attach the .html file** via SMTP attachment. Do not paste HTML into the email body, attach it as a file.

@@ -88,8 +88,8 @@ python scripts\feed_scan.py --id <feed_id>
 
 Expected output:
 ```
-[blogwatcher] Scanned: TechCrunch — 5 new articles
-[blogwatcher] Scanned: The Verge — 3 new articles
+[blogwatcher] Scanned: TechCrunch, 5 new articles
+[blogwatcher] Scanned: The Verge, 3 new articles
 ```
 
 **Report to user:** Summarize how many new articles were found per feed.

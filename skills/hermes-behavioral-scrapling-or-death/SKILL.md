@@ -40,7 +40,7 @@ Then read the file. Same fetch, no packages installed, no environment created.
 
 - **Never `python3 -m venv` or `pip install` on Vinny's machine to enable a fetch.** Creating an environment or installing packages is a machine change he did not ask for, and the CLI covers the same retrieval. The fetchers API only matters when a module is already importable.
 - **Check `which scrapling` before concluding anything about availability.** A missing import is a fact about the interpreter, not about the tool.
-- **The `extract` subcommand converts to markdown, and that conversion needs the `markdownify` extra.** On a machine without it, `scrapling extract get <url> out.md` (or any `.md` target) dies with `ModuleNotFoundError: markdownify`. Do not `pip install scrapling[rag]` to get past it — write to `.txt` or `.html` instead, or fetch through the API and strip tags yourself:
+- **The `extract` subcommand converts to markdown, and that conversion needs the `markdownify` extra.** On a machine without it, `scrapling extract get <url> out.md` (or any `.md` target) dies with `ModuleNotFoundError: markdownify`. Do not `pip install scrapling[rag]` to get past it, write to `.txt` or `.html` instead, or fetch through the API and strip tags yourself:
 
 ```python
 from scrapling.fetchers import StealthyFetcher
@@ -56,7 +56,7 @@ print(p.status, len(txt))
 
 ## FORBIDDEN (never do these for web content)
 
-- `curl` for web content. (curl IS allowed for API calls and file downloads — not for scraping HTML content.)
+- `curl` for web content. (curl IS allowed for API calls and file downloads, not for scraping HTML content.)
 - `browser_navigate` for content fetch (only for interactive JS pages that need a real browser).
 - ANY attempt on known-blocked sites (below).
 
@@ -67,22 +67,22 @@ The `browser_exec` tool runs through the browser-use CLI harness (`uvx browser-u
 **Root cause:** The harness daemon only auto-detects Chrome in standard Linux profile dirs (`.config/google-chrome`, etc.). A Chrome launched on a non-default profile (e.g. `~/.hermes/chrome-debug`) is running but the daemon's `supported_browser_running()` returns False, so it refuses to connect.
 
 **Fix (already applied on this machine):**
-1. `browser.cdp_url: http://127.0.0.1:9222` is set in `~/.hermes/config.yaml` — this is the documented override for a dedicated automation Chrome on a non-default profile.
+1. `browser.cdp_url: http://127.0.0.1:9222` is set in `~/.hermes/config.yaml`, this is the documented override for a dedicated automation Chrome on a non-default profile.
 2. `~/.hermes/scripts/start-wsl-browser.sh` launches Playwright's headless Chromium (`~/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome`) with `--remote-debugging-port=9222 --user-data-dir=$HOME/.hermes/chrome-debug --no-sandbox --headless=new`. It is idempotent (won't double-start) and is wired to `@reboot` in crontab so it survives WSL restarts.
 
-**If browser_exec fails again:** run `~/.hermes/scripts/start-wsl-browser.sh`, then retry. If still failing, run `cd ~/.hermes/hermes-agent && uvx browser-use --doctor` — `chrome running` = OK, `daemon alive` FAIL = CDP endpoint unreachable or Chrome closed. Do NOT try to drive Windows Chrome from WSL via CDP; WSL cannot reach the Windows-side 9222 port the way the harness needs.
+**If browser_exec fails again:** run `~/.hermes/scripts/start-wsl-browser.sh`, then retry. If still failing, run `cd ~/.hermes/hermes-agent && uvx browser-use --doctor`, `chrome running` = OK, `daemon alive` FAIL = CDP endpoint unreachable or Chrome closed. Do NOT try to drive Windows Chrome from WSL via CDP; WSL cannot reach the Windows-side 9222 port the way the harness needs.
 
 **Do NOT try systemd for the browser:** WSL2's user systemd manager fails with `status=216/GROUP` (can't set supplementary groups). Use the `@reboot` crontab entry instead.
 
-## Windows Hermes agent (Pi) browser fix — SAME root cause, different port
+## Windows Hermes agent (Pi) browser fix, SAME root cause, different port
 
 The Windows Hermes agent (Pi, at `/mnt/c/Users/<user>/AppData/Local/hermes/`) uses the same browser-use harness and had the same `chrome-not-running` failure. Fixed 2026-08-12:
 
 - **Port conflict:** WSL2 shares localhost with Windows. My WSL Chromium holds 9222, so the Windows Chrome must use a DIFFERENT port (9223). Windows cannot reach the WSL-side 9222, and WSL cannot reach the Windows-side Chrome the way the harness needs.
 - **Config:** `browser.cdp_url: http://127.0.0.1:9223` set in `/mnt/c/Users/<user>/AppData/Local/hermes/config.yaml`.
 - **Launcher:** `/mnt/c/Users/<user>/.hermes/start-windows-browser.bat` launches Windows Chrome with `--remote-debugging-port=9223 --user-data-dir=C:\Users\<user>\.hermes\chrome-debug-9223`. Idempotent. Copied to the Windows Startup folder (`...\Start Menu\Programs\Startup\start-hermes-browser.bat`) so it auto-starts on login.
-- **Verify from WSL:** `powershell.exe -NoProfile -Command "try { (Invoke-WebRequest -Uri 'http://127.0.0.1:9223/json/version' -TimeoutSec 2 -UseBasicParsing).Content } catch { 'down' }"` — must show `Chrome/151` (Windows build), NOT HeadlessChrome (that's the WSL one).
-- **Test the harness:** pipe a script into the Windows CLI: `powershell.exe -NoProfile -Command "cd 'C:\Users\<user>\AppData\Local\hermes'; \$env:HERMES_HOME='C:\Users\<user>\AppData\Local\hermes'; \$env:BU_CDP_URL='http://127.0.0.1:9223'; Get-Content '.\test.py' | & '.\bin\uvx.exe' browser-use"`. PowerShell has no heredocs — write the Python to a file and pipe it.
+- **Verify from WSL:** `powershell.exe -NoProfile -Command "try { (Invoke-WebRequest -Uri 'http://127.0.0.1:9223/json/version' -TimeoutSec 2 -UseBasicParsing).Content } catch { 'down' }"`, must show `Chrome/151` (Windows build), NOT HeadlessChrome (that's the WSL one).
+- **Test the harness:** pipe a script into the Windows CLI: `powershell.exe -NoProfile -Command "cd 'C:\Users\<user>\AppData\Local\hermes'; \$env:HERMES_HOME='C:\Users\<user>\AppData\Local\hermes'; \$env:BU_CDP_URL='http://127.0.0.1:9223'; Get-Content '.\test.py' | & '.\bin\uvx.exe' browser-use"`. PowerShell has no heredocs, write the Python to a file and pipe it.
 
 ## Known-blocked sites (skip entirely, do NOT attempt)
 

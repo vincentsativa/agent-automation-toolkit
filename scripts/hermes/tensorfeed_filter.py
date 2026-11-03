@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-tensorfeed_filter.py — Strip unwanted recurring stories from TensorFeed before any report.
+tensorfeed_filter.py, Strip unwanted recurring stories from TensorFeed before any report.
 
 Fetches https://tensorfeed.ai/api/news, strips articles matching EXCLUDED_PATTERNS
 (case-insensitive regex), saves the filtered result to /tmp/tensorfeed_filtered.json,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-check_agentmail.py — EMAIL TASK PROCESSOR script gate for Frank (Agent 2).
+check_agentmail.py, EMAIL TASK PROCESSOR script gate for Frank (Agent 2).
 
 Checks Frank's AgentMail inbox ([REDACTED_EMAIL]) for UNREAD threads.
 If there is unread mail, prints the list of unread threads so the cron agent
@@ -126,11 +126,11 @@ def main():
             })
 
     if not unread:
-        # Nothing to process — stay silent so the cron does not fire.
+        # Nothing to process, stay silent so the cron does not fire.
         print("wakeAgent:false")
         return
 
-    print(f"wakeAgent:true — {len(unread)} unread thread(s) in {INBOX}:")
+    print(f"wakeAgent:true, {len(unread)} unread thread(s) in {INBOX}:")
     for u in unread:
         print("-" * 60)
         print(f"thread_id: {u['thread_id']}")

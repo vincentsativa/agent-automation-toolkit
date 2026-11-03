@@ -73,7 +73,7 @@ Verify three things against the artifact before reporting:
 - unique address count is reported separately from the row count in case two rows
   resolve to the same mailbox.
 
-## Measured yield — use it to size the next list
+## Measured yield, use it to size the next list
 
 Input list of 1,652 domains, all already confirmed to carry a mail defect:
 

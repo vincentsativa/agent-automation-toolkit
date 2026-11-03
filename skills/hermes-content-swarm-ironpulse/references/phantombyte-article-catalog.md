@@ -51,18 +51,18 @@ Use this for namediff verification when generating theme/article ideas.
 
 ## When to Refresh
 
-This list was snapshot on June 23, 2026 and verified live during an IronPulse cron run on June 27, 2026, June 29, 2026, and July 2, 2026. **Always re-browse `https://articles.phantom-byte.com` when themes/article ideas are requested** — new articles may have been published that change the namediff landscape. Do not rely on this cached list for namediff verification if the session involves theme generation; browse the live site first. This cached list is a fallback for quick reference, not a substitute for live data.
+This list was snapshot on June 23, 2026 and verified live during an IronPulse cron run on June 27, 2026, June 29, 2026, and July 2, 2026. **Always re-browse `https://articles.phantom-byte.com` when themes/article ideas are requested**, new articles may have been published that change the namediff landscape. Do not rely on this cached list for namediff verification if the session involves theme generation; browse the live site first. This cached list is a fallback for quick reference, not a substitute for live data.
 
-**Curl extraction works reliably** — PhantomByte is a static HTML site. Use:
+**Curl extraction works reliably**, PhantomByte is a static HTML site. Use:
 ```bash
 curl -sL "https://articles.phantom-byte.com" | grep -oP '<h3 class="card-title">.*?</h3>' | sed 's/<[^>]*>//g'
 curl -sL "https://articles.phantom-byte.com" | grep -oP '<span class="card-date">.*?</span>' | sed 's/<[^>]*>//g'
 ```
 This extracts all article titles and dates without needing the browser stack.
 
-**PITFALL (June 27, 2026):** The grep pattern for card-title returned empty output during a live run, even though the browser snapshot showed all articles clearly. The PhantomByte site may have changed its card-title class or rendering pattern. When curl extraction returns empty, fall back to the browser snapshot method — browser_navigate to the site and parse the snapshot text directly. The snapshot reliably shows all article titles and dates in the archive section.
+**PITFALL (June 27, 2026):** The grep pattern for card-title returned empty output during a live run, even though the browser snapshot showed all articles clearly. The PhantomByte site may have changed its card-title class or rendering pattern. When curl extraction returns empty, fall back to the browser snapshot method, browser_navigate to the site and parse the snapshot text directly. The snapshot reliably shows all article titles and dates in the archive section.
 
-**Browser console fallback (confirmed June 29, 2026):** When the snapshot truncates (the archive section is long), use browser_console with document.body.innerText.substring(0, 30000) — this returns the full page text including all article titles, dates, and descriptions in a flat parseable format. The PhantomByte site is a static HTML site with no lazy loading, so the full archive is always in the DOM. This is more reliable than curl extraction when the HTML class names have changed.
+**Browser console fallback (confirmed June 29, 2026):** When the snapshot truncates (the archive section is long), use browser_console with document.body.innerText.substring(0, 30000), this returns the full page text including all article titles, dates, and descriptions in a flat parseable format. The PhantomByte site is a static HTML site with no lazy loading, so the full archive is always in the DOM. This is more reliable than curl extraction when the HTML class names have changed.
 
 ## Namediff Logic
 
@@ -70,5 +70,5 @@ When proposing a theme from IronPulse data:
 
 1. Ask: "Is there a published PhantomByte article whose angle overlaps with this theme?"
 2. If yes: note it as "covered" in the report, or pivot to a different angle on the same data.
-3. If no: write the namediff explicitly — "Why this is different from '[Article Title]': [1-2 sentence explanation of what makes the angle, scope, or implication distinct]"
+3. If no: write the namediff explicitly, "Why this is different from '[Article Title]': [1-2 sentence explanation of what makes the angle, scope, or implication distinct]"
 4. The namediff is REQUIRED in every theme delivery (email body, Telegram inline, cron output). A theme without namediff will be flagged as a duplicate.

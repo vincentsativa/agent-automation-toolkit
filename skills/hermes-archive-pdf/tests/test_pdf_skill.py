@@ -106,7 +106,7 @@ def form_pdf(workdir: Path) -> Path:
 
 
 def test_form_fill_unicode_roundtrip(form_pdf: Path, workdir: Path):
-    surname = "Фамилия — ‘test’"
+    surname = "Фамилия, ‘test’"
     values = {"surname": surname, "agree": True, "color": "/red", "size": "large"}
     fields_json = workdir / "values.json"
     fields_json.write_text(json.dumps(values, ensure_ascii=False), encoding="utf-8")

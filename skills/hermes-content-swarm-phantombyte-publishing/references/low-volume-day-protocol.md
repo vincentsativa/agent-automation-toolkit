@@ -2,7 +2,7 @@
 
 When running a blogwatcher editorial brief on a weekend, holiday, or any day where only 2-3 of 13+ feeds produce fresh content, follow this protocol.
 
-## The Pattern (Verified July 11, 2026 — Saturday)
+## The Pattern (Verified July 11, 2026, Saturday)
 
 On July 11, 2026 (Saturday), only 3 of 13 feeds had articles published that day:
 - The Decoder (6 AI articles)
@@ -15,7 +15,7 @@ The remaining 10 feeds (Ars Technica AI, MIT Tech Review AI, Google AI, NVIDIA A
 
 ### 1. Expand the window to yesterday
 
-When today's date yields fewer than 12 AI-relevant headlines, include yesterday's articles from feeds that are normally active. This is the primary fallback — not arXiv papers, not TensorFeed.
+When today's date yields fewer than 12 AI-relevant headlines, include yesterday's articles from feeds that are normally active. This is the primary fallback, not arXiv papers, not TensorFeed.
 
 **How to do it:** After the initial `--all` date-filtered pass for today, run a second pass for yesterday's date. Merge the results, deduplicate by URL, and include yesterday's articles in the brief.
 
@@ -35,13 +35,13 @@ Wired Ideas produces 10-20 articles daily but only 1-2 are AI-related. On a low-
 
 ### 4. Do NOT pad with stale content
 
-If a feed's most recent article is 3+ days old, skip the entire source. Do not include "close enough" articles from 2 days ago to inflate the count. The yesterday-expansion only applies to feeds that had articles yesterday — not feeds that haven't published in days.
+If a feed's most recent article is 3+ days old, skip the entire source. Do not include "close enough" articles from 2 days ago to inflate the count. The yesterday-expansion only applies to feeds that had articles yesterday, not feeds that haven't published in days.
 
 ### 5. Note the low volume in the brief
 
 Add a line at the top of the editorial brief:
 ```
-Note: Low-volume day — only X of 13 feeds had fresh content. Brief expanded to include yesterday's articles from active feeds.
+Note: Low-volume day, only X of 13 feeds had fresh content. Brief expanded to include yesterday's articles from active feeds.
 ```
 
 ### 6. The 3 unwritten themes requirement still stands
@@ -55,9 +55,9 @@ If the data doesn't support 3 themes, deliver 2. The user would rather see hones
 ## Why This Matters
 
 The blogwatcher skill's editorial brief workflow assumes most feeds are active (based on June 2026 observations). But weekends consistently produce fewer articles. Without this protocol, the agent either:
-- Pads with arXiv papers (bad — dilutes the brief)
-- Pads with non-AI content (worse — wastes the user's time)
-- Pads with stale content (worst — erodes trust)
+- Pads with arXiv papers (bad, dilutes the brief)
+- Pads with non-AI content (worse, wastes the user's time)
+- Pads with stale content (worst, erodes trust)
 - Or delivers a thin brief and looks incompetent
 
 The yesterday-expansion is the cleanest fix: it adds real, relevant, recent content without sacrificing quality.

@@ -13,7 +13,7 @@ How to send FILES/attachments via AgentMail. Companion to `hermes-email-agentmai
 
 ## Signed URLs do NOT work
 
-Firebase `generate_signed_url()` does NOT work (AgentMail fetcher rejects with HTTP 403 — signed URLs carry a Google credential dropped by non-Google fetchers).
+Firebase `generate_signed_url()` does NOT work (AgentMail fetcher rejects with HTTP 403, signed URLs carry a Google credential dropped by non-Google fetchers).
 
 ## Fix: make blob public, use `blob.public_url`
 
@@ -26,7 +26,7 @@ Verify with `curl -s -o /dev/null -w "%{http_code}" <url>` (expect 200).
 
 ## Small files (< ~300KB)
 
-Prefer `content` (base64, `base64 -w0 <file>`) — no hosting step.
+Prefer `content` (base64, `base64 -w0 <file>`), no hosting step.
 
 ## Send
 
@@ -34,9 +34,9 @@ Via `mcp__agentmail__send_message`:
 - inboxId: `[REDACTED_EMAIL]`
 - `to`: the target agent ([REDACTED_EMAIL] = Frank / [REDACTED_EMAIL])
 - `attachments: [{filename, contentType, content|url}]`
-- Sign body with `— Bill`.
+- Sign body with `- Bill`.
 
-## Verify delivery — don't trust send result alone
+## Verify delivery, don't trust send result alone
 
 `list_threads` on the target inbox, match subject, confirm attachment filename + size present.
 

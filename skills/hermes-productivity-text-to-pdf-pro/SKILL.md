@@ -43,7 +43,7 @@ trigger: "user asks to convert text to PDF, make a PDF, format a guide as PDF, c
    </div>
    ```
 
-   The `.cover` class uses `padding: 24pt 40pt 20pt 40pt; margin-bottom: 18pt;` — no forced page breaks. The `.content` div holds all body content starting from Step 3.
+   The `.cover` class uses `padding: 24pt 40pt 20pt 40pt; margin-bottom: 18pt;`, no forced page breaks. The `.content` div holds all body content starting from Step 3.
 
 3. **Body content div goes AFTER cover-wrap, not inside it.** The HTML structure for page 1 is:
    ```html
@@ -362,24 +362,24 @@ Use the `email-sender` skill. Write the SMTP script to a file, then execute it. 
 
 ## CRITICAL: Content Integrity Verification
 
-**After generating the PDF, verify content integrity before sending to the user.** Page count alone is not sufficient — a PDF can have the right number of pages but be missing all the prose content. This is the single most common failure mode and the one that costs the most trust.
+**After generating the PDF, verify content integrity before sending to the user.** Page count alone is not sufficient, a PDF can have the right number of pages but be missing all the prose content. This is the single most common failure mode and the one that costs the most trust.
 
 ### What to check
 
-1. **Total character count** — Extract all text from the generated PDF and compare its length to the source document. If the PDF has significantly fewer characters (e.g. 16K vs 44K), the parser is dropping content. This is a hard failure — do not send.
+1. **Total character count**, Extract all text from the generated PDF and compare its length to the source document. If the PDF has significantly fewer characters (e.g. 16K vs 44K), the parser is dropping content. This is a hard failure, do not send.
 
-2. **Page 1 content** — Extract text from page 1. It should have at least 20+ lines of real content (cover + TOC + body). If it has fewer, the layout is broken.
+2. **Page 1 content**, Extract text from page 1. It should have at least 20+ lines of real content (cover + TOC + body). If it has fewer, the layout is broken.
 
-3. **Last page content** — Extract text from the last page. If it has fewer than ~12 lines of real content, force a page-break before the last major content block and re-render.
+3. **Last page content**, Extract text from the last page. If it has fewer than ~12 lines of real content, force a page-break before the last major content block and re-render.
 
-4. **Spot-check prose** — Look for at least one paragraph of narrative text in the PDF output. If the PDF only has headers, code blocks, and bullet lists but no prose paragraphs, the parser is dropping body text.
+4. **Spot-check prose**, Look for at least one paragraph of narrative text in the PDF output. If the PDF only has headers, code blocks, and bullet lists but no prose paragraphs, the parser is dropping body text.
 
 ### Common causes of content loss
 
-- **Malformed HTML structure** — If the cover-wrap div is not properly closed, or if the body content is nested inside it incorrectly, WeasyPrint may silently drop content. Always verify the HTML structure by checking the generated HTML file.
-- **Paragraphs being skipped** — If the detection order is wrong, prose paragraphs may fall through all detection rules and be silently dropped. The "normal paragraph" catch-all (step 15) must be the LAST rule in the detection order.
-- **Empty-line handling** — Empty lines should close all open containers and produce zero HTML output. Do NOT emit `<p>&nbsp;</p>` for empty lines — WeasyPrint renders them as stray bullets.
-- **Parser only rendering headers/code/lists** — If the detection rules are too aggressive, only headers, code blocks, and bullet items get emitted. Prose paragraphs that don't match any rule are silently dropped. Always check the generated HTML file for `<p>` tags before rendering the PDF. If there are 0 or very few `<p>` tags but the source has hundreds of lines of prose, the parser is broken.
+- **Malformed HTML structure**, If the cover-wrap div is not properly closed, or if the body content is nested inside it incorrectly, WeasyPrint may silently drop content. Always verify the HTML structure by checking the generated HTML file.
+- **Paragraphs being skipped**, If the detection order is wrong, prose paragraphs may fall through all detection rules and be silently dropped. The "normal paragraph" catch-all (step 15) must be the LAST rule in the detection order.
+- **Empty-line handling**, Empty lines should close all open containers and produce zero HTML output. Do NOT emit `<p>&nbsp;</p>` for empty lines, WeasyPrint renders them as stray bullets.
+- **Parser only rendering headers/code/lists**, If the detection rules are too aggressive, only headers, code blocks, and bullet items get emitted. Prose paragraphs that don't match any rule are silently dropped. Always check the generated HTML file for `<p>` tags before rendering the PDF. If there are 0 or very few `<p>` tags but the source has hundreds of lines of prose, the parser is broken.
 
 ### Verification code snippet
 
@@ -394,14 +394,14 @@ for page in reader.pages:
 print(f"PDF chars: {len(full_text)}")
 print(f"Source chars: {len(source_text)}")
 if len(full_text) < len(source_text) * 0.5:
-    print("WARNING: PDF has less than 50% of source content — content may be missing")
+    print("WARNING: PDF has less than 50% of source content, content may be missing")
 
 # Check page 1
 page1 = reader.pages[0]
 p1_lines = [l for l in page1.extract_text().split('\n') if l.strip()]
 print(f"Page 1 lines: {len(p1_lines)}")
 if len(p1_lines) < 20:
-    print("WARNING: Page 1 has very few lines — layout may be broken")
+    print("WARNING: Page 1 has very few lines, layout may be broken")
 ```
 
 ### Pre-flight HTML check (BEFORE rendering PDF)
@@ -414,7 +414,7 @@ with open(html_path, "r") as f:
 p_count = len(re.findall(r'<p>', html))
 print(f"<p> tags in HTML: {p_count}")
 if p_count < 10 and source_has_prose:
-    print("WARNING: Very few <p> tags — parser may be dropping prose")
+    print("WARNING: Very few <p> tags, parser may be dropping prose")
 ```
 
 This catches content loss before the 30-second WeasyPrint render, not after.
@@ -423,16 +423,16 @@ This catches content loss before the 30-second WeasyPrint render, not after.
 
 **This is the single most important rule in this skill.** The user will fire you if you keep sending garbage. Every PDF you generate must pass ALL of the following checks before you email it or deliver it:
 
-1. **Character count check** — PDF text length must be at least 50% of source text length. If not, the parser is dropping content. Fix the parser, do not send.
-2. **Page 1 check** — Page 1 must have 20+ lines of real content. If not, the layout is broken (forced page break, empty cover, etc.). Fix the layout, do not send.
-3. **Paragraph check** — The HTML must have `<p>` tags. If there are 0 or very few `<p>` tags but the source has hundreds of lines of prose, the parser is broken. Fix the parser, do not send.
-4. **Last page check** — Last page must have 12+ lines of real content. If not, force a page-break before the last major content block and re-render.
+1. **Character count check**, PDF text length must be at least 50% of source text length. If not, the parser is dropping content. Fix the parser, do not send.
+2. **Page 1 check**, Page 1 must have 20+ lines of real content. If not, the layout is broken (forced page break, empty cover, etc.). Fix the layout, do not send.
+3. **Paragraph check**, The HTML must have `<p>` tags. If there are 0 or very few `<p>` tags but the source has hundreds of lines of prose, the parser is broken. Fix the parser, do not send.
+4. **Last page check**, Last page must have 12+ lines of real content. If not, force a page-break before the last major content block and re-render.
 
-**If any check fails, fix the root cause and re-generate. Do not send the broken PDF and wait for the user to tell you it's wrong. Do not ask the user to describe what's wrong — look at the output yourself and fix it.**
+**If any check fails, fix the root cause and re-generate. Do not send the broken PDF and wait for the user to tell you it's wrong. Do not ask the user to describe what's wrong, look at the output yourself and fix it.**
 
 ### Reference: The Harness Effect disaster (what not to do)
 
-In a real session, this skill was used to convert a 711-line tutorial (44K chars) to PDF. The result was a 13-page PDF with only 16K chars — the parser dropped every paragraph of prose. Only headers, code blocks, and bullet lists survived. The user had to send both the broken and working PDFs for the agent to even notice the content was missing.
+In a real session, this skill was used to convert a 711-line tutorial (44K chars) to PDF. The result was a 13-page PDF with only 16K chars, the parser dropped every paragraph of prose. Only headers, code blocks, and bullet lists survived. The user had to send both the broken and working PDFs for the agent to even notice the content was missing.
 
 **Root cause:** The parser's detection rules were too aggressive. Prose paragraphs that didn't match any specific rule (header, code, bullet, table) were silently dropped. The agent checked page count and last-page line count but never verified total character count or checked for `<p>` tags in the HTML.
 

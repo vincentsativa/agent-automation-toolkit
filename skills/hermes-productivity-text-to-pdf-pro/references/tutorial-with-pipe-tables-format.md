@@ -28,7 +28,7 @@ Line 1: Title (bare, no wrappers)
 ...
 [--- ruler]
 -----------------FOR PI CODING ONLY---------DO NOT INCLUDE INSIDE OF TUTORIAL--------------------
-[X Post, Pinterest, Keywords — strip this entire section]
+[X Post, Pinterest, Keywords, strip this entire section]
 ```
 
 ## Header detection
@@ -57,7 +57,7 @@ Same as Format C: lines starting and ending with `|`. First data row = `<thead>`
 
 ## Code block detection
 
-This format has code blocks with **mixed indentation** — some lines are indented 4 spaces, others are not indented at all. Example:
+This format has code blocks with **mixed indentation**, some lines are indented 4 spaces, others are not indented at all. Example:
 
 ```
 # agent_job.py
@@ -90,4 +90,4 @@ No TOC/topic list section. Cover shows:
 Then body content starts immediately in the padded div. No `what-learn` or `toc` div.
 
 ## See also
-- `scripts/cron-tutorial-to-html.py` — runnable parser for this format (installed at `~/.hermes/skills/productivity/text-to-pdf-pro/scripts/cron-tutorial-to-html.py`)
+- `scripts/cron-tutorial-to-html.py`, runnable parser for this format (installed at `~/.hermes/skills/productivity/text-to-pdf-pro/scripts/cron-tutorial-to-html.py`)

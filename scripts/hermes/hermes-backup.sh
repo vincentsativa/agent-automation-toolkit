@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Weekly Hermes backup script — pushes config, skills, cron, memories, kanban to GitHub
+# Weekly Hermes backup script, pushes config, skills, cron, memories, kanban to GitHub
 set -euo pipefail
 
 BACKUP_DIR=/tmp/hermes-backup

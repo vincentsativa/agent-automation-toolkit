@@ -38,7 +38,7 @@ Google Trends batch queries across 20+ candidate terms, grouped by theme (core c
 
 ## Key Insights
 
-1. **Critical window:** 3 of the high-value terms (AgingBench, AI agent degradation, agent lifespan engineering) stem from a paper published May 25, 2026 — 3 days before this research. PhantomByte must publish now before larger pubs claim the SERPs.
+1. **Critical window:** 3 of the high-value terms (AgingBench, AI agent degradation, agent lifespan engineering) stem from a paper published May 25, 2026, 3 days before this research. PhantomByte must publish now before larger pubs claim the SERPs.
 
 2. **Unique angle:** The Aikido Security "hallucinated dependencies" hook is completely uncovered by security media. The security angle has stronger mainstream reach than the academic/benchmark angle.
 

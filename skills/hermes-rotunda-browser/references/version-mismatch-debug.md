@@ -1,4 +1,4 @@
-# Rotunda Version Mismatch Debug — June 20, 2026
+# Rotunda Version Mismatch Debug, June 20, 2026
 
 ## Symptom
 `rotunda fetch` returns "0 versions" from the official repo. The Python API fails with `MissingRelease: No matching release found for Rotunda 0.1.0 on lin x86_64. Please update the Python library.`
@@ -15,7 +15,7 @@ The `python_library_version` comes from `pyproject.toml`'s `version` field. If `
 
 ## Fix
 1. Check the latest release tag: `git tag -l | tail -5` (and `git describe --tags` for HEAD)
-2. Bump `pythonlib/pyproject.toml` version to match the tag (e.g. `0.1.0` → `0.5.1`). This local edit is required and is expected to show as a dirty working tree — upstream tags ship `version = "0.1.0"`. Verified live at tag v0.5.1 on 2026-09-25.
+2. Bump `pythonlib/pyproject.toml` version to match the tag (e.g. `0.1.0` → `0.5.1`). This local edit is required and is expected to show as a dirty working tree, upstream tags ship `version = "0.1.0"`. Verified live at tag v0.5.1 on 2026-09-25.
 3. Resolve the live interpreter (PM-managed environment, not `hermes-agent/venv`):
    ```bash
    python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])"
@@ -28,4 +28,4 @@ The `python_library_version` comes from `pyproject.toml`'s `version` field. If `
 Run the smoke test from the resolved live interpreter, from a neutral cwd such as `/tmp` (a directory named `rotunda` in the cwd shadows the package and fakes an `unknown location` ImportError). The first launch downloads a large zip and extracts it to `~/.cache/rotunda/browsers/official/<version>-<build>/`, e.g. `0.5.1-154.0.1`.
 
 ## Why This Happens
-The `pyproject.toml` version was never bumped after the initial `0.1.0` release. The Python library and browser binary versions are coupled by design — the library version must match the browser release it was built to work with. When the repo is updated but `pyproject.toml` isn't, the version gate silently blocks everything.
+The `pyproject.toml` version was never bumped after the initial `0.1.0` release. The Python library and browser binary versions are coupled by design, the library version must match the browser release it was built to work with. When the repo is updated but `pyproject.toml` isn't, the version gate silently blocks everything.

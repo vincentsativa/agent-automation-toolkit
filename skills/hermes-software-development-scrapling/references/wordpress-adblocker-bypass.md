@@ -61,11 +61,11 @@ curl -sL "https://site.com/?p=3140971" | grep -i "<title>" | head -3
 - WordPress's `?p=<id>` query parameter is a core routing primitive that bypasses the rewrite engine
 - Adblocker-detection scripts are typically injected by themes/plugins that hook into the template rendering pipeline for pretty URLs
 - The post-ID route renders the same content through a different code path that may skip the detection hook
-- No browser/JS execution needed — plain curl suffices
+- No browser/JS execution needed, plain curl suffices
 
 ## Limitations
 
 - Only works on WordPress sites (identifiable by `/wp-content/`, `wp-json`, or `WordPress` in HTML comments/headers)
-- Some sites redirect `?p=<id>` to the pretty URL — if that happens, the redirect target may still trigger the overlay
+- Some sites redirect `?p=<id>` to the pretty URL, if that happens, the redirect target may still trigger the overlay
 - Post IDs are sequential and guessable, but you still need to find the right one via search
-- Some sites block all curl user agents — add `-H "User-Agent: Mozilla/5.0 ..."` if needed
+- Some sites block all curl user agents, add `-H "User-Agent: Mozilla/5.0 ..."` if needed

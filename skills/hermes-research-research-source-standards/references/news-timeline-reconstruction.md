@@ -72,5 +72,5 @@ No search engine was needed. No article was read in full. The timeline came enti
 
 - Only works for topics that hit HN front page. Niche or non-tech topics won't have coverage.
 - Story titles can be editorialized. Cross-check with the linked article when possible.
-- No comment analysis by default — use `tags=comment` for that.
+- No comment analysis by default, use `tags=comment` for that.
 - Timestamps are submission time, not event time. Events that happened hours before submission will appear slightly delayed.

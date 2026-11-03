@@ -10,7 +10,7 @@ The browser must be its own managed service, fully detached from the gateway's l
 
 ## WSL side (Linux/systemd)
 
-Working unit — `~/.config/systemd/user/hermes-browser.service`:
+Working unit, `~/.config/systemd/user/hermes-browser.service`:
 
 ```ini
 [Unit]
@@ -35,8 +35,8 @@ WantedBy=default.target
 ```
 
 Two mandatory flags explained:
-- `xvfb-run` — WSL has no real display; without a virtual X server Chromium exits with `Missing X server or $DISPLAY`.
-- `--disable-gpu --disable-software-rasterizer --no-sandbox` — the WSL GPU environment crashes Chromium with `GPU process isn't usable. Goodbye` then SIGABRT.
+- `xvfb-run`, WSL has no real display; without a virtual X server Chromium exits with `Missing X server or $DISPLAY`.
+- `--disable-gpu --disable-software-rasterizer --no-sandbox`, the WSL GPU environment crashes Chromium with `GPU process isn't usable. Goodbye` then SIGABRT.
 
 Enable + start:
 ```bash
@@ -88,6 +88,6 @@ Must show a Windows build (`Chrome/151 ... Windows NT`), NOT HeadlessChrome.
 
 ## Pitfalls
 
-- The gateway restarting is NOT the browser failing — it's the browser living inside the gateway's tree. Detach it.
+- The gateway restarting is NOT the browser failing, it's the browser living inside the gateway's tree. Detach it.
 - Don't conflate the two ports: WSL = 9222, Windows = 9223 (9223 avoids the WSL-held 9222 on the shared localhost).
 - Do not touch Pi's box. The Windows browser on 9223 belongs to the windows hermes agent (see SKILL.md "Agent Topology").

@@ -58,7 +58,7 @@ git ls-tree origin/main --name-only -r optional-skills/ | grep -i <skillname>
 If it's listed on `origin/main` but absent from your local `optional-skills/`,
 you're behind. Two fixes:
 
-### Fix A — update Hermes (cleanest, restores the normal path)
+### Fix A, update Hermes (cleanest, restores the normal path)
 
 ```bash
 hermes update
@@ -66,7 +66,7 @@ hermes update
 Then `hermes skills install <id>` works normally. Do this when you're many
 commits behind anyway.
 
-### Fix B — extract the skill from origin/main and install manually (no update)
+### Fix B, extract the skill from origin/main and install manually (no update)
 
 The `git checkout` of a live source tree is **blocked** by Hermes (it would mix
 module versions in the running process), so pull the files read-only with
@@ -88,21 +88,21 @@ chmod +x ~/.hermes/skills/<cat>/<name>/scripts/*.py
 hermes skills list | grep -i <name>     # should show enabled
 ```
 
-Verify the skill loads cleanly with `skill_view(name)` — confirm the
+Verify the skill loads cleanly with `skill_view(name)`, confirm the
 `linked_files` (scripts/references) are all present and `readiness_status` is
 `available`.
 
 ## Pitfalls
 
 - **`hermes skills repair-official <name>` fails with "Official optional skill
-  not found"** when the checkout is behind — it only backfills from the local
+  not found"** when the checkout is behind, it only backfills from the local
   `optional-skills/`, which doesn't have the skill yet. Same root cause; update
   or use Fix B.
 - **`git checkout origin/main -- <path>` is blocked** on the live Hermes source
   tree ("would rewrite Hermes's live source checkout"). Use `git show` to read
   files out read-only instead; never force the checkout.
 - **Enumerate every file** under the skill dir with
-  `git ls-tree origin/main --name-only -r optional-skills/<cat>/<name>/` — a
+  `git ls-tree origin/main --name-only -r optional-skills/<cat>/<name>/`, a
   skill is more than its SKILL.md (scripts, references, templates). Missing a
   support file leaves the skill half-installed.
 - **Manual installs are `local` source, not `official`.** They won't get hub
@@ -110,4 +110,4 @@ Verify the skill loads cleanly with `skill_view(name)` — confirm the
   current; use Fix B for a one-off.
 
 ## Related skills
-- `hermes-agent` (bundled) — full `hermes skills` CLI reference.
+- `hermes-agent` (bundled), full `hermes skills` CLI reference.

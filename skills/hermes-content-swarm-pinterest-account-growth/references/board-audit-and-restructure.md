@@ -16,14 +16,14 @@ Signs it's a catch-all:
 ## Steps
 1. **Bucket every pin by search intent** (AI news/agents, robotics/physical AI, AI
    hardware/business, AI tools, AI security/local AI, quantum/emerging tech).
-2. **Scan for duplicate pins** — same pin text 2+ times in one board. Pinterest flags
+2. **Scan for duplicate pins**, same pin text 2+ times in one board. Pinterest flags
    duplicates as spam and can temporarily block pin creation. Surface this as the
    FIRST action item (remove dup before any restructure).
 3. **Restructure one-board-per-keyword**, with an ORDERED launch plan (Priority 1 first,
    1-2 boards at a time; never create all at once). Repurpose the original board as its
    namesake cluster only; MOVE pins out to their new homes.
 4. **Validate demand on-platform:** `https://www.pinterest.com/search/pins/?q=<topic>`
-   — dense + competitive results = huge validated demand. Capture autocomplete early;
+   - dense + competitive results = huge validated demand. Capture autocomplete early;
    login/signup modals block further autocomplete after ~1 query.
 5. **Deliverable format that works:**
    - Headline finding stated bluntly (the one-board problem)
@@ -58,17 +58,17 @@ Same rule applies to Vinny's articles: main board by default; focused board only
 article's topic clearly matches that one board.
 
 ## Worked example (PhantomByte AI board, 2026-08-02)
-Board: "AI News | Machine Learning & Emerging Tech" (396 pins) — was 6 boards in one.
+Board: "AI News | Machine Learning & Emerging Tech" (396 pins), was 6 boards in one.
 
 Keyword-validated board map (Priority order for PhantomByte funnel):
-- P1: **AI Tools for Business** — "AI tools" / "AI tools for business" (massive demand,
+- P1: **AI Tools for Business**, "AI tools" / "AI tools for business" (massive demand,
   highest purchase intent; validated dense results wall)
-- P1: **AI Agents** — "AI agents" / "AI agent" (Hermes/orchestration content lives here)
-- P1: **Robotics & Physical AI** — "robotics" / "humanoid robots"
-- P2: **AI for Developers** — "AI development" / "programming AI" (tutorials)
-- P2: **AI Security** — "AI security" / "local AI Ollama"
-- P2: **AI News** — "AI news" / "artificial intelligence" (time-sensitive news)
-- P3: **Quantum Computing** — "quantum computer" (small niche, long tail)
+- P1: **AI Agents**, "AI agents" / "AI agent" (Hermes/orchestration content lives here)
+- P1: **Robotics & Physical AI**, "robotics" / "humanoid robots"
+- P2: **AI for Developers**, "AI development" / "programming AI" (tutorials)
+- P2: **AI Security**, "AI security" / "local AI Ollama"
+- P2: **AI News**, "AI news" / "artificial intelligence" (time-sensitive news)
+- P3: **Quantum Computing**, "quantum computer" (small niche, long tail)
 
 Sample rewritten board metadata (copy-paste ready):
 

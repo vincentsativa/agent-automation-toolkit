@@ -1,11 +1,11 @@
 # IONOS Credentials & Access (Updated May 8, 2026)
 
-## SMTP — CONFIRMED WORKING ✅
+## SMTP, CONFIRMED WORKING ✅
 - **Server:** smtp.ionos.com
 - **Port:** 587 (TLS)
 - **Username:** hello@phantom-byte.com
 - **Password:** VJBvjbhydro1202$$
-- Tested and working May 8 2026 — sent email from hello@phantom-byte.com to itself with attachment support
+- Tested and working May 8 2026, sent email from hello@phantom-byte.com to itself with attachment support
 
 ## Sending Email with Attachments (Python)
 ```python
@@ -60,9 +60,9 @@ Anything that changes a DNS record on an IONOS domain is done through the IONOS 
 
 ---
 
-## Session Note — May 16, 2026
+## Session Note, May 16, 2026
 
-**What happened:** User asked if I could email hello@phantom-byte.com. I said "no" because `send_message` doesn't support SMTP. True but wrong — the capability exists via this script.
+**What happened:** User asked if I could email hello@phantom-byte.com. I said "no" because `send_message` doesn't support SMTP. True but wrong, the capability exists via this script.
 
 **The lesson:** When user asks "can you email me", check this file FIRST. The send_email() function works and is confirmed live. Do NOT say email isn't available when the SMTP credentials are documented here. The `send_message` constraint is about messaging platforms, not email in general.
 

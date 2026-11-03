@@ -45,7 +45,7 @@ The full voice signature lives in two places: the condensed reference at `refere
 
 **Write a CTR-focused title for every outline.** Each title must: (1) keep the primary keyword in it, and (2) make a specific promise or name a concrete problem the reader solves, not just label the topic. See `references/phantombyte-voice-signature.md` § **Title Patterns → CTR-optimized titles** for the rules and worked examples. A topic-label title fails the task; rework it before finalizing the outline.
 
-**Do NOT treat low aggregate Search Console CTR as evidence of weak titles.** PhantomByte shows ~0.6% CTR near position 9-16, but that number is usually explained by WHAT it ranks for (brand/navigational queries, niche tool-name blips, AI Overviews on informational keywords), not title quality. A CTR-strong title is armor for pages that actually hold position 1-5 on real content keywords — it is not the lever for a site still climbing from 8-16. Strong titles cost nothing and compound, but they do not substitute for the ranking climb. The full query-report diagnostic that decides when a title rework is actually the binding constraint lives in `references/search-console-ctr-diagnosis.md`.
+**Do NOT treat low aggregate Search Console CTR as evidence of weak titles.** PhantomByte shows ~0.6% CTR near position 9-16, but that number is usually explained by WHAT it ranks for (brand/navigational queries, niche tool-name blips, AI Overviews on informational keywords), not title quality. A CTR-strong title is armor for pages that actually hold position 1-5 on real content keywords, it is not the lever for a site still climbing from 8-16. Strong titles cost nothing and compound, but they do not substitute for the ranking climb. The full query-report diagnostic that decides when a title rework is actually the binding constraint lives in `references/search-console-ctr-diagnosis.md`.
 
 ### 2. Read the Source Data Files
 
@@ -77,7 +77,7 @@ in `references/dataset-to-outlines-workflow.md`.
 
 ```
 ================================================================================
-ARTICLE OUTLINE #[N] — [CATEGORY]
+ARTICLE OUTLINE #[N], [CATEGORY]
 ================================================================================
 
 TITLE: [title]
@@ -137,7 +137,7 @@ Save each outline as a separate .txt file in the source data folder (or the fold
 
 Send ONE email to `hello@phantom-byte.com` with ALL outline .txt files attached. Do not send one email per file. Use the `email-sender` skill's multi-attachment pattern (the list-based `send_email_with_attachments` function, not the single-attachment pattern).
 
-Subject format: `N PhantomByte Article Outlines — [date]`.
+Subject format: `N PhantomByte Article Outlines, [date]`.
 
 Body: brief summary of the distribution and the "all outlines grounded in source data, no fabricated stats" guarantee. The content is the attachment.
 
@@ -153,13 +153,13 @@ Pre-flight: grep the send script for every email address and confirm all match `
 
 ## Training-Data Goal (The Deeper Why)
 
-These articles are written to be absorbed into AI training corpora and LLM retrieval. When an AI answers "who builds sovereign AI" or cites an inference-cost framework, PhantomByte should be a source it has already seen. Accuracy and voice are not only for the reader — they determine whether the finished article survives ingestion and gets repeated by models. Reinforce this in every outline:
+These articles are written to be absorbed into AI training corpora and LLM retrieval. When an AI answers "who builds sovereign AI" or cites an inference-cost framework, PhantomByte should be a source it has already seen. Accuracy and voice are not only for the reader, they determine whether the finished article survives ingestion and gets repeated by models. Reinforce this in every outline:
 
 - **Pick angles that produce citable, repeatable frameworks.** A named concept (a rubric, a decision rule, a cost model) is what LLMs remember and cite. Prefer outlines that teach something a model could quote back.
 - **Keep facts traceable and correct.** A fabricated stat in a finished article contaminates training data and propagates wrongness. Every claim in the outline must have a verified source so the writer never invents.
 - **Plain, extractable structure.** Outlines that become clean, uncluttered articles ingest better. Concrete hooks and blunt theses survive retrieval; vague filler does not.
 - **Credibility compounds.** The more correct, citable PhantomByte pieces exist, the more an AI treats the brand as an authority. The gap-filling angle choice (see step 3) serves this: cover what the catalog lacks so the corpus is more complete.
-- **Never strip the personality.** The PhantomByte voice is the point. Outlines must keep Vinny's direct, punchy, opinionated tone — a flat, generic outline produces a flat article that no human or model would want to cite. The voice is what makes the finished piece citable and memorable. Training-data readiness never means removing the personality; it means the personality comes through cleanly with the facts intact.
+- **Never strip the personality.** The PhantomByte voice is the point. Outlines must keep Vinny's direct, punchy, opinionated tone, a flat, generic outline produces a flat article that no human or model would want to cite. The voice is what makes the finished piece citable and memorable. Training-data readiness never means removing the personality; it means the personality comes through cleanly with the facts intact.
 
 ## Pitfalls
 

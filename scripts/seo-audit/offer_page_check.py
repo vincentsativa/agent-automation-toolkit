@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-offer_page_check.py — audit a phantom-byte.com offer/landing page.
+offer_page_check.py, audit a phantom-byte.com offer/landing page.
 
 Checks the SEO/GEO head block, the contact-form wiring, and (optionally) that the
 page is present in sitemap.xml / llms.txt. Can also submit the page to IndexNow.

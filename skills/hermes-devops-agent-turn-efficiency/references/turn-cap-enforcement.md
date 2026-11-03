@@ -7,7 +7,7 @@ rather than re-resolved by intention.
 
 `tool_loop_guardrails` has three failure-based thresholds (`exact_failure`,
 `same_tool_failure`, `idempotent_no_progress`) and a `loop_caps` section. None of them
-trip on a long turn that makes many DIFFERENT calls SUCCESSFULLY — the pipeline
+trip on a long turn that makes many DIFFERENT calls SUCCESSFULLY, the pipeline
 overrun. `loop_caps` only bounds `max_web_searches` and `max_subagents`. A missing
 per-turn ceiling is not a config mistake; it does not exist, and the block has to come
 from a hook.
@@ -27,7 +27,7 @@ cfg["hooks"]["pre_tool_call"].append({
 })
 ```
 
-Omit `matcher` to count every tool call — adding one narrows the hook to named tools
+Omit `matcher` to count every tool call, adding one narrows the hook to named tools
 and defeats the purpose.
 
 ## The Hook Contract
@@ -55,7 +55,7 @@ and count so the state cannot grow without bound.
 3. **Allowlist it.** An unapproved `(event, command)` pair is SKIPPED with a warning,
    so the guard installs cleanly and silently never runs. Record approval, then
    confirm with `hermes hooks list` that the entry shows as allowed.
-4. `hermes hooks doctor` — must report exists, executable, allowlisted, unchanged
+4. `hermes hooks doctor`, must report exists, executable, allowlisted, unchanged
    since approval.
 5. Fire it through the production path, not just as a bare script, so the JSON is
    proven to parse into a directive:
@@ -105,7 +105,7 @@ unaffected.
 
 Config and the hook list are read at gateway startup, so a settings change is inert
 until the process reloads. The reload cannot be triggered from inside the running
-gateway — Hermes blocks it deliberately, because the restart SIGTERMs the child that
+gateway, Hermes blocks it deliberately, because the restart SIGTERMs the child that
 requested it. Do not spend calls trying to route around that: finish the work, verify
 it, then tell the user to run `/restart` in chat and name that as the one remaining
 step.

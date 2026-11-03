@@ -19,7 +19,7 @@ The goal is to preserve Claude Design's useful design behavior and taste while r
 
 **Before starting, check for other web-design skills like `popular-web-designs` (ready-to-paste design systems for Stripe, Linear, Vercel, Notion, etc.) and `design-md` (Google's DESIGN.md token spec format).** If the user wants a known brand's look, load `popular-web-designs` alongside this one and let it supply the visual vocabulary. If the deliverable is a token spec file rather than a rendered artifact, use `design-md` instead. Full decision table below.
 
-## Sketches (Absorbed — formerly `sketch` skill)
+## Sketches (Absorbed, formerly `sketch` skill)
 
 Sketch mode: generate 2-3 disposable HTML mockups for the user to compare before committing to a design direction.
 
@@ -34,9 +34,9 @@ Sketch mode: generate 2-3 disposable HTML mockups for the user to compare before
 5. Ask the user which direction to pursue or what to refine
 
 ### When NOT to Use Sketch Mode
-- User wants a production component — design properly instead
-- User wants a diagram — use `excalidraw` / `architecture-diagram`
-- The design is already locked — just build it
+- User wants a production component, design properly instead
+- User wants a diagram, use `excalidraw` / `architecture-diagram`
+- The design is already locked, just build it
 
 ### vs. claude-design mode
 Sketch = fast, disposable, comparative. claude-design = thorough, production-oriented, one artifact.
@@ -335,9 +335,9 @@ If the prototype is meant to model a product flow, design the flow, not just the
 
 When exploring, default to at least three options:
 
-1. **Conservative** — closest to existing patterns / lowest risk
-2. **Strong-fit** — best interpretation of the brief
-3. **Divergent** — more novel, useful for discovering taste boundaries
+1. **Conservative**, closest to existing patterns / lowest risk
+2. **Strong-fit**, best interpretation of the brief
+3. **Divergent**, more novel, useful for discovering taste boundaries
 
 Variations can explore:
 

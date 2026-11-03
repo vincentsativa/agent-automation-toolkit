@@ -1,4 +1,4 @@
-# The Verge AI — Story Extraction Technique
+# The Verge AI, Story Extraction Technique
 
 ## Why This Exists
 
@@ -9,10 +9,10 @@ The Verge uses a custom DOM structure where `document.querySelectorAll('article'
 ### Strategy 1: Snapshot + Link Text (Most Reliable)
 
 1. `browser_navigate('https://www.theverge.com/ai-artificial-intelligence')`
-2. `browser_snapshot(full=true)` — the full snapshot renders story headlines as `<a>` links with timestamps in the `<time>` elements next to them
+2. `browser_snapshot(full=true)`, the full snapshot renders story headlines as `<a>` links with timestamps in the `<time>` elements next to them
 3. Scan the snapshot text for:
-   - The top featured story (first block after the AI section header — has a large image, headline, summary, and "X MINUTES AGO" timestamp)
-   - The "LATEST IN AI" section — stories appear as `<article>`-like blocks (class `duet--article--*` even though they don't match `article` selector)
+   - The top featured story (first block after the AI section header, has a large image, headline, summary, and "X MINUTES AGO" timestamp)
+   - The "LATEST IN AI" section, stories appear as `<article>`-like blocks (class `duet--article--*` even though they don't match `article` selector)
    - Each story block contains: link text (headline), author name, `<time>` element, summary paragraph, and optional tags like `[ANTHROPIC]`
 
 ### Strategy 2: Broad Anchor Extraction
@@ -26,15 +26,15 @@ document.querySelectorAll('main a[href*="/2026/"]');
 
 Filter results to exclude navigation links, "Comments", "Subscribe", "SIGN IN", and other UI elements.
 
-### Strategy 3: Body Text Dump (Fallback — Primary Technique for Full Coverage)
+### Strategy 3: Body Text Dump (Fallback, Primary Technique for Full Coverage)
 
-This is the most reliable way to extract ALL stories when the snapshot is truncated (which is most of the time — The Verge's LATEST IN AI section runs 200+ lines deep).
+This is the most reliable way to extract ALL stories when the snapshot is truncated (which is most of the time, The Verge's LATEST IN AI section runs 200+ lines deep).
 
 ```javascript
 document.body.innerText.substring(0, 15000)
 ```
 
-Use **15000 chars minimum** — 8000 is too small and misses stories further down the LATEST IN AI section. The snapshot truncation cutoff typically hits around the 8th-9th story, while body text at 15000 chars covers 20+ stories.
+Use **15000 chars minimum**, 8000 is too small and misses stories further down the LATEST IN AI section. The snapshot truncation cutoff typically hits around the 8th-9th story, while body text at 15000 chars covers 20+ stories.
 
 Parsing yields story clusters like:
 ```
@@ -44,7 +44,7 @@ JAY PETERS
 9 MINUTES AGO
 ```
 
-**Why this beats snapshot navigation:** The Verge article URLs always return 404 when navigated to directly (May 2026 — the numeric ID in the URL is unpredictable). The body text dump + category page parsing avoids wasting tool calls on 404 navigation attempts. Extract everything you need from the category page itself.
+**Why this beats snapshot navigation:** The Verge article URLs always return 404 when navigated to directly (May 2026, the numeric ID in the URL is unpredictable). The body text dump + category page parsing avoids wasting tool calls on 404 navigation attempts. Extract everything you need from the category page itself.
 
 ### Strategy 4: Browser Snapshot Deep Dive
 
@@ -79,11 +79,11 @@ Array.from(times).slice(0,15).map(t => t.textContent?.trim() + ' | ' + (t.getAtt
 
 ## Known Pitfalls
 
-- **No `<article>` tags** — `document.querySelectorAll('article')` returns 0 every time
-- **Lazy loading** — The LATEST IN AI section may not fully load on first visit. Scroll before extracting.
-- **Ad insertion** — Advertisement divs are interleaved between story blocks. Filter them out.
-- **Non-story links** — The navigation, footer, and "Related" sections also contain headlines. Only use the main content area.
-- **The Verge URL structure causes 404s on direct navigation (CRITICAL — May 2026):** Article URLs follow `https://www.theverge.com/2026/M/D/NUMERIC_ID/SLUG` where the numeric ID (e.g., `25066492`) is NOT predictable from date alone. Do NOT attempt to construct or navigate to The Verge article URLs directly — all attempts to `theverge.com/2026/M/D/...` style URLs returned 404 in practice. Extract article content by snapshotting the category page and reading from there, not by navigating to article URLs.
+- **No `<article>` tags**, `document.querySelectorAll('article')` returns 0 every time
+- **Lazy loading**, The LATEST IN AI section may not fully load on first visit. Scroll before extracting.
+- **Ad insertion**, Advertisement divs are interleaved between story blocks. Filter them out.
+- **Non-story links**, The navigation, footer, and "Related" sections also contain headlines. Only use the main content area.
+- **The Verge URL structure causes 404s on direct navigation (CRITICAL, May 2026):** Article URLs follow `https://www.theverge.com/2026/M/D/NUMERIC_ID/SLUG` where the numeric ID (e.g., `25066492`) is NOT predictable from date alone. Do NOT attempt to construct or navigate to The Verge article URLs directly, all attempts to `theverge.com/2026/M/D/...` style URLs returned 404 in practice. Extract article content by snapshotting the category page and reading from there, not by navigating to article URLs.
 - **Duplicate content risk:** The Verge featured story at the top of the AI page is often the same story running on TechCrunch. Always cross-check with TechCrunch to avoid duplicate rankings.
 
 ## Curl-Based Fallback (When Browser Is Unavailable)
@@ -130,8 +130,8 @@ The Verge's `publishedAt` field appears in ISO format within the JSON-LD: `"publ
 
 ### Pitfalls
 
-- **The Verge article URLs always return 404 when navigated to directly** (confirmed May-June 2026). The numeric ID in the URL is NOT predictable from the date. However, curl-based extraction of the article page itself DOES work — the 404 issue was specific to browser navigation. Curl fetches the raw HTML which contains the full article data in JSON-LD blocks.
-- **The category page HTML is sparse** — most content is rendered client-side by Next.js. The `grep` approach above extracts only server-rendered links. For full story lists, you may need to combine with Google News results.
+- **The Verge article URLs always return 404 when navigated to directly** (confirmed May-June 2026). The numeric ID in the URL is NOT predictable from the date. However, curl-based extraction of the article page itself DOES work, the 404 issue was specific to browser navigation. Curl fetches the raw HTML which contains the full article data in JSON-LD blocks.
+- **The category page HTML is sparse**, most content is rendered client-side by Next.js. The `grep` approach above extracts only server-rendered links. For full story lists, you may need to combine with Google News results.
 - **Story timestamps are in the JSON-LD `publishedAt` field**, not in visible `<time>` elements in the HTML (those are client-side rendered).
 
 ## Alternative Extraction Method: Duplicate Line Technique

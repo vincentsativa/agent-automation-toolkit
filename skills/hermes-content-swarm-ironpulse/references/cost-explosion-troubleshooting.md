@@ -1,8 +1,8 @@
-# IronPulse Cost Explosion — Troubleshooting Guide
+# IronPulse Cost Explosion, Troubleshooting Guide
 
 ## Incident: May 5, 2026
 
-**Reported:** IronPulse went from ~0.1% of credit pool per run to ~1% — 10x increase.
+**Reported:** IronPulse went from ~0.1% of credit pool per run to ~1%, 10x increase.
 
 ## Root Cause
 
@@ -13,7 +13,7 @@ The user had been running DeepSeek V4 Flash via custom provider for interactive 
 ## Diagnosis Path
 
 ```python
-# Step 1: List cron jobs — check if model/provider columns are populated
+# Step 1: List cron jobs, check if model/provider columns are populated
 # If blank, the job inherits the interactive model
 hermes cron list
 
@@ -30,10 +30,10 @@ hermes config | grep -i model
 
 | Lever | Effect | Fix |
 |-------|--------|-----|
-| **Model choice** | DeepSeek V4 Flash vs Gemini 3 Flash Preview — the difference in cost-per-token can be 10x or more for multi-turn tasks | Pin model at cron creation time (see ironpulse skill's "Cost Discipline" section) |
+| **Model choice** | DeepSeek V4 Flash vs Gemini 3 Flash Preview, the difference in cost-per-token can be 10x or more for multi-turn tasks | Pin model at cron creation time (see ironpulse skill's "Cost Discipline" section) |
 
 ## How to Verify a Fix
 
-1. `hermes cron list` — confirm model/provider show pinned values
+1. `hermes cron list`, confirm model/provider show pinned values
 2. Let the next scheduled run happen, then check: `hermes insights --days 1` for token usage
 3. Or trigger manually: `hermes cron run <job_id>` and watch for cost

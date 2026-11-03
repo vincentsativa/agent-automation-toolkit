@@ -26,7 +26,7 @@ SPENDING MY MONEY WITHOUT PERMISSION?"* Read this BEFORE your first tool call.
 1. **Stop at the instruction.** One instruction = one action, then a short report.
    No adjacent fixes. No "while I'm in here". No "the obvious next step".
 2. **Anything not asked for is a QUESTION, not an action.** Re-staging a batch,
-   filling a freed slot, editing `state.json`, sending, deleting, "cleaning up" —
+   filling a freed slot, editing `state.json`, sending, deleting, "cleaning up", 
    ask and wait. Looking obviously necessary is NOT permission.
 3. **No exploratory calls once the task is done.** Verification stops the instant
    the instruction is satisfied. Do not go re-read the mailbox to see how it went.
@@ -52,7 +52,7 @@ money. That is the whole lesson. Do not repeat it.
 | Mail host (IMAP) | `imap.ionos.com:993` (SSL) |
 | Mail host (SMTP) | `smtp.ionos.com:587` (STARTTLS) |
 | Webmail UI | https://email.ionos.com  (Open-Xchange; login = mailbox email+password) |
-| Control panel | https://my.ionos.com  (contract/customer login — Vinny only; **not** the mailbox password) |
+| Control panel | https://my.ionos.com  (contract/customer login, Vinny only; **not** the mailbox password) |
 | Mailbox creds | `scripts/secrets.json` (chmod 600) or env `IONOS_MAIL_USER`/`IONOS_MAIL_PASS` |
 | DNS provider | IONOS (hosting API, **not** the cloud API) |
 | DNS zone id | `f9a1e796-0c8f-11f1-8880-0a5864440f43` |
@@ -67,11 +67,11 @@ Probed and confirmed:
 - `api.hosting.ionos.com/mail/v1/...` → **400 "Unsupported serviceId: mail"**
 - `api.ionos.com/cloudapi/v6` → **401** (creds valid, not authorized)
 
-There is **no REST endpoint for mailbox contents, sends, or bounces** — verified
+There is **no REST endpoint for mailbox contents, sends, or bounces**, verified
 with **both** API keys Vinny provided (the `f44453af…` one and the current
 `8eee85c1…` one). Both authenticate to DNS/domains only. `serviceId` `mail`/`email`
 is explicitly unsupported. If someone (or a previous assistant) says "use the
-IONOS API to see the sends", that is wrong — say so. Mail is read via **IMAP**
+IONOS API to see the sends", that is wrong, say so. Mail is read via **IMAP**
 or the **Webmail UI**. The API is still useful for **SPF/DKIM/DMARC DNS changes**.
 
 ## Vinny's vocabulary → what it means
@@ -105,7 +105,7 @@ python $S/ionos_mail.py bounces $(date +%F)     # recipients that hard-bounced
 silently dropped DSNs sent by `postmaster@<recipient-domain>` (and provider
 daemons like `user@example.com`). It now scans the whole INBOX and
 keeps every notice with a `Final-Recipient`. `sends`/`inbox` also used to
-hard-truncate the `To` header at 32 chars — a real bug that made
+hard-truncate the `To` header at 32 chars, a real bug that made
 `user@example.com` look like a missing-TLD address; the
 widths are now full.
 
@@ -131,13 +131,13 @@ Message-ID (an incoming Google DMARC report, `Return-Path: <user@example.com>`).
 - Webmail `Mail → Rules → Auto forward …` → **toggle OFF, empty** (re-checked live
   Oct 1 2026: forward field empty, toggle grey/off, "no rule defined").
 - **2026-10-01 correction:** Vinny says he turned the redirect off two days ago,
-  and the evidence agrees — the forward is **OFF**. The single `example-inbox`
+  and the evidence agrees, the forward is **OFF**. The single `example-inbox`
   bounce (Oct 1 07:56 EDT) is a **stale IONOS queue retry**, not a live forward:
   * it is the **only** such bounce in the mailbox, ever;
   * its `References` Message-ID (`user@example.com`) is present in
     **no** folder, so the message it reports on is old/gone;
   * the Google DMARC report that actually arrived that morning
-    (`user@example.com`, Sep 30 16:59 PDT) produced **no bounce** —
+    (`user@example.com`, Sep 30 16:59 PDT) produced **no bounce**, 
     proof the forward was already off when it landed.
 - Earlier claim ("redirect is at contract level, IONOS mailbox password won't
   reach it") was **wrong** and should not be repeated. `my.ionos.com` with the
@@ -154,20 +154,20 @@ Message-ID (an incoming Google DMARC report, `Return-Path: <user@example.com>`).
 - Want hello@ mail in Gmail → **stop the server-side forward**; in Gmail use
   *Settings → Accounts → Check mail from other accounts (POP3)* (pulls directly, no DMARC breakage).
 - Don't want it → **delete the forward**.
-- Do **NOT** "fix" this by changing DMARC `rua` alone — that only hides the symptom
+- Do **NOT** "fix" this by changing DMARC `rua` alone, that only hides the symptom
   for DMARC reports; the forward still sends all other mail to Gmail.
-- Do **NOT** add `user@example.com` to the suppression list — it's the
+- Do **NOT** add `user@example.com` to the suppression list, it's the
   forward target, not a list member.
 
 **Verify it's gone:** a successful forward leaves NO trace on IONOS, so the only
 reliable check is the destination. `python scripts/verify_forward.py` sends a
-marked probe to hello@ and tells you to search the Gmail side — present = still
+marked probe to hello@ and tells you to search the Gmail side, present = still
 forwarding, absent = fixed. Secondary signal: the next Google DMARC report
 (~daily, ~07:30) should arrive at hello@ with **no** accompanying
 "could not be reached: example-inbox" bounce. (Gmail itself can't be read via
 IMAP without an app-specific password; the account password is rejected.)
 
-Also check **Rules → Vacation notice …** — an active auto-reply will answer every
+Also check **Rules → Vacation notice …**, an active auto-reply will answer every
 cold-outreach reply (bad). The inbox alert "Your vacation notice is active" can
 appear even when hidden.
 
@@ -175,7 +175,7 @@ appear even when hidden.
 
 Since Gmail ramped enforcement (Nov 2025) and Microsoft enforced on
 2025-05-05, a `5.7.x` bounce from `mailer-daemon` is often **not** a spam-folder
-problem and **not** a dead mailbox — it is the sending domain being refused at
+problem and **not** a dead mailbox, it is the sending domain being refused at
 the gateway. Microsoft rejects in the SMTP dialogue with `550 5.7.515 Access
 denied, sending domain does not meet the required authentication level`; a
 DMARC reject reads `550 5.7.509 ... does not pass DMARC verification and has a
@@ -191,18 +191,18 @@ when the sending domain fails the auth pre-flight.
 **Live example 2026-10-05:** `user@example.com` refused `hello@` with `550 5.7.509`.
 The full NDR showed our mail **passed SPF at pcf-p.com's own gateway**, which
 then re-injected it to Microsoft from `70.39.253.27`
-(`PPS-AGENT01-INBOUND.perimeterwatch.com`) — an IP **not** in `_spf-us.ionos.com`
-— and DKIM did not survive either, so Microsoft refused it under our
+(`PPS-AGENT01-INBOUND.perimeterwatch.com`), an IP **not** in `_spf-us.ionos.com`
+- and DKIM did not survive either, so Microsoft refused it under our
 `p=reject`. A recipient-side forwarding/ARC artifact, but exactly the new
 failure mode. `phantom-byte.com` itself still passes (SPF pass, DKIM s1/s2,
 DMARC `p=reject`).
 
-**Correction 2026-10-06 — not every `5.7.x` is OUR auth failure.** Microsoft
+**Correction 2026-10-06, not every `5.7.x` is OUR auth failure.** Microsoft
 returns `550 5.7.133 RESOLVER.RST.SenderNotAuthenticatedForGroup` when the
 recipient is a **distribution group that only accepts internal senders**. The
 words "authentication required" / "not authenticated" matched
 `auth_enforcement.GATEWAY_AUTH_PHRASES`, so `harvest_bounces.py` logged
-`user@example.com` as "sending domain failed SPF/DKIM/DMARC" — **wrong**.
+`user@example.com` as "sending domain failed SPF/DKIM/DMARC", **wrong**.
 It is a recipient-side membership restriction: the address is live, we simply
 are not allowed in the group. Fixed by adding `sendernotauthenticatedforgroup`,
 `not authenticated for the group`, `sending to this group` and
@@ -246,24 +246,24 @@ python $S/email_guard.py filter rawlist.txt > clean.txt
 python $S/email_guard.py suppress a@b.com ...        # append to blocklist
 ```
 
-- `data/suppression.txt` — hard-bounce / unsub blocklist (seeded 2026-09-29).
+- `data/suppression.txt`, hard-bounce / unsub blocklist (seeded 2026-09-29).
   **Keep in parity with the WSL pipeline's
   `find_contacts.ROLE_LOCAL_PREFIXES`** (`~/money_ideas/`).
   2026-10-06: the WSL tuple was missing `dev`, `development`, `information`,
   `administrator`, `admissions`, `finance`, `services`, `subscribe`,
   `unsubscribe`, `sysadmin`, `root`, `no-reply`, `do-not-reply`,
   `customer.service`, so `user@example.com` went out even though this
-  guard blocks it. Added to the WSL tuple. This guard file is the authority —
+  guard blocks it. Added to the WSL tuple. This guard file is the authority, 
   add a role here and mirror it there.
-- `data/role_prefixes.txt` — **role addresses that must never be cold-emailed**
+- `data/role_prefixes.txt`, **role addresses that must never be cold-emailed**
   (`info@`, `service@`, `office@`, `sales@`, `support@`, `admin@`, `noreply@`, …).
   These are catch-alls/spam traps/black holes → high bounces. *(Vinny flagged
-  `user@example.com` — a role address that should never have been sent.)*
+  `user@example.com`, a role address that should never have been sent.)*
   **2026-10-01:** added `cs`, `csr`, `customer`, `client`, `clients`,
-  `clientintake`, `intake`, `assistant`, `wecare`, `invoicing`, `receivables` —
+  `clientintake`, `intake`, `assistant`, `wecare`, `invoicing`, `receivables`, 
   these went out as if they were people on the Oct 1 send. Mirrored into the WSL
   pipeline's `find_contacts.ROLE_LOCAL_PREFIXES`.
-- `data/free_mail_domains.txt` — **free / consumer mailbox providers that must
+- `data/free_mail_domains.txt`, **free / consumer mailbox providers that must
   NEVER be cold-emailed** (gmail, yahoo, hotmail, outlook, aol, icloud, proton,
   gmx, mail.com, …). The offer is a **domain** fix (SPF/DKIM/DMARC), so a
   consumer-mailbox recipient has no domain of their own to fix and cannot buy it.
@@ -282,13 +282,13 @@ python $S/email_guard.py suppress a@b.com ...        # append to blocklist
 1. Suppress bounced addresses immediately (done for 2026-09-29).
 2. Verify before sending: MX check + SMTP RCPT probe + catch-all detection.
 3. Filter role addresses (`info@`, `service@`, `office@`, …) out of every list.
-4. **Never mail free/consumer domains** (free_mail_domains.txt) — not our offer.
+4. **Never mail free/consumer domains** (free_mail_domains.txt), not our offer.
 5. **Never suppress a policy/spam block as "dead"** (5.7.x is a block, not a
    dead mailbox). `harvest_bounces.is_dead_status` now only accepts 5.0.x / 5.1.x.
 6. Fix the hello@→Gmail forward (above).
 7. Keep SPF `-all` and DMARC `p=reject`; keep DKIM for **all** senders.
 8. Register Google Postmaster Tools for `phantom-byte.com` to watch reputation.
-   **DONE 2026-10-06** — `phantom-byte.com` is **Verified** in Postmaster Tools
+   **DONE 2026-10-06**, `phantom-byte.com` is **Verified** in Postmaster Tools
    (`https://postmaster.google.com/v2/manage_domains` → status “Verified”,
    “No issues”, message “Domain verified”). It is registered under the Google
    account **`user@example.com`** (the Google Cloud account for project
@@ -300,7 +300,7 @@ python $S/email_guard.py suppress a@b.com ...        # append to blocklist
    to miss, so prefer the **SMS code to the phone ending 70** option. Postmaster
    shows metrics only after enough Gmail volume; verification is the gate.
 
-**Volume note (Vinny, 2026-10-01 — SUPERSEDED 2026-10-11).** The original rule was
+**Volume note (Vinny, 2026-10-01, SUPERSEDED 2026-10-11).** The original rule was
 **do NOT slow the send below 100/day**, in Vinny's words: *"slowing down to less
 than 100 is ridiculous. 100 is way too low as is, we are only doing it to smoke
 out the silly stuff."* The 100/day was a deliberate smoke-out rate, not a warm-up
@@ -309,9 +309,9 @@ cap.
 **That instruction was replaced on 2026-10-11** when Vinny moved the volume to the
 agency channel: **buyer 100 -> 30/day, agency 30 -> 50/day** (see
 `hermes-outreach-cron`). Do not revert it by quoting the Oct 1 line, and do not
-report the change as "slowing down" — it is a channel rebalance. The
+report the change as "slowing down", it is a channel rebalance. The
 **reputation** line in a DSN (Gmail "very low reputation of the sending domain")
-is a signal, not proof — Vinny notes a manual send to the same Gmail lands in the
+is a signal, not proof, Vinny notes a manual send to the same Gmail lands in the
 inbox, so a recipient-side security setting can also cause it.
 
 ## DNS management (IONOS hosting API)
@@ -339,24 +339,24 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
 
 ## Hard-won gotchas
 
-- Don't `find` the whole home dir — it's multi-GB and gets aborted. Target paths.
+- Don't `find` the whole home dir, it's multi-GB and gets aborted. Target paths.
 - `python` on this box is Windows Python → use **Windows paths** with `sqlite3`
   (e.g. `~\...`), not `/c/Users/...`.
 - Webmail login: `email.ionos.com` → fill `#username` → Next → `input[type=password]` → Next.
   Settings gear → "All settings …". Rules/Auto-forward live under **Mail → Rules**.
-- `browser_evaluate` returns no value in this harness — use `browser_screenshot`
+- `browser_evaluate` returns no value in this harness, use `browser_screenshot`
   + `browser_query_selector` to observe, not evaluate's return.
 - IONOS "DNS API" is at `api.hosting.ionos.com` (header `X-API-Key`), NOT `api.ionos.com`.
 
 ## 2026-10-07 log (Oct 7 send)
 
 - Send: **102 total, 100 campaign + 2 job applications** (user@example.com,
-  user@example.com — not the campaign). 102 unique domains, no dupes, no free-mail.
+  user@example.com, not the campaign). 102 unique domains, no dupes, no free-mail.
 - Bounces: **2 campaign hard bounces / 100 = 2.0%** (`user@example.com` 5.0.0,
   `user@example.com` 5.1.1) + `user@example.com` 5.1.3 (the job app).
 - `user@example.com` → Google Group **posting restriction**,
   NOT dead. The NDR shows **SPF pass (74.208.4.197), DKIM pass s1-ionos, DMARC
-  pass** — our auth is clean. Added to suppression as a policy block.
+  pass**, our auth is clean. Added to suppression as a policy block.
 - **REPLY / OPT-OUT:** Bradley Strub `user@example.com` replied
   "Stop". The cold mail had gone to `user@example.com` (a form
   box that slipped the role filter). Both suppressed; `websiteforms`/`webforms`/
@@ -366,7 +366,7 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   `quotes@`, `estimating@`, `pharmacy@`, `homecare@`, `inbound@`, `local@`,
   `dentalcare@`, `adm@`, plus 8× `smile@`/`smiles@` went out. Added all but the
   `smile(s)` dental brand boxes (owner-read, left as people). `infoame@` (starts
-  `info`) still slips the exact-match test — watch it.
+  `info`) still slips the exact-match test, watch it.
 - **Clicks are landing:** 20 `[PB-CLICK]` notices today (14
   `email-deliverability-rescue`, 6 `fzbvy-efyvifebcvyvgl-effdhf`). Harvested by
   `~/.hermes/scripts/harvest_clicks.sh` → `leads/clicks.log`.
@@ -404,9 +404,9 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   WSL `find_contacts.ROLE_LOCAL_PREFIXES`; `scripts/email_guard.py` now matches a
   role word as an exact token, a plural, or the end of a fused token (mirrors the WSL
   `address_shape`). `smile@`/dental brand boxes still left as people. `infoame@`
-  still slips (starts `info`) — watch it.
+  still slips (starts `info`), watch it.
 - Clicks: **9** `[PB-CLICK]` (4 → `email-deliverability-rescue`, 5 → unknown offer id
-  `fzbvy-efyvifebcvyvgl-effdhf`, which resolves to 0 attributed recipients — an old
+  `fzbvy-efyvifebcvyvgl-effdhf`, which resolves to 0 attributed recipients, an old
   or mangled offer slug). Harvested by `harvest_clicks.sh` at 20:00.
 - Pool after refill: **233 sendable**; a re-stage with the new margin produced **100
   staged for 2026-10-09T09:00, read-back RESULT: OK**.
@@ -436,7 +436,7 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
     `harvest_bounces.py.bak-20261009-ipblock`.
   - **Correction (same day, 2026-10-09): the phrase fix above was NOT enough.**
     The real harvest still suppressed `user@example.com`. Cause: the
-    **IONOS-generated** NDR has **no `Diagnostic-Code`** —
+    **IONOS-generated** NDR has **no `Diagnostic-Code`**, 
     `structured_failures_detail` built the diagnostic from the delivery-status
     block alone (`Final-Recipient` / `Action` / `Status: 5.0.0` /
     `Final-Log-ID`), and the `550 5.5.1 Server_IP_74` reason lives only in the
@@ -469,16 +469,16 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   (too close to initials / a surname). `find_contacts.py.bak-20261009-roleleak`.
 - **New matcher rule:** a local part that **starts with `info`** is now role
   (`infoboston@` slipped the end-of-token match; `infoame@` was the earlier
-  warning). `info` is the only front-fused role word safe to start-match — no
-  common given or family name begins with it — so `chris@`/`hillary@` are still
+  warning). `info` is the only front-fused role word safe to start-match, no
+  common given or family name begins with it, so `chris@`/`hillary@` are still
   people. Mirrored in `email_guard._role_shaped`.
 - Tests: `test_outreach.py` **245 passed, 0 failed**; `test_email_scan.py`
   **70 passed, 0 failed**. Nothing sent by the tests.
 - Clicks: **5 distinct tokens** today (13:17–15:57), mostly
   `email-deliverability-rescue`; harvested by `harvest_clicks.sh`.
 - **Agency click tracking (built 2026-10-09, Vinny: "lets track the agency
-  clicks").** The partner/agency rescue link carried only UTM tags — **no `o`
-  (offer) and no `c` (token)** — and the offer page (`email-deliverability-rescue.html`)
+  clicks").** The partner/agency rescue link carried only UTM tags, **no `o`
+  (offer) and no `c` (token)**, and the offer page (`email-deliverability-rescue.html`)
   beacons `/api/click` only when **both** are present, so agency clicks were
   invisible. Now `partner_outreach.partner_rescue_url(email)` builds a
   per-recipient link tagged `o=partner-program` + `c=token_for(email,
@@ -487,7 +487,7 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   `click_tokens` HMAC as the buyer path (no lookup table); the
   `verify_scheduled` read-back checks still match. Backup:
   `partner_outreach.py.bak-20261009-partnerclick`. To date all recorded clicks
-  (today's included) are buyer/campaign addresses — **zero agency clicks seen**.
+  (today's included) are buyer/campaign addresses, **zero agency clicks seen**.
 - Forward: no `could not be reached: example-inbox` bounce ⇒ still off.
 - **Partner cron + schedule fix (2026-10-09 night).** Added Hermes job
   `69327c970056` PARTNER OUTREACH REFILL (`30 10 * * 1-5`, `partner_refill.sh`),
@@ -507,12 +507,12 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   messages at 06:19/06:20 UTC (junk; ignore).
 - **🎯 FIRST REAL PROSPECT REPLY.** `user@example.com`, Sun 11 Oct 14:34:11
   -0500, subject `Re: A white-label email security fix for your agency`. Body:
-  *"Thanks for reaching out — and good catch on the DMARC gap. White-label email
+  *"Thanks for reaching out, and good catch on the DMARC gap. White-label email
   security is relevant to our client work, so let's talk. Pick a 30-minute slot
-  after 6 PM Central here: https://cal.com/temerarii/30min."* — Dom, Temerarii
+  after 6 PM Central here: https://cal.com/temerarii/30min."*, Dom, Temerarii
   Media. The original had gone to `user@example.com` on **Sat Oct 10 13:32
-  EDT** (the ROLE box — but a human read it and answered), ~25 hours earlier.
-  **Do not suppress `temerarii.com`** — it is a live lead now.
+  EDT** (the ROLE box, but a human read it and answered), ~25 hours earlier.
+  **Do not suppress `temerarii.com`**, it is a live lead now.
 - **They never clicked.** Their per-recipient token `57b436844fe1b053a1da` appears
   nowhere in `leads/clicks.log`; they replied straight from the inbox. On this
   channel the reply, not the click, is the signal. The only agency click on record
@@ -522,7 +522,7 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
   sent -> 0 replies (2 opt-outs). This mailbox currently holds **one** human
   prospect reply, and it is the agency one.
 - **Channel rebalance (Vinny, 2026-10-11):** buyer **100 -> 30/day**, agency
-  **30 -> 50/day**. Throttle, not a pause — see the superseded volume note above
+  **30 -> 50/day**. Throttle, not a pause, see the superseded volume note above
   and the `hermes-outreach-cron` skill for the full reasoning and the knob changes
   (script `LIMIT`/`GAP`/`VERIFY_BACKFILL_MARGIN`, `REFILL_AT` 200 -> 100, verifier
   prefills 40/60/100, partner cron 10:30 -> 09:30).
@@ -539,7 +539,7 @@ env `IONOS_API_KEY` / `IONOS_DNS_ZONE` override.
 - Forward: no `could not be reached: example-inbox` bounce => still off. ✓
   (The two `example-inbox -> hello@` messages today are Vinny's own sends.)
 
-## 2026-10-11 (later) — directory sourcing built, because OSM ran out
+## 2026-10-11 (later), directory sourcing built, because OSM ran out
 
 Follows the reply + channel rebalance above. The rebalance exposed the real
 constraint: the agency pool had only 19 eligible addresses against a 50/day meter,
@@ -550,7 +550,7 @@ queue in `partner_metros4.txt` is ~400 addresses, about 8 send-days at 50/day.
 **Built `directory_prospects.py` + `directory_pool_todo.py` +
 `test_directory_prospects.py`** (all in `~/money_ideas`, committed as
 `47cfb63`). They read agency directories instead of OSM, because a directory exists
-to list agencies and publishes each agency's own website — exactly what
+to list agencies and publishes each agency's own website, exactly what
 `email_scan.py` and `find_contacts.py` consume.
 
 Sources, probed live (robots.txt + sitemap + one real profile page each):
@@ -560,8 +560,8 @@ Sources, probed live (robots.txt + sitemap + one real profile page each):
 | `topdevelopers.co` | 10,836 | works (default) |
 | `superbcompanies.com` | 77,931 | works |
 | `digitalagencynetwork.com` | ~1,000 per child sitemap | flaky; child sitemaps usually read-timeout |
-| clutch.co, techbehemoths.com, themanifest.com, yellowpages.com, upcity.com | — | **403 at robots.txt — do not wire** |
-| designrush.com, goodfirms.co, sortlist.com | — | robots.txt permits but sitemaps 403 via Cloudflare |
+| clutch.co, techbehemoths.com, themanifest.com, yellowpages.com, upcity.com |, | **403 at robots.txt, do not wire** |
+| designrush.com, goodfirms.co, sortlist.com |, | robots.txt permits but sitemaps 403 via Cloudflare |
 
 **Measured extraction accuracy: 40/40** on the first twenty profiles of each working
 source. Domain pick = drop platforms/CDNs/social/other directories, then prefer the
@@ -569,7 +569,7 @@ off-site host whose name reproduces the profile slug or the agency name; if seve
 candidates remain and none matches, return nothing rather than guess.
 
 `partner_outreach.partner_fit()` gained a second admission route:
-`industry_source` starting `dir:` — without it every scraped domain would be dropped
+`industry_source` starting `dir:`, without it every scraped domain would be dropped
 at staging. `DENY_NAME` and `partner_exclude.txt` still veto.
 
 New cron **`be4516e1f17a` PARTNER DIRECTORY REFILL** `0 19 * * 0-4`, script
@@ -584,19 +584,19 @@ Politeness is enforced in code, not intent: robots.txt read at runtime with RFC 
 matching (query strings included), identifying UA with a contact address, one
 request per URL, `DELAY` (default 3s) between requests to a host, single-threaded
 because each source is ONE host. The test suite caught a live bug the day it was
-written — `urlparse().path` drops the query string, so `Disallow: /*?` could never
+written, `urlparse().path` drops the query string, so `Disallow: /*?` could never
 match and a forbidding rule silently became a permitting one.
 
 Smoke test on the real chain that evening: 24 new agency domains scraped and
-appended, all 24 DNS-scanned, contact harvest launched (slow — the offshore sites
+appended, all 24 DNS-scanned, contact harvest launched (slow, the offshore sites
 hang, so a run can take a while; `harvest.sh` refuses to start a second copy rather
 than double-write). Suites: `test_directory_prospects.py` 85/0, `test_outreach.py`
 245/0, `test_email_scan.py` 70/0. **No mail was sent by any of this.**
 
-### 2026-10-11 — a partner pool master was emptied and restored (read this before touching the pools)
+### 2026-10-11, a partner pool master was emptied and restored (read this before touching the pools)
 
 **What happened.** During the first end-to-end run of the new directory refill,
-`partner_contacts_master.csv` — 187 rows of contact history — was **truncated to
+`partner_contacts_master.csv`, 187 rows of contact history, was **truncated to
 zero bytes**. It was restored from a backup taken minutes earlier, by luck of
 timing. Nothing was lost. Nothing was mailed during any of this.
 
@@ -613,7 +613,7 @@ timing. Nothing was lost. Nothing was mailed during any of this.
    mid-execution shifts the read offset and bash resumes *part-way through a
    command*. That is what skipped the guard and left only the truncating redirect.
    It also produced a phantom `syntax error near unexpected token 'else'` in a file
-   that `bash -n` had just declared clean — **a phantom syntax error from a script
+   that `bash -n` had just declared clean, **a phantom syntax error from a script
    that parses fine is the signature of this, not a syntax bug.**
 
 **Fixes, both committed:**
@@ -770,7 +770,7 @@ batches are gone), so history comes from the logs above.
   - No `5.7.515`/`5.7.509` anywhere, DKIM `s1-ionos` on every returned original.
     **True hard-bounce rate 1/69 = 1.4%.** 0 vs 4 on ~70 sends is sample noise.
 - **THE BUG.** `auth_enforcement.DEAD_MAILBOX_CODES` was `("5.0.", "5.1.")`, so a
-  bare **5.0.0** counted as proof of death — and IONOS stamps 5.0.0 into the DSN
+  bare **5.0.0** counted as proof of death, and IONOS stamps 5.0.0 into the DSN
   block whenever the remote server gives an unclassified 550. RFC 3463 defines
   5.0.0 as *"Other undefined status"*. All four NDRs above were written to
   `suppressed_addresses.txt`, so **three LIVE prospects were deleted**.
@@ -814,19 +814,19 @@ batches are gone), so history comes from the logs above.
   plan). Measured today: **9 of the first 50 partner candidates are cached DEAD**
   (~18-22%), which is the missing ~11. Fixed in `partner_outreach.py`: probe
   `limit + 40%` (min 10) in the SAME verifier call, then keep the first `limit`
-  survivors. **`LIMIT` stays 50** — the fix lands 50, it does not raise the meter
+  survivors. **`LIMIT` stays 50**, the fix lands 50, it does not raise the meter
   (raising it to 64 would have sent up to 64 on a clean day). `partner_refill.sh`
   comment updated; `GAP=4`, window 13:00-16:20.
 - **Clicks Oct 20:** `user@example.com` (buyer, sent 10:49) clicked the
-  rescue page 4x over 2 min at 14:49Z — real browsing. `user@example.com` and
+  rescue page 4x over 2 min at 14:49Z, real browsing. `user@example.com` and
   `user@example.com` fired `partner-program` tokens from 72.145.76.96 and
   48.209.223.64 (Microsoft range) = gateway prefetch, not people.
 - **No prospect replies, no opt-outs** on Oct 20. DMARC reports still arriving
   (Fastmail, Mimecast). No `example-inbox` forward bounce -> forward off. ✓
-- **Temerarii/Dom — handled by Vinny directly, drop it.** The meeting (booked
+- **Temerarii/Dom, handled by Vinny directly, drop it.** The meeting (booked
   2026-10-19 23:00 for Tue 4:30pm CDT) was **cancelled at 17:34 EDT on Oct 20**,
   13 minutes after the "Need to move our 5:30" message. **That message was Vinny
-  sending by hand, not the pipeline** — the cold-outreach code does not send
+  sending by hand, not the pipeline**, the cold-outreach code does not send
   follow-ups or replies to leads; anything conversational in `Sent Items` is his.
   Vinny confirmed **2026-10-21 that he has spoken with Dom**, so this is not an
   open thread and needs no automated follow-up. Still: do not suppress
@@ -839,7 +839,7 @@ batches are gone), so history comes from the logs above.
   `test_csv_append.py` 31/0, `test_directory_prospects.py` 85/0. Nothing sent.
   Backups: `*.bak-20261021-classifier`.
 
-### 2026-10-21 — the Oct 21 buyer batch was re-staged clean
+### 2026-10-21, the Oct 21 buyer batch was re-staged clean
 
 Vinny: *"Might as well restage them."* The 30-message batch staged at 00:07 was
 built with the old role rule, so it still carried 5 function boxes
@@ -849,7 +849,7 @@ Nothing had sent yet (09:00 was still ahead), so:
 
 1. Deleted all 30 from the IONOS `Scheduled` folder over IMAP
    (`+FLAGS \Deleted` then `EXPUNGE`; 30 -> 0).
-2. Rolled their `state.json` `contacted` entries back — only entries whose
+2. Rolled their `state.json` `contacted` entries back, only entries whose
    `status` was `scheduled` **and** `scheduled_local` started with today, so no
    real send history was touched (1227 -> 1197). Backups:
    `state.json.bak-restage-20261021`, `state.json.bak-restage2-20261021-011228`.

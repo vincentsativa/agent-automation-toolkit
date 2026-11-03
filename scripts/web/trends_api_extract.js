@@ -92,7 +92,7 @@
     });
   };
 
-  // Returns {term: [{name, keys}, {name, keys}]} — Top list first, Rising second.
+  // Returns {term: [{name, keys}, {name, keys}]}, Top list first, Rising second.
   globalThis.__related = async function (terms) {
     let txt;
     try { txt = await globalThis.__explore(terms); }

@@ -2,7 +2,7 @@
 name: hermes-github-backup
 description: >-
   Back up Hermes Agent configuration and data to a private GitHub repository.
-  Covers config.yaml, .env, skills/*, cron/, memories/, kanban/ — excludes
+  Covers config.yaml, .env, skills/*, cron/, memories/, kanban/, excludes
   rebuildable cache, logs, media, checkpoints.
 version: 1.1.0
 author: Hermes Agent
@@ -51,7 +51,7 @@ echo "<YOUR_PAT>" | gh auth login --with-token
 gh auth status
 ```
 
-**Pitfall:** Fine-grained PATs show `Scopes: NONE` in API response headers — this is normal. They use explicit resource-level permissions, not OAuth scopes.
+**Pitfall:** Fine-grained PATs show `Scopes: NONE` in API response headers, this is normal. They use explicit resource-level permissions, not OAuth scopes.
 
 ### 3. Set Up Git Identity & Credential Store
 
@@ -85,11 +85,11 @@ curl -s -X POST https://api.github.com/user/repos \
 
 ### 5. Security: Add .gitignore Before Staging
 
-**CRITICAL: Do not push live credentials to GitHub.** The backup dir is a git repo — anything you copy in gets committed. Create a `.gitignore` that blocks sensitive files before staging anything:
+**CRITICAL: Do not push live credentials to GitHub.** The backup dir is a git repo, anything you copy in gets committed. Create a `.gitignore` that blocks sensitive files before staging anything:
 
 ```bash
 cat > /tmp/hermes-backup/.gitignore << 'EOF'
-# Sensitive credentials — never push live keys
+# Sensitive credentials, never push live keys
 config/.env
 config/config.yaml
 
@@ -106,11 +106,11 @@ EOF
 
 ### 6. Stage Backup Files
 
-Only the **essentials** — skip everything rebuildable. Do NOT copy `.env` or `config.yaml` (they contain live API keys). The `.gitignore` is a safety net, not a substitute for not staging them.
+Only the **essentials**, skip everything rebuildable. Do NOT copy `.env` or `config.yaml` (they contain live API keys). The `.gitignore` is a safety net, not a substitute for not staging them.
 
 ```bash
 mkdir -p /tmp/hermes-backup/{config,skills,cron,memories,kanban}
-# Do NOT copy .env or config.yaml — they contain live API keys
+# Do NOT copy .env or config.yaml, they contain live API keys
 cp -r ~/.hermes/skills/* /tmp/hermes-backup/skills/
 cp ~/.hermes/cron/jobs.json /tmp/hermes-backup/cron/
 cp -r ~/.hermes/cron/output /tmp/hermes-backup/cron/
@@ -120,13 +120,13 @@ cp -r ~/.hermes/kanban/workspaces /tmp/hermes-backup/kanban/
 ```
 
 **Excluded by design:**
-- `~/.hermes/logs/` — transient
-- `~/.hermes/cache/` — rebuildable
-- `~/.hermes/checkpoints/` — session snapshots
-- `~/.hermes/audio_cache/` — TTS artifacts
-- `~/.hermes/media_cache/` — auto-downloaded media
-- `~/.hermes/config.yaml` — contains API keys
-- `~/.hermes/.env` — contains API keys and tokens
+- `~/.hermes/logs/`, transient
+- `~/.hermes/cache/`, rebuildable
+- `~/.hermes/checkpoints/`, session snapshots
+- `~/.hermes/audio_cache/`, TTS artifacts
+- `~/.hermes/media_cache/`, auto-downloaded media
+- `~/.hermes/config.yaml`, contains API keys
+- `~/.hermes/.env`, contains API keys and tokens
 ### 6. Push
 
 ```bash
@@ -164,7 +164,7 @@ Create the backup script at `~/.hermes/scripts/hermes-backup.sh`:
 
 ```bash
 #!/usr/bin/env bash
-# Weekly Hermes backup script — pushes config, skills, cron, memories, kanban to GitHub
+# Weekly Hermes backup script, pushes config, skills, cron, memories, kanban to GitHub
 set -euo pipefail
 
 BACKUP_DIR=/tmp/hermes-backup
@@ -172,7 +172,7 @@ HERMES_HOME="$HOME/.hermes"
 REMOTE_URL="https://github.com/YOUR_USER/wsl-hermes-backup.git"
 
 # Clone or pull the existing repo so we have full history
-# CRITICAL: never git init a fresh repo in /tmp — it creates a root commit with
+# CRITICAL: never git init a fresh repo in /tmp, it creates a root commit with
 # no common ancestor against the remote, so push gets rejected as non-fast-forward.
 # Always clone to preserve commit history.
 if [ ! -d "$BACKUP_DIR/.git" ]; then
@@ -224,33 +224,33 @@ chmod +x ~/.hermes/scripts/hermes-backup.sh
 
 A known-good copy of this script is also at `scripts/hermes-backup.sh` in this skill directory. The template above uses `YOUR_USER` as a placeholder; the script file has the real remote URL hardcoded.
 
-Schedule weekly (no_agent runs script directly — zero LLM cost):
+Schedule weekly (no_agent runs script directly, zero LLM cost):
 ```bash
 cronjob action=create name="hermes-weekly-backup" schedule="0 3 * * 0" script="hermes-backup.sh" no_agent=true deliver="local"
 ```
 
-The `no_agent=true` pattern runs the script directly without an LLM — cheap, silent, just git push on schedule. `deliver="local"` saves output to cron/ but sends nothing to Telegram.
+The `no_agent=true` pattern runs the script directly without an LLM, cheap, silent, just git push on schedule. `deliver="local"` saves output to cron/ but sends nothing to Telegram.
 
-## Before You Begin — Check Existing State
+## Before You Begin, Check Existing State
 
 **CRITICAL: Before creating any backup resource (repo, script, cron job), verify it doesn't already exist.**
 
 - **Cron jobs:** Run `cronjob action=list` and grep for "backup" before creating a new one. Duplicate cron jobs with the same name and schedule waste user trust.
 - **Repo:** Check `curl -s https://api.github.com/repos/USER/wsl-hermes-backup` before attempting to create it. A 422 "name already exists" means it's already there.
 - **Script:** Check `ls ~/.hermes/scripts/hermes-backup.sh` before writing a new one.
-- **System state:** Never speculate about what another machine or agent has or needs. If you can't verify it with tools, say "I don't know" — don't invent plausible answers.
+- **System state:** Never speculate about what another machine or agent has or needs. If you can't verify it with tools, say "I don't know", don't invent plausible answers.
 
 ## Backing Up Arbitrary Data Folders (Create-or-Clone Script Pattern)
 
 Daily backups of desktop/project folders to a dedicated private repo. Use a **create-or-clone** script:
 
-1. **Tries `git clone` first** — if the repo already exists, clone it (preserves history, avoids the non-fast-forward root-commit trap).
+1. **Tries `git clone` first**, if the repo already exists, clone it (preserves history, avoids the non-fast-forward root-commit trap).
 2. **If the repo is missing, create it via API:** `POST /user/repos` (private). Then `git init` locally and push to `master` (`git init` defaults to `master`; the API creates an empty remote).
 3. **Push to branch `master`, not `main`** (the `git init` default when using this create-or-clone pattern).
-4. **Uses a CLEAN remote URL + credential store** — never embed the token in the remote URL. The credential helper (`git config credential.helper store`) supplies auth on push.
-5. **Reads `GITHUB_TOKEN` from `~/.hermes/.env` for API calls only** — not for git auth.
+4. **Uses a CLEAN remote URL + credential store**, never embed the token in the remote URL. The credential helper (`git config credential.helper store`) supplies auth on push.
+5. **Reads `GITHUB_TOKEN` from `~/.hermes/.env` for API calls only**, not for git auth.
 6. **Sync with `rsync -a --delete`** to mirror deletions.
-7. **Output is minimal** — just "backup complete".
+7. **Output is minimal**, just "backup complete".
 
 ## Change Briefs Pipeline
 
@@ -263,13 +263,13 @@ A pipeline that turns 7 days of backup diffs into dated, ordered change briefs t
 
 ## GitHub Access: Token, Never the Web Browser (Vinny's Standing Rule)
 
-For ALL GitHub operations in this workflow, authenticate with the token via the `gh` CLI or `git` over HTTPS — never open a web browser / never drive the browser UI to read or modify a repo. Vinny flags browser-based GitHub access as wrong. When he asks "why are you trying to access github via web instead of token," the expectation is that you use the already-configured token credentials.
+For ALL GitHub operations in this workflow, authenticate with the token via the `gh` CLI or `git` over HTTPS, never open a web browser / never drive the browser UI to read or modify a repo. Vinny flags browser-based GitHub access as wrong. When he asks "why are you trying to access github via web instead of token," the expectation is that you use the already-configured token credentials.
 
 This box is set up correctly already:
 - `gh` is logged in as `vincentsativa` with a stored token (`gh auth status` → active account, protocol https)
-- `git config credential.helper` is `store`, so clones/pushes authenticate with the token automatically — no browser login, no curl-to-web, no manual password prompts
+- `git config credential.helper` is `store`, so clones/pushes authenticate with the token automatically, no browser login, no curl-to-web, no manual password prompts
 
-**When reading crons from the backup repo (the reverse direction — Vinny emails tasks to pull/sync cron definitions out of `linux-hermes-backup`):** use `gh repo clone vincentsativa/linux-hermes-backup` or `git clone` (both token-authenticated), inspect the files locally, then copy what's missing into `~/.hermes/cron/`. When adding copied crons: keep them PAUSED, pin them to the model Vinny specifies, fix file paths to match our system, and change any "Bill" references to "Frank". Leave the model settings alone. Notify Vinny on Telegram explaining the changes. Do not modify the repo — copy only.
+**When reading crons from the backup repo (the reverse direction, Vinny emails tasks to pull/sync cron definitions out of `linux-hermes-backup`):** use `gh repo clone vincentsativa/linux-hermes-backup` or `git clone` (both token-authenticated), inspect the files locally, then copy what's missing into `~/.hermes/cron/`. When adding copied crons: keep them PAUSED, pin them to the model Vinny specifies, fix file paths to match our system, and change any "Bill" references to "Frank". Leave the model settings alone. Notify Vinny on Telegram explaining the changes. Do not modify the repo, copy only.
 
 ## Instabox Backup Repo (`vincentsativa/instabox-Hermes-agent`)
 
@@ -293,11 +293,11 @@ If a push from the box is ever impossible and a fallback is genuinely needed: re
   ```
   A classic PAT with `public_repo` scope would fork; a fine-grained PAT cannot. Distinguish the two before spending any time on token workarounds, and read `403` plus that header as a hard capability limit rather than a config gap. The correct move is ONE line naming the limit and handing it to the user, because the unblocking step needs their identity. Do not burn turns enumerating permissions, retrying shapes, or testing write endpoints to confirm what the header already stated.
 - **Never claim a GitHub action succeeded from a CLI success message alone.** Read the created ref back (the repo, branch, PR number) and confirm it resolves, the same as any other external write.
-- **Don't back up the token itself** — the `.env` file goes to GitHub. If you push it, rotate the token. Best practice: push `.env` with a placeholder and store the real token elsewhere. See `references/credential-leak-remediation.md` for the purge procedure if you accidentally push live keys.
-- **.git-credentials in the backup** — don't include it. Keep credentials out of the repo.
-- **Large .hermes/ directories (~5GB)** — only the essentials are ~50MB. Speed up backups by always using the exclusion list.
-- **Windows/WSL path differences** — if restoring to a different OS, paths in cron jobs and config may need adjustment.
-- **skills/ is itself a git repo** — `rsync` without `--exclude=.git` copies the `.git` directory into the backup, which git then treats as a submodule (mode 160000) instead of tracking the skill files as normal files. Always use `--exclude=.git` on the skills rsync.
-- **Branch name mismatch on fresh init** — `git init` creates `master` by default, but the remote uses `main`. Always use `git init -b main` to set the correct initial branch name.
-- **/tmp/ gets wiped on reboot** — never `git init` a fresh repo in `/tmp`. It creates a root commit with no common ancestor against the remote, so the push gets rejected as non-fast-forward. The rebase silently fails (swallowed by `2>/dev/null || true`) and `set -euo pipefail` kills the script on the push error. The fix: `git clone` the existing remote instead of init. This preserves full commit history and pushes work cleanly. See the script template above.
-- **Force-push is a band-aid, not a fix** — if you hit the non-fast-forward rejection, do not `git push --force`. That rewrites remote history and loses prior backups. Delete `/tmp/hermes-backup` entirely and let the script re-clone from the remote. The clone-based script handles this automatically.
+- **Don't back up the token itself**, the `.env` file goes to GitHub. If you push it, rotate the token. Best practice: push `.env` with a placeholder and store the real token elsewhere. See `references/credential-leak-remediation.md` for the purge procedure if you accidentally push live keys.
+- **.git-credentials in the backup**, don't include it. Keep credentials out of the repo.
+- **Large .hermes/ directories (~5GB)**, only the essentials are ~50MB. Speed up backups by always using the exclusion list.
+- **Windows/WSL path differences**, if restoring to a different OS, paths in cron jobs and config may need adjustment.
+- **skills/ is itself a git repo**, `rsync` without `--exclude=.git` copies the `.git` directory into the backup, which git then treats as a submodule (mode 160000) instead of tracking the skill files as normal files. Always use `--exclude=.git` on the skills rsync.
+- **Branch name mismatch on fresh init**, `git init` creates `master` by default, but the remote uses `main`. Always use `git init -b main` to set the correct initial branch name.
+- **/tmp/ gets wiped on reboot**, never `git init` a fresh repo in `/tmp`. It creates a root commit with no common ancestor against the remote, so the push gets rejected as non-fast-forward. The rebase silently fails (swallowed by `2>/dev/null || true`) and `set -euo pipefail` kills the script on the push error. The fix: `git clone` the existing remote instead of init. This preserves full commit history and pushes work cleanly. See the script template above.
+- **Force-push is a band-aid, not a fix**, if you hit the non-fast-forward rejection, do not `git push --force`. That rewrites remote history and loses prior backups. Delete `/tmp/hermes-backup` entirely and let the script re-clone from the remote. The clone-based script handles this automatically.

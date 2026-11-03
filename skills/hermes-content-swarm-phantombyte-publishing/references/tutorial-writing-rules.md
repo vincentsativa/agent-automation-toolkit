@@ -2,7 +2,7 @@
 
 ## Concept, Not Blueprint
 
-When writing tutorials for Vinny, the content must teach the concept without exposing the actual implementation. His system architecture, prompts, schedules, and agent setup are a $4k+ product — not free content.
+When writing tutorials for Vinny, the content must teach the concept without exposing the actual implementation. His system architecture, prompts, schedules, and agent setup are a $4k+ product, not free content.
 
 - Teach what is possible, not how he specifically does it
 - Use generic examples ("a daily briefing agent"), not his actual cron setup
@@ -28,7 +28,7 @@ When Vinny says "I told you what I wanted" or similar, he means you already have
 - Second-guess the approach
 - Ask for confirmation before executing
 
-Execute exactly what he specified. The outline is the plan. The writing is execution. Questions after the instruction is given are not helpful — they waste his time.
+Execute exactly what he specified. The outline is the plan. The writing is execution. Questions after the instruction is given are not helpful, they waste his time.
 
 ## The "Go Fuck Yourself" Signal
 

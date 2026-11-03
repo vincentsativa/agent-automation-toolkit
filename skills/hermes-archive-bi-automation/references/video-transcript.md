@@ -11,9 +11,9 @@ Transcribed via: ffmpeg audio extraction + OpenAI Whisper (base model)
 ## Key Observations from Video
 
 1. **Workflow is repetitive**: Register → answer questions → for EACH ad: copy headline, click link, copy offer URL, paste both into sheet next to each other
-2. **DBA extraction**: At bottom of ad creatives, there are small company names (DBAs) — Joe manually copies these
-3. **Screenshots for image ads**: Joe uses Command+Shift+4 for ads that aren't pure text, tries to insert image into the spreadsheet cell (sometimes this doesn't work — said "skip this for time's sake")
-4. **Link-outs vs in-page ads**: Two ad types — "link out offers" (clicks take you to a new page) and what appear to be in-page lead gen forms
+2. **DBA extraction**: At bottom of ad creatives, there are small company names (DBAs), Joe manually copies these
+3. **Screenshots for image ads**: Joe uses Command+Shift+4 for ads that aren't pure text, tries to insert image into the spreadsheet cell (sometimes this doesn't work, said "skip this for time's sake")
+4. **Link-outs vs in-page ads**: Two ad types, "link out offers" (clicks take you to a new page) and what appear to be in-page lead gen forms
 5. **Manual process is slow and error-prone**: Joe missed copying headlines multiple times, had to go back
-6. **Data structure in the sheet**: Headline in one column, offer URL in the adjacent column — this is the core unit of data per ad
+6. **Data structure in the sheet**: Headline in one column, offer URL in the adjacent column, this is the core unit of data per ad
 7. **Select ALL options**: Joe reiterates selecting every possible option on qualifying questions to maximize ads served

@@ -10,7 +10,7 @@ User asks for research ("what are people saying about X?", "look up Y", "find in
 
 ## Rules
 1. MAX 2 tool calls per response turn when user is on Telegram interface
-2. Batch all findings into ONE consolidated response — never stream partial updates
+2. Batch all findings into ONE consolidated response, never stream partial updates
 3. If more research is needed, ASK permission: "Want me to dig deeper?"
 4. Prefer direct answers with 2-3 key points over exhaustive lists
 5. Each tool call = separate Telegram notification. Treat notifications like they're expensive.

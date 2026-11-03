@@ -24,7 +24,7 @@ too, so the cron and this runbook agree.
 **This is the heavy half.** The "PROSPECT POOL REFILL" cron runs
 `refill_check.sh` (cheap) and only when it prints `REFILL NEEDED` do you run the
 four steps below. The full pipeline reference (measured yields, flags, hard rules)
-is `email-deliverability-rescue-workflow` — read it if a step is unclear, and do
+is `email-deliverability-rescue-workflow`, read it if a step is unclear, and do
 not duplicate its rules here.
 
 ## Step 0 - confirm

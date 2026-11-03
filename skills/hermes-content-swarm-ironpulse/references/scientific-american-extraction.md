@@ -7,7 +7,7 @@ Scientific American (scientificamerican.com) has AI stories that are accessible 
 ## Access Pattern
 
 1. **Navigate** to the article URL
-2. If a cookie consent dialog appears, **reject optional cookies** — look for a "Reject optional cookies" or "Reject all" button in the dialog
+2. If a cookie consent dialog appears, **reject optional cookies**, look for a "Reject optional cookies" or "Reject all" button in the dialog
 3. After rejecting, wait for the article body to render
 4. Use `browser_console` with `document.body.innerText.substring(0, 20000)` to extract the full article text, or use `browser_snapshot(full=true)`
 
@@ -27,11 +27,11 @@ The "Reject optional cookies" button is typically ref=e5 or close to it in the s
 
 ## What Does Not Work
 
-- Snapshot before cookie dismissal — only shows the dialog
-- Direct console extraction before cookie rejection — body is empty or gated
-- `browser_snapshot(full=true)` after dialog dismissal — body may still be truncated by snapshot limit
+- Snapshot before cookie dismissal, only shows the dialog
+- Direct console extraction before cookie rejection, body is empty or gated
+- `browser_snapshot(full=true)` after dialog dismissal, body may still be truncated by snapshot limit
 
 ## Stories Found
 
 Scientific American articles appearing in IronPulse reports tend to be academic/research-focused AI stories rather than breaking product news. Example that worked:
-- Anthropic recursive self-improvement warning (June 5, 2026) — full text extracted successfully
+- Anthropic recursive self-improvement warning (June 5, 2026), full text extracted successfully

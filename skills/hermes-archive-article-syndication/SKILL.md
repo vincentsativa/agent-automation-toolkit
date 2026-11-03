@@ -91,7 +91,7 @@ Not every platform wants the article. Some want a short post that carries the li
 
 **When Vinny asks for the "words to mask the link" with SEO in mind:** the deliverable is the post body PLUS the exact anchor-text phrase to hyperlink, never the raw URL as the anchor. The anchor must carry the target article's keyword phrases (its subject vocabulary) so the link passes them; give a shorter alternate anchor for length-limited platforms. State that the anchor is the hyperlink text on any platform where markdown links or link cards are supported.
 
-**Scrapling import note:** the sandbox interpreter in `execute_code` does not have scrapling. Run scrapling scripts from `terminal()` with `~/venv/bin/python`, where scrapling is installed. Also: scrapling's `.text` can come back empty on a JS-rendered page even when `.body` is full — when `page.text` looks blank, read `page.body` or strip tags from it instead of concluding the fetch failed.
+**Scrapling import note:** the sandbox interpreter in `execute_code` does not have scrapling. Run scrapling scripts from `terminal()` with `~/venv/bin/python`, where scrapling is installed. Also: scrapling's `.text` can come back empty on a JS-rendered page even when `.body` is full, when `page.text` looks blank, read `page.body` or strip tags from it instead of concluding the fetch failed.
 
 ## Pitfalls
 
@@ -107,7 +107,7 @@ Not every platform wants the article. Some want a short post that carries the li
 
 ## Support Files
 
-- `scripts/check-link-rel.py` — fetch a live article from any platform and print the `rel` on each in-body outbound link. Run this before answering any question about whether a platform's links count.
-- `references/devto-format.md` — dev.to frontmatter fields, tag rules, and the verified link-attribute result.
-- `references/dailydev-format.md` — daily.dev post shape, the character budget for the title and body, tags, and how to enumerate what a profile has already posted.
-- `references/hackernoon-format.md` — HackerNoon Story Settings fields (title 60 to 100 characters, meta 120 to 160, exactly 8 tags at 30 characters each, First seen at, TL;DR cap), the rejection list worth pre-checking, submission mechanics, and the pre-send verification pass for a finished draft.
+- `scripts/check-link-rel.py`, fetch a live article from any platform and print the `rel` on each in-body outbound link. Run this before answering any question about whether a platform's links count.
+- `references/devto-format.md`, dev.to frontmatter fields, tag rules, and the verified link-attribute result.
+- `references/dailydev-format.md`, daily.dev post shape, the character budget for the title and body, tags, and how to enumerate what a profile has already posted.
+- `references/hackernoon-format.md`, HackerNoon Story Settings fields (title 60 to 100 characters, meta 120 to 160, exactly 8 tags at 30 characters each, First seen at, TL;DR cap), the rejection list worth pre-checking, submission mechanics, and the pre-send verification pass for a finished draft.

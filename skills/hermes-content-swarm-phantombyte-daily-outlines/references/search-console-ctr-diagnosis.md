@@ -9,10 +9,10 @@ Search Console averages CTR across ALL impressions. When the impression base is 
 ## The diagnostic (before touching any titles)
 
 1. Open **Search results → Performance → Queries** tab in Search Console.
-2. **Sort by Impressions (high → low).** This comes FIRST. Anything under ~100 impressions over 90 days is noise — ignore it entirely. Its CTR is meaningless (a "20% CTR on 5 impressions" is a sample-size mirage).
+2. **Sort by Impressions (high → low).** This comes FIRST. Anything under ~100 impressions over 90 days is noise, ignore it entirely. Its CTR is meaningless (a "20% CTR on 5 impressions" is a sample-size mirage).
 3. Read position and CTR TOGETHER for the top high-impression queries:
    - **Brand/navigational query at position 1-3** (e.g. the site's own name): healthy CTR, but it is navigational, not money. Not a fixable lever.
-   - **Real non-brand product/tool query at position 5-15 with real volume**: worth climbing. Holding page one on a genuine keyword on a new domain is a real trust signal — the template to replicate.
+   - **Real non-brand product/tool query at position 5-15 with real volume**: worth climbing. Holding page one on a genuine keyword on a new domain is a real trust signal, the template to replicate.
    - **High-volume informational keyword at position 1-5**: ONLY here is CTR/title the binding constraint.
 4. If the top of the list is all brand + tiny navigational blips, the site has NO real content-keyword volume yet. That is a **ranking-volume problem, not a CTR problem.** The lever is climbing positions / compounding trust, not rewriting titles.
 

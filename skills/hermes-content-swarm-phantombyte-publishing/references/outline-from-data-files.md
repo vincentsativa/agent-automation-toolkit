@@ -35,7 +35,7 @@ Do NOT blindly assume truncation. On July 15, 2026 the TensorFeed report was onl
 
 ## Phase 0: The Data Leads (Core Principle)
 
-Before any outline work begins, internalize this: the data tells its own story. You do not decide what to write about. You read the data, synthesize it, see what it exposes, and write about that. Never pre-commit to an article sequence or outline before reviewing the day's data. The data from cron dumps lands in `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES` throughout the day. When Vinny says "let's see what the data says," he means it literally — the data picks the direction, not a plan made yesterday.
+Before any outline work begins, internalize this: the data tells its own story. You do not decide what to write about. You read the data, synthesize it, see what it exposes, and write about that. Never pre-commit to an article sequence or outline before reviewing the day's data. The data from cron dumps lands in `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES` throughout the day. When Vinny says "let's see what the data says," he means it literally, the data picks the direction, not a plan made yesterday.
 
 ## Phase 1: Brand Research (Do Not Skip)
 
@@ -114,7 +114,7 @@ Each .txt outline file is a standalone working document. It does NOT need to use
 Recommended format (confirmed July 13-14, 2026):
 
 ```
-ARTICLE OUTLINE #[N] — [ENGINEERING/INFRASTRUCTURE or INDUSTRY/POLICY etc.]
+ARTICLE OUTLINE #[N], [ENGINEERING/INFRASTRUCTURE or INDUSTRY/POLICY etc.]
 ===================================================
 
 TITLE: [Punchy, specific, benefit-driven, second person]
@@ -155,7 +155,7 @@ Connects back to the "you can't do anything in AI without solid engineering" aut
 angle where relevant.]
 
 SOURCES CITED (all traceable to provided data files):
-- "[Story title]" — [Publication] ([data file name, Story #])
+- "[Story title]", [Publication] ([data file name, Story #])
 - [List every source this outline draws from, with the data file and story number]
 ```
 

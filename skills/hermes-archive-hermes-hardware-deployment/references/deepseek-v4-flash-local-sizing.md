@@ -1,4 +1,4 @@
-# DeepSeek V4 Flash (0731) — Local Inference Sizing
+# DeepSeek V4 Flash (0731), Local Inference Sizing
 
 Facts verified Aug 2026. Use when Vinny asks how to run V4 Flash locally, how many machines, or what it costs.
 
@@ -21,9 +21,9 @@ Facts verified Aug 2026. Use when Vinny asks how to run V4 Flash locally, how ma
 | UD-IQ2_M / Q2_K_XL | ~91-97 GB | 128 GB | 128 GB |
 | IQ2XXS (antirez) | ~87 GB | 128 GB | 128 GB |
 
-## Mac mini — the key constraint
+## Mac mini, the key constraint
 
-- **Mac mini tops out at 64 GB unified memory** (M4 Pro / M5 Pro). It does NOT go to 128 GB — that's Mac Studio / MacBook Pro territory.
+- **Mac mini tops out at 64 GB unified memory** (M4 Pro / M5 Pro). It does NOT go to 128 GB, that's Mac Studio / MacBook Pro territory.
 - So a single Mac mini CANNOT run V4 Flash at any tier. You must either string minis together or buy a bigger single machine.
 - **Stringing minis works** (llama.cpp rpc-server distributed inference, MLX multi-device pooling) but is slow: Thunderbolt interconnect (~10 GB/s) vs internal bandwidth (273-307 GB/s). Expect low single-digit tok/s.
 - **Mac mini count:**
@@ -32,7 +32,7 @@ Facts verified Aug 2026. Use when Vinny asks how to run V4 Flash locally, how ma
   - Official FP4/FP8 (~160 GB): 3x 64GB minis (~$6,000-7,500)
 - **Single-machine alternative:** Mac Studio M4 Max 128 GB (~$3,999) runs IQ3_XXS; Mac Studio M4 Ultra 192 GB (~$6,000+) runs full official weights. One machine, no stringing.
 
-## DGX Spark (GB10) — the better answer
+## DGX Spark (GB10), the better answer
 
 - **128 GB unified memory per unit**, ~$4,000 each. QSFP direct interconnect (200 Gbps, ~16 GB/s measured).
 - **2x DGX Spark (~$8,000, 256 GB)** is the reference deployment for V4 Flash. DeepSeek ships an official **DeepSeek-V4-Flash-DSpark** build optimized for it.

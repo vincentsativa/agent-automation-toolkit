@@ -74,7 +74,7 @@ Finding: [Exact diagnostic finding text]
 
 What you are doing: [One sentence]
 
-Step 1 — [Action]
+Step 1, [Action]
 [Exact steps]
 
 What to enter:

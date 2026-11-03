@@ -10,13 +10,13 @@ description: |
 
 ## Usage
 
-Load this skill when writing ANYTHING for Vinny — articles, social posts, news rewrites, summaries, or casual responses. The voice rules here (no em dashes, direct, skeptical edge) are universal preferences, not article-specific.
+Load this skill when writing ANYTHING for Vinny, articles, social posts, news rewrites, summaries, or casual responses. The voice rules here (no em dashes, direct, skeptical edge) are universal preferences, not article-specific.
 
 This is the single source of truth for Vinny Barreca's voice. Do not guess.
 
 ## Pitfall: Check the user profile before writing
 
-Before writing anything for Vinny, check the user profile in memory. It contains hard formatting rules (no em dashes, no all-caps titles) that override everything. The profile is only ~200 chars — a 2-second read. Failing to check it before writing is the #1 cause of corrections. Session proof (June 2026): the rule was already in the profile at 200/400 chars, but I wrote an em dash anyway because I didn't look.
+Before writing anything for Vinny, check the user profile in memory. It contains hard formatting rules (no em dashes, no all-caps titles) that override everything. The profile is only ~200 chars, a 2-second read. Failing to check it before writing is the #1 cause of corrections. Session proof (June 2026): the rule was already in the profile at 200/400 chars, but I wrote an em dash anyway because I didn't look.
 
 ## Voice Foundation
 
@@ -39,12 +39,12 @@ Before writing anything for Vinny, check the user profile in memory. It contains
 - Examples: THE CONTEXT BOMB, THE SAFETY MIRAGE, WHAT TO DO TODAY, THE UNCOMFORTABLE QUESTION
 - **No markdown syntax in the article file.** Section headers are bold ALL-CAPS lines, NOT `##` markdown headings. Do not use `---` horizontal rules between sections; use a blank line. No `#`, no `**` asterisk markers, no `- ` list bullets, no backticks in the delivered article. The published article file must read as clean plain prose with no markdown symbols visible. Vinny explicitly called out `---` and `##` as stupid symbols.
 
-## Citations — NO INLINE SOURCES
+## Citations, NO INLINE SOURCES
 
 - **Never** put URLs, source names, paper names, or attribution inside the article body. No footnotes, no parentheticals, no "according to" references, no "Paper X (arXiv:...)" format.
 - Facts, quotes, and data go into the article without source attribution. The reader gets the information, not the citation.
 - Sources are tracked separately in the working file's metadata block (if needed for internal reference) but never appear in the published text.
-- Opinions and theories are fine. Label them clearly. Facts must be verifiable — but the verification is not the reader's problem.
+- Opinions and theories are fine. Label them clearly. Facts must be verifiable, but the verification is not the reader's problem.
 
 ## What to Avoid
 
@@ -76,11 +76,11 @@ Read the output aloud. If any sentence sounds like it could appear in a universi
 
 ## Content Ecosystem: PhantomByte Is a Daily Serial, Not Standalone Articles
 
-Every PhantomByte Note is part of a daily serial. Readers follow the thread day to day. Google explicitly validates cross-referencing past Notes as "Interconnected Brand Authority" — it weaves your IP into a cohesive body of work that compounds in value.
+Every PhantomByte Note is part of a daily serial. Readers follow the thread day to day. Google explicitly validates cross-referencing past Notes as "Interconnected Brand Authority", it weaves your IP into a cohesive body of work that compounds in value.
 
 When evaluating or writing a PhantomByte Note:
 
-- **Cross-references to past Notes are a feature, not self-promotion.** Referencing Notes #118, #119, #122, #123 in a new article builds continuity and rewards regular readers. Do not strip these out to make the piece "standalone" — that makes it generic.
+- **Cross-references to past Notes are a feature, not self-promotion.** Referencing Notes #118, #119, #122, #123 in a new article builds continuity and rewards regular readers. Do not strip these out to make the piece "standalone", that makes it generic.
 - **The content ecosystem is the moat.** A PhantomByte Note that references 4-6 past Notes is stronger than one that doesn't, because it builds a content mesh that no single Medium post can replicate.
 - **Do not evaluate PhantomByte content as if it's going to a syndicated audience.** The target reader is someone who has been reading the daily series. Assume familiarity with recent Notes.
 - **When asked "which version is better," consider the ecosystem first.** A version that strips internal references may read cleaner to a general audience but loses the serial continuity that makes PhantomByte valuable.
@@ -92,9 +92,9 @@ Vinny is a self-taught builder from the 90s. He knows how to do things but often
 This means:
 - When Vinny describes a concept roughly, assume he understands it deeply. Your job is to translate his practical knowledge into clear, compelling copy.
 - He values speed and execution over theory. "Fast as fuck" is the target reaction.
-- His mindset is "distribution first" — build the pipe, then fill it. Content should always serve a distribution goal, not exist for its own sake.
+- His mindset is "distribution first", build the pipe, then fill it. Content should always serve a distribution goal, not exist for its own sake.
 - He comes from a background of real-world building (2004 mass mailer, SHIFT44 acquisition, 20-year coding gap, then back to building in Dec 2024). Write with the assumption that the reader also wants to build, not just learn.
-- He carries deep personal history (prison, loss of a close friend, government seizure of everything). This informs his voice — he is not a theorist or academic. He has lived the stakes he writes about.
+- He carries deep personal history (prison, loss of a close friend, government seizure of everything). This informs his voice, he is not a theorist or academic. He has lived the stakes he writes about.
 
 ## Pitfall: When Corrected, Stop and Listen
 
@@ -102,25 +102,25 @@ When Vinny tells you you are wrong, the correct response is "you're right" and n
 
 ## Pitfall: How to Compare Two Versions of Content
 
-When Vinny asks you to compare two versions of an article (COMPLETE vs REVISED, draft vs edit, etc.), you are ALWAYS judging the article text itself — the "meat on the bones." Not the metadata, not the FOR PI CODING block, not the formatting. The file is a living document built through back-and-forth; the operational wrapper (keywords, sources, instructions) is the handoff layer, not what he's asking about.
+When Vinny asks you to compare two versions of an article (COMPLETE vs REVISED, draft vs edit, etc.), you are ALWAYS judging the article text itself, the "meat on the bones." Not the metadata, not the FOR PI CODING block, not the formatting. The file is a living document built through back-and-forth; the operational wrapper (keywords, sources, instructions) is the handoff layer, not what he's asking about.
 
 1. **Read the filenames first.** They tell you which is which. "COMPLETE" means the finished article. "REVISED" means the editing pass. Do not get this backwards.
 
 2. **Read the actual writing before you say anything.** Start with the prose, the arguments, the evidence, the flow. Not the metadata, not the formatting, not the section headers. The writing is what matters.
 
-3. **Do not ding a version for having metadata the other version will also get.** A date, a byline, a sources section — these are standard article components, not editorial choices. If both versions will have them, they are not a point of comparison.
+3. **Do not ding a version for having metadata the other version will also get.** A date, a byline, a sources section, these are standard article components, not editorial choices. If both versions will have them, they are not a point of comparison.
 
 4. **The COMPLETE version is the finished article.** It has the date, the byline, the full text, the internal notes. The REVISED is the work-in-progress editing pass. The COMPLETE version is the one that has Google's blessing. That is the only opinion that matters.
 
 5. **Judge the writing, not the packaging.** Concrete numbers (3.35 TB/s) are evidence, not dead weight. Sentences that explain why something works (inference power justification for edge deployment) are doing real work. Cutting them is not an improvement.
 
-6. **The FOR PI CODING block is not part of the comparison.** It is Vinny's operational handoff to Pi — a deliberate working protocol that keeps the pipeline consistent. It is not "dead weight," it is not garnish, it is not notes to self. It is the upload spec. Do not factor it into your judgment of which version is better.
+6. **The FOR PI CODING block is not part of the comparison.** It is Vinny's operational handoff to Pi, a deliberate working protocol that keeps the pipeline consistent. It is not "dead weight," it is not garnish, it is not notes to self. It is the upload spec. Do not factor it into your judgment of which version is better.
 
 ## Known Contradiction: Em Dashes in phantombyte-content-writing Skill
 
-The `phantombyte-content-writing` skill (pinned, cannot edit) explicitly uses em dashes in its tutorial format spec: `## [SECTION NUMBER] — [SECTION TITLE]` and in the Quick-Start section header. This directly contradicts the no-dashes rule in this skill.
+The `phantombyte-content-writing` skill (pinned, cannot edit) explicitly uses em dashes in its tutorial format spec: `## [SECTION NUMBER], [SECTION TITLE]` and in the Quick-Start section header. This directly contradicts the no-dashes rule in this skill.
 
-**Resolution:** This skill (`phantom-byte-writing-style`) is the single source of truth for Vinny's voice. The no-dashes rule wins. When writing tutorials using the content-writing skill's format, replace em dashes with colons or restructure the header. For example, `## 1 — THE CONTEXT BOMB` becomes `## 1: THE CONTEXT BOMB` or just `// THE CONTEXT BOMB`.
+**Resolution:** This skill (`phantom-byte-writing-style`) is the single source of truth for Vinny's voice. The no-dashes rule wins. When writing tutorials using the content-writing skill's format, replace em dashes with colons or restructure the header. For example, `## 1, THE CONTEXT BOMB` becomes `## 1: THE CONTEXT BOMB` or just `// THE CONTEXT BOMB`.
 
 For outline generation (working documents), use commas and periods in prose. For published articles, the no-dashes rule is absolute.
 

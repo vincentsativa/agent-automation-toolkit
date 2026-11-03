@@ -1,4 +1,4 @@
-# Breaking Rumor Verification — "I saw this on X, is it true?"
+# Breaking Rumor Verification, "I saw this on X, is it true?"
 
 ## The class of task
 Vinny sees a claim on X/Twitter (an acquisition, a release, a deal) and asks
@@ -17,25 +17,25 @@ anonymous-sourced report become "confirmed" in your answer.** The word "agreed"
 in a headline is the outlet's framing of one source's claim, not a done deal.
 
 ## The workflow (what worked Aug 2026, NVIDIA/Hugging Face)
-1. **Search broadly first** — two parallel queries (e.g. "NVIDIA acquire
+1. **Search broadly first**, two parallel queries (e.g. "NVIDIA acquire
    Hugging Face confirmed" + "NVIDIA buys Hugging Face news") to map the
    landscape and catch both the rumor and any confirmation.
 2. **Extract the actual reporting, not just headlines.** Headlines say "agreed
    to buy"; the body says "citing a person with knowledge" and "did not
    respond to requests for comment." The body is where the sourcing lives.
-3. **Check the companies' own channels directly** — official blog, changelog,
+3. **Check the companies' own channels directly**, official blog, changelog,
    CEO's X account. Silence there is a signal. (Hugging Face's blog and
    changelog had nothing; Delangue was publicly silent.)
 4. **Note the escalation timeline.** Rumors escalate fast: "exploring a sale"
    → "in serious talks" → "agreed to buy" over days. Track the dates and
-   report the trajectory — that's often what the user is sensing ("I think
+   report the trajectory, that's often what the user is sensing ("I think
    that recently changed").
 5. **Deliver ONE verdict with the specific gap named.** e.g. "Likely real but
    unconfirmed. The reporting is credible and fits the pattern, but it traces
    to a single anonymous source and neither company has confirmed. Treat it
    as a strong rumor until one of them announces." Name exactly what would
    constitute confirmation.
-6. **Offer to keep watching** — the user may want a flag the moment a party
+6. **Offer to keep watching**, the user may want a flag the moment a party
    breaks silence.
 
 ## Pitfalls
@@ -43,7 +43,7 @@ in a headline is the outlet's framing of one source's claim, not a done deal.
   headline; the sourcing is one anonymous person and Reuters "could not
   immediately verify." Read the body before you commit.
 - **"No comment" ≠ denial.** Both companies declining comment is not a
-  confirmation and not a denial — it's the absence of confirmation. Say that.
+  confirmation and not a denial, it's the absence of confirmation. Say that.
 - **Escalation ≠ confirmation.** A story moving from "talks" to "agreed" over
   three days is the rumor maturing, not the deal closing. The deal can still
   crumble ("still being finalized and may still crumble").
@@ -52,11 +52,11 @@ in a headline is the outlet's framing of one source's claim, not a done deal.
   ("likely real"). Vinny wants a clear read, not a shrug.
 
 ## Worked example (NVIDIA / Hugging Face, Aug 26 2026)
-- Aug 23: Business Insider — Hugging Face exploring a sale at $13B+, hired a
+- Aug 23: Business Insider, Hugging Face exploring a sale at $13B+, hired a
   bank, no buyer named.
-- Aug 26: Business Insider — Nvidia in "serious talks" at more than $13B;
+- Aug 26: Business Insider, Nvidia in "serious talks" at more than $13B;
   Microsoft had met but was no longer active.
-- Aug 26: The Information — Nvidia has "agreed" to buy for $12.9B, citing one
+- Aug 26: The Information, Nvidia has "agreed" to buy for $12.9B, citing one
   person with knowledge.
 - Reuters picked it up but "could not immediately verify." Neither company
   responded to comment requests. Nothing on Hugging Face's blog/changelog;

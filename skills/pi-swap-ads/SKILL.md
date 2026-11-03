@@ -32,9 +32,9 @@ Get from the user:
 Edit `~/workspace/articles/scripts/swap-ads-v2.py`:
 
 Update the three `NEW_AD_*` constants at the top of the script:
-- `NEW_AD_TOP` — for article top slot (`ad-slot-article-top`)
-- `NEW_AD_BOTTOM` — for article bottom slot (`ad-slot-article-bottom`)
-- `NEW_AD_INDEX` — for homepage horizontal slot (`ad-slot-horizontal`)
+- `NEW_AD_TOP`, for article top slot (`ad-slot-article-top`)
+- `NEW_AD_BOTTOM`, for article bottom slot (`ad-slot-article-bottom`)
+- `NEW_AD_INDEX`, for homepage horizontal slot (`ad-slot-horizontal`)
 
 Each uses this template (update the `{PLACEHOLDERS}`):
 
@@ -198,11 +198,11 @@ python seo-maintenance.py --submit-url="https://articles.phantom-byte.com/sitema
 ## AD SLOT LOCATIONS IN HTML
 
 All article pages have two ad slots:
-1. **Top** — after `</figure>` (featured image), before `<!-- Article Body -->`
-2. **Bottom** — after `</div>` (article-footer), before `</article>`
+1. **Top**, after `</figure>` (featured image), before `<!-- Article Body -->`
+2. **Bottom**, after `</div>` (article-footer), before `</article>`
 
 Homepage has one ad slot:
-1. **Horizontal** — inside `<section class="ad-slot ad-slot-horizontal">`, before footer
+1. **Horizontal**, inside `<section class="ad-slot ad-slot-horizontal">`, before footer
 
 ## SAFETY CHECKS
 

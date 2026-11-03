@@ -14,7 +14,7 @@ Vinny runs Hermes in **WSL** (`~/`). The Hermes Desktop Windows app cannot conne
 |--------|-----|
 | **Web dashboard** | Run `hermes dashboard` in WSL, open `http://localhost:9119` in Windows browser |
 | **Telegram gateway** | Run `hermes gateway run` in WSL, connect to Telegram, use Windows Telegram desktop app to message the agent |
-| **Discord/Slack gateway** | Same pattern — gateway in WSL, native Windows chat app as client |
+| **Discord/Slack gateway** | Same pattern, gateway in WSL, native Windows chat app as client |
 | **CLI via WSL terminal** | Open Windows Terminal → WSL tab → `hermes` |
 
 ## What the Hermes Desktop App Actually Is
@@ -28,10 +28,10 @@ Vinny runs Hermes in **WSL** (`~/`). The Hermes Desktop Windows app cannot conne
 ## If Vinny Wants a Native Windows GUI for His WSL Hermes
 
 Options in order of practicality:
-1. **`hermes dashboard`** — web UI, works from any Windows browser, no extra install
-2. **Telegram gateway** — best UX, works from Windows Telegram desktop app
-3. **Install Hermes natively on Windows** — separate instance, not connected to WSL config/sessions
+1. **`hermes dashboard`**, web UI, works from any Windows browser, no extra install
+2. **Telegram gateway**, best UX, works from Windows Telegram desktop app
+3. **Install Hermes natively on Windows**, separate instance, not connected to WSL config/sessions
 
 ## Session Context (July 13, 2026)
 
-Vinny asked 4 times whether he could "point" his WSL Hermes agent to the Windows desktop app. The answer is no — the Desktop app is not a remote client. The confusion came from the word "desktop" implying a control panel, when it's actually a standalone local install.
+Vinny asked 4 times whether he could "point" his WSL Hermes agent to the Windows desktop app. The answer is no, the Desktop app is not a remote client. The confusion came from the word "desktop" implying a control panel, when it's actually a standalone local install.

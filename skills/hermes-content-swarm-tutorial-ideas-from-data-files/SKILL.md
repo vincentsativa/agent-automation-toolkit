@@ -12,9 +12,9 @@ developer/beginner pain points, generate exactly 4 ranked tutorial ideas
 (2 for developers, 2 for beginners), save a dated report, email it with the
 file attached, and send exactly one Telegram confirmation.
 
-## Step 1 — Review Existing Content (overlap check)
+## Step 1, Review Existing Content (overlap check)
 List every product already on the Gumroad store. **Use the Gumroad API v2, NOT
-browser scraping and NOT the `existing_products.txt` fallback file** — the
+browser scraping and NOT the `existing_products.txt` fallback file**, the
 storefront is a JS SPA (partial HTML payload) and the fallback file is often
 empty (0 bytes). The API returns the full catalog in one JSON response:
 
@@ -30,11 +30,11 @@ for p in data.get('products', []):
 **Token source:** the Gumroad access token lives in `~/.hermes/credentials.md` under the `## Gumroad` heading, field `Access Token`. Read it from there first. If that file is ever missing, fall back to the credentials section of the `gumroad-publisher` skill rather than hunting around the disk.
 
 - `price` is in cents; `0` = free lead magnet. `published` tells you if it's live.
-- The API returns the same list on page 1 and page 2 for this account — dedupe by name.
+- The API returns the same list on page 1 and page 2 for this account, dedupe by name.
 - Capture name + price + short_url for every product. Do NOT propose ideas that
   overlap (including near-duplicates) with existing products.
 
-## Step 2 — Analyze the Data (evidence bar)
+## Step 2, Analyze the Data (evidence bar)
 Read EVERY file in `Desktop/TODAYS DATA FILES/` (excluding existing_products.txt).
 Typical files: `20-AI-News-Stories-*.md`, `ironpulse-*.txt`,
 `tensorfeed_report_*.txt`, `social-media-posts-*.txt`,
@@ -49,7 +49,7 @@ file(s) and a short quote/paraphrase for each occurrence. Discard anything
 below the bar. Do NOT invent or extrapolate pain points the data doesn't
 support.
 
-## Step 3 — Generate Exactly 4 Ideas
+## Step 3, Generate Exactly 4 Ideas
 - 2 for developers/engineers (technical depth, code-focused)
 - 2 for beginners/newish users (simple, low-barrier entry)
 
@@ -60,9 +60,9 @@ Each idea must:
 - Be labeled PAID PRODUCT or FREE LEAD MAGNET
 - Mix: at least 1 paid AND at least 1 free lead magnet (aim 2/2)
 - Be producible in ~1 week on Vinny's existing stack (OpenClaw, Ollama, local
-  models) — no new paid tools or infrastructure
+  models), no new paid tools or infrastructure
 
-## Step 4 — Rank Best to Worst
+## Step 4, Rank Best to Worst
 Order all 4 by:
 1. Strength of evidence in the data
 2. Fit with existing skills/infrastructure (speed to produce)
@@ -71,7 +71,7 @@ Order all 4 by:
 For the top 2, write a short explanation (2–3 sentences each) of why they're
 the strongest choices.
 
-## Step 5–6 — Create + Save the Deliverable
+## Step 5–6, Create + Save the Deliverable
 Write a well-formatted text document with all 4 ranked ideas, price/lead-magnet
 designation, evidence reference (source file + quote) for each, and explanation
 for the top 2 picks.
@@ -88,26 +88,26 @@ heading stable (`IDEA n - PAID PRODUCT - $N` then `Title:`) and keep the
 `Evidence count:` line in a fixed shape. See `top-n-from-folder` for the parser
 that reads this archive, including the format-drift pitfall.
 
-## Step 7 — Email
+## Step 7, Email
 Send to `hello@phantom-byte.com` (verify TO + any addresses in the body via
-grep before sending — see email-sender skill). Subject: `4 tutorials based on
+grep before sending, see email-sender skill). Subject: `4 tutorials based on
 the data`. Attach the text document (REQUIRED). Body: brief summary of the 4
-ideas, 1–2 lines each with price. Sign `— Bill`. If attach fails, retry once;
-if it still fails, stop and report — do NOT proceed to Step 8 as success.
+ideas, 1–2 lines each with price. Sign `- Bill`. If attach fails, retry once;
+if it still fails, stop and report, do NOT proceed to Step 8 as success.
 
-## Step 8 — Telegram
+## Step 8, Telegram
 Send exactly ONE Telegram message saying the email has been sent. If Step 7
 failed, send one message reporting the failure instead. No other Telegram
 messages for this task.
 
 ## Pitfalls
-- Do NOT skip the overlap check — always re-extract the current catalog via the
+- Do NOT skip the overlap check, always re-extract the current catalog via the
   Gumroad API before proposing ideas.
 - Do NOT use browser scraping or the empty `existing_products.txt` fallback for
-  the catalog — the API is the reliable source.
+  the catalog, the API is the reliable source.
 - Do NOT lower the evidence bar to fill the 4-idea quota. If fewer than 4
   problems pass, return fewer ideas rather than padding with weak ones.
-- Do NOT fabricate quotes or pain points — every idea must trace to a real data
+- Do NOT fabricate quotes or pain points, every idea must trace to a real data
   file with a real quote.
 - Do NOT claim success until the file is saved+verified, the email sent with
   attachment, and exactly one Telegram message delivered.

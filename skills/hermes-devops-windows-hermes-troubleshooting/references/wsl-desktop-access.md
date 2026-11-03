@@ -14,7 +14,7 @@ Run Hermes inside WSL and access the Windows desktop filesystem directly via `/m
 
 ### Pattern 2: Remote Backend via `hermes serve` (Desktop App Connection)
 
-The Hermes Desktop app (native Windows GUI) can connect to a Hermes backend running in WSL. This is a **documented, supported feature** — not a hack or workaround.
+The Hermes Desktop app (native Windows GUI) can connect to a Hermes backend running in WSL. This is a **documented, supported feature**, not a hack or workaround.
 
 The Desktop App is a front-end that drives the same agent runtime whether that runtime is local, in WSL, or on a remote VPS. The connection uses `hermes serve` as the backend process and the Desktop App's "Remote Gateway" settings.
 
@@ -56,7 +56,7 @@ Settings → Gateway → Remote Gateway, enter `http://<WSL-IP>:9119` plus the c
 - The `hermes serve` backend is a separate process from the gateway. The gateway (Telegram/Discord/etc.) runs independently.
 - Binding to `0.0.0.0` automatically engages the auth gate. Without auth, the backend refuses non-loopback connections.
 - The `HERMES_DASHBOARD_BASIC_AUTH_SECRET` keeps sessions alive across restarts. Without it, a random key is generated per boot and you're logged out every time.
-- On Windows 11 22H2+ with mirrored networking mode (`networkingMode=mirrored` in `.wslconfig`), `localhost` works in both directions — you can use `http://localhost:9119` instead of the WSL IP.
+- On Windows 11 22H2+ with mirrored networking mode (`networkingMode=mirrored` in `.wslconfig`), `localhost` works in both directions, you can use `http://localhost:9119` instead of the WSL IP.
 
 ## Why This Works Better Than Windows Native
 
@@ -90,7 +90,7 @@ tar xzf hermes-backup.tar.gz -C ~/
 
 This carries over:
 - config.yaml (all settings)
-- .env (API keys — optional, include at your discretion)
+- .env (API keys, optional, include at your discretion)
 - skills/ (all learned procedures)
 - memories/ (persistent facts)
 - sessions/ (conversation history)
@@ -103,5 +103,5 @@ Only system-level dependencies need re-setup on the new machine (Python, pip, he
 
 - **Cloud-first**: Ollama Cloud for daily inference (cheap, always available)
 - **Local fallback**: M4 Pro/Max Mac runs local models (DeepSeek Flash, Gemma 4) when cloud is down
-- **Portable agent**: Same `~/.hermes/` moves between machines — agent is the same regardless of host
+- **Portable agent**: Same `~/.hermes/` moves between machines, agent is the same regardless of host
 - **Resilience**: Cloud failure → local. Hardware failure → new machine + backup. Neither scenario stops work.

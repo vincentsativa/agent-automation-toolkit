@@ -2,7 +2,7 @@
 
 ## Root Cause
 
-The built-in `hermes update` command on Windows uses `uv` to reinstall dependencies. When it stashes/pulls/restores local changes during the update, `uv` sometimes resolves a minimal set that **drops 15+ essential packages** (`python-dotenv`, `pydantic`, `rich`, `click`, `pyyaml`, `requests`, `urllib3`, etc.). The editable `.pth` files survive but the actual packages don't — the CLI launcher exists but crashes on any import.
+The built-in `hermes update` command on Windows uses `uv` to reinstall dependencies. When it stashes/pulls/restores local changes during the update, `uv` sometimes resolves a minimal set that **drops 15+ essential packages** (`python-dotenv`, `pydantic`, `rich`, `click`, `pyyaml`, `requests`, `urllib3`, etc.). The editable `.pth` files survive but the actual packages don't, the CLI launcher exists but crashes on any import.
 
 ## The Environment Path Is Not Fixed
 
@@ -16,12 +16,12 @@ powershell -NoProfile -Command "(Get-ChildItem $env:LOCALAPPDATA\hermes\installs
 
 Append `\Scripts\python.exe` to the printed path. `hermes doctor` prints the same thing in its Python Environment section: `Runtime venv staged (...) (active in this process)`.
 
-**The old paths are dead.** `%LOCALAPPDATA%\hermes\hermes-agent\venv\` does not exist — it was quarantined to `%LOCALAPPDATA%\hermes\backups\legacy-venv-cp311-quarantine-20260924\` on 2026-09-24. Do not reinstall into it and do not add it to PATH.
+**The old paths are dead.** `%LOCALAPPDATA%\hermes\hermes-agent\venv\` does not exist, it was quarantined to `%LOCALAPPDATA%\hermes\backups\legacy-venv-cp311-quarantine-20260924\` on 2026-09-24. Do not reinstall into it and do not add it to PATH.
 
 ## Symptoms
 
 - `hermes --version` crashes with `ImportError: cannot import name 'load_dotenv' from 'dotenv'`
-- Desktop app (Hermes.exe) still works fine — only the CLI environment breaks
+- Desktop app (Hermes.exe) still works fine, only the CLI environment breaks
 - `where hermes` finds the launcher, but running it immediately errors
 - Files in `%LOCALAPPDATA%\hermes\` are intact
 

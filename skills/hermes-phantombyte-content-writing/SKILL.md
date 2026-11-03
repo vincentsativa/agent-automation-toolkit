@@ -6,7 +6,7 @@ toolsets: [file, web]
 
 # PhantomByte Content Writing
 
-Educational content production for articles.phantom-byte.com — barrier articles, tutorials, and challenge guides.
+Educational content production for articles.phantom-byte.com, barrier articles, tutorials, and challenge guides.
 
 ## Trigger Phrases
 - "write me a free tutorial outline for [BARRIER X / topic]"
@@ -19,7 +19,7 @@ Educational content production for articles.phantom-byte.com — barrier article
 
 When Vinny provides a barrier/problem statement with solution framing:
 
-1. **Write the outline** — full section-by-section breakdown with content notes under each heading. Map the complete article structure.
+1. **Write the outline**, full section-by-section breakdown with content notes under each heading. Map the complete article structure.
 2. **Save to** `~/.hermes/workspace/` as a `.txt` file
 3. **Email it** to hello@phantom-byte.com via email-sender skill with a brief summary body
 4. **Reply in Telegram** confirming it was sent and briefly summarizing the structure
@@ -29,28 +29,28 @@ When Vinny provides a barrier/problem statement with solution framing:
 
 When Vinny says "write the tutorial and email it to me" (or "write me this tutorial"):
 
-1. **Load the outline** from `~/.hermes/workspace/` — it was already emailed so you may need to read it from disk
-2. **Write the full tutorial** — every section from the outline, fully written, with the exact format specified below
+1. **Load the outline** from `~/.hermes/workspace/`, it was already emailed so you may need to read it from disk
+2. **Write the full tutorial**, every section from the outline, fully written, with the exact format specified below
 3. **Save to** `~/.hermes/workspace/[slug]-tutorial.txt`
 4. **Email it** with a concise summary body
 5. **Reply in Telegram** with word count and structure confirmation
 
-## EXACT TUTORIAL FORMAT — Follow This Precisely
+## EXACT TUTORIAL FORMAT, Follow This Precisely
 
 Every PhantomByte tutorial must match the layout of the reference document ("Hardening Your Agent Against Prompt Injection: The 2026 Defense Playbook"). This is the canonical format. Do not deviate.
 
-### Page 1 — Header Block
+### Page 1, Header Block
 
 ```
 PHANTOMBYTE TUTORIAL
 
-[TITLE — Bold, attention-grabbing, benefit-driven]
-[Subtitle line — clarifies scope or audience]
+[TITLE, Bold, attention-grabbing, benefit-driven]
+[Subtitle line, clarifies scope or audience]
 
 A PhantomByte Tutorial
 ```
 
-Then immediately: a **real-world hook paragraph** that names a specific event, statistic, or scenario. Ground it in something concrete (a vulnerability, a news event, a common failure). This is not generic — it's specific and alarming/urgent.
+Then immediately: a **real-world hook paragraph** that names a specific event, statistic, or scenario. Ground it in something concrete (a vulnerability, a news event, a common failure). This is not generic, it's specific and alarming/urgent.
 
 ### "IN THIS TUTORIAL" Section
 
@@ -79,10 +79,10 @@ THE QUICK-START – DO THIS FIRST
 
 If you cannot implement all [N] layers today, start here. These [N] controls stop 90%
 of real-world attacks and take under an hour to deploy.
-☐ [ACTION ITEM 1 — bold header then description]
+☐ [ACTION ITEM 1, bold header then description]
 
 [Description paragraph]
-☐ [ACTION ITEM 2 — bold header then description]
+☐ [ACTION ITEM 2, bold header then description]
 
 [Description paragraph]
 ...
@@ -95,7 +95,7 @@ Each action item is a ☐ checkbox with a **bold header** followed by a short de
 Use numbered sections with the format:
 
 ```
-## [SECTION NUMBER] — [SECTION TITLE]
+## [SECTION NUMBER], [SECTION TITLE]
 ```
 
 Within sections, use subsection numbering:
@@ -128,7 +128,7 @@ End every tutorial with:
 ACTIONABLE TAKEAWAYS
 ```
 
-Then 4–6 short, punchy paragraphs that summarize the key points. Each paragraph is a standalone takeaway — no sub-headers, just bold conviction statements. End with a final line that lands the point.
+Then 4–6 short, punchy paragraphs that summarize the key points. Each paragraph is a standalone takeaway, no sub-headers, just bold conviction statements. End with a final line that lands the point.
 
 ### Footer
 
@@ -141,12 +141,12 @@ Then 4–6 short, punchy paragraphs that summarize the key points. Each paragrap
 - **ALL CAPS** for major headers: PHANTOMBYTE TUTORIAL, IN THIS TUTORIAL, OVERVIEW, THE QUICK-START – DO THIS FIRST, ACTIONABLE TAKEAWAYS
 - **Bold** for section titles within body text
 - **☐ checkboxes** for action items, never dashes or asterisks
-- **Short paragraphs** — 1–4 sentences, break often
+- **Short paragraphs**, 1–4 sentences, break often
 - **Code blocks** with `--- CODE EXAMPLE: Name ---` headers
 - **Numbered subsections** (1.1, 1.2, etc.) for body content
 - **Em dash** ( – ) for section separators, not hyphens
-- **Real, specific examples** — name actual tools, events, versions, dates
-- **No AI-isms** — no "leverage," "synergy," "delve," "dive deep," "furthermore," "it's worth noting," "in today's rapidly evolving landscape"
+- **Real, specific examples**, name actual tools, events, versions, dates
+- **No AI-isms**, no "leverage," "synergy," "delve," "dive deep," "furthermore," "it's worth noting," "in today's rapidly evolving landscape"
 
 ## Tone & Style
 
@@ -154,7 +154,7 @@ Then 4–6 short, punchy paragraphs that summarize the key points. Each paragrap
 - **No AI-isms:** No "leverage," "synergy," "delve," "dive deep," "furthermore," "it's worth noting," "in today's rapidly evolving landscape." Kill all of these.
 - **Short paragraphs.** 1–4 sentences. Break often.
 - **Address the actual barrier.** The emotional objection, not just the technical gap. Name the feeling ("you're staring at a blinking cursor"). Validate it. Then solve it.
-- **Include real workflows.** Vinny's IronPulse, PhantomByte publishing, Hermes self-debugging — these are proof, not filler. Use them.
+- **Include real workflows.** Vinny's IronPulse, PhantomByte publishing, Hermes self-debugging, these are proof, not filler. Use them.
 - **End with a one-sentence close** that lands the point.
 - **Checklist/checkbox format** for challenge-based content. ☐ symbols for gamified completion.
 
@@ -191,10 +191,10 @@ Same structure as barrier articles PLUS:
 
 - **Always email.** Vinny wants the content in his inbox, not spammed into Telegram.
 - **Email body:** Brief summary of structure, word count, readiness status. The content is the attachment.
-- **Telegram:** "Sent. ~X,000 words — [structure bullet]. In your inbox." Nothing more.
+- **Telegram:** "Sent. ~X,000 words, [structure bullet]. In your inbox." Nothing more.
 - **SMTP:** IONOS via email-sender skill (smtp.ionos.com:587, hello@phantom-byte.com)
-- **Subject format:** "Barrier X: [Title] — [Outline/Tutorial]" or "[Topic] — Full Tutorial"
+- **Subject format:** "Barrier X: [Title], [Outline/Tutorial]" or "[Topic], Full Tutorial"
 
 ## Speed
 
-Vinny values speed. "Damn that was fast" is the target reaction. When he says "write the tutorial," write it immediately — don't ask questions, don't re-load the outline unless you need to, just produce. The outline did the structural thinking. The tutorial is execution.
+Vinny values speed. "Damn that was fast" is the target reaction. When he says "write the tutorial," write it immediately, don't ask questions, don't re-load the outline unless you need to, just produce. The outline did the structural thinking. The tutorial is execution.

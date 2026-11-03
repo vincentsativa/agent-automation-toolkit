@@ -26,9 +26,9 @@ category: research
 
 ### Phase 3: Reality Check (CRITICAL)
 - After initial list, ask whether the list is realistic for the user's current stage
-- Default to overestimating — the first pass is almost always too aspirational
+- Default to overestimating, the first pass is almost always too aspirational
 - Giving giant companies as competitors to a solo indie two months in is insulting, not useful
-- Tighten immediately when challenged — don't defend, don't explain the methodology
+- Tighten immediately when challenged, don't defend, don't explain the methodology
 
 ### Phase 4: Study Targets Pivot
 When the user wants actionable intel rather than abstract positioning:
@@ -42,15 +42,15 @@ When the user wants actionable intel rather than abstract positioning:
 - Numbered list grouped by purpose (content, services, tools, etc.)
 - Each entry: name, specific detail, exactly what to study and why
 - Bold names, plain reasoning
-- Skip fluff — no "inspirational" framing, no "you could be the next X"
+- Skip fluff, no "inspirational" framing, no "you could be the next X"
 
 ## Pitfalls
-- **Don't name giants.** OpenAI, Anthropic, Google, Jasper — these aren't competitors for an indie. It reads as out of touch.
+- **Don't name giants.** OpenAI, Anthropic, Google, Jasper, these aren't competitors for an indie. It reads as out of touch.
 - **First pass is aspirational by default.** Budget for the reality-check pivot.
 - **Study targets > competitors.** The user usually wants tactical intelligence, not a positioning deck.
-- **Be specific.** Not "watch how they write" — "watch how they use TIL posts as low-effort SEO entry points."
+- **Be specific.** Not "watch how they write", "watch how they use TIL posts as low-effort SEO entry points."
 - **One tactical takeaway per target.** If you can't articulate it in one sentence, you don't understand it well enough.
 
 ## Reference Files
-- `references/phantombyte-study-targets.md` — specific targets, URLs, and study angles for Vinny Barreca's competitive intelligence (May 2026)
-- `references/deep-competitive-analysis.md` — full "Why Them?" framework (7-section business intelligence probe), target list, Scrapling pipeline, and BI Agent Blueprint (absorbed from `deep-competitive-analysis` skill, v2.0.0)
+- `references/phantombyte-study-targets.md`, specific targets, URLs, and study angles for Vinny Barreca's competitive intelligence (May 2026)
+- `references/deep-competitive-analysis.md`, full "Why Them?" framework (7-section business intelligence probe), target list, Scrapling pipeline, and BI Agent Blueprint (absorbed from `deep-competitive-analysis` skill, v2.0.0)

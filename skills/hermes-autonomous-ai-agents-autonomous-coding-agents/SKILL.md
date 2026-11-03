@@ -1,6 +1,6 @@
 ---
 name: autonomous-coding-agents
-description: "Consolidated guide to all external autonomous coding CLI agents — Codex, Claude Code, OpenCode — with decision table, shared patterns, and labeled subsections."
+description: "Consolidated guide to all external autonomous coding CLI agents, Codex, Claude Code, OpenCode, with decision table, shared patterns, and labeled subsections."
 version: 1.0.0
 author: Hermes Agent
 license: MIT
@@ -15,7 +15,7 @@ metadata:
 
 Delegate coding tasks to external autonomous coding agent CLIs via the Hermes terminal. Three supported agents are documented here.
 
-## Decision Table — Which Agent for Which Task
+## Decision Table, Which Agent for Which Task
 
 | Task | Recommended Agent | Why |
 |------|-------------------|-----|
@@ -33,7 +33,7 @@ Delegate coding tasks to external autonomous coding agent CLIs via the Hermes te
 
 ### Quick Selection Guide
 
-- **Claude Code** for most tasks — richest feature set, structured output, mature ecosystem
+- **Claude Code** for most tasks, richest feature set, structured output, mature ecosystem
 - **Codex** when you want OpenAI-native or minimal overhead one-shots
 - **OpenCode** when you need provider flexibility or an open-source toolchain
 
@@ -47,9 +47,9 @@ All three agents are interactive terminal apps. **Always use `pty=true`** when s
 
 | Agent | Interactive mode needs pty | One-shot mode needs pty |
 |-------|--------------------------|------------------------|
-| Codex | `codex exec` `--full-auto` — pty=true | `codex exec` — also needs pty=true |
-| Claude Code | Interactive — needs tmux orchestration | `-p` / `--print` — NO pty needed |
-| OpenCode | TUI session — pty=true | `opencode run` — NO pty needed |
+| Codex | `codex exec` `--full-auto`, pty=true | `codex exec`, also needs pty=true |
+| Claude Code | Interactive, needs tmux orchestration | `-p` / `--print`, NO pty needed |
+| OpenCode | TUI session, pty=true | `opencode run`, NO pty needed |
 
 For Claude Code's interactive mode, you must use **tmux** (not raw PTY) because it provides `capture-pane` for monitoring and `send-keys` for input. See the claude-code reference for detailed tmux orchestration.
 
@@ -58,7 +58,7 @@ For Claude Code's interactive mode, you must use **tmux** (not raw PTY) because 
 All three agents can run as Hermes-managed background processes:
 
 ```yaml
-# Common pattern — agent-specific command differs
+# Common pattern, agent-specific command differs
 terminal(command="<agent-start-cmd>", workdir="~/project",
          background=true, pty=<bool>)
 # Returns session_id
@@ -116,7 +116,7 @@ terminal(command="git worktree remove /tmp/issue-78")
 
 | Approach | When to Use |
 |----------|-------------|
-| **Piped diff review** | Quick review of a diff — fastest, least context |
+| **Piped diff review** | Quick review of a diff, fastest, least context |
 | **Temp clone review** | Full repo context without affecting working copy |
 | **Worktree review** | Full repo context, no clone needed, safe isolation |
 | **Built-in PR command** | Some agents (OpenCode, Claude Code) have native PR review commands |
@@ -140,19 +140,19 @@ terminal(command="git worktree add /tmp/pr-review <branch> && "
 
 Each agent has a dedicated reference file with full CLI flags, auth setup, session management, and agent-specific patterns:
 
-- [Codex CLI](references/codex.md) — OpenAI Codex CLI: install, auth, one-shot, background, flags, PR review, parallel work
-- [Claude Code CLI](references/claude-code.md) — Anthropic Claude Code: install, auth, print mode, interactive tmux, flags, settings, hooks, MCP, subagents, worktrees
-- [OpenCode CLI](references/opencode.md) — Provider-agnostic open-source coding agent: install, auth, one-shot, TUI sessions, flags, PR review, session management
+- [Codex CLI](references/codex.md), OpenAI Codex CLI: install, auth, one-shot, background, flags, PR review, parallel work
+- [Claude Code CLI](references/claude-code.md), Anthropic Claude Code: install, auth, print mode, interactive tmux, flags, settings, hooks, MCP, subagents, worktrees
+- [OpenCode CLI](references/opencode.md), Provider-agnostic open-source coding agent: install, auth, one-shot, TUI sessions, flags, PR review, session management
 
 ## Rules (All Agents)
 
-1. **Always use `pty=true` for interactive sessions** — all three agents hang without a PTY
-2. **`opencode run` and `claude -p` do NOT need pty** — use plain terminal for these
-3. **Claude Code interactive mode REQUIRES tmux** — raw PTY is insufficient for multi-turn orchestration
-4. **Git repo required for Codex** — Codex refuses to run outside a git directory. Use `mktemp -d && git init` for scratch work
-5. **Background for long tasks** — use `background=true` and monitor with `process` tool
-6. **Don't interfere** — monitor with `poll`/`log`, be patient with long-running tasks
-7. **Isolate parallel agents** — use separate workdirs/worktrees to prevent file conflicts
-8. **Clean up** — kill background processes and remove worktrees/tmux sessions when done
-9. **Report concrete outcomes** — summarize files changed, test results, and remaining risks
-10. **Use `--max-turns` or equivalent** — prevent runaway loops and unbounded costs
+1. **Always use `pty=true` for interactive sessions**, all three agents hang without a PTY
+2. **`opencode run` and `claude -p` do NOT need pty**, use plain terminal for these
+3. **Claude Code interactive mode REQUIRES tmux**, raw PTY is insufficient for multi-turn orchestration
+4. **Git repo required for Codex**, Codex refuses to run outside a git directory. Use `mktemp -d && git init` for scratch work
+5. **Background for long tasks**, use `background=true` and monitor with `process` tool
+6. **Don't interfere**, monitor with `poll`/`log`, be patient with long-running tasks
+7. **Isolate parallel agents**, use separate workdirs/worktrees to prevent file conflicts
+8. **Clean up**, kill background processes and remove worktrees/tmux sessions when done
+9. **Report concrete outcomes**, summarize files changed, test results, and remaining risks
+10. **Use `--max-turns` or equivalent**, prevent runaway loops and unbounded costs

@@ -27,7 +27,7 @@ for f in sorted(glob.glob('~/cron/jobs.json.bak*')):
 ```
 
 A block present in every run after date X but absent in the oldest backup dates the change to between backups.
-3. **Check `~/.hermes/cron/usage_audit.jsonl`** for the `job_id` — tokens, model, duration per run. Confirms model-pinning history.
+3. **Check `~/.hermes/cron/usage_audit.jsonl`** for the `job_id`, tokens, model, duration per run. Confirms model-pinning history.
 4. **Forensic `session_search`** for `cronjob(action="update")` with that `job_id` to find WHO changed the prompt and WHEN. If no session shows the user authorizing it, state that plainly.
 
 ## Rule

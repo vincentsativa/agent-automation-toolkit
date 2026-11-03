@@ -77,7 +77,7 @@ Write to the exact path the user specified. Common patterns:
 ### Phase 6: Email + Telegram Notification
 
 1. Send the report as an SMTP attachment to hello@phantom-byte.com
-2. In Telegram, send ONLY a brief confirmation that the email was sent — never paste report content
+2. In Telegram, send ONLY a brief confirmation that the email was sent, never paste report content
 
 ## Critical Constraints
 
@@ -99,7 +99,7 @@ The user may specify a specific filename format (e.g. `20-AI-News-Stories-YYYY-M
 
 - No em dashes of any kind
 - Use commas, periods, or parentheses instead
-- Rewrite sentence structure to avoid dashes entirely — do NOT just replace em dashes with hyphens
+- Rewrite sentence structure to avoid dashes entirely, do NOT just replace em dashes with hyphens
 - X posts must be 190 characters or fewer
 - Pinterest title + description for every story
 

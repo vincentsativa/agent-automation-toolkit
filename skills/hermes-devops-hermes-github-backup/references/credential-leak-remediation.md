@@ -1,6 +1,6 @@
 # Credential Leak Remediation
 
-When live API keys or tokens have already been pushed to the backup repo, you must purge them from git history — not just delete the current file.
+When live API keys or tokens have already been pushed to the backup repo, you must purge them from git history, not just delete the current file.
 
 ## Detection
 

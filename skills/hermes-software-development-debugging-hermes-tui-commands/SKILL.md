@@ -15,7 +15,7 @@ metadata:
 
 ## Overview
 
-Hermes slash commands span three layers — Python command registry, tui_gateway JSON-RPC bridge, and the Ink/TypeScript frontend. When a command misbehaves (missing from autocomplete, works in CLI but not TUI, config persists but UI doesn't update), the bug is almost always one layer being out of sync with another.
+Hermes slash commands span three layers, Python command registry, tui_gateway JSON-RPC bridge, and the Ink/TypeScript frontend. When a command misbehaves (missing from autocomplete, works in CLI but not TUI, config persists but UI doesn't update), the bug is almost always one layer being out of sync with another.
 
 Use this skill when you encounter issues with slash commands in the Hermes TUI, particularly when commands aren't showing in autocomplete, aren't working properly in the TUI, or need to be added/updated.
 
@@ -80,10 +80,10 @@ If a command exists in the TUI but doesn't show in autocomplete:
    ```
 
 2. Pick `cli_only` vs gateway availability carefully:
-   - `cli_only=True` — only in the interactive CLI/TUI
-   - `gateway_only=True` — only in messaging platforms
-   - neither — available everywhere
-   - `gateway_config_gate="display.foo"` — config-gated availability in the gateway
+   - `cli_only=True`, only in the interactive CLI/TUI
+   - `gateway_only=True`, only in messaging platforms
+   - neither, available everywhere
+   - `gateway_config_gate="display.foo"`, config-gated availability in the gateway
 
 3. Ensure `subcommands` matches the expected tab-completion options shown by the TUI.
 
@@ -122,11 +122,11 @@ When surface-level inspection doesn't reveal the bug:
 ## Pitfalls
 
 - Don't forget to set the appropriate category for the command in `CommandDef` (e.g., "Session", "Configuration", "Tools & Skills", "Info", "Exit")
-- Make sure any aliases are properly registered in the `aliases` tuple — no other file changes are needed, everything downstream (Telegram menu, Slack mapping, autocomplete, help) derives from it
+- Make sure any aliases are properly registered in the `aliases` tuple, no other file changes are needed, everything downstream (Telegram menu, Slack mapping, autocomplete, help) derives from it
 - For commands with subcommands, ensure the `subcommands` tuple in `CommandDef` matches what's in the TUI code
-- `cli_only=True` commands won't work in gateway/messaging platforms — unless you add a `gateway_config_gate` and the gate is truthy
+- `cli_only=True` commands won't work in gateway/messaging platforms, unless you add a `gateway_config_gate` and the gate is truthy
 - After adding live UI state, search every consumer of the old prop/helper and thread the new state through all render paths, not just the active streaming path. TUI detail rendering has at least two important paths: live `StreamingAssistant`/`ToolTrail` and transcript/pending `MessageLine` rows. A `/clean` pass should explicitly check both.
-- Rebuild the TUI (`npm --prefix ui-tui run build`) before testing — tsx watch mode may lag on first launch
+- Rebuild the TUI (`npm --prefix ui-tui run build`) before testing, tsx watch mode may lag on first launch
 
 ## Verification
 

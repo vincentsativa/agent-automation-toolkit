@@ -1,6 +1,6 @@
 ---
 name: hermes-cron-troubleshooting
-description: Diagnosis and repair of Hermes cron scheduler issues — duplicate runs, missed runs, gateway restart ordering, and the advance-vs-dispatch race. Load this skill when a cron job fires twice in one day, misses a scheduled run, or when you need to restart the gateway and want to ensure cron jobs are handled correctly.
+description: Diagnosis and repair of Hermes cron scheduler issues, duplicate runs, missed runs, gateway restart ordering, and the advance-vs-dispatch race. Load this skill when a cron job fires twice in one day, misses a scheduled run, or when you need to restart the gateway and want to ensure cron jobs are handled correctly.
 version: 1.0.0
 category: devops
 ---
@@ -13,21 +13,21 @@ Load this skill when:
 - A cron job fires twice on the same day (duplicate run)
 - A cron job misses its scheduled time and next_run_at is already in the future with no output
 - You need to restart the gateway and want to check whether cron jobs are due
-- A job's `last_status` is `error` with "Interrupted by shutdown before terminal completion" — confirm from the logs whether a shutdown actually happened before believing the label (Failure Mode #7)
+- A job's `last_status` is `error` with "Interrupted by shutdown before terminal completion", confirm from the logs whether a shutdown actually happened before believing the label (Failure Mode #7)
 - A job produces no output but last_status shows "ok" (silent vaporization)
-- A cron job delivers its Telegram confirmation but the user reports the primary deliverable (email, file, API call) was never received — the model may have hit max_iterations without completing the work (see Failure Mode #0). If the job instead shows `last_status: ok` and the run died mid-pipeline, see Failure Mode #9 for the capped-run-reported-as-success signature.
+- A cron job delivers its Telegram confirmation but the user reports the primary deliverable (email, file, API call) was never received, the model may have hit max_iterations without completing the work (see Failure Mode #0). If the job instead shows `last_status: ok` and the run died mid-pipeline, see Failure Mode #9 for the capped-run-reported-as-success signature.
 - A job reports a later stage never happened (no email, no file at the destination) while every status field reads clean and the dashboard shows a successful run (Failure Mode #9)
 - A job's `max_turns` in `jobs.json` is HIGHER than the ceiling its run actually died at (`max_iterations_reached(N/N)` with a smaller N), or a heavy job keeps dying exactly at the global `agent.max_turns`. The job record advertising a budget the resolver never reads is Failure Mode #9; confirm it before editing any prompt
-- The user reports a notification that never arrived ("I was supposed to get two and got none") while the job's completion text exists in its output file — check the job's `deliver` field and the runs' `delivery_outcome` first; see the `cron-delivery-telegram` skill for the queries and the `suppressed` signature.
+- The user reports a notification that never arrived ("I was supposed to get two and got none") while the job's completion text exists in its output file, check the job's `deliver` field and the runs' `delivery_outcome` first; see the `cron-delivery-telegram` skill for the queries and the `suppressed` signature.
 - Debugging the cron scheduler's thread pool behavior
 
 ## Reference: Editorial Brief with Themes (Cron Pipeline)
 
 For the full pipeline of a cron-mode editorial brief with theme discovery (30-story report with 5 unwritten article themes, email delivery, cleanup), see `references/editorial-brief-with-themes-cron.md`.
 
-For a run whose report arrived but whose ledger says failed — querying `executions.db` and `deliveries.db`, reading the error label as a code path, and separating local-fence from file-fence contention — see `references/cron-run-ledger-forensics.md`.
+For a run whose report arrived but whose ledger says failed, querying `executions.db` and `deliveries.db`, reading the error label as a code path, and separating local-fence from file-fence contention, see `references/cron-run-ledger-forensics.md`.
 
-For declarative `pre_tool_call` / lifecycle shell hooks — the config block, the allowlist gate (an unapproved hook SILENTLY never fires), mtime drift invalidating consent, and the `tool_input` vs `args` wire-format trap — see `references/shell-hooks.md`. Reach for this whenever a fix must be deterministic rather than dependent on the model cooperating.
+For declarative `pre_tool_call` / lifecycle shell hooks, the config block, the allowlist gate (an unapproved hook SILENTLY never fires), mtime drift invalidating consent, and the `tool_input` vs `args` wire-format trap, see `references/shell-hooks.md`. Reach for this whenever a fix must be deterministic rather than dependent on the model cooperating.
 
 A packaged probe for the per-job turn budget lives at `scripts/probe_cron_job_turn_budget.py`: it drives the real `_resolve_cron_agent_setup` and asserts a job's own `max_turns` wins while an absent one still inherits the global. Run it under the install venv after any edit to that function.
 
@@ -35,7 +35,7 @@ A packaged probe for the per-job turn budget lives at `scripts/probe_cron_job_tu
 
 **NEVER restart the gateway without checking cron status first.**
 
-Gateway restart vaporizes any cron job that is between `advance_next_run` (next_run_at bumped forward) and actual pool dispatch. If a job's next_run_at was advanced before the restart, the job is lost — no output, no error, no retry.
+Gateway restart vaporizes any cron job that is between `advance_next_run` (next_run_at bumped forward) and actual pool dispatch. If a job's next_run_at was advanced before the restart, the job is lost, no output, no error, no retry.
 
 BEFORE `hermes gateway restart`:
 ```bash
@@ -88,9 +88,9 @@ git log -1 --format='%h %ci %s'                        # what the install is act
 Read the candidate commit's diff before trusting it (`git show <sha> -- cron/`) and confirm it changes the line your evidence points at. If the fix is there, `hermes update` is the repair and it restarts the gateway, so run the due-job check above first and tell the user the window is clean before acting.
 
 **Workarounds when you need to restart from inside a gateway session:**
-1. **Force-kill the PID directly** — `kill -9 <MainPID>` (systemd auto-restarts with a new PID)
-2. **Use a separate terminal** — open another shell and run `hermes gateway restart` from there
-3. **Schedule via `at` or a delayed script** — but cron jobs are also blocked by the same safety check
+1. **Force-kill the PID directly**, `kill -9 <MainPID>` (systemd auto-restarts with a new PID)
+2. **Use a separate terminal**, open another shell and run `hermes gateway restart` from there
+3. **Schedule via `at` or a delayed script**, but cron jobs are also blocked by the same safety check
 
 **Verification after restart:**
 ```bash
@@ -103,7 +103,7 @@ systemctl --user show hermes-gateway --property=MainPID,ActiveState
 Config-driven behavior (declarative hooks, plugins, platform settings) loads **at
 startup only**. Editing the config or the hook script does nothing to the
 already-running process, so every test run from inside that process still shows the OLD
-behavior — easy to mistake for a failed fix.
+behavior, easy to mistake for a failed fix.
 
 State that the restart is pending and the fix is unproven until then; do NOT report
 "fixed" on a passing offline test. The proof is **re-running the exact operation that
@@ -111,33 +111,33 @@ was failing** through the live process: reproduce the failure first, restart, th
 repeat the identical call and show it now succeeds. A synthetic harness that passes on
 a freshly started process proves the script loads, not that the real path is repaired.
 
-## Diagnosis Protocol (CRITICAL — read before acting)
+## Diagnosis Protocol (CRITICAL, read before acting)
 
 **NEVER assume a job missed based on `last_run_at` alone.** This is the #1 source of wrong conclusions and duplicate runs.
 
-The agent's work (email send, file write, API call) can complete fully while the metadata save (`mark_job_run`) gets wiped by a gateway restart. A stale `last_run_at` with a future `next_run_at` does NOT mean the job didn't fire — it means the metadata didn't survive.
+The agent's work (email send, file write, API call) can complete fully while the metadata save (`mark_job_run`) gets wiped by a gateway restart. A stale `last_run_at` with a future `next_run_at` does NOT mean the job didn't fire, it means the metadata didn't survive.
 
 **Always follow this order:**
 
-1. **Check agent.log FIRST when asked "is job X running?"** — `grep "<job_id>" ~/.hermes/logs/agent.log | tail -20`
+1. **Check agent.log FIRST when asked "is job X running?"**, `grep "<job_id>" ~/.hermes/logs/agent.log | tail -20`
    - This is the fastest way to see if a job fired, what it's doing, and whether it's still in progress.
-   - Look for the cron session prefix like `[cron_<job_id>_<timestamp>]` — that confirms the job started.
+   - Look for the cron session prefix like `[cron_<job_id>_<timestamp>]`, that confirms the job started.
    - Look for `delivered to telegram` or `delivery error` to confirm completion.
-   - Do NOT check systemd, process lists, or jobs.json metadata first — those tell you nothing about whether the agent actually ran.
-   - **Session proof (June 17, 2026):** User asked "is the 4pm cron running?" I checked systemd, ps aux, jobs.json — all showed nothing useful. The agent.log showed the job fired at 16:00:43 and was still processing at 16:13. The user had to say "check the fucking logs" because I was checking everything else first.
+   - Do NOT check systemd, process lists, or jobs.json metadata first, those tell you nothing about whether the agent actually ran.
+   - **Session proof (June 17, 2026):** User asked "is the 4pm cron running?" I checked systemd, ps aux, jobs.json, all showed nothing useful. The agent.log showed the job fired at 16:00:43 and was still processing at 16:13. The user had to say "check the fucking logs" because I was checking everything else first.
 
-2. **Check output artifacts** — `ls -la ~/.hermes/cron/output/<job_id>/`
+2. **Check output artifacts**, `ls -la ~/.hermes/cron/output/<job_id>/`
    - If there's an output file from today, the agent ran. Read it to confirm what was delivered.
    - If there's NO output file, the job genuinely didn't execute.
 
-3. **Check external evidence** — email receipts, file system artifacts, API call logs. The job's prompt may tell it to write files, send emails, or hit endpoints. Verify those independently.
+3. **Check external evidence**, email receipts, file system artifacts, API call logs. The job's prompt may tell it to write files, send emails, or hit endpoints. Verify those independently.
 
-4. **Check gateway logs** — `grep <job_id> ~/.hermes/logs/gateway.log | tail -20`
+4. **Check gateway logs**, `grep <job_id> ~/.hermes/logs/gateway.log | tail -20`
 
-5. **Only then check metadata** — `last_run_at`, `next_run_at`, `running_at` in the cron list.
+5. **Only then check metadata**, `last_run_at`, `next_run_at`, `running_at` in the cron list.
 
 **If metadata is stale but output artifacts exist:**
-- Do NOT re-fire the job — it already ran. Re-firing creates a duplicate.
+- Do NOT re-fire the job, it already ran. Re-firing creates a duplicate.
 - The metadata will self-correct on the next successful tick (the original tick's `mark_job_run` may still complete on recovery).
 - If you need to fix the metadata for monitoring purposes, manually set `last_run_at` in `jobs.json` to the output file's timestamp.
 
@@ -176,18 +176,18 @@ Status fields are silent about correctness: `last_status: ok` says the process f
 a run can complete cleanly while acting on stale input. Diagnose a bad result from the
 response text and the live source, never from the ledger.
 
-**Pitfall — the duplicate run trap:** If you see stale metadata and re-fire without checking output files, you create a duplicate run. The user gets two emails, two files, two messages. This is worse than a missed run. Verify artifacts first, every time.
+**Pitfall, the duplicate run trap:** If you see stale metadata and re-fire without checking output files, you create a duplicate run. The user gets two emails, two files, two messages. This is worse than a missed run. Verify artifacts first, every time.
 
-**Pitfall — do not read an error label as evidence.** Scheduler error strings are written by the code path that gave up, not by the thing that failed. "Interrupted by shutdown before terminal completion" is the generic label for a lost fire claim (`_OWNERSHIP_LOST_INTERRUPTED` in `cron/scheduler.py`) and is written with no shutdown involved. Before telling the user a restart caused the failure, confirm a restart actually occurred: compare `systemctl --user status hermes-gateway` uptime against the failure timestamp, and grep the exit/receipt logs for that date. A report that still arrived, plus a long-running gateway, means the label is wrong and the real cause is elsewhere.
+**Pitfall, do not read an error label as evidence.** Scheduler error strings are written by the code path that gave up, not by the thing that failed. "Interrupted by shutdown before terminal completion" is the generic label for a lost fire claim (`_OWNERSHIP_LOST_INTERRUPTED` in `cron/scheduler.py`) and is written with no shutdown involved. Before telling the user a restart caused the failure, confirm a restart actually occurred: compare `systemctl --user status hermes-gateway` uptime against the failure timestamp, and grep the exit/receipt logs for that date. A report that still arrived, plus a long-running gateway, means the label is wrong and the real cause is elsewhere.
 
 ## Telegram Notification Modes for Cron Delivery
 
-**Symptom:** Cron job fires and delivers to Telegram, but the message arrives silently — no push notification on the phone. The user sees it only when they open Telegram.
+**Symptom:** Cron job fires and delivers to Telegram, but the message arrives silently, no push notification on the phone. The user sees it only when they open Telegram.
 
 **Root cause:** The Telegram adapter has two notification modes:
 
-- `"important"` (default) — only final responses, approvals, and slash confirmations trigger push notifications. Everything else (including cron deliveries) is sent with `disable_notification=True`.
-- `"all"` — every message triggers a push notification.
+- `"important"` (default), only final responses, approvals, and slash confirmations trigger push notifications. Everything else (including cron deliveries) is sent with `disable_notification=True`.
+- `"all"`, every message triggers a push notification.
 
 The adapter reads the mode from `display.platforms.telegram.notifications` in config.yaml, **not** from the top-level `telegram.notification` key. These are two different settings.
 
@@ -195,16 +195,16 @@ The adapter reads the mode from `display.platforms.telegram.notifications` in co
 ```bash
 # Check what the adapter is actually using
 grep -A2 "notifications" ~/.hermes/config.yaml | head -10
-# Look for display.platforms.telegram.notifications — if missing, mode is "important"
+# Look for display.platforms.telegram.notifications, if missing, mode is "important"
 ```
 
-**Fix — Option A (config):**
+**Fix, Option A (config):**
 ```bash
 hermes config set display.platforms.telegram.notifications all
 hermes gateway restart
 ```
 
-**Fix — Option B (env var override):**
+**Fix, Option B (env var override):**
 Add to `~/.hermes/.env`:
 ```
 HERMES_TELEGRAM_NOTIFICATIONS=all
@@ -214,7 +214,7 @@ Then restart the gateway. The env var takes priority over config.yaml.
 **Verification:**
 After applying, send a test cron delivery or any non-interactive message. It should arrive with a push notification on Telegram.
 
-**Pitfall — two different config keys:** The top-level `telegram.notification: all` (line ~598 in config.yaml) controls a different behavior — it's the platform-level notification setting for the gateway, not the adapter's push notification mode. The adapter reads from `display.platforms.telegram.notifications`. Setting the wrong key has no effect on push notifications.
+**Pitfall, two different config keys:** The top-level `telegram.notification: all` (line ~598 in config.yaml) controls a different behavior, it's the platform-level notification setting for the gateway, not the adapter's push notification mode. The adapter reads from `display.platforms.telegram.notifications`. Setting the wrong key has no effect on push notifications.
 
 ## Per-Job Model and Reasoning Configuration
 
@@ -305,7 +305,7 @@ hermes cron edit <job_id> --prompt "$(cat /path/to/new_prompt.txt)"
 
 Pass the prompt from a FILE with `"$(cat ...)"`, never as a quoted literal typed inline. Cron prompts run to ten thousand characters, and a shell literal that long is where truncated arguments and quoting bugs come from. Read the job back afterward (`hermes cron list`, or parse `jobs.json` for that id) and confirm the new text is present and the skills, schedule and model are untouched.
 
-**Editing `jobs.json` by hand is the fallback, and it needs a blast-radius proof.** Some fields have no CLI flag at all, so the file is the only route. When you take it: back the file up first (`cp ~/.hermes/cron/jobs.json ~/.hermes/cron/jobs.json.bak.<date>_<reason>`), preserve the top-level shape exactly (`{"jobs": [ ... ], "updated_at": ...}` — dropping `updated_at` or re-ordering the list is a corruption the scheduler may not complain about), and after writing, diff backup against new job by job and assert that EXACTLY the one intended job id differs. A scheduler file edit that silently touches a second job is a much worse outcome than the edit you were making. Then re-read the job to confirm the change landed, because a write that returns success is not a write the scheduler loaded.
+**Editing `jobs.json` by hand is the fallback, and it needs a blast-radius proof.** Some fields have no CLI flag at all, so the file is the only route. When you take it: back the file up first (`cp ~/.hermes/cron/jobs.json ~/.hermes/cron/jobs.json.bak.<date>_<reason>`), preserve the top-level shape exactly (`{"jobs": [ ... ], "updated_at": ...}`, dropping `updated_at` or re-ordering the list is a corruption the scheduler may not complain about), and after writing, diff backup against new job by job and assert that EXACTLY the one intended job id differs. A scheduler file edit that silently touches a second job is a much worse outcome than the edit you were making. Then re-read the job to confirm the change landed, because a write that returns success is not a write the scheduler loaded.
 
 **Session proof (August 15, 2026):** Attempted to change a looping job's model via `cronjob(action="update")` alongside the prompt change. The prompt updated successfully but the model stayed as `deepseek-v4-flash:0731`. Had to use `hermes cron edit --model glm-5.2 --provider ollama-com` to actually change it.
 
@@ -314,26 +314,26 @@ Pass the prompt from a FILE with `"$(cat ...)"`, never as a quoted literal typed
 **Reasoning effort pinning: NO.** No `reasoning_effort` field exists on any per-job model override.
 
 **Workarounds:**
-1. **Separate profile** — Create a second Hermes profile with `agent.reasoning_effort: medium` in its config.yaml, then create the cron job from that profile via `hermes --profile glm-profile cron create ...`. The cron job inherits the profile's reasoning_effort at creation time. Requires CLI, not chat (the cronjob tool has no `profile` parameter).
-2. **Prompt-level instruction** — Put "Use medium reasoning effort" in the cron prompt. This is not a real API-level parameter — it relies on the model complying, which is unreliable.
-3. **Feature gap** — This simply doesn't exist yet. The `delegation` config section has `reasoning_effort` as a sub-option, so the concept exists elsewhere in Hermes, but it hasn't been wired into the cronjob tool's model override.
+1. **Separate profile**, Create a second Hermes profile with `agent.reasoning_effort: medium` in its config.yaml, then create the cron job from that profile via `hermes --profile glm-profile cron create ...`. The cron job inherits the profile's reasoning_effort at creation time. Requires CLI, not chat (the cronjob tool has no `profile` parameter).
+2. **Prompt-level instruction**, Put "Use medium reasoning effort" in the cron prompt. This is not a real API-level parameter, it relies on the model complying, which is unreliable.
+3. **Feature gap**, This simply doesn't exist yet. The `delegation` config section has `reasoning_effort` as a sub-option, so the concept exists elsewhere in Hermes, but it hasn't been wired into the cronjob tool's model override.
 
-**Source:** Official Hermes docs at https://hermes-agent.nousresearch.com/docs/user-guide/features/cron and the cronjob tool schema. Verified by reading the docs directly — do not guess at cron capabilities.
+**Source:** Official Hermes docs at https://hermes-agent.nousresearch.com/docs/user-guide/features/cron and the cronjob tool schema. Verified by reading the docs directly, do not guess at cron capabilities.
 
 ## Known Failure Modes
 
-### 10. Notifications that were never routed — `deliver` is not Telegram
+### 10. Notifications that were never routed, `deliver` is not Telegram
 
 **Symptom:** The user reports he never received notifications he was owed (an ack, a
 completion ping) while the job's output file plainly contains the message that should have
 been sent. `last_status: ok`, no delivery error anywhere in the job record.
 
 **Root cause:** The job's persisted `deliver` field is `local`, not `telegram`. A job's
-prompt can instruct it to "notify me on Telegram" all it likes — the delivery target is a
+prompt can instruct it to "notify me on Telegram" all it likes, the delivery target is a
 job field, not a prompt instruction, and a local job writes its final response to
 `~/.hermes/cron/output/<job_id>/` instead of sending it.
 
-**Detection — the per-run verdict is definitive:**
+**Detection, the per-run verdict is definitive:**
 ```bash
 python3 -c "
 import sqlite3
@@ -347,15 +347,15 @@ working Telegram job reads `delivered`. Compare against a known-good job on the 
 when in doubt. Then read `deliver` out of `jobs.json` for that job id to confirm.
 
 **Fix:** `hermes cron edit <job_id> --deliver telegram`, then read the field back. Do not
-re-fire the run to "test" it — a re-fire duplicates the actual deliverable (the email, the
+re-fire the run to "test" it, a re-fire duplicates the actual deliverable (the email, the
 file) that already went out.
 
-**Pitfall — never grep the output file for "completed" or "[SILENT]".** The file carries
+**Pitfall, never grep the output file for "completed" or "[SILENT]".** The file carries
 the injected prompt above the `## Response` section, and the prompt quotes those exact
 tokens, so the grep matches every run in the directory. Slice after `## Response` and read
 that block.
 
-## Zero-Cost Health Checks — `no_agent` Script Jobs
+## Zero-Cost Health Checks, `no_agent` Script Jobs
 
 When the user asks for a recurring check and cares about cost, the answer is usually
 a `no_agent=True` cron job: **the script IS the job.** No model, no tokens, no agent
@@ -364,7 +364,7 @@ spin-up, no iteration budget. It is the right shape for any check that is pure l
 
 Semantics that make it good for monitoring:
 - stdout is delivered verbatim to the delivery target
-- **empty stdout is a silent success** — the job stays quiet
+- **empty stdout is a silent success**, the job stays quiet
 - a non-zero exit or timeout raises an error alert
 
 So the contract is: **print nothing when healthy, print only the problems.** The user
@@ -407,7 +407,7 @@ error alert.
 **A health check must be proven able to FAIL, or it is decoration.** A checker that has
 only ever returned "ok" is indistinguishable from one with a broken condition. Test it
 by deliberately breaking each thing it claims to catch, one at a time, confirming the
-right message fires, then restoring. Test the healthy path too — its output must be
+right message fires, then restoring. Test the healthy path too, its output must be
 empty, not a cheerful "all good" line that becomes daily noise.
 
 **Use it to catch silent regressions after `hermes update`.** An update can change a
@@ -415,9 +415,9 @@ guard, move a module, or invalidate a consent record, and the user finds out whe
 report arrives with something wrong on it. A nightly `no_agent` check that probes the
 behavior the setup depends on turns "found out at 8AM" into "told the same night".
 Probe BEHAVIOR (call the guard and assert it still refuses) rather than grepping source
-— a behavior probe survives a rename.
+- a behavior probe survives a rename.
 
-### A `no_agent` script runs under the gateway's OWN interpreter — keep it stdlib-only
+### A `no_agent` script runs under the gateway's OWN interpreter, keep it stdlib-only
 
 `cron/scheduler_script.py::_script_argv` launches the script as
 `sys.executable <script>` for any non-`.sh` file. `sys.executable` is the interpreter
@@ -467,7 +467,7 @@ degrades to the old behavior instead of bricking the check.
 the bug was interpreter-specific and one green run proves nothing:
 
 ```bash
-# 1. the managed toolchain python — exactly what cron uses (sys.executable of the gateway)
+# 1. the managed toolchain python, exactly what cron uses (sys.executable of the gateway)
 ~/.hermes/tools/python-<ver>-<platform>/bin/python3 ~/.hermes/scripts/<check>.py
 # 2. the install venv (~/.hermes/installs/*/facts.json -> packages.venv.environment)
 "$ENV_VENV/bin/python3" ~/.hermes/scripts/<check>.py
@@ -487,7 +487,7 @@ fault, never as evidence about the guarded behavior.** The alert is the checker 
 on its own interpreter. Verify the guarded behavior directly before believing any part of
 the message.
 
-Interpreter path for a MANUAL run (diagnosis, not the fix): never guess it — resolve the
+Interpreter path for a MANUAL run (diagnosis, not the fix): never guess it, resolve the
 one the install uses.
 
 ```bash
@@ -497,11 +497,11 @@ grep -o '"/[^"]*environments/[^"]*venv"' ~/.hermes/installs/*/facts.json
 ```
 Run the script under both the toolchain python and the install venv side by side to tell
 the two apart during diagnosis: the toolchain python prints the false alarm, the install
-venv prints nothing (healthy). Do not ship that as the fix — a cron job runs the script
+venv prints nothing (healthy). Do not ship that as the fix, a cron job runs the script
 with the gateway's interpreter and cannot be pointed at the venv; bootstrap the path from
 inside the script instead (above).
 
-**Pitfall — the same gap affects any sibling cron script on this box, and a fallback path
+**Pitfall, the same gap affects any sibling cron script on this box, and a fallback path
 can hide it.** A script may carry a stdlib-only fallback (a regex where a YAML parse would
 go) precisely because of this interpreter gap, so it runs clean while never exercising the
 code path it was written for. Audit every script in `~/.hermes/scripts/` for imports the
@@ -521,10 +521,10 @@ PY
 done
 ```
 Report the siblings you find; fix only the script you were ordered to fix. The packaged
-probe covers every script in the dir at once — run it with the toolchain python:
+probe covers every script in the dir at once, run it with the toolchain python:
 `<skill_dir>/scripts/audit_cron_script_imports.py`.
 
-**Pitfall — dating the regression.** A silent health check that ran clean for days and
+**Pitfall, dating the regression.** A silent health check that ran clean for days and
 then started alarming right after a `hermes update` is pointing at the interpreter, not
 at the guard: the update can re-point `sys.executable` at a new toolchain that lacks the
 packages. Walk the output history before touching anything:
@@ -586,13 +586,13 @@ primary did NOT deliver.** Rules:
   reason to widen this one; clearing a folder another job clears is a duplicate that can
   delete what that job was about to process.
 
-### 0. Model Iteration Loop — Job Burns All API Calls on One Tool, Never Reaches Delivery
+### 0. Model Iteration Loop, Job Burns All API Calls on One Tool, Never Reaches Delivery
 
 **Symptom:** Cron job fires (confirmed in agent.log), `last_status` shows "ok", Telegram delivers the final response, but the user reports the primary deliverable (email, file, API call) was never received. The output file exists but the `## Response` section at the bottom is empty or contains only the brief Telegram confirmation message, not the full work.
 
 **Root cause:** The model enters an infinite loop calling the same tool (typically `execute_code` for character-count verification) on every turn. Each call returns a small result (e.g., 401 chars) in milliseconds, but the model never progresses to the next step. It exhausts all 90 API calls (the `max_iterations` ceiling) on that one tool. The turn ends with `reason=max_iterations_reached(90/90)`. The final response is whatever the model last generated, usually the brief confirmation message the prompt asked for, delivered to Telegram as if the job succeeded.
 
-**Detection — the definitive pattern in agent.log:**
+**Detection, the definitive pattern in agent.log:**
 ```bash
 # 1. Check how the turn ended
 grep "<session_id>" ~/.hermes/logs/agent.log | grep "Turn ended"
@@ -616,7 +616,7 @@ grep "<session_id>" ~/.hermes/logs/agent.log | grep "tool " | grep "completed" |
 
 A heavy run cut off at the ceiling is a BUDGET problem, not a model-stability problem: raising the ceiling or splitting the work into checkpointed stages is the fix, and pinning a different model does nothing. A loop is a stability problem, and its fix is the model pin plus the prompt-level tool caps above. Read the run's `## Response` in `~/.hermes/cron/output/<job_id>/<timestamp>.md` before choosing: it usually names the finished steps and the unfinished ones in order, which tells you plainly whether the run was working or spinning.
 
-**Fix — two-part:**
+**Fix, two-part:**
 
 1. **Pin the job to a different, more reliable model** via CLI (the `cronjob` tool's `action="update"` has NO `model` parameter):
 ```bash
@@ -636,7 +636,7 @@ Example: `hermes cron edit 50dcd9876b7b --model glm-5.2 --provider ollama-com`
 
 ### 8. Deliverable arrives with "File-mutation verifier: N file edit(s) FAILED"
 
-**Symptom:** The job's report and email land normally, but the delivered Telegram message carries a footer like ``⚠️ File-mutation verifier: 1 file edit(s) FAILED this turn — /tmp/extract_all.py — [write_file] Refusing to overwrite ...``. The work succeeded; one helper-script write did not.
+**Symptom:** The job's report and email land normally, but the delivered Telegram message carries a footer like ``⚠️ File-mutation verifier: 1 file edit(s) FAILED this turn, /tmp/extract_all.py, [write_file] Refusing to overwrite ...``. The work succeeded; one helper-script write did not.
 
 **Root cause:** Hermes refuses `write_file` on an existing file the run never read (`tools/file_tools_write_guards.py::_stale_overwrite_blocker`). The job wrote its throwaway helper to a FIXED path (`/tmp/extract_all.py`, `~/send_email.py`). Run 1 creates it; every later run is a fresh task that never read it, so the overwrite is refused and the verifier footer is appended to the user-facing message. A second branch does the same: `file_state.check_stale` refuses when another task in the same process previously wrote that path.
 
@@ -651,13 +651,13 @@ The second command ranks the offending paths. A small hit count over many output
 **Fix, in order:**
 1. Delete the stale leftovers so the next run starts clean: `rm -f /tmp/<helper>.py ~/send_*.py`. This alone stops tomorrow's collision but does not prevent it recurring.
 2. Make the generating script write helpers into a fresh per-run dir: `SCRATCH=$(mktemp -d /tmp/hermes-cron-XXXXXX)`, then `write_file` to `$SCRATCH/helper.py` and `python3 $SCRATCH/helper.py`. A brand-new dir means no path can pre-exist, so the guard cannot fire. This is the durable fix and belongs in the job's skill.
-3. As a deterministic backstop that needs no model cooperation, register a `pre_tool_call` shell hook that moves a stale scratch script aside before the write — see `references/shell-hooks.md` for the config block, the allowlist gate, and the wire-format trap.
+3. As a deterministic backstop that needs no model cooperation, register a `pre_tool_call` shell hook that moves a stale scratch script aside before the write, see `references/shell-hooks.md` for the config block, the allowlist gate, and the wire-format trap.
 
-**Pitfall — the same guard fires in an ordinary session, not just cron.** Any `write_file` on a file the current task has not fully read is refused with "this task has not seen its full current content", and that includes a file you read early in a long session and then edited with `patch` — the patch invalidates the earlier read. The fix is one `read_file` of the CURRENT content, then retry the write ONCE. Do not reformat the payload, do not retry the same call in a loop, and do not route around it with a heredoc or a shell redirect: the read is the entire requirement. Expect the same refusal on the next file in the turn and read it first rather than discovering it by failure.
+**Pitfall, the same guard fires in an ordinary session, not just cron.** Any `write_file` on a file the current task has not fully read is refused with "this task has not seen its full current content", and that includes a file you read early in a long session and then edited with `patch`, the patch invalidates the earlier read. The fix is one `read_file` of the CURRENT content, then retry the write ONCE. Do not reformat the payload, do not retry the same call in a loop, and do not route around it with a heredoc or a shell redirect: the read is the entire requirement. Expect the same refusal on the next file in the turn and read it first rather than discovering it by failure.
 
-**Pitfall — do NOT read the footer as a delivery failure.** The report, the file, and the email all landed. Say so plainly, and fix the colliding path rather than re-firing the job (a re-fire duplicates the email).
+**Pitfall, do NOT read the footer as a delivery failure.** The report, the file, and the email all landed. Say so plainly, and fix the colliding path rather than re-firing the job (a re-fire duplicates the email).
 
-**Pitfall — a fixed path that "always worked" can break on an update.** This guard is not new-user-facing config; it can arrive with `hermes update`. When a cron that ran clean for months starts producing this footer, date the regression against the install history before touching the job's prompt:
+**Pitfall, a fixed path that "always worked" can break on an update.** This guard is not new-user-facing config; it can arrive with `hermes update`. When a cron that ran clean for months starts producing this footer, date the regression against the install history before touching the job's prompt:
 ```bash
 cd ~/.hermes/hermes-agent && git reflog --date=iso | head -20
 git show <sha_BEFORE>:tools/file_tools_write_guards.py | grep -c _stale_overwrite_blocker
@@ -669,33 +669,33 @@ The guard being absent in the older tree and present in the newer one is the pro
 
 **Symptom:** Two output files in `~/.hermes/cron/output/<job_id>/` on the same day, several hours apart. Cron expression is correct (e.g. `0 8 * * *`).
 
-**Root cause:** Thread lock gap. `tick()` uses `fcntl.flock()` as its cross-process lock. Inside the same process, two threads (ticker thread + pool worker) can each hold independent fcntl file descriptors — each gets its own lock. The `advance_next_run` call and `_running_job_ids` set don't cover this edge.
+**Root cause:** Thread lock gap. `tick()` uses `fcntl.flock()` as its cross-process lock. Inside the same process, two threads (ticker thread + pool worker) can each hold independent fcntl file descriptors, each gets its own lock. The `advance_next_run` call and `_running_job_ids` set don't cover this edge.
 
 **Fix:** Added `running_at` persistent stamp on the job record:
 - `set_job_running(job_id)` stamps the job with current timestamp before execution
 - `clear_job_running(job_id)` removes it on completion (both success and exception paths)
 - Any tick that finds `running_at` less than 30 minutes old skips the job
 - `set_job_running` returns False if another worker already set the stamp, causing the caller to skip
-- Survives restarts — the stamp is in `jobs.json`, not in-memory
+- Survives restarts, the stamp is in `jobs.json`, not in-memory
 
 **Files changed:**
-- `cron/jobs.py` — added `set_job_running()` and `clear_job_running()`
-- `cron/scheduler.py` — `_process_job` calls both before/after `run_job`
-- `tests/cron/test_scheduler.py`, `test_parallel_pool.py`, `test_cron_workdir.py` — patched all tick() tests with `set_job_running` mock
+- `cron/jobs.py`, added `set_job_running()` and `clear_job_running()`
+- `cron/scheduler.py`, `_process_job` calls both before/after `run_job`
+- `tests/cron/test_scheduler.py`, `test_parallel_pool.py`, `test_cron_workdir.py`, patched all tick() tests with `set_job_running` mock
 
 ### 2. Missed Run (no output, next_run_at jumped ahead)
 
 **Symptom:** A scheduled job that should have fired produced no output file and `next_run_at` shows tomorrow's date. `last_run_at` is from a previous day. No error in logs.
 
-**Root cause:** The original code did `advance_next_run(job["id"])` at line 2016 in `tick()`, BEFORE dispatching the job to the thread pool. If the gateway restarted between the advance and the pool worker actually running the job, `next_run_at` was already bumped to the future — the run was silently lost.
+**Root cause:** The original code did `advance_next_run(job["id"])` at line 2016 in `tick()`, BEFORE dispatching the job to the thread pool. If the gateway restarted between the advance and the pool worker actually running the job, `next_run_at` was already bumped to the future, the run was silently lost.
 
 **Fix:** Moved `advance_next_run` inside `_process_job` (the pool worker thread), after `set_job_running` succeeds:
 ```python
-# tick() — removed the advance loop, replaced with pass + comment
+# tick(), removed the advance loop, replaced with pass + comment
 for job in due_jobs:
     pass  # advance moved into _process_job
 
-# _process_job — now does advance AFTER set_job_running
+# _process_job, now does advance AFTER set_job_running
 if not set_job_running(job["id"]):
     return False
 advance_next_run(job["id"])
@@ -707,11 +707,11 @@ This ensures next_run_at only advances when the job *actually begins executing*,
 
 **Symptom:** On gateway restart recovery, a cron job that was mid-execution fires again immediately.
 
-**Root cause:** Missing persistence of in-flight state — `_running_job_ids` is a Python `set()` that dies with the process.
+**Root cause:** Missing persistence of in-flight state, `_running_job_ids` is a Python `set()` that dies with the process.
 
 **Fix:** The `running_at` stamp (fix #1) covers this. Any job with a `running_at` timestamp less than 30 minutes old is skipped by `get_due_jobs` via `set_job_running()`.
 
-### 4. Delegate Task Overload — Job Hangs Without Delivery
+### 4. Delegate Task Overload, Job Hangs Without Delivery
 
 **Symptom:** Job fires (confirmed in agent.log) but never delivers. No "delivered to telegram" entry. No output file. Process is gone but no completion signal.
 
@@ -723,12 +723,12 @@ This ensures next_run_at only advances when the job *actually begins executing*,
 
 **Symptom:** Job dispatches delegate_task subagents successfully (confirmed in agent.log), subagents complete (confirmed by checking their output), but their summaries never enter the conversation. The cron job proceeds without the subagent data and produces an incomplete report.
 
-**Root cause:** delegate_task subagents run in the background and deliver their results as new messages that re-enter the parent conversation. In cron sessions, the session may not persist long enough to receive these messages — the parent process exits or the session is closed before the subagents finish. The subagents' work is discarded.
+**Root cause:** delegate_task subagents run in the background and deliver their results as new messages that re-enter the parent conversation. In cron sessions, the session may not persist long enough to receive these messages, the parent process exits or the session is closed before the subagents finish. The subagents' work is discarded.
 
 **Detection:**
 - Check agent.log for delegate_task dispatch entries
 - Check if the final report is missing the content the subagents were supposed to fetch
-- The subagents' results are gone — they cannot be recovered from the current session
+- The subagents' results are gone, they cannot be recovered from the current session
 
 **Fix:** Do NOT use delegate_task for browsing or data fetching in cron prompts. Use sequential browsing (browser_navigate + browser_snapshot) or curl-to-file extraction instead. Sequential browsing of 6-8 key articles takes roughly 2-3 minutes total and is reliable in cron. Focus browsing on the articles that will anchor your themes, not every story.
 
@@ -740,18 +740,18 @@ This ensures next_run_at only advances when the job *actually begins executing*,
 
 **Fix:** Limit `delegate_task` calls to 3 tasks max per call in cron prompts. Use sequential batches for larger workloads. See `references/delegate-task-overload-cron-hang.md` for full reproduction and detection steps.
 
-### 6. Provider Timeout — "Non-streaming API call timed out after 150s"
+### 6. Provider Timeout, "Non-streaming API call timed out after 150s"
 
 **Symptom:** Cron job fails with `RuntimeError: Non-streaming API call timed out after 150s with no response (threshold: 150s)`. The failure message suggests adding a fallback chain (`hermes fallback add`) or setting `cron.model` / `cron.model_provider`.
 
-**Root cause:** The model API call hit the request-timeout ceiling with no response. The 150s is the **hardcoded default** that applies when the provider has no explicit timeout configured. It is NOT a config value in config.yaml by default — it lives in the code path `get_provider_request_timeout()` in `hermes_cli/timeouts.py`.
+**Root cause:** The model API call hit the request-timeout ceiling with no response. The 150s is the **hardcoded default** that applies when the provider has no explicit timeout configured. It is NOT a config value in config.yaml by default, it lives in the code path `get_provider_request_timeout()` in `hermes_cli/timeouts.py`.
 
 **Diagnosis order:**
-1. Read the job's output file: `~/.hermes/cron/output/<job_id>/<timestamp>.md` — the `## Error` block at the bottom carries the exact timeout error.
-2. Confirm the provider has no timeout set: `grep -n "request_timeout_seconds" ~/.hermes/config.yaml` — if nothing, the 150s default applies.
-3. Check `fallback_providers` in config.yaml — if `[]`, there is no rollover when the primary stalls.
+1. Read the job's output file: `~/.hermes/cron/output/<job_id>/<timestamp>.md`, the `## Error` block at the bottom carries the exact timeout error.
+2. Confirm the provider has no timeout set: `grep -n "request_timeout_seconds" ~/.hermes/config.yaml`, if nothing, the 150s default applies.
+3. Check `fallback_providers` in config.yaml, if `[]`, there is no rollover when the primary stalls.
 
-**Fix — raise the provider request timeout:**
+**Fix, raise the provider request timeout:**
 ```bash
 hermes config set providers.<provider_id>.request_timeout_seconds 300
 ```
@@ -759,17 +759,17 @@ The timeout resolution order (from `hermes_cli/timeouts.py`): per-model `timeout
 
 **What this does vs. does not:**
 - DOES: gives a slow-but-alive model room to finish instead of being killed mid-thought.
-- Does NOT: help if the provider is genuinely hung or down. For that you need a fallback chain — `fallback_providers` is empty by default. The belt-and-suspenders fix is both: raise the timeout AND add a fallback provider.
+- Does NOT: help if the provider is genuinely hung or down. For that you need a fallback chain, `fallback_providers` is empty by default. The belt-and-suspenders fix is both: raise the timeout AND add a fallback provider.
 
-**Pitfall — don't confuse with terminal timeout:** The `terminal.timeout` (180s) and `TERMINAL_TIMEOUT` env var are unrelated to the model API request timeout. The 150s is the model-call ceiling, not a shell command timeout.
+**Pitfall, don't confuse with terminal timeout:** The `terminal.timeout` (180s) and `TERMINAL_TIMEOUT` env var are unrelated to the model API request timeout. The 150s is the model-call ceiling, not a shell command timeout.
 
-### 7. Fire-Claim Ownership Loss — "Interrupted by shutdown", With No Shutdown
+### 7. Fire-Claim Ownership Loss, "Interrupted by shutdown", With No Shutdown
 
 **Symptom:** `last_status: error`, `last_error: Interrupted by shutdown before terminal completion.`, yet the job's output file and delivery exist and the run finished normally. Other jobs show the same label on unrelated days.
 
 **Root cause:** The per-job fire fence is a re-entrant, cross-process lock (`_fire_job_lock` in `cron/jobs.py`, 30s acquisition timeout). Any code path that takes the same job's fence while the run's own terminal save/deliver phase holds it makes the heartbeat thread time out, declare ownership lost, and self-interrupt a live run. The work already completed, so the report arrives and only the ledger row is written as a failure. A heartbeat that wraps its own jobs-store write in the fence reproduces this exactly.
 
-**Detection signature — the ordering is the tell:**
+**Detection signature, the ordering is the tell:**
 ```bash
 grep -a -n "fire fence\|fire claim ownership lost" ~/.hermes/logs/errors.log | tail -20
 # ERROR cron.jobs: Timed out waiting for local fire fence <cron_dir>::<job_id>; failing closed
@@ -788,19 +788,19 @@ for r in c.execute('select status,error,started_at,finished_at from executions w
 ```
 `failed` in the ledger alongside `delivered` in `deliveries.db` confirms the work landed and only the bookkeeping was lost.
 
-**Fix:** this is a scheduler bug, not job config — patch or update the install, do not re-fire the job. Re-firing duplicates a report that already went out.
+**Fix:** this is a scheduler bug, not job config, patch or update the install, do not re-fire the job. Re-firing duplicates a report that already went out.
 
-### 9. Capped run recorded as a SUCCESS — the pipeline stops mid-stage and nothing flags it
+### 9. Capped run recorded as a SUCCESS, the pipeline stops mid-stage and nothing flags it
 
-**Symptom:** `last_status` is `ok`, `executions.db` says `status='completed'` with `delivery_outcome='delivered'`, and any dashboard reads a clean run — yet the user reports a later stage never happened: no email, no file at the destination folder, no cleanup. The delivered message may even say plainly that those steps did not run.
+**Symptom:** `last_status` is `ok`, `executions.db` says `status='completed'` with `delivery_outcome='delivered'`, and any dashboard reads a clean run, yet the user reports a later stage never happened: no email, no file at the destination folder, no cleanup. The delivered message may even say plainly that those steps did not run.
 
 **Root cause:** A turn that ends at the iteration ceiling is salvaged by the scheduler as a "fallback response", stamped complete, and delivered. The status is written by the code path that ended the turn, not by whether the prompt's steps were performed, so one stage of four and four of four are recorded identically. The ceiling resolves in `cron/scheduler.py::_resolve_cron_agent_setup`, and the resolution order IS the trap: **the job record's own `max_turns` can be persisted by the job store and never read by the resolver.** When that function pulls the cap from `agent.max_turns` in `config.yaml` only, a job carrying `max_turns: 200` still runs on the global 90 and is cut off mid-pipeline while its own record claims a budget it never got. A configured-but-unread field is worse than no field, because it reads as done.
 
 **Confirm which number took effect from the turn-end line, never from the job record.** `jobs.json` reports what the job store persisted; only the turn-end line reports what the run was actually given (the `Turn ended: reason=max_iterations_reached(N/N)` line in the Detection block below). A record saying `max_turns: 200` beside a turn ending at `(90/90)` means the field is not being read, and no prompt edit or story trimming will change that.
 
-**The fix is three lines in `_resolve_cron_agent_setup`:** try `job.get("max_turns")` first, fall back to `_cfg["agent"]["max_turns"]`, then the legacy root `max_turns`, and pass the winner through `resolve_turn_limit`. A job without the field must still inherit the global unchanged. Prove both halves with the packaged probe — `scripts/probe_cron_job_turn_budget.py` — which drives the real resolver through a stub `jc` and asserts a per-job value WINS and an absent value still inherits. Run it after any edit to that function, before believing the fix.
+**The fix is three lines in `_resolve_cron_agent_setup`:** try `job.get("max_turns")` first, fall back to `_cfg["agent"]["max_turns"]`, then the legacy root `max_turns`, and pass the winner through `resolve_turn_limit`. A job without the field must still inherit the global unchanged. Prove both halves with the packaged probe, `scripts/probe_cron_job_turn_budget.py`, which drives the real resolver through a stub `jc` and asserts a per-job value WINS and an absent value still inherits. Run it after any edit to that function, before believing the fix.
 
-**Detection — the three-line log signature:**
+**Detection, the three-line log signature:**
 ```bash
 grep -aE "cron\.scheduler" ~/.hermes/logs/agent.log \
   | grep -aE "iteration limit|completed successfully|delivered to" | tail -12
@@ -814,25 +814,25 @@ grep "<session_id>" ~/.hermes/logs/agent.log | grep "Turn ended"
 # Turn ended: reason=max_iterations_reached(90/90) ... api_calls=90/90 tool_turns=90
 ```
 
-**Rule — for a multi-stage job, verify every stage's ARTIFACT, never the job status.** A job that builds, files, emails, and cleans up has four artifacts; check each by its own evidence (the file present at its destination path, the sent-mail record, the DB row count before and after). `last_status: ok` is evidence about the process, not about the work. Report per-stage state; never say "the job ran".
+**Rule, for a multi-stage job, verify every stage's ARTIFACT, never the job status.** A job that builds, files, emails, and cleans up has four artifacts; check each by its own evidence (the file present at its destination path, the sent-mail record, the DB row count before and after). `last_status: ok` is evidence about the process, not about the work. Report per-stage state; never say "the job ran".
 
-**Rule — a "filed" or "sent" claim in an earlier run's response is not evidence; re-check the destination.** A run can report `Filed to: <path>` for a stage it never reached, because it reported its intent. Stat the destination path before repeating the claim — a filing reported for two consecutive runs and absent both times means the copy step itself is broken, not that one run was unlucky.
+**Rule, a "filed" or "sent" claim in an earlier run's response is not evidence; re-check the destination.** A run can report `Filed to: <path>` for a stage it never reached, because it reported its intent. Stat the destination path before repeating the claim, a filing reported for two consecutive runs and absent both times means the copy step itself is broken, not that one run was unlucky.
 
 **This is NOT the loop in Failure Mode #0.** Both end at the same ceiling. A loop shows one tool at ~95 percent of calls over a few minutes; a heavy run spreads across the slow tools over tens of minutes (this one: 71 `terminal`, 18 `write_file`, 4 `read_file`, 2 `skill_view` over 12 minutes, context growing 20K to 170K tokens). A heavy run cut off is a budget problem, so the fix is consolidation and checkpointing, not a model pin.
 
-**Fix — make the tail of the pipeline unstrandable.** When the delivery stages are a long tail of ad-hoc tool calls (copy, send, verify, clean up), the ceiling eats them last. Move every stage after the report is built into ONE script that does copy, send, and cleanup in a single call, and write the built artifact with one `write_file` rather than many. Then a cap can cost the run its tail at exactly one point, and that point is observable. See `references/checkpointed-cron-pipeline.md` for staging the work across runs.
+**Fix, make the tail of the pipeline unstrandable.** When the delivery stages are a long tail of ad-hoc tool calls (copy, send, verify, clean up), the ceiling eats them last. Move every stage after the report is built into ONE script that does copy, send, and cleanup in a single call, and write the built artifact with one `write_file` rather than many. Then a cap can cost the run its tail at exactly one point, and that point is observable. See `references/checkpointed-cron-pipeline.md` for staging the work across runs.
 
-**Fix — make the capped run's own status honest, in three seams.** The scheduler cannot know whether a prompt's stages ran, but it CAN know the turn hit the ceiling, and that fact must reach both the delivered message and the stored status. Three edits, in this order:
+**Fix, make the capped run's own status honest, in three seams.** The scheduler cannot know whether a prompt's stages ran, but it CAN know the turn hit the ceiling, and that fact must reach both the delivered message and the stored status. Three edits, in this order:
 
 1. **Flag it where the cap is detected.** `cron/scheduler.py::_final_response_from_result` already branches on `is_max_iteration_handoff(result)` (predicate in `agent/turn_failure_copy.py`) to decide a capped turn is delivered rather than failed. Set a marker on the result in that same branch (`result["turn_capped"] = True`) next to the existing `logger.warning`. One detection, both consumers.
-2. **Label the delivery in `run_job`.** After the `_final_response_from_result` call, prepend a fixed banner to the response when the marker is set, so no reader can mistake a checkpoint for a finished job. **Write it back into `result["final_response"], not just the local variable** — the empty-response guard further down re-reads `result["final_response"]`, so a local-only edit is invisible to it and to anything else downstream.
+2. **Label the delivery in `run_job`.** After the `_final_response_from_result` call, prepend a fixed banner to the response when the marker is set, so no reader can mistake a checkpoint for a finished job. **Write it back into `result["final_response"], not just the local variable**, the empty-response guard further down re-reads `result["final_response"]`, so a local-only edit is invisible to it and to anything else downstream.
 3. **Record a non-`ok` status at the terminal write.** In `_finish_completed_run`, pop the marker and set `mark_kwargs["status"] = "incomplete"` (overriding the `"ok"` that `_record_run_outcome` would otherwise derive), and set `d.error` if unset. `last_status` literals are a closed set read by the dashboard; a new literal needs its tone added or it falls through to the destructive/unknown branch.
 
-**A per-job turn budget is the other half.** The global ceiling cannot serve both an interactive turn and a 36-story brief, so a heavy job needs to carry its own number. Add `max_turns` as a first-class job field: an entry in `_CREATE_FIELD_NORMALIZERS` and `_UPDATE_FIELD_NORMALIZERS` in `cron/jobs.py` (validate through `hermes_cli.config.resolve_turn_limit` so the job cannot store a value the runtime rejects), a keyword on `create_job`, a line in the optional-keys loop that persists it only when set — so pre-feature job records stay byte-identical and keep inheriting the global — and the per-job-first resolution order in `_resolve_cron_agent_setup` above.
+**A per-job turn budget is the other half.** The global ceiling cannot serve both an interactive turn and a 36-story brief, so a heavy job needs to carry its own number. Add `max_turns` as a first-class job field: an entry in `_CREATE_FIELD_NORMALIZERS` and `_UPDATE_FIELD_NORMALIZERS` in `cron/jobs.py` (validate through `hermes_cli.config.resolve_turn_limit` so the job cannot store a value the runtime rejects), a keyword on `create_job`, a line in the optional-keys loop that persists it only when set, so pre-feature job records stay byte-identical and keep inheriting the global, and the per-job-first resolution order in `_resolve_cron_agent_setup` above.
 
-**Pitfall — persisting the field is the easy half and the useless half on its own.** A job field that the resolver never reads is invisible: `jobs.json` shows the number, `hermes cron list` shows the job as configured, and the run dies at the global ceiling anyway. Whenever you add or touch a per-job override, the same change order applies: write the field, READ it where the run is constructed, then drive the real constructor and assert the value it returns. Editing only the job record is a no-op dressed as a fix.
+**Pitfall, persisting the field is the easy half and the useless half on its own.** A job field that the resolver never reads is invisible: `jobs.json` shows the number, `hermes cron list` shows the job as configured, and the run dies at the global ceiling anyway. Whenever you add or touch a per-job override, the same change order applies: write the field, READ it where the run is constructed, then drive the real constructor and assert the value it returns. Editing only the job record is a no-op dressed as a fix.
 
-**Verify a status/label fix by driving the real predicate, not by reading the diff.** Feed a synthetic capped result through `_final_response_from_result` and assert the marker is set, then feed a `completed=True` result and assert the marker is ABSENT — a marker set on every run would silently stamp healthy jobs as incomplete. Import `cron.scheduler` under the install venv to prove it loads clean.
+**Verify a status/label fix by driving the real predicate, not by reading the diff.** Feed a synthetic capped result through `_final_response_from_result` and assert the marker is set, then feed a `completed=True` result and assert the marker is ABSENT, a marker set on every run would silently stamp healthy jobs as incomplete. Import `cron.scheduler` under the install venv to prove it loads clean.
 
 ## Key Code Paths
 
@@ -846,8 +846,8 @@ grep "<session_id>" ~/.hermes/logs/agent.log | grep "Turn ended"
 | `cron/scheduler.py` | `_final_response_from_result()` | Deliverable text from a run result; flags a capped turn as incomplete |
 | `cron/scheduler.py` | `_finish_completed_run()` | Terminal `mark_job_run` + execution ledger row for a delivered run |
 | `agent/turn_failure_copy.py` | `is_max_iteration_handoff()` | Shared predicate: a non-failed capped turn that still carries a summary |
-| `cron/scheduler.py` | `tick()` | Main entry point — finds due jobs, partitions workdir/parallel, dispatches |
-| `cron/scheduler.py` | `_process_job()` | Pool worker — now does set_running → advance → run_job → clear_running → mark |
+| `cron/scheduler.py` | `tick()` | Main entry point, finds due jobs, partitions workdir/parallel, dispatches |
+| `cron/scheduler.py` | `_process_job()` | Pool worker, now does set_running → advance → run_job → clear_running → mark |
 | `cron/scheduler.py` | `_submit_with_guard()` | Checks `_running_job_ids` before dispatching |
 | `cron/jobs.py` | `_fire_job_lock()` | Per-job fire fence; 30s timeout, fails closed |
 | `cron/jobs.py` | `heartbeat_fire_claim()` | Refreshes the run's fire claim; must NOT hold the fire fence while writing the jobs store |
@@ -855,7 +855,7 @@ grep "<session_id>" ~/.hermes/logs/agent.log | grep "Turn ended"
 
 ## Verification
 
-### A cron code edit needs no gateway restart — executions are separate processes
+### A cron code edit needs no gateway restart, executions are separate processes
 
 A cron execution runs in its OWN process, not in the gateway: `executions.db` records a
 fresh `pid` per run (three runs of the same job inside two minutes carry three different
@@ -891,7 +891,7 @@ The last two cases are the guard on the guard, and they are the point: a "fix" t
 every cron job to the per-job value silently changes every other job on the box. Always
 assert the inherit path alongside the override path. Run it under the install venv so the
 import is real (`grep -o '"/[^"]*environments/[^"]*venv"' ~/.hermes/installs/*/facts.json`
-to resolve the interpreter — never hardcode an install path).
+to resolve the interpreter, never hardcode an install path).
 
 The probe is a synthetic harness: it proves the resolution logic, not that tomorrow's run
 succeeds. After the next real dispatch, read the turn-end line for that session and confirm

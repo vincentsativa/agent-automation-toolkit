@@ -1,4 +1,4 @@
-# Agent-Powered Research Tutorial — Format Variant
+# Agent-Powered Research Tutorial, Format Variant
 
 This reference documents the second distinct tutorial file format (June 2026), which differs from the Scrapling/Rotunda tutorial format.
 
@@ -64,13 +64,13 @@ USE CASE 1: THE FREELANCER
 ## Parser modifications needed
 
 ### Ruler regex
-Use `[═\u2550\-=\u2500]{3,}` — must include the box-drawing character U+2550.
+Use `[═\u2550\-=\u2500]{3,}`, must include the box-drawing character U+2550.
 
 ### TOC extraction
 Look for `TABLE OF CONTENTS` between ruler lines (not just `WHAT YOU WILL LEARN`). Extract Roman-numeral lines that follow. Render under cover with heading `IN THIS TUTORIAL`.
 
 ### Roman-numeral headers
-Pattern: `^[IVXL]+\d*\.\s+.+` — detect lines like `I. THE 3-HOUR PROBLEM...`, strip the Roman numeral prefix + period, emit as `<h2>` with the full text including the numeral (e.g. "I. THE 3-HOUR PROBLEM VS. THE 5-MINUTE SOLUTION").
+Pattern: `^[IVXL]+\d*\.\s+.+`, detect lines like `I. THE 3-HOUR PROBLEM...`, strip the Roman numeral prefix + period, emit as `<h2>` with the full text including the numeral (e.g. "I. THE 3-HOUR PROBLEM VS. THE 5-MINUTE SOLUTION").
 
 ### Broader sub-section detection
 Add to the `h4` detector regex:

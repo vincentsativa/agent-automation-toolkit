@@ -1,9 +1,9 @@
-# mcporter CLI — Ad-hoc MCP Tool Calling from Terminal
+# mcporter CLI, Ad-hoc MCP Tool Calling from Terminal
 
 > **Absorbed from:** `mcporter` skill (consolidated into `native-mcp`)
 > **Purpose:** mcporter is a standalone Node.js CLI for discovering, configuring, authenticating, and calling MCP servers/tools directly from the terminal, without going through an agent's MCP client.
 >
-> **How it relates to native-mcp:** The native Hermes MCP client connects servers at agent startup and exposes tools as first-class agent actions. mcporter is complementary — use it for one-off, ad-hoc MCP calls from the shell when you don't want to configure a persistent server or restart the agent. Both can coexist.
+> **How it relates to native-mcp:** The native Hermes MCP client connects servers at agent startup and exposes tools as first-class agent actions. mcporter is complementary, use it for one-off, ad-hoc MCP calls from the shell when you don't want to configure a persistent server or restart the agent. Both can coexist.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ mcporter list --stdio "npx -y @modelcontextprotocol/server-filesystem" --name fs
 
 ## Calling Tools (Ad-hoc Patterns)
 
-These are the patterns native-mcp *doesn't* cover — one-off tool calls without any prior configuration:
+These are the patterns native-mcp *doesn't* cover, one-off tool calls without any prior configuration:
 
 ```bash
 # Key=value syntax
@@ -109,5 +109,5 @@ mcporter emit-ts <server> --mode types
 ## Notes
 
 - Use `--output json` for structured output that's easier to parse
-- Ad-hoc servers (HTTP URL or `--stdio` command) work without any config — useful for one-off calls
-- OAuth auth may require interactive browser flow — use `terminal(command="mcporter auth <server>", pty=true)` if needed
+- Ad-hoc servers (HTTP URL or `--stdio` command) work without any config, useful for one-off calls
+- OAuth auth may require interactive browser flow, use `terminal(command="mcporter auth <server>", pty=true)` if needed

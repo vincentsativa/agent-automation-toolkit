@@ -27,7 +27,7 @@ tags: [qa, article-blaster, phantom-byte, seo, fact-checking]
 ### Search Patterns
 ```bash
 # Search for em dash (U+2014)
-search_files(pattern='—', path=<draft_path>, target='content')
+search_files(pattern='-', path=<draft_path>, target='content')
 
 # Search for en dash (U+2013)
 search_files(pattern='–', path=<draft_path>, target='content')
@@ -41,7 +41,7 @@ search_files(pattern='–', path=<draft_path>, target='content')
   - Comma for simple breaks
 
 ### Pass Criteria
-- Zero em dashes (`—`) in draft body
+- Zero em dashes (`-`) in draft body
 - Zero en dashes (`–`) in draft body
 - Synthesis documents may contain em dashes (they're source materials, not published content)
 
@@ -52,9 +52,9 @@ search_files(pattern='–', path=<draft_path>, target='content')
 **Every statistic, claim, date, name, and number must be verified against available sources. When synthesis documents exist, use them. When they don't, perform independent web verification before publishing.**
 
 ### Source Priority
-1. **Synthesis documents** (if available) — primary source per normal workflow
-2. **Independent web verification** — required when draft arrives without synthesis docs, OR when draft contains claims not found in synthesis docs
-3. **Cross-reference multiple sources** — any claim that appears in only one source should be flagged as ⚠️ SINGLE-SOURCE
+1. **Synthesis documents** (if available), primary source per normal workflow
+2. **Independent web verification**, required when draft arrives without synthesis docs, OR when draft contains claims not found in synthesis docs
+3. **Cross-reference multiple sources**, any claim that appears in only one source should be flagged as ⚠️ SINGLE-SOURCE
 
 ### Fabrication Detection (CRITICAL)
 When a draft contains specific statistics, model names, pricing, or product names that cannot be verified through web search:
@@ -94,10 +94,10 @@ When a draft contains specific statistics, model names, pricing, or product name
 - Polling data (percentages, demographic breakdowns)
 - Technical specs (hardware requirements, performance metrics)
 - Regulatory actions (FTC settlements, law firm apologies)
-- **Model names** — verify exists on HuggingFace or official vendor page
-- **Benchmark scores** — verify on official leaderboard (LiveCodeBench, SWE-Bench, LMSYS, etc.)
-- **Pricing claims** — verify against official pricing pages
-- **Named reports/postmortems** — confirm the document actually exists at the cited source
+- **Model names**, verify exists on HuggingFace or official vendor page
+- **Benchmark scores**, verify on official leaderboard (LiveCodeBench, SWE-Bench, LMSYS, etc.)
+- **Pricing claims**, verify against official pricing pages
+- **Named reports/postmortems**, confirm the document actually exists at the cited source
 
 ### Output Format
 ```markdown
@@ -290,9 +290,9 @@ Save QA report to:
 
 4. **Missing data from synthesis** - Important statistics in synthesis documents that aren't in the draft should be flagged as "MISSING FROM DRAFT" with recommendation to add.
 
-5. **Draft path doesn't exist** — If the specified draft path doesn't exist, search sibling directories for similar slugs (e.g., `ai-liability-shield` vs `ai-liability-crisis`).
+5. **Draft path doesn't exist**, If the specified draft path doesn't exist, search sibling directories for similar slugs (e.g., `ai-liability-shield` vs `ai-liability-crisis`).
 
-6. **Fabricated claims without synthesis docs** — When a draft arrives standalone (no synthesis docs), you MUST verify all specific numbers, model names, product names, and pricing against the web before passing fact-check. Do not assume the draft's claims are accurate. This is the #1 risk for PhantomByte articles: specific-sounding but unverifiable statistics.
+6. **Fabricated claims without synthesis docs**, When a draft arrives standalone (no synthesis docs), you MUST verify all specific numbers, model names, product names, and pricing against the web before passing fact-check. Do not assume the draft's claims are accurate. This is the #1 risk for PhantomByte articles: specific-sounding but unverifiable statistics.
 
 ---
 

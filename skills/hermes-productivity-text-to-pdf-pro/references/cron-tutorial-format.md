@@ -15,7 +15,7 @@ This reference documents a third plain-text tutorial format discovered during th
 ## Detection strategy for Format C
 
 ### Section headers
-Not ALL-CAPS, not Roman numerals — they're title-case phrases. Use an **exact match set** rather than regex patterns:
+Not ALL-CAPS, not Roman numerals, they're title-case phrases. Use an **exact match set** rather than regex patterns:
 
 ```python
 SECTION_HEADERS = {
@@ -35,13 +35,13 @@ Lines starting and ending with `|` are table rows. Separator rows (`|---|---|`) 
 if stripped.startswith("|") and stripped.endswith("|"):
     cells = [c.strip() for c in stripped.split("|")[1:-1]]
     if all(c.replace("-", "").strip() == "" for c in cells):
-        # separator row — close thead, open tbody
+        # separator row, close thead, open tbody
     else:
         # data row
 ```
 
 ### Footer stripping
-Scan for a line containing both "FOR PI CODING ONLY" and "DO NOT INCLUDE" — truncate all lines after it.
+Scan for a line containing both "FOR PI CODING ONLY" and "DO NOT INCLUDE", truncate all lines after it.
 
 ### Code block detection
 This format has code blocks where some lines are indented (4 spaces) and some are not (e.g. `def run_agent():` starts at column 0, but `    prompt = ...` is indented). Use a **keyword-based** approach:
@@ -83,11 +83,11 @@ tr:nth-child(even) td { background: #f4f6f8; }
 
 ## Pitfalls
 
-1. **Blank lines inside code blocks** — The code block in this tutorial has blank lines between function body and `if __name__`. The parser must NOT close the code block on empty lines when `in_code_block` is True. Empty lines should be appended to the buffer, not trigger `close_all()`.
-2. **Non-indented code lines** — `def run_agent():` and `if __name__ == "__main__":` are not indented but are code. The keyword-based detection catches these.
-3. **Pipe table separator rows** — `|---|---|---|` must be detected and handled (close thead, open tbody), not rendered as a data row.
-4. **Asterisks in cron expressions** — `0 8 * * *` gets mangled by inline markdown processing (`*...*` becomes `<em>`). The cron expression lines in this document are plain paragraphs, not code — they need to be escaped but NOT have their `*` treated as emphasis. The `escape_inline()` function's `\*(.+?)\*` regex will match `* * *` patterns. **Fix:** escape the line first with `html.escape()`, then only apply the bold/italic/code regexes. Since `html.escape` converts `*` to `*` (it doesn't), the real fix is to NOT apply the italic regex to lines containing cron expressions. A simpler approach: apply inline formatting only to lines that don't match `\d+ \*` patterns.
+1. **Blank lines inside code blocks**, The code block in this tutorial has blank lines between function body and `if __name__`. The parser must NOT close the code block on empty lines when `in_code_block` is True. Empty lines should be appended to the buffer, not trigger `close_all()`.
+2. **Non-indented code lines**, `def run_agent():` and `if __name__ == "__main__":` are not indented but are code. The keyword-based detection catches these.
+3. **Pipe table separator rows**, `|---|---|---|` must be detected and handled (close thead, open tbody), not rendered as a data row.
+4. **Asterisks in cron expressions**, `0 8 * * *` gets mangled by inline markdown processing (`*...*` becomes `<em>`). The cron expression lines in this document are plain paragraphs, not code, they need to be escaped but NOT have their `*` treated as emphasis. The `escape_inline()` function's `\*(.+?)\*` regex will match `* * *` patterns. **Fix:** escape the line first with `html.escape()`, then only apply the bold/italic/code regexes. Since `html.escape` converts `*` to `*` (it doesn't), the real fix is to NOT apply the italic regex to lines containing cron expressions. A simpler approach: apply inline formatting only to lines that don't match `\d+ \*` patterns.
 
 ## See also
-- `scripts/cron-tutorial-to-html.py` — working parser for this format
-- `references/plain-text-tutorial-parsing.md` — Format A and B details
+- `scripts/cron-tutorial-to-html.py`, working parser for this format
+- `references/plain-text-tutorial-parsing.md`, Format A and B details

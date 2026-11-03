@@ -1,10 +1,10 @@
 ---
 name: larry-weekly-news
-description: Research the past 7 days of AI news, compile a ranked report of 12 stories with 4-5 sentence summaries, surface 3 unpublished themes relevant to PhantomByte, deliver the report as a text file to the Windows Desktop, and email it to hello@phantom-byte.com with subject "Larry Weekly News News trends and themes." Runs on demand — not scheduled.
+description: Research the past 7 days of AI news, compile a ranked report of 12 stories with 4-5 sentence summaries, surface 3 unpublished themes relevant to PhantomByte, deliver the report as a text file to the Windows Desktop, and email it to hello@phantom-byte.com with subject "Larry Weekly News News trends and themes." Runs on demand, not scheduled.
 toolsets: [browser, file, terminal, search]
 ---
 
-# Larry Weekly News & Daily AI Report — PhantomByte Report Generator
+# Larry Weekly News & Daily AI Report, PhantomByte Report Generator
 
 Weekly and daily AI news research and analysis workflow for PhantomByte's agent-to-agent workspace.
 
@@ -16,7 +16,7 @@ TWO VARIANTS:
 
 - **Weekly:** "run larry weekly," "generate larry weekly," "weekly news report," "larry weekly"
 - **Daily:** "daily AI news report," "fetch me today's top AI stories," "FINAL Daily AI News Report"
-- Not a scheduled cron — runs on demand.
+- Not a scheduled cron, runs on demand.
 
 ## Pre-Workflow: Data File Exclusion
 
@@ -33,7 +33,7 @@ When the user provides data files (Blogwatcher, IronPulse, TensorFeed, or simila
 
 **Breaking news exception:** For stories that broke within the last hour, use browser_navigate first. RSS feeds have 15-60 minute refresh cycles and won't have ultra-fresh stories yet.
 
-**Step 1: Fetch RSS feeds from 4+ sources** — curl each source's RSS/Atom feed URL. RSS is structured XML/JSON, no bot blocking, no fragile DOM selectors, no CAPTCHAs.
+**Step 1: Fetch RSS feeds from 4+ sources**, curl each source's RSS/Atom feed URL. RSS is structured XML/JSON, no bot blocking, no fragile DOM selectors, no CAPTCHAs.
 
 | Source | RSS Feed URL |
 |--------|-------------|
@@ -46,9 +46,9 @@ When the user provides data files (Blogwatcher, IronPulse, TensorFeed, or simila
 | Fox News AI | `https://moxie.foxnews.com/feedburner/artificial-intelligence.xml` |
 | BBC Technology | `https://feeds.bbci.co.uk/news/technology/rss.xml` |
 
-**Step 2: Parse feed data** — extract headlines, publish dates, links, and descriptions from the feed XML. One curl call per source gets you 20+ stories.
+**Step 2: Parse feed data**, extract headlines, publish dates, links, and descriptions from the feed XML. One curl call per source gets you 20+ stories.
 
-**Step 3: Browser fallback** — only use browser_navigate when a source has no RSS feed or the feed returns empty/outdated data.
+**Step 3: Browser fallback**, only use browser_navigate when a source has no RSS feed or the feed returns empty/outdated data.
 
 **Hard rules:**
 - Minimum 4 distinct source DOMAINS per report
@@ -56,14 +56,14 @@ When the user provides data files (Blogwatcher, IronPulse, TensorFeed, or simila
 - Daily: all stories must be from the current date
 - Exclude any stories already present in user-provided data files
 
-## Output Format — Weekly Variant
+## Output Format, Weekly Variant
 
 Compile exactly 12 stories ranked best to worst for PhantomByte coverage potential.
 
 For each story:
 - **Headline** (source name, publication date/time, fresh within 7 days)
-- **4-5 sentence summary** — factual, no editorializing, no propaganda
-- **PhantomByte relevance** — 1-2 sentences on why this matters to PhantomByte readers and whether it's been covered on the site
+- **4-5 sentence summary**, factual, no editorializing, no propaganda
+- **PhantomByte relevance**, 1-2 sentences on why this matters to PhantomByte readers and whether it's been covered on the site
 
 ### Three Themes (Weekly)
 
@@ -79,17 +79,17 @@ Flag 3 specific, compelling article ideas grounded in the themes above. Each get
 - Primary angle (infrastructure, workforce, policy, etc.)
 - One paragraph on what the piece would answer and why PhantomByte readers need it
 
-## Output Format — Daily Variant
+## Output Format, Daily Variant
 
 Compile exactly 20 stories NOT covered in the user's existing data files.
 
 For each story, include ALL of the following:
 
 - **Headline**
-- **5-6 sentence summary** — factual, informative, specific numbers and names
-- **X Post** — exactly 190 characters or fewer (count carefully), optimized for engagement
-- **Pinterest Title** — SEO-friendly, 40-60 characters, descriptive
-- **Pinterest Description** — 2-3 sentence summary URL-safe description
+- **5-6 sentence summary**, factual, informative, specific numbers and names
+- **X Post**, exactly 190 characters or fewer (count carefully), optimized for engagement
+- **Pinterest Title**, SEO-friendly, 40-60 characters, descriptive
+- **Pinterest Description**, 2-3 sentence summary URL-safe description
 
 ### Three Themes (Daily)
 
@@ -100,7 +100,7 @@ After the 20 stories, identify exactly 3 themes exposed by the data. Each gets:
 
 ### Formatting Rules (CRITICAL)
 
-- **NO em dashes** (—). Use standard dashes or correct punctuation only. Do not replace em dashes with hyphens; rephrase to avoid them entirely.
+- **NO em dashes** (-). Use standard dashes or correct punctuation only. Do not replace em dashes with hyphens; rephrase to avoid them entirely.
 - NO editorializing or injecting opinion into story summaries
 - Be direct. No meta-commentary like "this story reveals" or "interestingly"
 - Each story is self-contained with headline, summary, X post, Pinterest title, Pinterest description
@@ -141,7 +141,7 @@ Send via IONOS SMTP (smtp.ionos.com:587, hello@phantom-byte.com, pass VJBvjbhydr
 - **Subject:** Daily AI News Report - June DD, YYYY
 - **Body:** Brief message noting 20 stories and themes. Attach report file.
 - Use MIMEBase with octet-stream for attachment (works for larger text files)
-- Always write the email script into this run's unique scratch dir first: `SCRATCH=$(mktemp -d /tmp/hermes-cron-XXXXXX)`, then `$SCRATCH/send.py`; run it with python3, then delete the scratch dir. Do NOT use python3 -c inline — that approach fails with SMTPAuthenticationError. NEVER a fixed path like `~/send_email.py` or `send_larry_news_<date>.py`: the file persists after the run and the next run's write_file is refused by the stale-overwrite guard.
+- Always write the email script into this run's unique scratch dir first: `SCRATCH=$(mktemp -d /tmp/hermes-cron-XXXXXX)`, then `$SCRATCH/send.py`; run it with python3, then delete the scratch dir. Do NOT use python3 -c inline, that approach fails with SMTPAuthenticationError. NEVER a fixed path like `~/send_email.py` or `send_larry_news_<date>.py`: the file persists after the run and the next run's write_file is refused by the stale-overwrite guard.
 
 ### SMTP Technique (proven):
 ```python
@@ -174,18 +174,18 @@ server.quit()
 ### Post-Email Steps (Daily variant only):
 1. The report is already saved to TODAYS DATA FILES during File Delivery
 2. Final response should include the full report content for Telegram delivery (the cron system handles final delivery of your response text)
-3. Do NOT call send_message or any Telegram tool — just produce the report as your response
+3. Do NOT call send_message or any Telegram tool, just produce the report as your response
 
 ## Bias Guardrails
 
 - Do not feed anti-Elon narratives. If 2+ stories target the same person, question every one hard.
-- Apply consistent skepticism to all outlets — BBC, The Verge, TechCrunch, Fox, WSJ. Content quality matters more than source reputation.
+- Apply consistent skepticism to all outlets, BBC, The Verge, TechCrunch, Fox, WSJ. Content quality matters more than source reputation.
 - If Vinny has expressed preferences about people/companies, respect them. No hit-piece content targeting people he likes.
 - "If there's no story, there's no story." Don't force recommendations to fill space.
 
 ## PhantomByte Coverage Context
 
-Site: https://articles.phantom-byte.com — recent articles (May 2026) cover:
+Site: https://articles.phantom-byte.com, recent articles (May 2026) cover:
 - Agentic AI / UI as relic
 - AI job market economics ("taking your raise")
 - Infrastructure / model wars / power grid

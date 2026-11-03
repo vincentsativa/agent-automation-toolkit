@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Weekly Hermes backup script — pushes config, skills, cron, memories, kanban to GitHub
+# Weekly Hermes backup script, pushes config, skills, cron, memories, kanban to GitHub
 # Clone-based: always clones the existing remote to preserve history (never git init).
 set -euo pipefail
 
@@ -26,7 +26,7 @@ mkdir -p "$BACKUP_DIR/config" "$BACKUP_DIR/cron/output" "$BACKUP_DIR/memories" "
 
 # Write .gitignore to block sensitive files from being committed
 cat > "$BACKUP_DIR/.gitignore" << 'GITIGNORE'
-# Sensitive credentials — never push live keys
+# Sensitive credentials, never push live keys
 config/.env
 config/config.yaml
 
@@ -41,7 +41,7 @@ skills/.usage.json.lock
 GITIGNORE
 
 # Sync essentials (exclude cache/logs/media and sensitive files)
-# NOTE: config.yaml and .env are intentionally NOT synced — they contain live API keys
+# NOTE: config.yaml and .env are intentionally NOT synced, they contain live API keys
 rsync -a --delete --exclude=.git "$HERMES_HOME/skills/" "$BACKUP_DIR/skills/" 2>/dev/null || true
 rsync -a --delete "$HERMES_HOME/cron/jobs.json" "$BACKUP_DIR/cron/" 2>/dev/null || true
 rsync -a --delete "$HERMES_HOME/cron/output/" "$BACKUP_DIR/cron/output/" 2>/dev/null || true

@@ -39,7 +39,7 @@ delegate_task(tasks=[
 ])
 ```
 
-### Round 2 (next 3 stories — while writing summaries from Round 1)
+### Round 2 (next 3 stories, while writing summaries from Round 1)
 
 ```python
 delegate_task(tasks=[
@@ -58,7 +58,7 @@ delegate_task(tasks=[
 ])
 ```
 
-### Round 3 (final 3 — if needed)
+### Round 3 (final 3, if needed)
 
 Same pattern as above. Three rounds of 3 = 9 articles browsed in parallel.
 
@@ -75,8 +75,8 @@ Each subagent returns a structured summary containing:
 
 - **Do not browse every headline.** Pick 3-6 anchor stories. The remaining ~10 headlines can be summarized from headline + source reputation alone.
 - **WIRED articles often require scrolling** to reveal full content past paywall elements. The subagent handles this automatically with browser_scroll.
-- **TechCrunch and The Decoder** usually load full content in a single browser_navigate call — no scrolling needed.
-- **Each subagent gets its own browser session** — they don't interfere with each other.
+- **TechCrunch and The Decoder** usually load full content in a single browser_navigate call, no scrolling needed.
+- **Each subagent gets its own browser session**, they don't interfere with each other.
 - **Total time:** ~15-20 seconds per round of 3, so 2 rounds = ~30-40 seconds total.
 
-- **CRITICAL: Subagent results are NOT guaranteed to return before you finish the brief.** Subagents run in the background and their results re-enter the conversation as new messages when they complete. There is no blocking mechanism. Write summaries from your own knowledge of the headline + source context first. Treat subagent browsing results as optional enhancements that arrive later — do NOT block on them or structure your output around them. If you need summaries to complete the brief, write them yourself from available knowledge and let subagent results be a bonus.
+- **CRITICAL: Subagent results are NOT guaranteed to return before you finish the brief.** Subagents run in the background and their results re-enter the conversation as new messages when they complete. There is no blocking mechanism. Write summaries from your own knowledge of the headline + source context first. Treat subagent browsing results as optional enhancements that arrive later, do NOT block on them or structure your output around them. If you need summaries to complete the brief, write them yourself from available knowledge and let subagent results be a bonus.

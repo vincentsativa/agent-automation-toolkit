@@ -19,7 +19,7 @@ description: |
 5. If Vinny asks to email the draft, use the `email-sender` skill to send it to hello@phantom-byte.com with the file attached. Do NOT paste the full article text into chat.
 6. Deliver the Windows path
 
-## FORMATTING — NON-NEGOTIABLE
+## FORMATTING, NON-NEGOTIABLE
 
 - **NEVER hard-wrap. Never 79 columns. Never any column width.** Write each paragraph as ONE long line and let the reader's client wrap it. A column-wrapped .txt enrages Vinny; assume any wrapped file is rejected on sight.
 - Do not run a finished article through any formatter, normalizer, or reflow pass. Write it correct in one `write_file` call.

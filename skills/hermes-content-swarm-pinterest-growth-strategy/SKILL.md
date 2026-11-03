@@ -1,6 +1,6 @@
 ---
 name: pinterest-growth-strategy
-description: Pinterest account growth strategy — posting cadence, consistency, long-tail asset building, and platform-specific growth tactics for new and established accounts.
+description: Pinterest account growth strategy, posting cadence, consistency, long-tail asset building, and platform-specific growth tactics for new and established accounts.
 toolsets: [browser, terminal]
 ---
 
@@ -40,7 +40,7 @@ Source: Tailwind blog research (2026). Tailwind's Shopify article states: *"Many
 - Pins do not expire. They continue surfacing in Pinterest search for years.
 - Users report pins from 7+ years ago still sending traffic.
 - Pinterest is the only major platform where content appreciates over time instead of decaying.
-- This makes it ideal for categories with long growth curves (e.g., AI agents, sovereign tech) — pins created early compete against far less competition than they will years later.
+- This makes it ideal for categories with long growth curves (e.g., AI agents, sovereign tech), pins created early compete against far less competition than they will years later.
 
 ## Overposting Risks
 
@@ -66,9 +66,9 @@ From Tailwind Turbo Beta (Feb 2026):
 - Goal: 5 fresh pins/day, consistent, every day
 - Pinterest is supplemental traffic + branding; Google is primary
 - Pins link to PhantomByte articles (articles.phantom-byte.com)
-- Long game: AI is the next .com — everyone will eventually need to learn AI agents
+- Long game: AI is the next .com, everyone will eventually need to learn AI agents
 - Aged domains + Pinterest distribution + growing category = compounding moat
 
 ## Related Files
 
-- `references/pinterest-posting-cadence.md` — Full research notes from Tailwind blog with quotes and data
+- `references/pinterest-posting-cadence.md`, Full research notes from Tailwind blog with quotes and data

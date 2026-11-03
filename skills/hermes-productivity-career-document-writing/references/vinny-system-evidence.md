@@ -1,6 +1,6 @@
 # Verifiable Evidence Inventory (re-run before every use)
 
-Numbers drift. Every figure below carries the command that produces it. Run the command, use the live output, and discard the number in this file — it is a starting point, not a source. A resume claim that cannot be reproduced by one of these queries does not go in the document.
+Numbers drift. Every figure below carries the command that produces it. Run the command, use the live output, and discard the number in this file, it is a starting point, not a source. A resume claim that cannot be reproduced by one of these queries does not go in the document.
 
 ## Automation fleet (scheduled jobs running unattended)
 
@@ -72,7 +72,7 @@ Useful for the TOOLING block and for a version-accurate line about the orchestra
 
 ## Multi-host agent fleet
 
-A primary Linux agent runtime handles systems and orchestration work, a separate Windows agent handles desktop and GUI-bound tasks, and an independent remote coding agent handles engineering work, with state synchronized back. This is architectural, not a count, so it does not need re-verification — but verify the hosts still exist before claiming live operation.
+A primary Linux agent runtime handles systems and orchestration work, a separate Windows agent handles desktop and GUI-bound tasks, and an independent remote coding agent handles engineering work, with state synchronized back. This is architectural, not a count, so it does not need re-verification, but verify the hosts still exist before claiming live operation.
 
 ## Email-driven task queue
 

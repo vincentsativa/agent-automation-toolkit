@@ -1,4 +1,4 @@
-# PhantomByte Category Counts — Aug 6, 2026
+# PhantomByte Category Counts, Aug 6, 2026
 
 Source: `curl` + regex on `data-cat="..."` attributes from articles.phantom-byte.com homepage.
 Method: count matches of `data-cat="([^"]+)"`; ignore non-category artifacts (`'+c+'`, `all`).
@@ -26,7 +26,7 @@ Method: count matches of `data-cat="([^"]+)"`; ignore non-category artifacts (`'
 | Industry Report | 1 |
 
 ## Zero-article gaps (unchanged from Aug 5)
-AI Hardware, AI Energy, Model Architecture, Open Source AI all still have **zero** articles — prime candidates for gap-filling recommendations.
+AI Hardware, AI Energy, Model Architecture, Open Source AI all still have **zero** articles, prime candidates for gap-filling recommendations.
 
 ## Drift vs Aug 5
 - Total: 153 → 154 (+1)

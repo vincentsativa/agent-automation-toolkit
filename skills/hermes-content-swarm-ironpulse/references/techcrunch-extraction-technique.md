@@ -1,4 +1,4 @@
-# TechCrunch AI — Story Extraction Technique
+# TechCrunch AI, Story Extraction Technique
 
 ## Why This Exists
 
@@ -22,7 +22,7 @@ The snapshot reveals all top stories. Each story block contains:
 ### Step 2: Extract All Headlines
 
 ```javascript
-// Best approach — grab all h3 elements that contain links
+// Best approach, grab all h3 elements that contain links
 document.querySelectorAll('h3').forEach(h => {
   const a = h.querySelector('a');
   if(a && a.textContent.trim().length > 10) headlines.push(a.textContent.trim());
@@ -45,7 +45,7 @@ Each story's `<time>` element has a `datetime` attribute in ISO format (`2026-05
 
 ### Step 4: Read Individual Articles
 
-**CRITICAL — Do NOT guess article URLs.** TechCrunch does NOT use date-based URL patterns that can be reverse-engineered from headlines. Navigating to a guessed URL returns 404. Always navigate to the article by:
+**CRITICAL, Do NOT guess article URLs.** TechCrunch does NOT use date-based URL patterns that can be reverse-engineered from headlines. Navigating to a guessed URL returns 404. Always navigate to the article by:
 1. Clicking the story link from the category page snapshot, OR
 2. Using `browser_navigate` with the exact permalink as it appears in the feed
 
@@ -99,12 +99,12 @@ Stories with dates like "Apr 29, 2026" are outside the 24-hour window.
 
 ## Pitfalls (Browser + Curl)
 
-- **Scrolling required (browser)** — The initial snapshot only shows ~6-8 stories. Scroll down to load more (TechCrunch has infinite scroll).
-- **Sponsored content** — Look for "SPONSORED" labels and skip them.
-- **Event promotions** — TechCrunch Disrupt ticket ads appear as h3 elements. Filter with `.includes('Disrupt')` or `.includes('ticket')`.
-- **Duplicate headlines** — The same story may appear in "Latest News" sidebar AND main feed.
-- **404 on direct link** — Some TechCrunch URLs generated from h3 text may not be the actual permalink. Navigate to the story from the main feed rather than guessing the URL.
-- **`browser_console` errors** — If you get "Identifier '...' has already been declared", use a different variable name or wrap in an IIFE.
+- **Scrolling required (browser)**, The initial snapshot only shows ~6-8 stories. Scroll down to load more (TechCrunch has infinite scroll).
+- **Sponsored content**, Look for "SPONSORED" labels and skip them.
+- **Event promotions**, TechCrunch Disrupt ticket ads appear as h3 elements. Filter with `.includes('Disrupt')` or `.includes('ticket')`.
+- **Duplicate headlines**, The same story may appear in "Latest News" sidebar AND main feed.
+- **404 on direct link**, Some TechCrunch URLs generated from h3 text may not be the actual permalink. Navigate to the story from the main feed rather than guessing the URL.
+- **`browser_console` errors**, If you get "Identifier '...' has already been declared", use a different variable name or wrap in an IIFE.
 - **Curl: some article URLs return 404** even when they appear in the category page feed. TechCrunch occasionally removes articles without updating the feed. Skip these and move on.
 - **Curl: category page shows ~15-20 stories** but only ~8-12 are from the last 24 hours. Filter by checking each article's datetime.
 - **Curl: event promotions** (TechCrunch Disrupt, Founder Summit) appear as article cards. Skip these by checking for "Disrupt", "ticket", "Founder Summit" in the headline.

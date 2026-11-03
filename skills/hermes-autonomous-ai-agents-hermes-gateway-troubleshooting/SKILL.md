@@ -157,7 +157,7 @@ sed -i 'LINENUMs/old/new/' ~/.hermes/.env
 
 ## Gateway Restarts Kill In-Flight Cron Jobs
 
-**Critical behavior (documented May 5-6, 2026):** The cron scheduler runs inside the same gateway process. ANY gateway restart — model switch, `hermes gateway restart`, config reload, or systemd bounce — terminates all in-flight cron worker processes immediately. Jobs appear as `last_run_at: null` with no completion status even though the cron ticker fired them successfully.
+**Critical behavior (documented May 5-6, 2026):** The cron scheduler runs inside the same gateway process. ANY gateway restart, model switch, `hermes gateway restart`, config reload, or systemd bounce, terminates all in-flight cron worker processes immediately. Jobs appear as `last_run_at: null` with no completion status even though the cron ticker fired them successfully.
 
 **Detection:** Agent log shows `[cron_JOBID_TIMESTAMP]` prefix with initialization lines but no completion. Output files for that date do not exist.
 
@@ -169,7 +169,7 @@ sed -i 'LINENUMs/old/new/' ~/.hermes/.env
 - Bot messages arrive visually (you see them in the chat) but with NO sound/vibrate
 - OpenClaw bot (or other Telegram bots) makes sound, but Hermes does not
 - Telegram chat notifications are confirmed ON in both app settings and OS-level notification channels
-- Only gateway messages affected — CLI/terminal sessions not relevant
+- Only gateway messages affected, CLI/terminal sessions not relevant
 
 ### Root Cause
 
@@ -212,23 +212,23 @@ hermes gateway restart
 
 ### Verification
 
-After changing the setting and restarting, send a test message to the bot. If it arrives with sound, the fix worked. If still silent, the issue is on the Telegram/OS client side — check per-chat notification settings and OS-level notification channels.
+After changing the setting and restarting, send a test message to the bot. If it arrives with sound, the fix worked. If still silent, the issue is on the Telegram/OS client side, check per-chat notification settings and OS-level notification channels.
 
 ### Note: Not a Client-Side Issue
 
-When the user says notifications are ON in the Telegram chat settings and the OpenClaw bot (different bot) makes sound, the problem is NOT client-side. Start here — check the Hermes gateway config — before asking the user to retest their phone settings.
+When the user says notifications are ON in the Telegram chat settings and the OpenClaw bot (different bot) makes sound, the problem is NOT client-side. Start here, check the Hermes gateway config, before asking the user to retest their phone settings.
 
 ### Pitfall: Config Set Correctly But Still Silent
 
 **Symptom:** `notifications: all` is confirmed in `config.yaml` under `display.platforms.telegram.notifications`, the gateway was restarted, but messages still arrive silently.
 
-**Root cause (code bug):** `_resolve_notifications_mode()` in `plugins/platforms/telegram/adapter.py` calls `load_gateway_config()` which returns a `GatewayConfig` dataclass object, then passes it to `cfg_get()` which expects a plain dict. The `display` key doesn't exist on `GatewayConfig` — it only has gateway-specific fields (`platforms`, `streaming`, etc.). So `cfg_get` returns `None` every time, and the mode always falls back to `"important"` regardless of what's in config.yaml.
+**Root cause (code bug):** `_resolve_notifications_mode()` in `plugins/platforms/telegram/adapter.py` calls `load_gateway_config()` which returns a `GatewayConfig` dataclass object, then passes it to `cfg_get()` which expects a plain dict. The `display` key doesn't exist on `GatewayConfig`, it only has gateway-specific fields (`platforms`, `streaming`, etc.). So `cfg_get` returns `None` every time, and the mode always falls back to `"important"` regardless of what's in config.yaml.
 
-**Second bug — cron delivery never sets `notify=True`:** Even if the mode were correctly read, the cron delivery path in `cron/scheduler.py` passes `route_metadata = {"job_id": job["id"]}` with no `"notify": True`. In `"important"` mode, `_notification_kwargs()` returns `{"disable_notification": True}` unless `metadata.get("notify")` is truthy. So cron deliveries are always sent with `disable_notification=True` in the default mode, regardless of the setting. This is a separate code path from the adapter's `send()` method.
+**Second bug, cron delivery never sets `notify=True`:** Even if the mode were correctly read, the cron delivery path in `cron/scheduler.py` passes `route_metadata = {"job_id": job["id"]}` with no `"notify": True`. In `"important"` mode, `_notification_kwargs()` returns `{"disable_notification": True}` unless `metadata.get("notify")` is truthy. So cron deliveries are always sent with `disable_notification=True` in the default mode, regardless of the setting. This is a separate code path from the adapter's `send()` method.
 
-**Combined effect:** Two independent bugs stack — the mode can't be read from config, AND cron deliveries don't request notification even if it could. Fixing only one leaves cron silent.
+**Combined effect:** Two independent bugs stack, the mode can't be read from config, AND cron deliveries don't request notification even if it could. Fixing only one leaves cron silent.
 
-**Diagnostic — confirm the config-reading bug:**
+**Diagnostic, confirm the config-reading bug:**
 
 ```bash
 cd ~/.hermes/hermes-agent
@@ -264,7 +264,7 @@ if _cfg_path.exists():
 
 **Second fix (cron notify):** In `cron/scheduler.py` `_deliver_result()`, add `"notify": True` to `route_metadata` when the notification mode is `"all"`, so cron deliveries request push notification even in `"important"` mode.
 
-**User preference — don't attempt these fixes unless asked:** The user considers these bugs too trivial to risk breaking the gateway. Do not propose or apply code patches for Telegram notification behavior unless the user explicitly requests it. Document the workaround (env var `HERMES_TELEGRAM_NOTIFICATIONS=all` as a stopgap) instead.
+**User preference, don't attempt these fixes unless asked:** The user considers these bugs too trivial to risk breaking the gateway. Do not propose or apply code patches for Telegram notification behavior unless the user explicitly requests it. Document the workaround (env var `HERMES_TELEGRAM_NOTIFICATIONS=all` as a stopgap) instead.
 
 After patching, restart the gateway from a separate terminal (not from inside the gateway session, which would kill itself). The terminal tool refuses a gateway restart issued from inside the gateway, including a delayed `systemd-run` wrapper, so do not try to route around it: ask the user to send `/restart` in chat, or run the command from a shell outside the gateway.
 
@@ -325,23 +325,23 @@ Hermes resolves which provider handles a model by checking the `models:` list in
 
 ### The `models:` Field Must Be a YAML List
 
-**Wrong** — stored as a string (happens when `hermes config set` writes a JSON-encoded value):
+**Wrong**, stored as a string (happens when `hermes config set` writes a JSON-encoded value):
 ```yaml
 providers:
   ollama-com:
     base_url: https://ollama.com/v1
     api_key: YOUR_KEY
-    models: '["minimax-m2.7"]'   # ← STRING, not a list — Hermes can't read it
+    models: '["minimax-m2.7"]'   # ← STRING, not a list, Hermes can't read it
 ```
 
-**Correct** — proper YAML list:
+**Correct**, proper YAML list:
 ```yaml
 providers:
   ollama-com:
     base_url: https://ollama.com/v1
     api_key: YOUR_KEY
     models:
-    - minimax-m2.7              # ← YAML list — Hermes can match the model
+    - minimax-m2.7              # ← YAML list, Hermes can match the model
 ```
 
 ### Pitfall: `hermes config set` Serializes Lists as Strings
@@ -353,7 +353,7 @@ Using `hermes config set providers.ollama-com.models '["minimax-m2.7"]'` writes 
 ### Verification
 
 ```bash
-# 1. Check the raw YAML — models should be a list, not a quoted string
+# 1. Check the raw YAML, models should be a list, not a quoted string
 grep -A2 'models:' ~/.hermes/config.yaml | head -5
 
 # 2. Confirm provider shows up correctly

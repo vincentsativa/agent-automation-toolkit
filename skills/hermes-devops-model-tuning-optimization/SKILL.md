@@ -20,15 +20,15 @@ Models that might feel "lousy" or inconsistent on other platforms often perform 
 
 **Standard models** (Qwen, Gemini Flash, MiniMax, Nemotron, Llama):
 *   **Target:** `none`
-*   **Reason:** These models don't natively reason — enabling thinking wastes tokens and adds latency with no quality improvement.
+*   **Reason:** These models don't natively reason, enabling thinking wastes tokens and adds latency with no quality improvement.
 
 **GLM-5.1** (validated stack):
 *   **Target:** `low`
-*   **Reason:** GLM-5.1 actually performs better with thinking: low than with none. When set to `none`, it can fall into memory-loop/spiral behavior on simple interactions. `low` keeps it stable and responsive without wasting tokens. This is a validated exception — not all "standard" models behave the same. Test before assuming `none` is optimal.
+*   **Reason:** GLM-5.1 actually performs better with thinking: low than with none. When set to `none`, it can fall into memory-loop/spiral behavior on simple interactions. `low` keeps it stable and responsive without wasting tokens. This is a validated exception, not all "standard" models behave the same. Test before assuming `none` is optimal.
 
 **Reasoning-native models** (DeepSeek V4, o-series, Kimi K2 thinking, Grok thinking):
 *   **Target:** `low`
-*   **Reason:** These models depend on an internal thinking phase for output quality. `none` suppresses their core capability and degrades responses. `high`/`xhigh` wastes tokens — they already reason natively and higher efforts don't proportionally improve output. `low` keeps thinking enabled but conservative.
+*   **Reason:** These models depend on an internal thinking phase for output quality. `none` suppresses their core capability and degrades responses. `high`/`xhigh` wastes tokens, they already reason natively and higher efforts don't proportionally improve output. `low` keeps thinking enabled but conservative.
 
 **Smaller models** (nemotron-3-nano, <30B params):
 *   **Target:** `low` or `none`

@@ -6,13 +6,13 @@ user present to approve it`). The reliable pattern is: `write_file` a per-source
 extraction script to `~/.hermes/scripts/`, then run it via `terminal()`.
 
 The basic `scrapling.fetchers.Fetcher` (NOT StealthyFetcher) is sufficient for these
-news sites — no Cloudflare protection blocks plain `f.get()`. Filter the harmless
+news sites, no Cloudflare protection blocks plain `f.get()`. Filter the harmless
 scrapling `WARNING: This logic is deprecated...` line and `INFO:` logging out of
 output with `grep -v`.
 
 ## Per-Source Extraction Recipes
 
-### TechCrunch AI — article-link regex
+### TechCrunch AI, article-link regex
 ```python
 from scrapling.fetchers import Fetcher
 import re, html as h
@@ -27,21 +27,21 @@ for url, txt in links:
     if len(txt) > 30 and url not in seen:
         seen.add(url); print(f"- {txt[:110]}\n  {url}")
 ```
-Gives fresh stories with `2026/08/03` (today) URLs — a reliable recency signal.
+Gives fresh stories with `2026/08/03` (today) URLs, a reliable recency signal.
 
-### The Verge AI — use the BROAD anchor regex
+### The Verge AI, use the BROAD anchor regex
 ```python
 links = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>([^<]{25,})</a>', t)
 ```
 **PITFALL:** The narrow pattern requiring `https://www.theverge.com/ai-artificial-intelligence`
-as the href prefix returns **0 results** — Verge article URLs live under
+as the href prefix returns **0 results**, Verge article URLs live under
 `/ai-artificial-intelligence/974342/...` (path only, no full domain). Use the broad
 `href="([^"]+)"` regex and filter out `/rss /video /tag /search /account /settings`
 paths. Full-domain links (fastcompany.com, wsj.com, openai.com, anthropic.com) that
-appear in the feed are external link-outs — keep them as source attribution but
+appear in the feed are external link-outs, keep them as source attribution but
 don't treat them as Verge-original.
 
-### Google News AI — aria-label attributes
+### Google News AI, aria-label attributes
 ```python
 heads = re.findall(r'<a[^>]*aria-label="([^"]+)"[^>]*>', t)
 ```
@@ -49,13 +49,13 @@ Google News headlines (with source + relative timestamp embedded in the label, e
 `... - Reuters - 11 hours ago - By ...`) parse cleanly from `aria-label`. The
 relative-time text in the label gives recency verification in one pass.
 
-### Fox News Tech — /tech/ path regex
+### Fox News Tech, /tech/ path regex
 ```python
 links = re.findall(r'<a[^>]+href="(/tech/[^"]+)"[^>]*>(.*?)</a>', t, re.S)
 # print(f"  https://www.foxnews.com{url}")
 ```
 Fox returns fewer items (often only 2-5); it's a supplementary MSM source, not a
-primary. Its article URL may still 404 on direct navigation — extract from the
+primary. Its article URL may still 404 on direct navigation, extract from the
 category-page snapshot text when possible.
 
 ## Execution Pattern

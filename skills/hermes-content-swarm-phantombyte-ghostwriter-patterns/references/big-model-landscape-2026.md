@@ -13,9 +13,9 @@ When Vinny reaches for a larger model, the two candidates are DeepSeek V4 Pro 08
 ## GLM-5.3 (Zhipu/Z.ai)
 - ~700B total, all post-training on the GLM-5.2 base (no new architecture).
 - Terminal-Bench 3.0 4.6→28.3, DeepSWE 46.2→66.9, ExploitBench doubled to 54.4%, CyberGym 84.5% (edges GPT-5.6 Sol).
-- Zhipu's positioning: "not cheapest, but strongest at reasoning" — structured chain-of-thought, math, correctness-critical work.
-- Weights release ~2 weeks after launch (safety hardening — offensive cyber grew "faster than expected").
-- API now forces thinking on across three effort levels (low/high/max) — breaking change for apps that ran thinking off.
+- Zhipu's positioning: "not cheapest, but strongest at reasoning", structured chain-of-thought, math, correctness-critical work.
+- Weights release ~2 weeks after launch (safety hardening, offensive cyber grew "faster than expected").
+- API now forces thinking on across three effort levels (low/high/max), breaking change for apps that ran thinking off.
 - Use for: correctness-critical reasoning at low thinking cost.
 
 ## Ollama Pro Billing Implication (GPU time + size, NOT tokens)
@@ -25,7 +25,7 @@ When Vinny reaches for a larger model, the two candidates are DeepSeek V4 Pro 08
 
 ## Flash 0731 Is the Standout
 - Vinny's take: Flash 0731 is the most impressive model of the recent crop; the race is narrowing.
-- His framing: the preview was "more confident than capable," but 0813's capability finally matches the confidence — "it just feels better, better tooling."
+- His framing: the preview was "more confident than capable," but 0813's capability finally matches the confidence, "it just feels better, better tooling."
 - He tests models by giving them REAL work (articles, keyword research), not benchmarks.
-- First Flash-written article passed Gemini with nothing to revise — the quality bar.
+- First Flash-written article passed Gemini with nothing to revise, the quality bar.
 - Flash is consolidating: took over article writing AND keyword research from Kimi/Gemma, ~98% of usage.

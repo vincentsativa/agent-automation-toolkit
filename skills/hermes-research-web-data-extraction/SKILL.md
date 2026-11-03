@@ -4,7 +4,7 @@ description: Techniques for extracting structured data (tables, benchmarks, lead
 trigger: "need to extract a table, benchmark, leaderboard, or structured data from a web page; browser_snapshot(full=true) is too large; curl returns nav-heavy content; page is JS-rendered"
 ---
 
-# Web Data Extraction — Techniques for Structured Content
+# Web Data Extraction, Techniques for Structured Content
 
 ## When to use this skill
 
@@ -80,7 +80,7 @@ document.querySelector('article')?.innerText
 
 ### Why this works
 
-- Runs in the page context after full JS execution — sees the rendered DOM, not raw HTML
+- Runs in the page context after full JS execution, sees the rendered DOM, not raw HTML
 - Returns the result as a string directly in the tool output, not truncated like snapshot
 - Bypasses nav/header/footer noise that curl extraction struggles with
 - Faster than `browser_snapshot(full=true)` for large pages
@@ -94,11 +94,11 @@ The Wolfram benchmark page at `https://www.wolfram.com/llm-benchmarking-project/
 document.querySelector('main')?.innerText || document.body.innerText
 ```
 
-This returned the full sorted table (200+ rows) as clean text, including the header description, the table data, and the footer links — all in one string.
+This returned the full sorted table (200+ rows) as clean text, including the header description, the table data, and the footer links, all in one string.
 
 **What didn't work:**
-- `browser_snapshot(full=true)` — returned a truncated snapshot (3000+ lines, cut off)
-- curl-to-file + Python extraction — returned nav-heavy text where the table was buried under 5000+ chars of navigation boilerplate
+- `browser_snapshot(full=true)`, returned a truncated snapshot (3000+ lines, cut off)
+- curl-to-file + Python extraction, returned nav-heavy text where the table was buried under 5000+ chars of navigation boilerplate
 
 ### When NOT to use
 
@@ -138,9 +138,9 @@ for path in ["/tmp/article1.html", "/tmp/article2.html"]:
 
 ### Pitfalls
 
-- Some sites return a "Please enable JS" page (Reuters, WSJ) — these need the browser stack
-- Twitter/X pages return minimal content via curl — use browser_navigate for social media
-- Check for "Page Not Found", "404", "That page does not exist" in the first 500 chars — the URL may be stale
+- Some sites return a "Please enable JS" page (Reuters, WSJ), these need the browser stack
+- Twitter/X pages return minimal content via curl, use browser_navigate for social media
+- Check for "Page Not Found", "404", "That page does not exist" in the first 500 chars, the URL may be stale
 
 ## Technique 3: browser_snapshot(full=true) (for text-heavy pages)
 
@@ -157,26 +157,26 @@ snapshot = browser_snapshot(full=true)
 
 ### Pitfalls
 
-- Pages with 3000+ elements get truncated — switch to Technique 1 or 2
-- Paywalled pages may show only the lede — switch to Technique 2
+- Pages with 3000+ elements get truncated, switch to Technique 1 or 2
+- Paywalled pages may show only the lede, switch to Technique 2
 
 ## Technique 4: Firecrawl (when available as MCP tool)
 
 When firecrawl is available (check tool_search or tool_describe for `mcp__firecrawl__firecrawl_*` before assuming it is absent), prefer it over scrapling/browser for scraping individual URLs and for search-based discovery.
 
 ### Why firecrawl first (when present)
-- `firecrawl_search` returns ranked web results AND can attach scrapeOptions to fetch page content in the same call — discovery and extraction in one step.
+- `firecrawl_search` returns ranked web results AND can attach scrapeOptions to fetch page content in the same call, discovery and extraction in one step.
 - `firecrawl_scrape` handles JS-rendered pages, returns markdown/HTML/links/screenshot, and has proxy options (basic/stealth/enhanced/auto) for bot-walled sites.
 - `firecrawl_parse` handles document formats (PDF, Word, RTF, spreadsheets) that scrapling/browser cannot.
 
 ### Order of tool preference when firecrawl is present
-1. `firecrawl_search` — for discovery queries (find pages, news, trending topics)
-2. `firecrawl_scrape` — for fetching a known URL's content
-3. scrapling `Fetcher` — for plain HTTP fetches when firecrawl is not needed
-4. browser — last resort for JS-heavy / interactive / login-gated pages
+1. `firecrawl_search`, for discovery queries (find pages, news, trending topics)
+2. `firecrawl_scrape`, for fetching a known URL's content
+3. scrapling `Fetcher`, for plain HTTP fetches when firecrawl is not needed
+4. browser, last resort for JS-heavy / interactive / login-gated pages
 
 ### Pitfall: do not claim a tool is unavailable without checking
-Before telling the user a tool is unavailable, or deciding not to use it, verify it exists. Run `tool_search` or `tool_describe` for the tool name. Claiming "no tool called X" when X is in the deferred tool catalog is a credibility failure — the tool was there, you just did not look. The deferred tool catalog (45 tools) is loaded at session start; check it before defaulting to the always-available tools.
+Before telling the user a tool is unavailable, or deciding not to use it, verify it exists. Run `tool_search` or `tool_describe` for the tool name. Claiming "no tool called X" when X is in the deferred tool catalog is a credibility failure, the tool was there, you just did not look. The deferred tool catalog (45 tools) is loaded at session start; check it before defaulting to the always-available tools.
 
 ## Decision Tree
 
@@ -219,12 +219,12 @@ Full recipe, BEA table/zip map, CSV column shape, and the FIPS filter:
 
 ## Linked Reference Files
 
-- `references/official-statistics-data-files.md` — Bulk data files from government statistical agencies (BEA, BLS, Census, EIA): locating the zip from a release page, BEA regional GDP table map, CSV column shape, the state-FIPS filter that keeps region rows out of a ranking, and reporting nominal vs real. Use when a question needs official numbers rather than a news summary.
-- `references/domain-email-recon.md` — Trace an email address or domain back to its owner. Covers SSL-fallback curl, browser-console email extraction, DNS resolution, and cross-referencing aliases against site footers. Use when investigating who owns a domain or who's behind an email address.
+- `references/official-statistics-data-files.md`, Bulk data files from government statistical agencies (BEA, BLS, Census, EIA): locating the zip from a release page, BEA regional GDP table map, CSV column shape, the state-FIPS filter that keeps region rows out of a ranking, and reporting nominal vs real. Use when a question needs official numbers rather than a news summary.
+- `references/domain-email-recon.md`, Trace an email address or domain back to its owner. Covers SSL-fallback curl, browser-console email extraction, DNS resolution, and cross-referencing aliases against site footers. Use when investigating who owns a domain or who's behind an email address.
 
-## Technique 7: Next.js / React Server-Component catalogs — parse the flight payload, not the DOM
+## Technique 7: Next.js / React Server-Component catalogs, parse the flight payload, not the DOM
 
-Some JS-heavy catalog and directory sites (model hubs, marketplaces, docs indexes) render EVERYTHING client-side from a JSON payload embedded in the HTML. On these pages `get_all_text()` returns only nav, footer, and filter labels — no rows — and `page.text` may be empty while the real data sits in the HTML as React flight chunks.
+Some JS-heavy catalog and directory sites (model hubs, marketplaces, docs indexes) render EVERYTHING client-side from a JSON payload embedded in the HTML. On these pages `get_all_text()` returns only nav, footer, and filter labels, no rows, and `page.text` may be empty while the real data sits in the HTML as React flight chunks.
 
 ### Diagnose first
 
@@ -262,7 +262,7 @@ for j, c in enumerate(seg):
 
 - Concatenate ALL push chunks before decoding. Chunks split mid-JSON-string, so parsing one chunk alone fails; the escaped text only becomes valid JSON after the join plus `unicode_escape` decode.
 - Search the decoded blob for `"<field>":[` and bracket-match to the close. Do not regex for `\{.*?\}`: nested objects terminate the match early and silently drop rows.
-- Rows are often more than the visible list — read `"resultTotal"` and `"resultPageTotal"` from the blob and compare against what you parsed. A mismatch means you read one page of a paginated payload, not the whole catalog.
+- Rows are often more than the visible list, read `"resultTotal"` and `"resultPageTotal"` from the blob and compare against what you parsed. A mismatch means you read one page of a paginated payload, not the whole catalog.
 - **Filter URLs that the site's own UI produces may be ignored server-side.** A `?filters=<field>:<value>` query parameter can return either 0 results or the unfiltered full total, because the filtering happens in client code after hydration. When the count looks wrong in either direction, stop varying the filter syntax: enumerate `?page=1..N` and filter the parsed rows yourself. This also makes the result independent of the site's filter naming.
 
 ### Report counts from the enumeration
@@ -271,7 +271,7 @@ When the deliverable is a list, state the totals you actually enumerated (total 
 
 ## Technique 5: arXiv Abstract Extraction via Curl (Cron-Optimized)
 
-arXiv abstract pages are static HTML that curl extracts cleanly — no browser needed. This is the fastest and most reliable approach for academic paper extraction, especially in cron sessions where browser_navigate is slow and delegate_task may not complete.
+arXiv abstract pages are static HTML that curl extracts cleanly, no browser needed. This is the fastest and most reliable approach for academic paper extraction, especially in cron sessions where browser_navigate is slow and delegate_task may not complete.
 
 ### Pattern
 
@@ -290,7 +290,7 @@ data = re.sub(r'<style[^>]*>.*?</style>', ' ', data, flags=re.DOTALL)
 text = re.sub(r'<[^>]+>', ' ', data)
 text = h.unescape(text)
 text = re.sub(r'\s+', ' ', text).strip()
-# Find abstract — reliably within first 2000 chars after "Abstract" marker
+# Find abstract, reliably within first 2000 chars after "Abstract" marker
 idx = text.find('Abstract')
 if idx > 0:
     abstract = text[idx:idx+2000]
@@ -305,9 +305,9 @@ if idx > 0:
 
 ### When to use
 
-- Cron sessions (always — faster and more reliable than browser_navigate)
+- Cron sessions (always, faster and more reliable than browser_navigate)
 - Interactive sessions with 5+ papers to extract
-- Any arXiv abstract extraction — the static HTML is trivial to parse
+- Any arXiv abstract extraction, the static HTML is trivial to parse
 
 ### When NOT to use
 
@@ -352,7 +352,7 @@ Plain `Fetcher` is sufficient for Hugging Face blog posts, TechCrunch, ZDNet, an
 
 When scrapling's `Fetcher` returns `page.text` empty (length 0) even on HTTP 200, the rendered text extraction failed. Two reliable fallbacks:
 
-**1. `page.html_content` (cron-safe, first choice):** holds the raw HTML and is usually populated — regex-extract the `<p>` tags:
+**1. `page.html_content` (cron-safe, first choice):** holds the raw HTML and is usually populated, regex-extract the `<p>` tags:
 
 ```python
 import re
@@ -394,7 +394,7 @@ for m in re.finditer(r'https://articles\.phantom-byte\.com/[a-z0-9\-]+', p):
         print(m.group(0))
 ```
 
-**Sitemap entries are extensionless; the fetchable URL needs `.html`.** Entries appear as `https://articles.phantom-byte.com/<slug>` and requesting that form returns 404. Append `.html` and it returns 200 with the full article. Same pattern applies to any static site whose sitemap omits the file extension — when an extensionless sitemap URL 404s, try it with the page extension before escalating to the browser.
+**Sitemap entries are extensionless; the fetchable URL needs `.html`.** Entries appear as `https://articles.phantom-byte.com/<slug>` and requesting that form returns 404. Append `.html` and it returns 200 with the full article. Same pattern applies to any static site whose sitemap omits the file extension, when an extensionless sitemap URL 404s, try it with the page extension before escalating to the browser.
 
 ## Recovering URLs when a source list has none
 
@@ -405,8 +405,8 @@ A **guessed slug** is the same class of problem, and the failure looks identical
 Sitemaps are also the right fallback when you need a canonical URL for a site whose HTML surface is gated: `/sitemap.xml` is almost never behind the WAF that protects article pages.
 
 ### Search engines
-- **lite.duckduckgo.com/lite/?q=...** — works with a plain `Fetcher` (~4.7KB, clean). Parse directly.
-- **search.brave.com/search?q=...** — returns ~200KB that is mostly CSS/JS. Run full `html_content` extraction plus a tag-strip fallback.
+- **lite.duckduckgo.com/lite/?q=...**, works with a plain `Fetcher` (~4.7KB, clean). Parse directly.
+- **search.brave.com/search?q=...**, returns ~200KB that is mostly CSS/JS. Run full `html_content` extraction plus a tag-strip fallback.
 
 ### Locating one row in a leaderboard
 Loop with `find()` and print a window around the keyword:
@@ -416,7 +416,7 @@ while idx != -1:
     print(text[idx:idx+500])
     idx = text.find('keyword', idx+500)
 ```
-If a row genuinely isn't present, say so — do NOT fabricate it.
+If a row genuinely isn't present, say so, do NOT fabricate it.
 
 ## Performance
 

@@ -27,7 +27,7 @@ curl -s -X POST "https://api.openai.com/v1/models" \
 
 ### Fixes
 
-1. **Re-enter the credential** — edit .env with the full un-truncated token
+1. **Re-enter the credential**, edit .env with the full un-truncated token
 2. **Restart gateway**: `hermes gateway restart`
 3. **If systemd fails**: `systemctl --user reset-failed hermes-gateway && systemctl --user restart hermes-gateway`
 

@@ -3,8 +3,8 @@
 ## The trap: `use_real_profile: true` set ≠ feature works
 
 Setting `browser.use_real_profile: true` in `~/.hermes/config.yaml` only flips
-the consent flag. The real-profile path **fails closed** — returns an error,
-launches nothing, copies nothing — whenever the default browser is not a
+the consent flag. The real-profile path **fails closed**, returns an error,
+launches nothing, copies nothing, whenever the default browser is not a
 supported Chromium (Chrome/Edge/Brave/Chromium).
 
 On this machine the default is **Comet** (non-Chromium), so the feature is
@@ -37,7 +37,7 @@ than a registry write.
 - `browser.engine` must be `auto`/`chrome`. **Lightpanda cannot load a Chromium
   profile** and fails closed with an explicit message.
 - Pre-release Chromium channel (Beta/Dev/Canary) as default is unsupported
-  (won't guess the channel's profile dir — wrong-principal safety).
+  (won't guess the channel's profile dir, wrong-principal safety).
 
 ## Source
 

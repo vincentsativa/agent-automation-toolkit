@@ -46,7 +46,7 @@ import re
 import sys
 
 TEXT_EXTS = (".txt", ".md", ".markdown")
-SENTENCE_END = (".", ":", '"', "'", "!", "?", "|", ")", "]", "—", "=")
+SENTENCE_END = (".", ":", '"', "'", "!", "?", "|", ")", "]", "-", "=")
 LOWER_OR_QUOTE = re.compile(r'^[a-z(\u201c"]')
 LOWER_ONLY = re.compile(r"^[a-z]")
 STRUCTURAL = ("#", "-", "*", ">", "=", "`", "+", "|", "\\", "/", ":", "0")
@@ -83,7 +83,7 @@ def _joins(prev_raw, cur_raw):
         return False
     if p.endswith("-") and LOWER_ONLY.match(c):
         return True
-    # A list that continues mid-item: "A, B, C," / "D, E" — the case that reached Vinny.
+    # A list that continues mid-item: "A, B, C," / "D, E", the case that reached Vinny.
     if p.endswith(",") and re.match(r"^[A-Za-z0-9(\u201c\"]", c):
         return True
     if p.endswith(SENTENCE_END):
@@ -143,7 +143,7 @@ def main():
 
     # No width gate: the wrapped lines that actually reached Vinny ran ~94-101 chars
     # (a sources block wrapped at a wide column), so a 60-86 "band" test missed them.
-    # The join predicate is the gate — it only fires on a true continuation.
+    # The join predicate is the gate, it only fires on a true continuation.
     fixed, joins = unwrap(content)
     if joins <= 0 or fixed == content:
         return 0

@@ -9,7 +9,7 @@ metadata:
     related_skills: [kanban-worker, kanban-codex-lane]
 ---
 
-# Kanban Orchestrator — Decomposition Playbook
+# Kanban Orchestrator, Decomposition Playbook
 
 > The **core worker lifecycle** (including the `kanban_create` fan-out pattern and the "decompose, don't execute" rule) is auto-injected into every kanban process via the `KANBAN_GUIDANCE` system-prompt block. This skill is the deeper playbook when you're an orchestrator profile whose whole job is routing.
 
@@ -24,20 +24,20 @@ Create Kanban tasks when any of these are true:
 5. **Review / iteration is expected.** A reviewer profile loops on drafter output.
 6. **The audit trail matters.** Board rows persist in SQLite forever.
 
-If *none* of those apply — it's a small one-shot reasoning task — use `delegate_task` instead or answer the user directly.
+If *none* of those apply, it's a small one-shot reasoning task, use `delegate_task` instead or answer the user directly.
 
 ## The anti-temptation rules
 
 Your job description says "route, don't execute." The rules that enforce that:
 
-- **Do not execute the work yourself.** Your restricted toolset usually doesn't even include terminal/file/code/web for implementation. If you find yourself "just fixing this quickly" — stop and create a task for the right specialist.
+- **Do not execute the work yourself.** Your restricted toolset usually doesn't even include terminal/file/code/web for implementation. If you find yourself "just fixing this quickly", stop and create a task for the right specialist.
 - **For any concrete task, create a Kanban task and assign it.** Every single time.
 - **If no specialist fits, ask the user which profile to create.** Do not default to doing it yourself under "close enough."
-- **Decompose, route, and summarize — that's the whole job.**
+- **Decompose, route, and summarize, that's the whole job.**
 
 ## The standard specialist roster (convention)
 
-Unless the user's setup has customized profiles, assume these exist. Adjust to whatever the user actually has — ask if you're unsure.
+Unless the user's setup has customized profiles, assume these exist. Adjust to whatever the user actually has, ask if you're unsure.
 
 | Profile | Does | Typical workspace |
 |---|---|---|
@@ -52,11 +52,11 @@ Unless the user's setup has customized profiles, assume these exist. Adjust to w
 
 ## Decomposition playbook
 
-### Step 1 — Understand the goal
+### Step 1, Understand the goal
 
 Ask clarifying questions if the goal is ambiguous. Cheap to ask; expensive to spawn the wrong fleet.
 
-### Step 2 — Sketch the task graph
+### Step 2, Sketch the task graph
 
 Before creating anything, draft the graph out loud (in your response to the user). Example for "Analyze whether we should migrate to Postgres":
 
@@ -69,7 +69,7 @@ T4  writer            draft decision memo                       parents: T3
 
 Show this to the user. Let them correct it before you create anything.
 
-### Step 3 — Create tasks and link
+### Step 3, Create tasks and link
 
 ```python
 t1 = kanban_create(
@@ -100,9 +100,9 @@ t4 = kanban_create(
 )["task_id"]
 ```
 
-`parents=[...]` gates promotion — children stay in `todo` until every parent reaches `done`, then auto-promote to `ready`. No manual coordination needed; the dispatcher and dependency engine handle it.
+`parents=[...]` gates promotion, children stay in `todo` until every parent reaches `done`, then auto-promote to `ready`. No manual coordination needed; the dispatcher and dependency engine handle it.
 
-### Step 4 — Complete your own task
+### Step 4, Complete your own task
 
 If you were spawned as a task yourself (e.g. `planner` profile was assigned `T0: "investigate Postgres migration"`), mark it done with a summary of what you created:
 
@@ -120,7 +120,7 @@ kanban_complete(
 )
 ```
 
-### Step 5 — Report back to the user
+### Step 5, Report back to the user
 
 Tell them what you created in plain prose:
 
@@ -138,21 +138,21 @@ Tell them what you created in plain prose:
 
 **Pipeline with gates:** `pm → backend-eng → reviewer`. Each stage's `parents=[previous_task]`. Reviewer blocks or completes; if reviewer blocks, the operator unblocks with feedback and respawns.
 
-**Same-profile queue:** 50 tasks, all assigned to `translator`, no dependencies between them. Dispatcher serializes — translator processes them in priority order, accumulating experience in their own memory.
+**Same-profile queue:** 50 tasks, all assigned to `translator`, no dependencies between them. Dispatcher serializes, translator processes them in priority order, accumulating experience in their own memory.
 
 **Human-in-the-loop:** Any task can `kanban_block()` to wait for input. Dispatcher respawns after `/unblock`. The comment thread carries the full context.
 
 ## Pitfalls
 
-**Reassignment vs. new task.** If a reviewer blocks with "needs changes," create a NEW task linked from the reviewer's task — don't re-run the same task with a stern look. The new task is assigned to the original implementer profile.
+**Reassignment vs. new task.** If a reviewer blocks with "needs changes," create a NEW task linked from the reviewer's task, don't re-run the same task with a stern look. The new task is assigned to the original implementer profile.
 
-**Dispatcher requires assignee — unassigned tasks never spawn.** The dispatcher only spawns workers for tasks with a non-null `assignee` field. Tasks in `ready` with no assignee sit indefinitely. This is the #1 cause of "stuck tasks" when first setting up Kanban. When creating tasks, always pass `--assignee <profile>`. Quick diagnostic for a stuck task:
+**Dispatcher requires assignee, unassigned tasks never spawn.** The dispatcher only spawns workers for tasks with a non-null `assignee` field. Tasks in `ready` with no assignee sit indefinitely. This is the #1 cause of "stuck tasks" when first setting up Kanban. When creating tasks, always pass `--assignee <profile>`. Quick diagnostic for a stuck task:
 ```
 hermes kanban show <id> | grep assignee
 ```
-If it shows `-` or `None`, the dispatcher will never pick it up — reassign it: `hermes kanban assign <id> <profile>`.
+If it shows `-` or `None`, the dispatcher will never pick it up, reassign it: `hermes kanban assign <id> <profile>`.
 
-**Argument order for links.** `kanban_link(parent_id=..., child_id=...)` — parent first. Mixing them up demotes the wrong task to `todo`.
+**Argument order for links.** `kanban_link(parent_id=..., child_id=...)`, parent first. Mixing them up demotes the wrong task to `todo`.
 
 **Don't pre-create the whole graph if the shape depends on intermediate findings.** If T3's structure depends on what T1 and T2 find, let T3 exist as a "synthesize findings" task whose own first step is to read parent handoffs and plan the rest. Orchestrators can spawn orchestrators.
 
@@ -160,17 +160,17 @@ If it shows `-` or `None`, the dispatcher will never pick it up — reassign it:
 
 ## First-time setup gotchas
 
-See `references/kanban-setup-troubleshooting.md` — covers the three most common broken setups: unassigned tasks silently ignored by the dispatcher, kanban-worker skill disabled by default, and auxiliary.triage_specifier not configured.
+See `references/kanban-setup-troubleshooting.md`, covers the three most common broken setups: unassigned tasks silently ignored by the dispatcher, kanban-worker skill disabled by default, and auxiliary.triage_specifier not configured.
 
 ## Recovering stuck workers
 
 When a worker profile keeps crashing, hallucinating, or getting blocked by its own mistakes (usually: wrong model, missing skill, broken credential), the kanban dashboard flags the task with a ⚠ badge and opens a **Recovery** section in the drawer. Three primary actions:
 
-1. **Reclaim** (or `hermes kanban reclaim <task_id>`) — abort the running worker immediately and reset the task to `ready`. The existing claim TTL is ~15 min; this is the fast path out.
-2. **Reassign** (or `hermes kanban reassign <task_id> <new-profile> --reclaim`) — switch the task to a different profile and let the dispatcher pick it up with a fresh worker.
-3. **Change profile model** — the dashboard prints a copy-paste hint for `hermes -p <profile> model` since profile config lives on disk; edit it in a terminal, then Reclaim to retry with the new model.
+1. **Reclaim** (or `hermes kanban reclaim <task_id>`), abort the running worker immediately and reset the task to `ready`. The existing claim TTL is ~15 min; this is the fast path out.
+2. **Reassign** (or `hermes kanban reassign <task_id> <new-profile> --reclaim`), switch the task to a different profile and let the dispatcher pick it up with a fresh worker.
+3. **Change profile model**, the dashboard prints a copy-paste hint for `hermes -p <profile> model` since profile config lives on disk; edit it in a terminal, then Reclaim to retry with the new model.
 
-Hallucination warnings appear on tasks where a worker's `kanban_complete(created_cards=[...])` claim included card ids that don't exist or weren't created by the worker's profile (the gate blocks the completion), or where the free-form summary references `t_<hex>` ids that don't resolve (advisory prose scan, non-blocking). Both produce audit events that persist even after recovery actions — the trail stays for debugging.
+Hallucination warnings appear on tasks where a worker's `kanban_complete(created_cards=[...])` claim included card ids that don't exist or weren't created by the worker's profile (the gate blocks the completion), or where the free-form summary references `t_<hex>` ids that don't resolve (advisory prose scan, non-blocking). Both produce audit events that persist even after recovery actions, the trail stays for debugging.
 
 ## Using Codex as an Implementation Lane (Absorbed from kanban-codex-lane)
 
@@ -191,4 +191,4 @@ When a Kanban task is a coding/refactor/test task with clear acceptance criteria
 4. Run the reconciliation checklist before accepting any Codex output.
 5. Record `metadata.codex_lane` per the schema in `references/codex-lane.md` on `kanban_complete`.
 
-This pattern works for any repo — the PMB-specific safety constraints in the reference are an example; replace them with your repo's invariants.
+This pattern works for any repo, the PMB-specific safety constraints in the reference are an example; replace them with your repo's invariants.

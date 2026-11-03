@@ -31,7 +31,7 @@ Common `x-cli` commands (use `xurl` instead wherever possible):
 
 ## Why xurl won
 
-1. **Official maintainer** — xurl is maintained by the X developer platform team
-2. **OAuth 2.0 PKCE** — auto-refreshing tokens, no manual token rotation
-3. **Larger API surface** — DMs, media upload, raw v2 endpoint access, streaming
-4. **Single-command auth** — `xurl auth oauth2` vs 5 env vars for x-cli
+1. **Official maintainer**, xurl is maintained by the X developer platform team
+2. **OAuth 2.0 PKCE**, auto-refreshing tokens, no manual token rotation
+3. **Larger API surface**, DMs, media upload, raw v2 endpoint access, streaming
+4. **Single-command auth**, `xurl auth oauth2` vs 5 env vars for x-cli

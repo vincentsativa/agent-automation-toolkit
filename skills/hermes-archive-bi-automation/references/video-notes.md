@@ -1,4 +1,4 @@
-# SHIFT44 BI — Video Notes
+# SHIFT44 BI, Video Notes
 
 **Source:** `bi recording NEW - 2026_04_09 17_01 EDT - Recording.mp4`
 **Status:** Reviewed page structure and UI elements from browser automation session
@@ -20,7 +20,7 @@
 ### Ad Capture Approach
 - Screenshot ads manually (video shows Command+Shift+4 workflow)
 - Copy offer link and paste next to creative in BI sheet
-- DBA names found at bottom of ad creative — "National Health Advisor" example shown
+- DBA names found at bottom of ad creative, "National Health Advisor" example shown
 
 ### Offer Link Resolution
 - Joe goes through collected offer links
@@ -32,4 +32,4 @@
 ## File Path Notes
 - Video: `C:\Users\<user>\OneDrive\Desktop\JOE SHIFT 44\bi recording NEW - 2026_04_09 17_01 EDT - Recording.mp4`
 - PDF: `C:\Users\<user>\OneDrive\Desktop\JOE SHIFT 44\stepbystep.pdf`
-- Existing blueprint: `C:\Users\<user>\OneDrive\Desktop\JOE SHIFT 44\bi-agent-blueprint.md` (older/overbuilt — our blueprint is leaner)
+- Existing blueprint: `C:\Users\<user>\OneDrive\Desktop\JOE SHIFT 44\bi-agent-blueprint.md` (older/overbuilt, our blueprint is leaner)

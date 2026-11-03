@@ -49,7 +49,7 @@ python3 /tmp/extract_article.py
 The following pattern gets blocked by the security approval system:
 
 ```bash
-# DO NOT USE — triggers security approval
+# DO NOT USE, triggers security approval
 curl -sL "https://..." | python3 -c "import sys; ..."
 ```
 
@@ -59,7 +59,7 @@ The system flags `curl | python3` as a HIGH-risk pipe-to-interpreter pattern. Wr
 
 | Site | Typical failure mode |
 |------|---------------------|
-| BBC News | Cookie consent banner, but curl extraction works well — HTML is clean and article body is in the initial payload. No paywall. |
+| BBC News | Cookie consent banner, but curl extraction works well, HTML is clean and article body is in the initial payload. No paywall. |
 | WIRED | Paywall overlay, heavy JS |
 | NVIDIA Blog | Timeout on initial load |
 | Hugging Face Blog | Timeout on initial load |

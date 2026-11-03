@@ -1,4 +1,4 @@
-# Daily Social Media Posts Cron — Full Workflow
+# Daily Social Media Posts Cron, Full Workflow
 
 Recurring daily cron producing a document of 10 Pinterest titles + descriptions,
 ranked best to worst. #1 = strongest broadest hook, #10 = most niche; evergreen
@@ -24,12 +24,12 @@ posted (avoids re-using the same topics day over day, keeps the feed fresh):
 - AI tools, AI for business, productivity, marketing software, AI writing/design tools → **AI Tools** (ai-tools-for-business-productivity-2026)
 - AI for developers, programming AI, developer tools, coding tutorials, AI coding assistants, APIs, software development with AI → **AI for Developers** (ai-for-developers-programming-ai-tutorials)
 - AI security, agent security, prompt injection, AI sandboxing, containment, least-privilege agents, model governance, AI threat defense → **Agent Security** (agent-security-prompt-injection-sandboxing)
-- Everything else (AI news, ML, robotics, quantum, emerging tech, general AI news) → **Main AI News** (ai-news-machine-learning-emerging-tech) — the default.
+- Everything else (AI news, ML, robotics, quantum, emerging tech, general AI news) → **Main AI News** (ai-news-machine-learning-emerging-tech), the default.
 
 ## 4. Verification (MANDATORY before emailing)
 Write the posts into a Python script list of tuples `(rank, board, title, desc)`,
 then `len()`-check every title (max 100) and description (max 500). Do NOT trust
-your own annotation — actual `len()` frequently differs from the number you
+your own annotation, actual `len()` frequently differs from the number you
 estimate. Drafts naturally land at 450-520 chars for descriptions; trim the
 offenders one at a time until ALL pass. Re-run the script after every edit batch.
 Keep the final list verified as "ALL OK" before generating the deliverable.
@@ -48,12 +48,12 @@ clean and consistent so he can scan and pick fast.
 
 ## 5. Delivery
 1. Write the document to `~/Desktop/TODAYS DATA FILES/social-media-posts-<date>.txt`
-   — label each post with its rank and `BOARD: <name>`.
+   - label each post with its rank and `BOARD: <name>`.
 2. Email it as an attachment to `hello@phantom-byte.com` (the ONLY Vinny address;
-   run the pre-flight address grep on the script). Subject: `Bill: Daily Social Media Posts For X and Pinterest`. Sign body with `— Bill`.
+   run the pre-flight address grep on the script). Subject: `Bill: Daily Social Media Posts For X and Pinterest`. Sign body with `- Bill`.
 3. Telegram notification: ONLY a brief confirmation that the email was sent (e.g. "Email sent with today's social media posts for X and Pinterest"). Do NOT paste post content, titles, summaries, or lists into Telegram. The email is the delivery mechanism; the Telegram note is a doorbell.
 
-## Style constraints (from writing-style skill — all apply)
+## Style constraints (from writing-style skill, all apply)
 - No em dashes. Proper punctuation only (commas, colons, periods).
 - Keyword-rich for Pinterest SEO: include relevant AI terms naturally
   (artificial intelligence, machine learning, AI news, emerging technology,

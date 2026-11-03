@@ -308,7 +308,7 @@ def scan_feeds(feed_id=None, scan_all=False, log_enabled=False):
             new_count = scan_feed(fid, url, name, cursor, log_enabled)
             
             display_name = name or url
-            message = f"[blogwatcher] Scanned: {display_name} — {new_count} new articles"
+            message = f"[blogwatcher] Scanned: {display_name}, {new_count} new articles"
             print(message)
             log_message(message, log_enabled)
         

@@ -1,6 +1,6 @@
-# Verified arXiv Sources — Agent Red-Teaming Cluster (June 2026)
+# Verified arXiv Sources, Agent Red-Teaming Cluster (June 2026)
 
-Session: Article 109 — "Your Agent Is Under Attack"
+Session: Article 109, "Your Agent Is Under Attack"
 Verified against arXiv abstracts + TensorFeed data file June 24, 2026.
 
 | arXiv ID | Title | Authors | Submit Date | Key Numbers Verified |

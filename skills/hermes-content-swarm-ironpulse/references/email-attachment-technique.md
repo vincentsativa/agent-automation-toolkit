@@ -4,7 +4,7 @@ Send an IronPulse (or any skill's output) as an email attachment with themes/ana
 
 ## Reliable Pattern: Standalone Python Script
 
-**DO NOT** use inline heredocs inside `terminal()` — triple-quoted strings inside a `python3 -c "..."` shell command cause SyntaxErrors due to quote escaping. Always write a standalone `.py` file and execute it.
+**DO NOT** use inline heredocs inside `terminal()`, triple-quoted strings inside a `python3 -c "..."` shell command cause SyntaxErrors due to quote escaping. Always write a standalone `.py` file and execute it.
 
 ## Step-by-Step
 

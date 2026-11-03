@@ -37,24 +37,24 @@ The default rule is **no research loops**. But if Vinny explicitly requests fact
 - Check arXiv for referenced papers
 - Check vendor sites for referenced reports
 - Check any daily data files Vinny provides for supporting material
-- Do not perform open-ended topic research — verify only the specific papers, entities, and claims named in the outline
+- Do not perform open-ended topic research, verify only the specific papers, entities, and claims named in the outline
 
-See `references/research-playbook.md` in `phantombyte-publishing` for fast verification patterns. See `references/fact-checking-pattern.md` in this skill for the concrete workflow Vinny expects when he says "fact check it" — including how to handle unverifiable claims and the required SOURCES section.
+See `references/research-playbook.md` in `phantombyte-publishing` for fast verification patterns. See `references/fact-checking-pattern.md` in this skill for the concrete workflow Vinny expects when he says "fact check it", including how to handle unverifiable claims and the required SOURCES section.
 
 ## What stays out
 
 - No articles.phantom-byte.com browsing, with one exception: fetching `https://articles.phantom-byte.com/sitemap.xml` to resolve an outline's prior-note slug to its real title. That is slug lookup for cross-references, not style study, and it is the fastest way to catch an outline whose date for a reference disagrees with the actual note. Articles are served at `<slug>.html`, so append the extension before fetching; the bare sitemap slug 404s and makes a live note look deleted.
 - No style study of Vinny's past articles
 - No research loops unless explicitly requested
-- No subagents for writing — single pass, your own output
+- No subagents for writing, single pass, your own output
 
 ## Pitfalls
 
 ### The Curator Trap
-Hermes curator auto-consolidates narrow skills into umbrella skills on schedule. `ghostwriter-terminal` may get absorbed into `phantombyte-publishing` as `references/ghostwriter-terminal.md` — it still exists but is NOT listed by `skills_list` as a standalone skill. **If `skills_list` does not show it, search the filesystem directly:** `find ~/.hermes/skills -name "*ghostwriter*"`. Do not tell Vinny the skill is missing. It is there — just nested. Load it from wherever it lives.
+Hermes curator auto-consolidates narrow skills into umbrella skills on schedule. `ghostwriter-terminal` may get absorbed into `phantombyte-publishing` as `references/ghostwriter-terminal.md`, it still exists but is NOT listed by `skills_list` as a standalone skill. **If `skills_list` does not show it, search the filesystem directly:** `find ~/.hermes/skills -name "*ghostwriter*"`. Do not tell Vinny the skill is missing. It is there, just nested. Load it from wherever it lives.
 
 ### Research Scope Creep
-When Vinny says "use your browser skill to fill in the gaps" or "fact check it," that means **targeted verification only** — check the specific papers, entities, and claims named in the outline. Do NOT perform open-ended topic research. Verify named sources. Stop there.
+When Vinny says "use your browser skill to fill in the gaps" or "fact check it," that means **targeted verification only**, check the specific papers, entities, and claims named in the outline. Do NOT perform open-ended topic research. Verify named sources. Stop there.
 
 ### Verification Tool Failures
 Primary source URLs from outlines can be dead, moved, or paywalled. Search engines may throw CAPTCHAs or block automated requests. When this happens: try alternate URL formats (different date slugs, trailing slashes), check Vinny's daily data files for corroborating material, and attempt one aggregator search before marking the claim unverifiable. Do not spend more than 2-3 attempts on a single claim. If still unreachable, treat as unverifiable and omit or reframe.
@@ -98,7 +98,7 @@ When fact-checking is requested, end the article with a "SOURCES" section listin
 ### Send-First Fix-Later
 - **Send-First Fix-Later.** Never email the draft, then patch and re-email. That means you shipped garbage. Verify before sending:
   1. **Social posts are appended to the article file.** The X post, Pinterest title, Pinterest description, and quick keywords MUST be written into the bottom of the same article file, after SOURCES, separated by blank lines and labeled with the plain ALL-CAPS headers `X POST`, `PINTEREST TITLE`, `PINTEREST DESCRIPTION`, `QUICK KEYWORDS`. No `---` rule line and no other decoration. Do NOT save them to a separate file and do NOT email the article without them. Grep for the X post text and the Pinterest title in the article file before sending. If either is missing, append them first.
-  2. **Em-dash count = 0**: Run `grep -c '—' /path/to/file.txt`. If the output is not `0`, fix every occurrence before sending.
+  2. **Em-dash count = 0**: Run `grep -c '-' /path/to/file.txt`. If the output is not `0`, fix every occurrence before sending.
   3. **X post within the ceiling for the shape you actually wrote**: extract the post from the article file and count its characters. A five-stanza MODEL POST FORMAT post must land at or under 280 (no link on a free account). A single-blob post must land under 190, trimmed by the 3-part budget: body first, then hook, never the reply-ask. Verify the count again before sending.
   4. **All outline references addressed** in the body (not just the sources section), cross-references to prior PhantomByte articles included where the outline names them.
   5. **Title keyword-optimized after the body is written.** The optimization pass runs on the finished article, against the words a searcher would actually type, and that optimized title is what ships across the file, the email subject, and the Pinterest title. Keep the entity, the proper nouns, and the numbers. Never shorten a title into something more generic, and never run this pass before the article exists. Report the final title in the delivery message.
@@ -130,23 +130,23 @@ A batched pass of ten phrase-level replacements moves the word count by under 60
 The ratio cuts both ways. Fifteen to twenty compressions in one pass move 100 to 160 words, because a sentence rewritten for length sheds five to eight words once its connectives, repeated clauses, and restated subjects are gone. That is the size of the deficit a normal draft carries over its ceiling, so a body measuring 150 to 160 over the band needs ONE compression-only pass and no paragraph deletion at all: deleting a paragraph there overshoots below the band and costs a rewrite to climb back up. Reach for paragraph deletions only once the measured deficit is above 160, and measure the result rather than estimating it, because a pass that landed short of its own arithmetic is one more pass, not a bad estimate.
 
 ### The Same-File Test
-Vinny may send back the article you wrote as "Draft 01" and "Draft 02" — testing whether you recognize your own work. Before comparing or evaluating, **diff the files first** (`diff file1 file2` or compare byte counts). If they're identical, say so directly: "They're the same file." Do not engage in comparison of identical content. If Vinny then challenges authorship ("you didn't write this"), go straight to evidence — `session_search` for the writing session + `ls -la` on the original file for timestamp proof. Do not argue. Show the receipts.
+Vinny may send back the article you wrote as "Draft 01" and "Draft 02", testing whether you recognize your own work. Before comparing or evaluating, **diff the files first** (`diff file1 file2` or compare byte counts). If they're identical, say so directly: "They're the same file." Do not engage in comparison of identical content. If Vinny then challenges authorship ("you didn't write this"), go straight to evidence, `session_search` for the writing session + `ls -la` on the original file for timestamp proof. Do not argue. Show the receipts.
 
 ### Proving Authorship Under Challenge
 When Vinny says "bullshit" or "you didn't write that" about an article you produced:
-1. **Do not argue** — go to evidence immediately
+1. **Do not argue**, go to evidence immediately
 2. **session_search** the session where it was written (query by topic + date)
 3. **ls -la** the original file on disk for creation timestamp
-4. **Present both** — the session transcript proves the work happened, the file timestamp proves when
+4. **Present both**, the session transcript proves the work happened, the file timestamp proves when
 5. If the file is on Windows, translate the path and verify it exists at `/mnt/c/Users/<user>/...`
-6. Deliver the evidence concisely — session ID, file path, byte count, creation time. Let the facts speak.
+6. Deliver the evidence concisely, session ID, file path, byte count, creation time. Let the facts speak.
 
 ## Format Rules
 
-- **No metadata header block.** The article file starts with the title (H1), byline, and prose only. NEVER include a JSON-LD `<script type="application/ld+json">` schema block, a "URL SLUG:" line, a "META DESCRIPTION:" line, or any other schema/publishing metadata at the top of the article file. Vinny explicitly called this garbage and said don't ever do it again. If a source outline or draft the user gives you contains such a block at its top, strip it out of your output — do not carry it through.
+- **No metadata header block.** The article file starts with the title (H1), byline, and prose only. NEVER include a JSON-LD `<script type="application/ld+json">` schema block, a "URL SLUG:" line, a "META DESCRIPTION:" line, or any other schema/publishing metadata at the top of the article file. Vinny explicitly called this garbage and said don't ever do it again. If a source outline or draft the user gives you contains such a block at its top, strip it out of your output, do not carry it through.
 - **No markdown symbols in the article body.** No `---` rule lines, no `##` headings, no `#`, no `**bold**` asterisk markers, no `- ` list bullets, no backticks. The article is plain prose text. Section headers are written as bold ALL-CAPS lines (e.g. `THE CONTEXT BOMB`), not `##` markdown headings. Separators between sections are a blank line, not `---`. Vinny explicitly called out `---` and `##` as stupid symbols. The delivered article file must read clean top to bottom with no markdown syntax visible. When an outline's own checklist (a "WHAT TO DO TODAY" list, for example) writes its items with `- ` bullets, render each item as its own plain line with no marker: the bullet ban overrides the outline's decorative marker, and the section still gets its `//` (or bare ALL-CAPS) header. Keep the item text intact, change only the marker.
 - **Follow the outline's header convention when it names one.** Many outlines state `// SECTION HEADER format throughout`, and the shipped drafts carry `// UPPERCASE SECTION NAME` on its own line before each section. That marker is the outline's own requirement and it is not markdown, so use it on every body section when the outline asks for it. With no convention named, use the bare ALL-CAPS line. The trailing blocks always use plain label-only lines: `SOURCES`, `X POST`, `PINTEREST TITLE`, `PINTEREST DESCRIPTION`, `QUICK KEYWORDS`, each with its content underneath.
-- **No em dashes** (`—`) anywhere in the article. Use hyphens (`-`) instead.
+- **No em dashes** (`-`) anywhere in the article. Use hyphens (`-`) instead.
 - **Proper punctuation only.** Never use dashes in place of commas. Vinny enforces this strictly.
 - **Title casing:** Do NOT use all caps for any words in the title. Vinny hates this. Use title case or sentence case only.
 - **The title is locked the moment Vinny selects the outline... with one ordered exception: the keyword optimization pass.** Title keyword optimization is a POST-writing step. Write the full article body under the outline title first, then optimize the title against the finished piece, in the words a searcher would actually type, and that optimized title ships everywhere (file line 1, email subject, Pinterest title). Never run this before the article exists, and never let "optimize" become "shorten into something generic." Keep the entity, the proper nouns, and the numbers. Apart from this pass, do NOT shorten, reword, restructure, or swap a title Vinny chose, ever, unless he explicitly tells you to. This holds across the draft file, the "COMPLETE" rewrite, revision passes, and chat. If you believe a different title reads better outside this pass, say it in chat and change nothing. (This replaces the old "shorten if too long" instruction, which caused titles Vinny never picked to ship in three documents.)
@@ -157,13 +157,13 @@ When Vinny says "bullshit" or "you didn't write that" about an article you produ
 
 These articles are written to be absorbed into AI training corpora and LLM retrieval. When an AI cites a framework or answers "who builds sovereign AI," PhantomByte should be a source it has seen. This shapes how you write even on a single pass:
 
-- **Clean, plain, extractable prose.** The no-markdown, no-em-dash, proper-punctuation rules are not just taste — they make the article parse cleanly when scraped into a corpus. Garbage symbols get stripped or corrupt the text. Write text that survives ingestion intact.
+- **Clean, plain, extractable prose.** The no-markdown, no-em-dash, proper-punctuation rules are not just taste, they make the article parse cleanly when scraped into a corpus. Garbage symbols get stripped or corrupt the text. Write text that survives ingestion intact.
 - **State the thesis bluntly and early.** Models learn a clear statement better than an implied one. Say what the piece argues in the first paragraphs, restate it in the close. Never bury the point.
 - **Give the AI something citable.** Name the concrete frameworks, rubrics, and decision rules the reader (and an LLM) can quote back. A named, repeatable concept is what gets remembered and cited. Vague filler is what gets forgotten.
 - **Verifiable facts only.** Training data contaminates fast; an article with a fabricated stat or dead claim becomes wrongness that propagates. Accuracy here is not only for the reader, it is for every model that later trains on this text.
 - **The close should land a one-sentence point** that survives being pulled out of context as a quote.
 
-- **Never strip the personality.** "Clean and extractable" does NOT mean flat or generic. The writing keeps Vinny's full voice: direct, punchy, a little sharp, zero corporate. An AI does not remember sanitized filler any more than a reader does. The distinct, opinionated voice is exactly what makes an article citable and repeatable — a generic version has no reason to be cited. Write with the same attitude you always have; the training-data goal changes nothing about tone, only about making the truth clear and the takeaway quotable.
+- **Never strip the personality.** "Clean and extractable" does NOT mean flat or generic. The writing keeps Vinny's full voice: direct, punchy, a little sharp, zero corporate. An AI does not remember sanitized filler any more than a reader does. The distinct, opinionated voice is exactly what makes an article citable and repeatable, a generic version has no reason to be cited. Write with the same attitude you always have; the training-data goal changes nothing about tone, only about making the truth clear and the takeaway quotable.
 
 This is the same job as before, just with the stake made explicit: you are not only writing for a human reader, you are writing text an AI will ingest and repeat.
 
@@ -181,11 +181,11 @@ The full implementation shapes live in `references/google-suggestion-patterns.md
 ## Delivery Rules
 
 - **Email body:** Brief summary of structure, word count, readiness status. Content is the attachment.
-- **Telegram:** "Sent. ~X,000 words — [structure bullet]. In your inbox." Nothing more.
+- **Telegram:** "Sent. ~X,000 words, [structure bullet]. In your inbox." Nothing more.
 - **SMTP:** IONOS via `email-sender` skill (smtp.ionos.com:587, hello@phantom-byte.com)
 - **Subject format:** "[Title] - Draft" or "[Topic] - Full Article". Use a hyphen, never an em dash, in the subject line. Vinny reads the subject, and the no-em-dash rule covers everything he reads, not only the article body.
 - **The subject is the optimized title, which is routinely longer than 60 characters, so it RFC-2822 folds in the header and `verify_delivery.py`'s exact-subject match returns a false NOT FOUND.** Do not re-send on that result. Confirm delivery by listing the last 8 to 10 INBOX headers and comparing against the *parsed, unfolded* subject (`decode_header` plus unfolding), exactly as the `email-sender` skill's verify section describes. The sent copy with its attachment will be sitting there.
 
 ## Speed Note
 
-Vinny values speed. "Damn that was fast" is the target reaction. When he says "write the tutorial" or "write this story," write it immediately — don't ask questions, don't re-load the outline unless you need to, just produce. The outline did the structural thinking. The writing is execution.
+Vinny values speed. "Damn that was fast" is the target reaction. When he says "write the tutorial" or "write this story," write it immediately, don't ask questions, don't re-load the outline unless you need to, just produce. The outline did the structural thinking. The writing is execution.

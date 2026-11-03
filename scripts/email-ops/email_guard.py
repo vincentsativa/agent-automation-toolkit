@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Email recipient guard — run BEFORE any outbound send.
+Email recipient guard, run BEFORE any outbound send.
 
 Blocks, in order:
-  1. Suppression list  (data/suppression.txt)  — addresses that hard-bounced/unsubscribed.
-  2. Role addresses    (data/role_prefixes.txt) — info@, service@, office@, sales@, support@...
+  1. Suppression list  (data/suppression.txt)  - addresses that hard-bounced/unsubscribed.
+  2. Role addresses    (data/role_prefixes.txt), info@, service@, office@, sales@, support@...
   3. Bad syntax / disposable domains / free-mail domains / placeholder addresses.
 Optionally checks MX and (with --smtp) does an SMTP RCPT probe.
 

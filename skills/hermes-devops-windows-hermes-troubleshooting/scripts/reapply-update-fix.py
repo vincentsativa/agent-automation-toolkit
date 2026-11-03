@@ -8,7 +8,7 @@ dependency sync dies with os error 32 / PermissionError.
 
 The permanent fix makes `_resolve_hermes_bin()` prefer
 `[sys.executable, "-m", "hermes_cli.main"]` over the `hermes.exe` shim on
-Windows. This is a LOCAL patch to the checkout — every `git pull` / ZIP update
+Windows. This is a LOCAL patch to the checkout, every `git pull` / ZIP update
 overwrites it, so run this script after any update that touches gateway/run.py.
 
 Idempotent: exits 0 with "already patched" if the marker is present.
@@ -144,7 +144,7 @@ def main() -> int:
         py_compile.compile(str(path), doraise=True)
         print("compile check: OK")
     except py_compile.PyCompileError as exc:
-        print(f"compile check: FAILED — {exc}")
+        print(f"compile check: FAILED, {exc}")
         return 1
 
     return 0

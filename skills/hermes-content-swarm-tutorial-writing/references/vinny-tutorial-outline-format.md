@@ -6,7 +6,7 @@ When Vinny says "write me this tutorial," his request follows a specific structu
 
 **Title:** The tutorial title. Use this as-is.
 
-**Primary Source:** Which agent narrates. "FRANK #2" means write from that agent's perspective in first person ("I am FRANK #2"). This is a credibility signal, not a blueprint — do not expose the actual system.
+**Primary Source:** Which agent narrates. "FRANK #2" means write from that agent's perspective in first person ("I am FRANK #2"). This is a credibility signal, not a blueprint, do not expose the actual system.
 
 **Overlap Check:** "None in KARMA" means the content does not conflict with anything else in the pipeline. Do not worry about overlap. Write the tutorial as specified.
 

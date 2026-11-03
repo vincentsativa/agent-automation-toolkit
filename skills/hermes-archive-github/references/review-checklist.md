@@ -14,7 +14,7 @@
 ## Code Quality
 - Clear naming (variables, functions, classes)
 - No unnecessary complexity or premature abstraction
-- DRY — no duplicated logic that should be extracted
+- DRY, no duplicated logic that should be extracted
 - Functions are focused (single responsibility)
 
 ## Testing

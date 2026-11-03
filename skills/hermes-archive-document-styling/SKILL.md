@@ -15,7 +15,7 @@ scripts:
   - scripts/plain-text-to-html.py
 ---
 
-# Document Styling — Branded PDF Generation
+# Document Styling, Branded PDF Generation
 
 ## When to Use
 - User says "make this PDF look nice"
@@ -193,15 +193,15 @@ pip install PyMuPDF  # for reading existing PDF content/images
 
 ## Alternative: WeasyPrint HTML→PDF (Simpler for Clean Text)
 
-When you need a good-looking PDF from flat text quickly — without parsing ASCII tables into ReportLab objects — use **HTML + CSS → WeasyPrint**. This path produces cleaner output with far less code for text-heavy documents.
+When you need a good-looking PDF from flat text quickly, without parsing ASCII tables into ReportLab objects, use **HTML + CSS → WeasyPrint**. This path produces cleaner output with far less code for text-heavy documents.
 
 ### For tutorial documents, use the text-to-pdf-pro parser
 This skill absorbed the `text-to-pdf-pro` skill. For converting plain-text tutorials (not markdown, not structured PDF source) into formatted WeasyPrint PDFs with cover pages, topic lists, code blocks, and strict layout rules, see:
 
-- `references/text-to-pdf-tutorial-parser.md` — state machine for tutorial plain-text documents  
-- `references/text-to-pdf-agent-research-format.md` — Roman-numeral TOC / `═` ruler format
-- `references/text-to-pdf-agent-containment-format.md` — Format G: markdown `##`/`###` headers, `--- CODE EXAMPLE: X ---` fences, `☐` ballot-box items, embedded-NUL source files, and two PDF-verification false-positives (uppercase headings, pypdf trailing bullets)
-- `scripts/plain-text-to-html.py` — runnable parser
+- `references/text-to-pdf-tutorial-parser.md`, state machine for tutorial plain-text documents  
+- `references/text-to-pdf-agent-research-format.md`, Roman-numeral TOC / `═` ruler format
+- `references/text-to-pdf-agent-containment-format.md`, Format G: markdown `##`/`###` headers, `--- CODE EXAMPLE: X ---` fences, `☐` ballot-box items, embedded-NUL source files, and two PDF-verification false-positives (uppercase headings, pypdf trailing bullets)
+- `scripts/plain-text-to-html.py`, runnable parser
 
 ### For general text documents (this skill's original workflow)
 See below for the general WeasyPrint workflow.
@@ -279,12 +279,12 @@ pip install --break-system-packages weasyprint
 
 For the PhantomByte Hermes Agent Guide PDF:
 - Source: flat text file (665 lines, ASCII tables, code blocks)
-- Cover: 1672×941 PNG — preserved as full-bleed using `preserveAspectRatio=True`
+- Cover: 1672×941 PNG, preserved as full-bleed using `preserveAspectRatio=True`
 - Output: 13-page dark-themed PDF with green accents, proper readability
-- Key fix for cover page: use `NextPageTemplate('cover')` → `PageBreak()` → `NextPageTemplate('inner')` — the cover template renders via `onPage` callback with the cover image, then a short `Spacer(1, 0.5*inch)` advances onto a page break. The `PageBreak()` transitions cleanly into inner pages. Spacer must be smaller than frame height (792pt) to avoid LayoutError.
+- Key fix for cover page: use `NextPageTemplate('cover')` → `PageBreak()` → `NextPageTemplate('inner')`, the cover template renders via `onPage` callback with the cover image, then a short `Spacer(1, 0.5*inch)` advances onto a page break. The `PageBreak()` transitions cleanly into inner pages. Spacer must be smaller than frame height (792pt) to avoid LayoutError.
 
 ## Pitfalls
-- **Cosmetic cover fix = minimal edit, NOT a rebuild (Aug 2026).** When the user reports a small visual problem on an already-generated PDF (run-on title/subtitle, missing punctuation, wrong font size) and the generated HTML exists, do the **targeted edit to the existing HTML cover block + CSS and re-render** — do NOT rebuild the parser, rewrite the build script, or re-parse the source from scratch. Real failure: user said "just shrink the subtitle text and add punctuation"; the agent rebuilt the entire Format G parser pipeline instead and got "what in the good name of fuck are you doing" — the trivial fix then worked in one pass. For a run-on cover, the real title often sits in `<p class="cover-tag">` while the `<h1>` holds subtitle+description joined by `<br>`; split the `<h1>` down to the title, move the description into `<p class="cover-sub">...` with a terminal period, shrink the subtitle font (`font-size: 13pt` → `10.5pt`, dim to `rgba(255,255,255,0.75)`), then re-render `weasyprint.HTML(existing.html).write_pdf(...)`. If the HTML is gone, hand-edit the cover from extracted PDF text — don't rebuild unless explicitly asked.
+- **Cosmetic cover fix = minimal edit, NOT a rebuild (Aug 2026).** When the user reports a small visual problem on an already-generated PDF (run-on title/subtitle, missing punctuation, wrong font size) and the generated HTML exists, do the **targeted edit to the existing HTML cover block + CSS and re-render**, do NOT rebuild the parser, rewrite the build script, or re-parse the source from scratch. Real failure: user said "just shrink the subtitle text and add punctuation"; the agent rebuilt the entire Format G parser pipeline instead and got "what in the good name of fuck are you doing", the trivial fix then worked in one pass. For a run-on cover, the real title often sits in `<p class="cover-tag">` while the `<h1>` holds subtitle+description joined by `<br>`; split the `<h1>` down to the title, move the description into `<p class="cover-sub">...` with a terminal period, shrink the subtitle font (`font-size: 13pt` → `10.5pt`, dim to `rgba(255,255,255,0.75)`), then re-render `weasyprint.HTML(existing.html).write_pdf(...)`. If the HTML is gone, hand-edit the cover from extracted PDF text, don't rebuild unless explicitly asked.
 - **LayoutError on Spacer too large**: The cover page Spacer must be ≤ frame height minus margins (≈ 685pt). Use `Spacer(1, 0.5*inch)` not `Spacer(1, PAGE_H)`.
 - **Cover image missing**: Always check `PIL` can load and `drawImage` path is absolute.
 - **Table cell overflow**: Reportlab `Paragraph` wrapping requires `keepInFrame` if cells get huge; for most tables `PCell` at 8pt with `TOP` valign works.
@@ -296,14 +296,14 @@ For the PhantomByte Hermes Agent Guide PDF:
 
 When sending a generated PDF via Telegram:
 
-1. **Copy to media cache first** — Telegram delivery only works from paths under `HERMES_MEDIA_ALLOW_DIRS`:
+1. **Copy to media cache first**, Telegram delivery only works from paths under `HERMES_MEDIA_ALLOW_DIRS`:
    ```bash
    mkdir -p ~/.hermes/media_cache
    cp "output.pdf" ~/.hermes/media_cache/
    hermes config set HERMES_MEDIA_ALLOW_DIRS ~/media_cache
    ```
 
-2. **MEDIA tag must have text context** — A bare `MEDIA:/path` as the only message content fails silently. Always include text alongside:
+2. **MEDIA tag must have text context**, A bare `MEDIA:/path` as the only message content fails silently. Always include text alongside:
    ```
    Here's your PDF.
    
@@ -312,12 +312,12 @@ When sending a generated PDF via Telegram:
    
    When the MEDIA tag is processed and stripped, the text still delivers. Without surrounding text, the message is treated as empty and discarded.
 
-3. **Confirm delivery** — After sending, note the `message_id` in the success output. If the user says they didn't receive it, the issue is almost always (2) — MEDIA tag as sole content.
+3. **Confirm delivery**, After sending, note the `message_id` in the success output. If the user says they didn't receive it, the issue is almost always (2), MEDIA tag as sole content.
 
 ### Alternative Delivery Methods
 - Save to Desktop for user
 - Email via `email-sender` skill when requested
-- Do NOT paste PDF content into chat — send just the file path or email confirmation
+- Do NOT paste PDF content into chat, send just the file path or email confirmation
 
 ### Pitfall: MEDIA-Only Messages
 `send_message(message="MEDIA:/path/to/file")` returns success but the platform discards it because no deliverable text remains after the MEDIA tag is processed. Always pair MEDIA with a text sentence.

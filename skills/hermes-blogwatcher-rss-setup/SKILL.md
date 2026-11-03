@@ -44,7 +44,7 @@ These sites do not expose standard RSS/Atom feeds and will fail auto-discovery:
 - Anthropic, OpenAI, DeepMind, a16z, VentureBeat AI, Stability AI, Lambda Labs, AI Magazine
 - TLDR AI (blocked by Vercel bot protection)
 
-**Do not waste time trying to add these** — they require HTML scraping configuration with `--scrape-selector` which is fragile and site-specific, or are blocked by bot detection.
+**Do not waste time trying to add these**, they require HTML scraping configuration with `--scrape-selector` which is fragile and site-specific, or are blocked by bot detection.
 
 ## Setup Workflow
 
@@ -87,7 +87,7 @@ The blogwatcher SQLite DB uses a **UNIQUE constraint on article URLs**. This mat
 
 ### The Re-Import Loop (Critical Pitfall)
 
-If you **DELETE** articles from the DB, you remove their URL records. On the next `~/blogwatcher-cli scan`, those feeds will re-discover and re-insert the same articles as "new" — because the unique constraint no longer blocks them. This creates a cycle: cleanup deletes → scan re-adds → DB stays bloated.
+If you **DELETE** articles from the DB, you remove their URL records. On the next `~/blogwatcher-cli scan`, those feeds will re-discover and re-insert the same articles as "new", because the unique constraint no longer blocks them. This creates a cycle: cleanup deletes → scan re-adds → DB stays bloated.
 
 **DO NOT use DELETE-only cleanup.** The old approach of `DELETE FROM articles WHERE published_date < ?` causes this loop.
 
@@ -95,17 +95,17 @@ If you **DELETE** articles from the DB, you remove their URL records. On the nex
 
 The correct approach uses a two-phase script at `~/scripts/blogwatcher-cleanup.sh`:
 
-**Phase 1 — Mark as Read (retention window, default 7 days):**
+**Phase 1, Mark as Read (retention window, default 7 days):**
 ```sql
 UPDATE articles SET is_read = 1 WHERE is_read = 0 AND published_date < ?
 ```
 This keeps the URL row in the DB (the unique constraint still blocks re-import), but marks it read so it won't show up in article listings. The scan sees the URL exists and skips it.
 
-**Phase 2 — Hard Delete (archival limit, default 90 days):**
+**Phase 2, Hard Delete (archival limit, default 90 days):**
 ```sql
 DELETE FROM articles WHERE published_date < ?
 ```
-Truly ancient data gets purged to prevent unbounded DB growth. 90 days is a safe default — far enough out that re-import is unlikely to matter.
+Truly ancient data gets purged to prevent unbounded DB growth. 90 days is a safe default, far enough out that re-import is unlikely to matter.
 
 **Usage:**
 ```bash
@@ -120,8 +120,8 @@ Truly ancient data gets purged to prevent unbounded DB growth. 90 days is a safe
 
 **Cleanup MUST run AFTER the daily scan, not before.**
 
-- **11:00 AM** — Daily scan fetches new articles (`~/blogwatcher-cli scan`)
-- **11:05 AM** — Cleanup marks old articles as read and purges ancient ones
+- **11:00 AM**, Daily scan fetches new articles (`~/blogwatcher-cli scan`)
+- **11:05 AM**, Cleanup marks old articles as read and purges ancient ones
 
 If cleanup runs before the scan, it marks articles as read that haven't been reported yet. If it uses delete-only (old approach), the scan immediately re-adds them. The sequence matters.
 
@@ -155,7 +155,7 @@ If a feed shows "No feed or scraper configured":
 
 3. **If still failing, check for bot protection:** Sites behind Vercel Security Checkpoint or Cloudflare may block RSS access entirely.
 
-4. **If the site has no RSS** — remove it and move on.
+4. **If the site has no RSS**, remove it and move on.
 
 5. **Transient HTTP errors (503, 429):** These are server-side, not setup problems. Just re-run the scan.
 

@@ -6,13 +6,13 @@ Write summaries from your own knowledge first. Most AI news headlines from estab
 
 ## When to Browse vs. When to Write From Knowledge
 
-### Write from knowledge (default — 90% of stories):
+### Write from knowledge (default, 90% of stories):
 - Headline clearly states the event/claim
 - Source is known and trusted (The Decoder, TechCrunch, Wired, Ars Technica, MIT Tech Review, AI News, NVIDIA, Hugging Face)
 - The story follows a familiar pattern (model release, funding round, policy change, security incident)
 - You have enough context from the headline + source to write 4-5 sentences
 
-### Browse to verify (10% of stories — only when needed):
+### Browse to verify (10% of stories, only when needed):
 - Headline makes a surprising or controversial claim that needs verification
 - Story is from an unfamiliar source with unknown editorial standards
 - You need a specific data point (price, date, model name) that isn't in the headline
@@ -22,11 +22,11 @@ Write summaries from your own knowledge first. Most AI news headlines from estab
 
 Structure each summary as:
 
-1. **Lead sentence** — The single most important fact. What happened, who did it, when.
-2. **Context sentence** — Why this matters. The broader trend or implication.
-3. **Detail sentence** — A specific data point, quote, or mechanism from the story.
-4. **Impact sentence** — What this means for the industry, users, or competitors.
-5. **Closing sentence** — What happens next, or a counterpoint.
+1. **Lead sentence**, The single most important fact. What happened, who did it, when.
+2. **Context sentence**, Why this matters. The broader trend or implication.
+3. **Detail sentence**, A specific data point, quote, or mechanism from the story.
+4. **Impact sentence**, What this means for the industry, users, or competitors.
+5. **Closing sentence**, What happens next, or a counterpoint.
 
 Example from this session's data:
 
@@ -36,7 +36,7 @@ Example from this session's data:
 
 ## Timing Rule
 
-Write ALL summaries from your own knowledge first. If you delegate any browsing tasks for verification, treat their results as optional enhancements that arrive later. Do NOT block on browsing results or structure your output around them. The full brief must be completable without any browsing — browsing is a polish step, not a dependency.
+Write ALL summaries from your own knowledge first. If you delegate any browsing tasks for verification, treat their results as optional enhancements that arrive later. Do NOT block on browsing results or structure your output around them. The full brief must be completable without any browsing, browsing is a polish step, not a dependency.
 
 ## Why This Works
 

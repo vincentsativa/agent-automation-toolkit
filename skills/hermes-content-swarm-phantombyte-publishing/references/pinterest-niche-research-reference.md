@@ -9,19 +9,19 @@ Key statistics for sizing and validating Pinterest niche opportunities.
 - **Ad reach:** ~340M users reachable by ads (Jan 2025)
 - **Monthly web visits:** ~1.1-1.3B
 - **Rank:** ~15th most used social platform worldwide by MAU
-- **Daily time spent:** ~14.2 min/user (lowest among major social — Facebook 33m, Twitter 31m, Insta 29m)
+- **Daily time spent:** ~14.2 min/user (lowest among major social, Facebook 33m, Twitter 31m, Insta 29m)
 
 ## Top Content Categories (by Pin volume)
 
-1. **Home décor** — 23B+ Pins, 682M boards (largest category)
-2. **Food & recipes** — 18B+ Pins
-3. **Fashion** — 13B+ Pins
-4. **DIY & crafts** — High engagement, sub-niches like Cricut outperform
-5. **Travel** — Nature getaways +72%, Kilimanjaro +221%
-6. **Wellness** — "Nervous system regulation" +70%, "art journal therapy" +3,755%
-7. **Sustainable living** — +69% since 2018
+1. **Home décor**, 23B+ Pins, 682M boards (largest category)
+2. **Food & recipes**, 18B+ Pins
+3. **Fashion**, 13B+ Pins
+4. **DIY & crafts**, High engagement, sub-niches like Cricut outperform
+5. **Travel**, Nature getaways +72%, Kilimanjaro +221%
+6. **Wellness**, "Nervous system regulation" +70%, "art journal therapy" +3,755%
+7. **Sustainable living**, +69% since 2018
 
-AI/Tech is NOT a top Pin-volume category — it's an underserved/emerging niche.
+AI/Tech is NOT a top Pin-volume category, it's an underserved/emerging niche.
 
 ## Tech Audience Signal (Referral Data)
 
@@ -36,10 +36,10 @@ Desktop referral traffic breakdown to Pinterest.com:
 
 ## Demographic Profile
 
-- **Gen Z:** 42% of global MAUs — fastest growing segment, saves more pins than any other generation
+- **Gen Z:** 42% of global MAUs, fastest growing segment, saves more pins than any other generation
 - **Women:** ~70% of users (historically dominant but Gen Z is more balanced)
 - **U.S. users:** ~96-97M (largest national audience)
-- **Unbranded searches:** 96%+ — users search for "ideas" and "inspiration" not products
+- **Unbranded searches:** 96%+, users search for "ideas" and "inspiration" not products
 
 ## Growth Signals for Niche Validation
 
@@ -47,7 +47,7 @@ Desktop referral traffic breakdown to Pinterest.com:
 |--------|---------------|---------------|
 | Trends "Spotlight" | trends.pinterest.com | Pin-save MoM growth (e.g., "Travel Aesthetic Destinations +10,001%") |
 | Search Trends | trends.pinterest.com/trends/searches | Keyword-level trending searches from Pin save data |
-| Pinterest Predicts | business.pinterest.com/pinterest-predicts/ | 80% accurate annual forecast — themed trend names signal category direction |
+| Pinterest Predicts | business.pinterest.com/pinterest-predicts/ | 80% accurate annual forecast, themed trend names signal category direction |
 | Autocomplete | Pinterest search bar | Real user search terms with platform-validated volume |
 | Search result density | Direct search result page | High supply = competitive, low/sparse = underserved opportunity |
 | Sponsored content | Search results page | Advertisers spend where purchase intent exists |

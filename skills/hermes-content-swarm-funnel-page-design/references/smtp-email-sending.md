@@ -45,11 +45,11 @@ def send_email(to, subject, body_text, attachment_path=None, attachment_name=Non
 ```
 
 ## Usage Pattern
-1. Write the script to a `.py` file (inline Python with f-strings causes escaping issues — always use a file)
+1. Write the script to a `.py` file (inline Python with f-strings causes escaping issues, always use a file)
 2. Run with `python3 /path/to/script.py`
 3. For multiple attachments, call `msg.attach()` for each file
 
 ## Pitfalls
-- **Don't inline Python scripts via `python3 -c`** — f-strings, quotes, and special characters in passwords cause escaping nightmares. Write to a `.py` file and execute it.
-- **Always use STARTTLS** (`server.starttls()`) — IONOS requires TLS on port 587.
-- **Attachment filenames** — `Content-Disposition` uses `filename=` not `filename=` with f-string shorthand. Use `part.add_header("Content-Disposition", "attachment", filename="name.txt")`.
+- **Don't inline Python scripts via `python3 -c`**, f-strings, quotes, and special characters in passwords cause escaping nightmares. Write to a `.py` file and execute it.
+- **Always use STARTTLS** (`server.starttls()`), IONOS requires TLS on port 587.
+- **Attachment filenames**, `Content-Disposition` uses `filename=` not `filename=` with f-string shorthand. Use `part.add_header("Content-Disposition", "attachment", filename="name.txt")`.

@@ -324,7 +324,7 @@ All tools from all servers are registered and available simultaneously. Each ser
 
 ## Sampling (Server-Initiated LLM Requests)
 
-Hermes supports MCP's `sampling/createMessage` capability — MCP servers can request LLM completions through the agent during tool execution. This enables agent-in-the-loop workflows (data analysis, content generation, decision-making).
+Hermes supports MCP's `sampling/createMessage` capability, MCP servers can request LLM completions through the agent during tool execution. This enables agent-in-the-loop workflows (data analysis, content generation, decision-making).
 
 Sampling is **enabled by default**. Configure per server:
 
@@ -352,6 +352,6 @@ Disable sampling for untrusted servers with `sampling: { enabled: false }`.
 
 - MCP tools are called synchronously from the agent's perspective but run asynchronously on a dedicated background event loop
 - Tool results are returned as JSON with either `{"result": "..."}` or `{"error": "..."}`
-- The native MCP client is independent of `mcporter` (see `references/mcporter-cli.md`) — you can use both simultaneously
+- The native MCP client is independent of `mcporter` (see `references/mcporter-cli.md`), you can use both simultaneously
 - Server connections are persistent and shared across all conversations in the same agent process
 - Adding or removing servers requires restarting the agent (no hot-reload currently)

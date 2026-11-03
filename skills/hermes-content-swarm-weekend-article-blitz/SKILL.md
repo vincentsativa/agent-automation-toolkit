@@ -1,8 +1,8 @@
 ---
 name: weekend-article-blitz
-title: Weekend Article Blitz — Two Articles, Two Days
+title: Weekend Article Blitz, Two Articles, Two Days
 version: 2.0
-description: End-to-end weekend blueprint for publishing two articles on articles.phantom-byte.com — one macro/strategic (Saturday) and one micro/tactical (Sunday). Covers research, drafting, SEO, social assets, and publishing. Saturday on AGI bottlenecks, Sunday on grid-driven app failures. Cross-linked bidirectionally.
+description: End-to-end weekend blueprint for publishing two articles on articles.phantom-byte.com, one macro/strategic (Saturday) and one micro/tactical (Sunday). Covers research, drafting, SEO, social assets, and publishing. Saturday on AGI bottlenecks, Sunday on grid-driven app failures. Cross-linked bidirectionally.
 author: Vinny Barreca
 tags: [content-creation, article-writing, phantom-byte, weekend-blitz, SEO, swarm]
 toolsets: [file, web, browser]
@@ -26,7 +26,7 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 ### Step 1: Research & Dedup (Friday Night or Saturday AM)
 
 - Research already exists in memory/archive/ai-energy-crisis-research/ and memory/article-ideas-pending.md
-- Action: Audit articles.phantom-byte.com for overlap — existing pieces cover AI Energy Crisis and Infrastructure Gap, this piece must go broader connecting power + compute + efficiency as a unified argument
+- Action: Audit articles.phantom-byte.com for overlap, existing pieces cover AI Energy Crisis and Infrastructure Gap, this piece must go broader connecting power + compute + efficiency as a unified argument
 - Action: Run the swarm or draft directly
 
 ### Step 2: Draft (Saturday Morning)
@@ -34,10 +34,10 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 - **Target:** 2,500-4,000 words (top performers are long-form)
 - **Structure:**
   - **H1:** The AGI Bottleneck Triad: Power, Compute, and the Efficiency Crisis Nobody Wants to Admit
-  - **Section 1 — The Power Problem:** Data centers pulling state-level electricity. Grid is 100 years old. FERC fights. Behind-the-meter generation. SMR timeline misses the mark.
-  - **Section 2 — The Compute Problem:** TSMC can't fab fast enough. GPU allocations are a blood sport. MoE and MLA as architectural escapes, not just optimizations.
-  - **Section 3 — The Efficiency Solution:** DeepSeek proved you don't need a nuclear plant. Curated data beats brute force. Smart architecture buys time.
-  - **Conclusion — All Three Legs:** "AGI needs all three legs of the stool — and we're limping on at least two."
+  - **Section 1, The Power Problem:** Data centers pulling state-level electricity. Grid is 100 years old. FERC fights. Behind-the-meter generation. SMR timeline misses the mark.
+  - **Section 2, The Compute Problem:** TSMC can't fab fast enough. GPU allocations are a blood sport. MoE and MLA as architectural escapes, not just optimizations.
+  - **Section 3, The Efficiency Solution:** DeepSeek proved you don't need a nuclear plant. Curated data beats brute force. Smart architecture buys time.
+  - **Conclusion, All Three Legs:** "AGI needs all three legs of the stool, and we're limping on at least two."
 - **Voice:** Brutal truth, "I" statements, real numbers, zero corporate PR
 - **Format:** Follow PhantomByte writing style (load `phantom-byte-writing-style` skill)
 - **NO EM DASHES anywhere**
@@ -45,7 +45,7 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 ### Step 3: SEO & Meta (Saturday Midday)
 
 - **Meta title:** AGI Bottleneck Triad: Power, Compute & Efficiency Crisis 2026 (60 chars)
-- **Meta desc:** AI's path to AGI isn't blocked by algorithms — it's blocked by substations, chip fabs, and inefficient architectures. Here's why. (155 chars)
+- **Meta desc:** AI's path to AGI isn't blocked by algorithms, it's blocked by substations, chip fabs, and inefficient architectures. Here's why. (155 chars)
 - **Primary keyword:** "AGI bottleneck" (H1, first paragraph, 2-3 H2s)
 - **Internal links:** → AI Infrastructure Gap, → AI Energy Crisis: 503, → Sovereign AI Stack 2026
 - **External links:** IEA report, FERC filing, DeepSeek architecture paper
@@ -53,7 +53,7 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 
 ### Step 4: Social Assets (Saturday PM)
 
-- **Pinterest:** "AGI Bottleneck Triad Explained — Why Your AI Can't Scale" (2:3 pin, text overlay, brand colors)
+- **Pinterest:** "AGI Bottleneck Triad Explained, Why Your AI Can't Scale" (2:3 pin, text overlay, brand colors)
 - **X.com:** "AGI doesn't need better algorithms. It needs a substation, a fab, and a thermodynamics lesson. New piece on why 🔥" (190 chars)
 - **Telegram:** Brief announcement with link
 
@@ -89,11 +89,11 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 - **Structure:**
   - **H1:** The Grid Can't Save You: Why Your AI App Will Fail Before Your Model Does
   - **Hook:** You've seen the 503s. You've blamed your code. Here's what's really happening.
-  - **Section 1 — Your 503 Isn't a Bug:** API outages mapped to grid stress events. The correlation nobody's publishing.
-  - **Section 2 — The Multi-Tenant Power Problem:** When power is scarce, who gets the tokens? Priority routing during brownouts. Your app is last in line.
-  - **Section 3 — Heat Waves, Slow Responses, and the Electricity You Can't See:** Latency-energy tradeoff. Why your app is slow at 3 PM in July.
-  - **Section 4 — Building Fault-Tolerant AI Apps:** Multi-region failover based on power availability, not just latency. Graceful degradation patterns. Batching strategies during grid stress.
-  - **Section 5 — Sovereign AI Isn't Just Philosophy — It's Reliability:** Tie back to existing coverage. Why local inference = uptime guarantee.
+  - **Section 1, Your 503 Isn't a Bug:** API outages mapped to grid stress events. The correlation nobody's publishing.
+  - **Section 2, The Multi-Tenant Power Problem:** When power is scarce, who gets the tokens? Priority routing during brownouts. Your app is last in line.
+  - **Section 3, Heat Waves, Slow Responses, and the Electricity You Can't See:** Latency-energy tradeoff. Why your app is slow at 3 PM in July.
+  - **Section 4, Building Fault-Tolerant AI Apps:** Multi-region failover based on power availability, not just latency. Graceful degradation patterns. Batching strategies during grid stress.
+  - **Section 5, Sovereign AI Isn't Just Philosophy, It's Reliability:** Tie back to existing coverage. Why local inference = uptime guarantee.
 - **Voice:** Same brutal truth voice, but this time from the trenches. Developer-to-developer.
 - **Format:** PhantomByte writing style
 - **NO EM DASHES**
@@ -101,7 +101,7 @@ Slug each article with date-prefixed format: `2026-05-02-agi-bottleneck-triad`
 ### Step 3: SEO & Meta (Sunday Midday)
 
 - **Meta title:** Why Your AI App Fails: Grid Power, 503 Errors & Multi-Tenant AI (60 chars)
-- **Meta desc:** Your 503s aren't bugs — they're power shortage symptoms. How grid constraints break AI apps and what to do about it. (155 chars)
+- **Meta desc:** Your 503s aren't bugs, they're power shortage symptoms. How grid constraints break AI apps and what to do about it. (155 chars)
 - **Primary keyword:** "AI 503 errors power shortage" (H1, intro, 2 H2s)
 - **Internal links:** → AI Energy Crisis: 503, → Sovereign AI Stack, → The Grid Can't Save You pairs with Saturday's Triad piece (cross-link both)
 - **External links:** IEA data, CAISO/ERCOT dashboards, OpenAI status page
@@ -138,10 +138,10 @@ Sunday's piece is the actionable follow-up that makes Saturday's piece matter to
 
 ## Universal Rules (Both Days)
 
-1. **NO EM DASHES** — use periods, parentheses, or colons instead
+1. **NO EM DASHES**, use periods, parentheses, or colons instead
 2. **PhantomByte voice:** First-person, visceral opening, pragmatic, battle-tested, slightly irreverent
 3. **SEO first:** Primary keyword in H1, first paragraph, 2-3 H2s
-4. **File delivery via UNC paths only** — never dump article text into Telegram
+4. **File delivery via UNC paths only**, never dump article text into Telegram
 5. **Update ARTICLE-TRACKER** after each publish
 6. **Cross-link Saturday ↔ Sunday bidirectionally** upon publishing Sunday's piece
 7. **Slug format:** `YYYY-MM-DD-short-descriptive-slug`

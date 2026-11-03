@@ -26,7 +26,7 @@ Implementation:
   terminology so the table and the surrounding prose agree.
 - The no-em-dash rule applies INSIDE table cells too. Check every cell.
 - Verify the intro sentence still flows into the table (no dropped sentence).
-- Do NOT rephrase the section's existing paragraphs — the table is additive.
+- Do NOT rephrase the section's existing paragraphs, the table is additive.
 
 Worked example (ARTICLE 164, GPU scheduler):
 | | FIFO Allocation | Constraint-Aware Allocation |

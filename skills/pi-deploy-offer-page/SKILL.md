@@ -13,11 +13,11 @@ engines. First used to ship `email-deliverability-rescue.html` (2026-09-19).
 
 1. **ADDON ONLY unless told otherwise.** Stage the HTML as a **new file**; never edit/replace
    `index.html`, `about.html`, or `tutorials/`. If internal linking is wanted (nav/footer slot on
-   the homepage), **ask first** — that is a change to an existing page.
+   the homepage), **ask first**, that is a change to an existing page.
 2. **Review before deploy by default.** Vinny wants to eyeball changes unless he explicitly says
    "deploy" / "ready as is". Prepare everything locally, present the diff + test results, then deploy.
    (Mirrors the articles workflow.)
-3. **Never test the form with a fake email address.** This is the deliverability domain — bounces
+3. **Never test the form with a fake email address.** This is the deliverability domain, bounces
    hurt. Use `hello@example.com` as the test submitter (it lands internally, no bounce).
 4. **Check the API version first.** The live contact API must have the confirmation-link flow
    (`/api/verify` returns 400 for a bad token, not 404). If it 404s, the API needs deploying too
@@ -37,7 +37,7 @@ engines. First used to ship `email-deliverability-rescue.html` (2026-09-19).
 | Verify endpoint | `.../api/verify?token=…` |
 | GA4 ID | `G-PDQCZE09E4` (shared with the whole domain) |
 | OG image | `https://phantom-byte.com/images/phantombyte-og.jpg` |
-| IndexNow key | `phantombyte2026` — served at `https://phantom-byte.com/phantombyte2026.txt` |
+| IndexNow key | `phantombyte2026`, served at `https://phantom-byte.com/phantombyte2026.txt` |
 | Recipient email | `hello@example.com` |
 
 **How URLs work:** `nginx.conf` uses `try_files $uri $uri.html $uri/ =404;` so a file at
@@ -58,7 +58,7 @@ cp "<source.html>" "~/workspace/phantom-byte-website/<slug>.html"
 ### 2. Wire SEO/GEO into the `<head>`
 Insert immediately after the existing `<meta name="description">` (keep the page's own `<style>`
 untouched). Replace `<title>`, `<meta description>`, and the slug in the block below. Keep the
-page's own visual design — this is metadata only.
+page's own visual design, this is metadata only.
 
 ```html
 <meta name="keywords" content="…5-10 keywords including a brand term…">
@@ -218,8 +218,8 @@ python ~/.pi/agent/skills/deploy-offer-page/offer_page_check.py \
 Google: the Indexing API is quota-limited (**200/day, project-wide**) and often exhausted by
 articles. Credentials live in `~/workspace/articles/google-indexing-credentials.json`
 (service account `phantom-byte-gsc-reader@…`, no 403 → permission is fine). Google's and Bing's
-`sitemap ping` endpoints are **dead** (404/410) — do not rely on them. The page is in the sitemap,
-which Google polls. **Vinny usually submits Google himself** — ask before spending quota.
+`sitemap ping` endpoints are **dead** (404/410), do not rely on them. The page is in the sitemap,
+which Google polls. **Vinny usually submits Google himself**, ask before spending quota.
 
 ### 10. Report + housekeeping
 Report: live URL, form test results table, SEO checklist, indexing status, and whether anything
@@ -229,13 +229,13 @@ else changed. **Flag uncommitted git changes** in both repos (site + API) and of
 
 - **API version drift:** the deployed `phantom-byte-contact-ionos` was an older build with no
   `/api/verify`. The page promised a confirmation link that did not exist. Always probe
-  `/api/verify?token=x.y` — 400 = good, 404 = deploy the API.
+  `/api/verify?token=x.y`, 400 = good, 404 = deploy the API.
 - **Don't 404 the addon:** a fresh slug legitimately 404s before deploy; that is the proof it is a
   pure addon, not a replacement.
 - **Google sitemap ping is dead.** IndexNow is the only instant channel besides the Indexing API.
 - **Fake test addresses bounce.** Use `hello@example.com` for the submitter.
 - **Canonical uses the extensionless URL** (nginx serves both, but pick one canonical).
-- **`llms.txt` is standalone** — never add an `LLMs-txt:` directive to `robots.txt` (Google rejects
+- **`llms.txt` is standalone**, never add an `LLMs-txt:` directive to `robots.txt` (Google rejects
   it as a syntax error).
 
 ## History

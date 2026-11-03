@@ -14,10 +14,10 @@ curl -s -H "Authorization: Bearer $KEY" https://ollama.com/api/tags \
 
 Fields that decide identity and efficiency:
 
-- `size` — weight-file bytes. Same `size` on two tags means the same weights.
-- `digest` — differs on a rebuild even when `size` and everything else match.
-- `modified_at` — a second tag hours after the first is a rebuild, not a release line.
-- `capabilities` — `completion`, `thinking`, `tools`, `vision`.
+- `size`, weight-file bytes. Same `size` on two tags means the same weights.
+- `digest`, differs on a rebuild even when `size` and everything else match.
+- `modified_at`, a second tag hours after the first is a rebuild, not a release line.
+- `capabilities`, `completion`, `thinking`, `tools`, `vision`.
 
 `/v1/models` adds per-slug metadata that `/api/tags` omits, and is where to read context window and default reasoning effort:
 

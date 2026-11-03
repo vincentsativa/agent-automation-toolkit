@@ -10,8 +10,8 @@ Pinterest has hard truncation limits. Posts that exceed them are silently cut in
 
 ## Em dash detection (expanded)
 The global "no em dash" rule also rejects these copy-paste leaks. Check all of them, not just U+2014:
-- `—` (U+2014), `–` (U+2013), `―` (U+2014 variant), `‒` (U+2012)
-- `─` (U+2500 box-drawing) — appears when text is copied out of terminal/code blocks.
+- `-` (U+2014), `–` (U+2013), `―` (U+2014 variant), `‒` (U+2012)
+- `─` (U+2500 box-drawing), appears when text is copied out of terminal/code blocks.
 
 ## Verification snippet
 Run this in execute_code or a script after writing the posts file. It parses POST blocks, checks each title/description against the limits, and flags em dashes.
@@ -53,7 +53,7 @@ When a cron asks for matching X posts alongside Pinterest, verify both in one pa
 
 ```python
 def emdash(s):
-    return any(c in s for c in ['\u2014','\u2013','\u2012','\u2015','\u2500','—','–','―','‒'])
+    return any(c in s for c in ['\u2014','\u2013','\u2012','\u2015','\u2500','-','–','―','‒'])
 
 def verify_batch(pins, xposts):
     # pins: list of (title, description). xposts: list of strings.
@@ -86,13 +86,13 @@ When a description is over 500 characters, you will likely need 3-8 iterations t
 
 ### What to cut first (biggest savings, least semantic loss)
 
-1. **Remove trailing clauses that restate the obvious.** "A must-read for anyone tracking AI developer tools" can become "A must-read for anyone tracking AI developer tools." — but if you need space, cut the whole sentence. The post already makes the case.
+1. **Remove trailing clauses that restate the obvious.** "A must-read for anyone tracking AI developer tools" can become "A must-read for anyone tracking AI developer tools.", but if you need space, cut the whole sentence. The post already makes the case.
 
 2. **Shorten company/product descriptions.** "the open-source tool for running LLMs locally" becomes "the tool for running LLMs locally" or "the standard for running Llama, Mistral, and DeepSeek on consumer hardware." Drop "open-source" when the context already implies it.
 
 3. **Remove filler adjectives.** "massive botnets" becomes "botnets." "significant privacy and consent concerns" becomes "privacy concerns." The noun carries the weight.
 
-4. **Merge two short sentences into one.** "This is the first attack capable of assembling massive botnets. Learn how to defend your AI coding tools." becomes "This is the first attack capable of assembling botnets. Learn to defend your AI coding tools." — or merge: "This is the first attack capable of assembling botnets. Learn to defend your AI coding tools."
+4. **Merge two short sentences into one.** "This is the first attack capable of assembling massive botnets. Learn how to defend your AI coding tools." becomes "This is the first attack capable of assembling botnets. Learn to defend your AI coding tools.", or merge: "This is the first attack capable of assembling botnets. Learn to defend your AI coding tools."
 
 5. **Drop "and" chains.** "for supply chain optimization, employee scheduling, and customer experience personalization" becomes "for supply chain, scheduling, and customer experience."
 
@@ -100,7 +100,7 @@ When a description is over 500 characters, you will likely need 3-8 iterations t
 
 7. **Remove "that" clauses where the meaning survives without them.** "The funding validates that local AI is the fastest-growing segment" becomes "The funding validates local AI as the fastest-growing segment."
 
-8. **Cut trailing "Follow PhantomByte" if absolutely necessary** — but this is the last resort. The follow prompt drives engagement and is part of the required structure. Only cut it when every other option is exhausted and you are still over by 10-20 chars.
+8. **Cut trailing "Follow PhantomByte" if absolutely necessary**, but this is the last resort. The follow prompt drives engagement and is part of the required structure. Only cut it when every other option is exhausted and you are still over by 10-20 chars.
 
 ### What to never cut
 - The concrete news hook (first sentence: who, what, number).
@@ -109,7 +109,7 @@ When a description is over 500 characters, you will likely need 3-8 iterations t
 - Keywords that drive Pinterest SEO (artificial intelligence, machine learning, AI news, emerging technology, AI security, etc.).
 
 ### Iteration pattern
-Write all 10 descriptions at full length first. Then verify. Then trim the worst offenders (the ones most over 500). Re-verify. Repeat. On average, 5-7 iterations are needed to get all 10 under 500. Do not try to trim every post to exactly 500 in one pass — trim the top 3-4 over-limit posts, re-verify, then trim the next tier. This converges faster than trying to fix all 10 at once.
+Write all 10 descriptions at full length first. Then verify. Then trim the worst offenders (the ones most over 500). Re-verify. Repeat. On average, 5-7 iterations are needed to get all 10 under 500. Do not try to trim every post to exactly 500 in one pass, trim the top 3-4 over-limit posts, re-verify, then trim the next tier. This converges faster than trying to fix all 10 at once.
 
 ### CRITICAL: Start short, expand to fill (added July 10, 2026)
 
@@ -129,7 +129,7 @@ A 350-char draft gives you 150 chars of room for keywords, calls to action, and 
 
 ### Pre-flight check: evergreen post first (added July 11, 2026)
 
-Before writing a single description, write a 350-400 char draft of the evergreen post (#10) first. The evergreen post is consistently the hardest to fit because educational content is inherently longer. If you cannot fit the evergreen post at 350-400 chars, you will never fit it at 600+. Use the evergreen post as your canary — if it works, the rest will work. If it does not, adjust your approach before writing the other 9.
+Before writing a single description, write a 350-400 char draft of the evergreen post (#10) first. The evergreen post is consistently the hardest to fit because educational content is inherently longer. If you cannot fit the evergreen post at 350-400 chars, you will never fit it at 600+. Use the evergreen post as your canary, if it works, the rest will work. If it does not, adjust your approach before writing the other 9.
 
 ### Hard stop at iteration 4 (added July 11, 2026)
 
@@ -139,6 +139,6 @@ If you are on the 4th verification pass and any description is still over 500 ch
 
 ### MANDATORY: Programmatic verification before emailing (added July 11, 2026)
 
-After writing all 10 posts and before emailing the file, you MUST run a programmatic len() check on every title and every description. Do not trust your own annotation. Do not assume a post fits because you wrote it to fit. The evergreen post (#10) is the most likely to exceed 500 chars — verify it first. If any post is over the limit, fix it before emailing. The user will not accept a file with posts that don't fit Pinterest's truncation limits.
+After writing all 10 posts and before emailing the file, you MUST run a programmatic len() check on every title and every description. Do not trust your own annotation. Do not assume a post fits because you wrote it to fit. The evergreen post (#10) is the most likely to exceed 500 chars, verify it first. If any post is over the limit, fix it before emailing. The user will not accept a file with posts that don't fit Pinterest's truncation limits.
 
 **Session proof (July 11, 2026):** The cron job's agent wrote all 10 posts but the evergreen post (#10) had a 562-char description, 62 over the limit. The user had to catch this and demand a fix. The agent should have verified programmatically before emailing. This cost the user trust and time.

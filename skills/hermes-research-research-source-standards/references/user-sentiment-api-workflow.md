@@ -1,13 +1,13 @@
-# User Sentiment Research — API Workflow & Pitfalls
+# User Sentiment Research, API Workflow & Pitfalls
 
 Extracted from the "Nemotron Ultra" research session (June 4, 2026). Covers the working API-based workflow for finding real user opinions when search engines are blocked.
 
 ## The Problem
-Search engines (Google, DuckDuckGo, Bing, Reddit) all CAPTCHA-block cloud IPs from moderate-depth queries. You get one chance before the browser kicks you to a CAPTCHA page. Never retry — pivot to APIs immediately.
+Search engines (Google, DuckDuckGo, Bing, Reddit) all CAPTCHA-block cloud IPs from moderate-depth queries. You get one chance before the browser kicks you to a CAPTCHA page. Never retry, pivot to APIs immediately.
 
 ## Working APIs (Ranked by Value)
 
-### 1. HN Algolia — BEST source
+### 1. HN Algolia, BEST source
 - **Rate limit**: 10K+ req/hr, no auth
 - **Stories**: `https://hn.algolia.com/api/v1/search?query=MODEL_NAME&tags=story&hitsPerPage=30`
 - **Comments**: `https://hn.algolia.com/api/v1/search?query=MODEL_NAME&tags=comment&hitsPerPage=50`
@@ -16,23 +16,23 @@ Search engines (Google, DuckDuckGo, Bing, Reddit) all CAPTCHA-block cloud IPs fr
 - **By points**: `&numericFilters=points>0`
 - **What it yielded for Nemotron Ultra**: 9 stories, 16 comments. ~4 substantive user comments with real impressions. Comments were 2-3 sentences each; no deep multi-paragraph reviews exist because the model is too new.
 
-### 2. HuggingFace API — Engagement proxy
+### 2. HuggingFace API, Engagement proxy
 - **Model search**: `https://huggingface.co/api/models?search=MODEL_NAME&sort=lastModified&direction=-1&limit=20`
 - **Discussions**: `https://huggingface.co/api/models/ORG/MODEL/discussions?limit=30`
-- **What it yielded**: 550B BF16 variant — 384 downloads, 70 likes. NVFP4 variant — 196 downloads, 60 likes. These numbers are low for a flagship model release, suggesting limited real-user adoption (too large for consumer hardware).
+- **What it yielded**: 550B BF16 variant, 384 downloads, 70 likes. NVFP4 variant, 196 downloads, 60 likes. These numbers are low for a flagship model release, suggesting limited real-user adoption (too large for consumer hardware).
 
-### 3. TensorFeed — Context signal
+### 3. TensorFeed, Context signal
 - `tf.news_recent(hours=72, limit=50)` then filter for model name
-- **What it yielded**: Only 1 Nemotron article in the last 72 hours — a blog post about Nemotron 3.5 Content Safety (unrelated). The Ultra launch did not register strongly in technical feeds.
+- **What it yielded**: Only 1 Nemotron article in the last 72 hours, a blog post about Nemotron 3.5 Content Safety (unrelated). The Ultra launch did not register strongly in technical feeds.
 
-### 4. Reddit via pullpush.io — Unreliable from cloud
+### 4. Reddit via pullpush.io, Unreliable from cloud
 - `https://api.pullpush.io/reddit/search/submission/?q=QUERY&subreddit=SUBREDDIT&size=25`
 - Timed out on Nemotron query. Reddit API blocks most cloud IPs. pullpush.io is slower and less reliable.
 
 ## What NON-WORKING looks like
 - Google: `/sorry/index?continue=...` (CAPTCHA block)
 - Reddit: `whoa there, pardner!` block with anti-bot code
-- DuckDuckGo lite: "Unfortunately, bots use DuckDuckGo too" — duck CAPTCHA
+- DuckDuckGo lite: "Unfortunately, bots use DuckDuckGo too", duck CAPTCHA
 - Reddit JSON API: returns HTML login page, not JSON
 
 ## What WORKED for Nemotron Ultra specifically
@@ -64,7 +64,7 @@ NVIDIA releases have a consistent shape:
 Future sessions looking at new NVIDIA models should expect this pattern.
 
 ### When the model has TWO versions
-Nemotron branded models are confusing — there's:
+Nemotron branded models are confusing, there's:
 - `Llama-3.1-Nemotron-Ultra-253B-v1` (older, Llama-based dense 253B)
 - `Nemotron-3-Ultra-550B-A55B-BF16` (new, Mamba-Transformer MoE hybrid)
 Users may be discussing either. Check the context. The 550B is the one announced at Computex 2026.

@@ -23,7 +23,7 @@ Why each tag, so nobody "improves" it:
   (ESP and relay platforms) need. Strict alignment fails them routinely.
 - `pct=100` is explicit rather than relying on a provider default.
 
-**2026-10-05 — this record is now mandatory, not optional.** Gmail (enforcement
+**2026-10-05, this record is now mandatory, not optional.** Gmail (enforcement
 ramped Nov 2025) and Microsoft (since 2025-05-05) require a published DMARC
 record (`p=none` MINIMUM) plus SPF/DKIM alignment from any domain sending 5,000+
 a day to their consumer addresses, and they REJECT non-compliant mail at the

@@ -1,23 +1,23 @@
 ---
 name: music-creation
-description: "AI music generation (HeartMuLa, Suno), songwriting craft, audio visualization — generate songs, write lyrics, craft Suno prompts, and visualize audio features via spectrograms."
+description: "AI music generation (HeartMuLa, Suno), songwriting craft, audio visualization, generate songs, write lyrics, craft Suno prompts, and visualize audio features via spectrograms."
 category: creative
 version: 1.0.0
 author: Hermes Agent (consolidated)
 license: MIT
 ---
 
-# Music Creation — Generate, Write, Visualize
+# Music Creation, Generate, Write, Visualize
 
 Consolidated guide to AI music generation, songwriting, and audio analysis tools. Covers three workflows:
 
-1. **HeartMuLa** — open-source music generation from lyrics + tags (local GPU)
-2. **songwriting + Suno prompts** — lyric craft, structure, Suno AI prompt engineering
-3. **songsee** — audio spectrogram/feature visualization
+1. **HeartMuLa**, open-source music generation from lyrics + tags (local GPU)
+2. **songwriting + Suno prompts**, lyric craft, structure, Suno AI prompt engineering
+3. **songsee**, audio spectrogram/feature visualization
 
 ---
 
-## 1. HeartMuLa — Open-Source Music Generation
+## 1. HeartMuLa, Open-Source Music Generation
 
 HeartMuLa is a family of open-source music foundation models (Apache-2.0) comparable to Suno, running locally with a GPU.
 
@@ -47,7 +47,7 @@ hf download --local-dir './ckpt/HeartCodec-oss' 'HeartMuLa/HeartCodec-oss-202601
 
 ### Source Code Patches Required
 
-**RoPE cache fix** in `src/heartlib/heartmula/modeling_heartmula.py` — add after `reset_caches` try/except, before `with device:`:
+**RoPE cache fix** in `src/heartlib/heartmula/modeling_heartmula.py`, add after `reset_caches` try/except, before `with device:`:
 ```python
 from torchtune.models.llama3_1._position_embeddings import Llama3ScaledRoPE
 for module in self.modules():
@@ -56,7 +56,7 @@ for module in self.modules():
         module.to(device)
 ```
 
-**HeartCodec loading fix** — add `ignore_mismatched_sizes=True` to all `HeartCodec.from_pretrained()` calls.
+**HeartCodec loading fix**, add `ignore_mismatched_sizes=True` to all `HeartCodec.from_pretrained()` calls.
 
 ### Generation
 
@@ -80,11 +80,11 @@ python ./examples/run_music_generation.py \
 | `--cfg_scale` | 1.5 | Classifier-free guidance |
 | `--lazy_load` | false | Saves VRAM |
 | `--mula_dtype` | bfloat16 | bf16 recommended |
-| `--codec_dtype` | float32 | **Do NOT use bf16** — quality loss |
+| `--codec_dtype` | float32 | **Do NOT use bf16**, quality loss |
 
 ### Pitfalls
-- Do NOT use bf16 for HeartCodec — degrades audio quality
-- Tags may be ignored — lyrics tend to dominate
+- Do NOT use bf16 for HeartCodec, degrades audio quality
+- Tags may be ignored, lyrics tend to dominate
 - RTX 5080 incompatibility reported
 - CPU mode is extremely slow (30-60 min per song vs ~4 min on GPU)
 - Links: [Repo](https://github.com/HeartMuLa/heartlib) · [Models](https://huggingface.co/HeartMuLa) · [Paper](https://arxiv.org/abs/2601.10547)
@@ -99,7 +99,7 @@ See `references/songwriting-guide.md` for the full reference including:
 - Emotional arc and dynamics mapping
 - Lyric writing ("show don't tell", hooks, prosody)
 - Parody/adaptation technique
-- **Suno AI prompt engineering** — style/genre formula, metatags, Custom Mode
+- **Suno AI prompt engineering**, style/genre formula, metatags, Custom Mode
 - Phonetic tricks for AI vocalists
 
 ### Suno Style Prompt Formula
@@ -123,7 +123,7 @@ Always use Custom Mode (separate Style + Lyrics). Lyrics limit ~3,000 chars.
 
 ---
 
-## 3. songsee — Audio Spectrogram Visualization
+## 3. songsee, Audio Spectrogram Visualization
 
 CLI tool for generating spectrograms and multi-panel audio feature visualizations.
 

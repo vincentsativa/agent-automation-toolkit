@@ -31,7 +31,7 @@ Write, format, and distribute press releases to platforms like PRLog.org and oth
 
 ## Body
 
-**[CITY, STATE] — [DATE]** — [Company], [brief descriptor], today announced [main announcement].
+**[CITY, STATE], [DATE]**, [Company], [brief descriptor], today announced [main announcement].
 
 ### What's Included/Key Details
 - Bullet point 1
@@ -64,10 +64,10 @@ Website: [URL]
 |---------|---------|------|
 | Headline | Grab attention, summarize news | Keep under 100 chars, lead with benefit |
 | Subheading | Add context or metrics | Include numbers if possible |
-| Dateline | Establish location/timing | Use format: CITY, STATE — DATE |
+| Dateline | Establish location/timing | Use format: CITY, STATE, DATE |
 | Lead paragraph | Who, what, when, where, why | Answer all 5 Ws in first 2-3 sentences |
 | Body details | Supporting information | Use bullets for features/inclusions |
-| Quotes | Human perspective, credibility | Attribute to the operator/exec/expert (never "founder" for Vinny Barreca — he is a systems builder) |
+| Quotes | Human perspective, credibility | Attribute to the operator/exec/expert (never "founder" for Vinny Barreca, he is a systems builder) |
 | Call-to-action | What reader should do next | Make it specific and easy |
 | Boilerplate | Company background | Standard "About" paragraph |
 | Contact info | Media inquiries | Include name, title, email, website |
@@ -90,7 +90,7 @@ Website: [URL]
 - ✓ Advance scheduling and pre-release sharing
 
 **Submission Process**:
-1. **Pre-work** — Before opening PRLog:
+1. **Pre-work**, Before opening PRLog:
    - Research current site branding (navigate to the actual domain, check homepage headline, tagline, offerings)
    - Search session history for existing drafts, previous PRLog attempts, or related discussions
    - Search filesystem for prior press release drafts, credentials files, or brand/contact info
@@ -125,14 +125,14 @@ Contact: Your email
 
 When the request covers multiple brands/domains (e.g., `phantom-byte.com` AND `vincentsativa.com`):
 
-1. **Treat them as separate press releases** — each domain gets its own headline, angle, metadata, and submission
-2. **Research each domain independently** — navigate to each site, note the unique value proposition, tagline, and offerings
-3. **Draft distinct angles** — don't reuse the same skeleton; each brand's offering determines the news angle:
+1. **Treat them as separate press releases**, each domain gets its own headline, angle, metadata, and submission
+2. **Research each domain independently**, navigate to each site, note the unique value proposition, tagline, and offerings
+3. **Draft distinct angles**, don't reuse the same skeleton; each brand's offering determines the news angle:
    - phantom-byte.com → AI infrastructure tutorials, cost optimization, sovereign AI
    - vincentsativa.com → practical AI tools, debugging resources, developer education
-4. **Save drafts separately** — name them `prlog-press-release-draft-{domain}.md`
-5. **Pre-fill all metadata** — no bracketed placeholders left behind. City, contact email, location, company name all resolved before user reviews
-6. **Keep contact consistent** — if both brands share the same contact person, note this in the drafts
+4. **Save drafts separately**, name them `prlog-press-release-draft-{domain}.md`
+5. **Pre-fill all metadata**, no bracketed placeholders left behind. City, contact email, location, company name all resolved before user reviews
+6. **Keep contact consistent**, if both brands share the same contact person, note this in the drafts
 
 ### Other Platforms
 
@@ -203,7 +203,7 @@ See example at `references/vincentsativa-prlog-draft-2026-05-04.md` for a develo
 ```
 **[Company A] and [Company B] Partner to [Joint Value Proposition]**
 
-[DATE] — [Company A], [descriptor], today announced a strategic 
+[DATE], [Company A], [descriptor], today announced a strategic 
 partnership with [Company B] to [what the partnership enables].
 
 The collaboration will [specific outcome/benefit for customers].
@@ -213,7 +213,7 @@ The collaboration will [specific outcome/benefit for customers].
 ```
 **[Company] Raises $[X]M to [Use of Funds]**
 
-[DATE] — [Company], [descriptor], today announced it has raised 
+[DATE], [Company], [descriptor], today announced it has raised 
 $[X]M in [round type] funding led by [Investor], with participation 
 from [other investors].
 
@@ -231,5 +231,5 @@ The company will use the funding to [specific plans].
 
 This skill directory contains example press release drafts from prior sessions:
 
-- `references/phantombyte-prlog-draft-2026-05-04.md` — PhantomByte press release template (AI infrastructure tutorials, cost savings angle)
-- `references/vincentsativa-prlog-draft-2026-05-04.md` — Vincent Sativa press release template (AI debugging resources, developer tools angle)
+- `references/phantombyte-prlog-draft-2026-05-04.md`, PhantomByte press release template (AI infrastructure tutorials, cost savings angle)
+- `references/vincentsativa-prlog-draft-2026-05-04.md`, Vincent Sativa press release template (AI debugging resources, developer tools angle)

@@ -2,7 +2,7 @@
 
 ## The Core Pitch
 
-$1,040 for the first year ($800 hardware + $240 Ollama Pro). That is an employee that never sleeps, never calls out sick, never asks for a raise, never takes vacation. If that does not return 5x ($5,000+) in a year, the business is not using it right. 5x is the floor, not the ceiling. One good use case — automated lead response, price monitoring, customer sentiment tracking — could return that in a month.
+$1,040 for the first year ($800 hardware + $240 Ollama Pro). That is an employee that never sleeps, never calls out sick, never asks for a raise, never takes vacation. If that does not return 5x ($5,000+) in a year, the business is not using it right. 5x is the floor, not the ceiling. One good use case, automated lead response, price monitoring, customer sentiment tracking, could return that in a month.
 
 ## Pricing Psychology
 
@@ -13,7 +13,7 @@ The market has trained SMBs to say no. Every SaaS sales rep, AI consultant, and 
 A community college course is $500 for a semester and you might learn something you never use. This is $250/year for a brain that works for you every single day.
 
 ### The Bet They Cannot Afford Not to Take
-AI is not a trend, it is a shift. Businesses that figure it out now have a 2-3 year head start. The cost of not trying is higher than the cost of trying and failing. A business that ignores AI for two years will not just be where they are now — they will be behind. Their competitors will be faster, cheaper, more efficient. The gap does not stay static, it widens.
+AI is not a trend, it is a shift. Businesses that figure it out now have a 2-3 year head start. The cost of not trying is higher than the cost of trying and failing. A business that ignores AI for two years will not just be where they are now, they will be behind. Their competitors will be faster, cheaper, more efficient. The gap does not stay static, it widens.
 
 ## Core Sales Philosophy
 
@@ -43,25 +43,25 @@ Tell them what they are thinking before they can think it: "The only reason I am
 Drop the Pi 500 on their counter. Do not mention it. Let them ask what that little machine is. Then: "Oh, this is what I used to find that info." You never pitched. They asked. The physical object in their space creates curiosity they cannot ignore. They have to ask. It is sitting right there in their world, and they do not know what it is. That is intolerable to a curious person.
 
 ### The Competitor Frame
-"I was preparing for an appointment at your competitor and pulled up the wrong business. Since the work was done, I figured I would share the output." Same message as "your competitors are using this, why arent you?" without the accusation. The competitive pressure is ambient — they feel it without you pointing a finger. They are not buying from you, they are keeping up with the Joneses. The best part is it is true in spirit — you did do the work, you built the solution, you know it works. The wrong address story is just the frame that lets them accept the gift without their ego getting in the way.
+"I was preparing for an appointment at your competitor and pulled up the wrong business. Since the work was done, I figured I would share the output." Same message as "your competitors are using this, why arent you?" without the accusation. The competitive pressure is ambient, they feel it without you pointing a finger. They are not buying from you, they are keeping up with the Joneses. The best part is it is true in spirit, you did do the work, you built the solution, you know it works. The wrong address story is just the frame that lets them accept the gift without their ego getting in the way.
 
 ### The Callback Flex
 "I have to go fast here because on average it takes 5 minutes to get thrown out from this point." You already told them the average is 5 minutes before you get thrown out. Now you are 10 minutes in, they are still engaged, and you throw that line back at them. It is a subtle flex. "You are still here. That means this is working. And you know it." They laugh because they realize you played them, but they do not mind because you made it fun. Now they are fully locked in.
 
 ### The Admission Moment
-When they say "Well, I must like you, you are still here after X time" — that is the moment the sale flips. They have admitted they like you. Now they are invested in the outcome. They want to see where this goes. They are rooting for you. And when someone is rooting for you, they find reasons to say yes instead of reasons to say no.
+When they say "Well, I must like you, you are still here after X time", that is the moment the sale flips. They have admitted they like you. Now they are invested in the outcome. They want to see where this goes. They are rooting for you. And when someone is rooting for you, they find reasons to say yes instead of reasons to say no.
 
 ### Make It a Game
 If it is not a game, it is work. And work is miserable. A game you can play all day. Every sale is a level. Every referral is a bonus. Every "I cannot believe that worked" moment is the fun part.
 
 ### The Unexpected Leads to Impulse
-Predictable gets tuned out. Unexpected gets a reaction. A reaction is the first step to a yes. Make them laugh and they will buy. The laugh is the unlock — once their guard is down, they are not a prospect anymore, they are just a person having a conversation. People buy from people they like talking to.
+Predictable gets tuned out. Unexpected gets a reaction. A reaction is the first step to a yes. Make them laugh and they will buy. The laugh is the unlock, once their guard is down, they are not a prospect anymore, they are just a person having a conversation. People buy from people they like talking to.
 
 ### Storytelling Sells
 Stories bypass the bullshit detector. Facts and figures go through the prefrontal cortex where they get analyzed and doubted. A story goes straight in. They feel it before they think about it. The wrong address story does exactly that. They are not evaluating a product. They are picturing their competitor getting an edge and deciding they cannot let that happen. You never had to sell. The story sold for you.
 
 ### The Competitor Frame Without Friction
-"Your competitors are using this, why arent you?" puts them on the spot. Now they have to defend their decision, justify why they have not acted, save face. That friction kills the sale. But "I was prepping for an appointment at your competitor and ended up here by mistake, here is what I was going to show them" — that is the same message without the accusation. They are not being told they are behind. They are being given a gift. The competitive pressure is there, but it is ambient. They feel it without you pointing a finger. Same information, completely different emotional response. That is the difference between a pitch and a story. One pushes, the other pulls.
+"Your competitors are using this, why arent you?" puts them on the spot. Now they have to defend their decision, justify why they have not acted, save face. That friction kills the sale. But "I was prepping for an appointment at your competitor and ended up here by mistake, here is what I was going to show them", that is the same message without the accusation. They are not being told they are behind. They are being given a gift. The competitive pressure is there, but it is ambient. They feel it without you pointing a finger. Same information, completely different emotional response. That is the difference between a pitch and a story. One pushes, the other pulls.
 
 ### Let Them Sell Themselves
 When you say that without mentioning the product, but using the product to show them, they will ask you about it. You never have to sell. They sell themselves. You just run the agent on your phone or laptop, show them what it is doing for your business, and wait. "What is that?" is the only question you need them to ask. And they always ask.
@@ -86,4 +86,4 @@ If they do not figure it out, you are still having fun. You will not even notice
 1. Month 1: Nervous, checking the dashboard daily, not sure what to do with it
 2. Month 2: Starting to rely on it
 3. Month 3: Can not imagine running their business without it
-4. You are the guy who set it up — locked-in relationship
+4. You are the guy who set it up, locked-in relationship

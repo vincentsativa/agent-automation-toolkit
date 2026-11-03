@@ -1,4 +1,4 @@
-# X Post Character Count — Reliable Verification
+# X Post Character Count, Reliable Verification
 
 The pre-send checklist requires the X post to fit the ceiling of the format in play, not a single fixed number:
 
@@ -25,5 +25,5 @@ print(len(post))  # must be < 190
 2. Do not trust awk/sed extraction or terminal `wc -c` on a line-numbered file.
    Collapse the post into a clean single string and count that string.
 3. Iterate down in small steps and re-count after every edit until strictly under 190.
-4. Keep the reply bait (ends with a reason to reply) even while trimming — do not
+4. Keep the reply bait (ends with a reason to reply) even while trimming, do not
    sacrifice the engagement hook just to hit the count.

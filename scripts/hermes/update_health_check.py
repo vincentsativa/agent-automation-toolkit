@@ -17,7 +17,7 @@ script with the GATEWAY's ``sys.executable`` (cron/scheduler_script.py::_script_
 and after a managed-runtime update that interpreter is the bare toolchain Python
 (``~/.hermes/tools/python-<ver>/bin/python3``), whose site-packages holds only pip.
 The project's real dependency tree lives in the install venv and reaches a process only
-when ``pm.environments.activate_dependencies`` runs at boot — which the Hermes entry
+when ``pm.environments.activate_dependencies`` runs at boot, which the Hermes entry
 points do and a standalone cron script does not. Without this call the probes below
 import-crash on ``yaml``/``ruamel.yaml`` and report a HEALTHY install as a regression.
 """
@@ -131,7 +131,7 @@ def check_hook_wiring() -> None:
              "it is a 5-line YAML block; fixed-path writes stay refused until then.")
 
     if not os.path.exists(ALLOWLIST):
-        note("hook allowlist file missing — the hook will not register (gateway has no "
+        note("hook allowlist file missing, the hook will not register (gateway has no "
              "TTY to approve it). Re-approve: %s" % ALLOWLIST)
         return
     try:
@@ -144,7 +144,7 @@ def check_hook_wiring() -> None:
         return
 
     if entry is None:
-        note("hook is NOT allowlisted — it will silently not register. Re-approve it.")
+        note("hook is NOT allowlisted, it will silently not register. Re-approve it.")
         return
 
     # mtime drift: editing the script invalidates consent and the hook stops firing.
@@ -160,7 +160,7 @@ def check_hook_wiring() -> None:
             a = datetime.fromisoformat(recorded.replace("Z", "+00:00"))
             b = datetime.fromisoformat(actual_iso.replace("Z", "+00:00"))
             if abs((a - b).total_seconds()) > 1:
-                note("hook script changed since approval (mtime drift) — it will NOT "
+                note("hook script changed since approval (mtime drift), it will NOT "
                      "fire. Re-approve it to reactivate.")
         except Exception:
             pass
@@ -216,7 +216,7 @@ def check_no_stale_scratch() -> None:
         if name.startswith("send_") and name.endswith(".py"):
             stale.append(os.path.join(os.path.expanduser("~"), name))
     if stale:
-        note("stale fixed-path scratch files present (%d): %s — a job is still writing a "
+        note("stale fixed-path scratch files present (%d): %s, a job is still writing a "
              "fixed name. Confirm the skills still say to use mktemp -d."
              % (len(stale), ", ".join(sorted(stale)[:6])))
 
@@ -260,7 +260,7 @@ def check_per_job_max_turns() -> None:
     cleanup all unsent. The field existed and the scheduler never read it.
     """
     if not os.path.isdir(SRC_ROOT):
-        note("cron scheduler source missing at %s — cannot verify the per-job turn budget."
+        note("cron scheduler source missing at %s, cannot verify the per-job turn budget."
              % SRC_ROOT)
         return
     if SRC_ROOT not in sys.path:
@@ -277,7 +277,7 @@ def check_per_job_max_turns() -> None:
 
     if with_field != 200:
         note("PER-JOB TURN BUDGET REGRESSED: a job asking for max_turns 200 resolved to "
-             "%r. The per-job field is being ignored — a heavy cron job will be cut off "
+             "%r. The per-job field is being ignored, a heavy cron job will be cut off "
              "at the global agent.max_turns and lose its tail (email, file copy, cleanup). "
              "Re-apply the scheduler fix or check whether upstream PR 120093 / issue 63267 "
              "has landed." % (with_field,))

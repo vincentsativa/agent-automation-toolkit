@@ -117,7 +117,7 @@ def parse(src_path, out_path):
                 i += 1
             break
 
-        # No TOC found — hit a body section header
+        # No TOC found, hit a body section header
         if re.match(r"^(PART\s+(ONE|TWO|THREE|FOUR|FIVE|SIX)\b|[IVX]+\.\s)", stripped) or \
            re.fullmatch(r"[A-Z][A-Z\s,:/'\-&]+(\?|:)?$", stripped) or \
            re.fullmatch(r"=+\s+.*\s+=+", stripped):

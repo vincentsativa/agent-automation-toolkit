@@ -27,14 +27,14 @@ Title keyword optimization is a post-writing step, never a pre-writing one. You 
 
 - Do NOT capitalize any entire word in the title (e.g., "NEEDS," "DEBUGGER," "LAYER")
 - Use title case or sentence case only
-- "Your Agent Is the Debugger" — correct
-- "Your Agent IS the DEBUGGER" — incorrect, will be rejected
+- "Your Agent Is the Debugger", correct
+- "Your Agent IS the DEBUGGER", incorrect, will be rejected
 
 ## Rule 2: Shorten Aggressively, But ONLY When Vinny Says "Too Long"
 
 **User instruction (July 4, 2026):** "please shorten the title, without effecting impact. it's just too long"
 
-**Scope: this rule fires only on an explicit instruction about that specific title.** "This is too long, shorten it" is the trigger. An outline with a long title is NOT a trigger — long titles ship as written. Absent that explicit instruction, see Rule 0.
+**Scope: this rule fires only on an explicit instruction about that specific title.** "This is too long, shorten it" is the trigger. An outline with a long title is NOT a trigger, long titles ship as written. Absent that explicit instruction, see Rule 0.
 
 When Vinny explicitly says the title is too long, do not ask how short he wants it. Shorten it aggressively yourself.
 

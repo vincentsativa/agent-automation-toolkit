@@ -1,6 +1,6 @@
 # Plain-Text Tutorial Parsing: State Machine Approach
 
-This reference documents the parser approach for converting plain-text tutorial documents (non-markdown, non-HTML) into professionally formatted PDFs. The key challenge: plain text has no explicit structure markers — the parser must infer sections, headers, code blocks, lists, and checklists from content patterns alone.
+This reference documents the parser approach for converting plain-text tutorial documents (non-markdown, non-HTML) into professionally formatted PDFs. The key challenge: plain text has no explicit structure markers, the parser must infer sections, headers, code blocks, lists, and checklists from content patterns alone.
 
 ## Two confirmed format variants
 
@@ -40,21 +40,21 @@ def close_all():  # call before non-container elements
 
 ## Detection order (MUST be in this sequence)
 
-1. **Empty lines** — close all containers, zero output. No `<p>&nbsp;</p>`.
-2. **Decorative rulers** — `^[═\u2550\-=\u2500]{3,}$`. Skip entirely.
-3. **Fenced code blocks** — lines starting/ending with ` ``` `.
-4. **PART headers** — `^PART\s+(ONE|TWO|THREE|FOUR|FIVE|SIX)\b`. Emit `<h2>`.
-5. **Roman-numeral section headers** — `^[IVXL]+\d*\.\s+[A-Z]`. Emit `<h2>`.
-6. **Wrapped ALL-CAPS headers** — `=+\s+.*\s+=+`. Strip `=` wrappers → `<h2>`.
-7. **ALL-CAPS headers** — `^[A-Z][A-Z\s,:/'\-]+(\?|:)$`. Emit `<h3>`.
-8. **Sub-sections** — `^(Example \d+|TIER \d|Scenario [A-Z]|Use |Do NOT |AFTER |THE POWER|STEP \d+:|USE CASE \d+:|OPTION \d+:|PICK THIS|THE CHALLENGE|THE FINAL LINE|A HONEST NOTE|THE ONLY TOOL|Recommended |For the next)`. Emit `<h4>`.
-9. **Short bold lines** — `^\*\*[^*]+\*\*$`, len < 80. Emit `<h4 class="bold-heading">`.
-10. **Checklists** — starts with `☐ ` or `✅ `. `<ul class="checklist">`.
-11. **Bullets** — starts with `- `, `* `, `• `. `<ul>`.
-12. **Numbered items** — `^\d+\.\s+`. `<p class="num-item">`.
-13. **Q&A pairs** — starts with `Q: ` or `A: `. `<p><strong>Q:</strong> ...</p>`.
-14. **Indented code** — 4+ spaces + command keywords. `<pre><code>`.
-15. **Normal paragraphs** — escape HTML first, THEN apply `**bold**`, `*italic*`, `` `code` ``.
+1. **Empty lines**, close all containers, zero output. No `<p>&nbsp;</p>`.
+2. **Decorative rulers**, `^[═\u2550\-=\u2500]{3,}$`. Skip entirely.
+3. **Fenced code blocks**, lines starting/ending with ` ``` `.
+4. **PART headers**, `^PART\s+(ONE|TWO|THREE|FOUR|FIVE|SIX)\b`. Emit `<h2>`.
+5. **Roman-numeral section headers**, `^[IVXL]+\d*\.\s+[A-Z]`. Emit `<h2>`.
+6. **Wrapped ALL-CAPS headers**, `=+\s+.*\s+=+`. Strip `=` wrappers → `<h2>`.
+7. **ALL-CAPS headers**, `^[A-Z][A-Z\s,:/'\-]+(\?|:)$`. Emit `<h3>`.
+8. **Sub-sections**, `^(Example \d+|TIER \d|Scenario [A-Z]|Use |Do NOT |AFTER |THE POWER|STEP \d+:|USE CASE \d+:|OPTION \d+:|PICK THIS|THE CHALLENGE|THE FINAL LINE|A HONEST NOTE|THE ONLY TOOL|Recommended |For the next)`. Emit `<h4>`.
+9. **Short bold lines**, `^\*\*[^*]+\*\*$`, len < 80. Emit `<h4 class="bold-heading">`.
+10. **Checklists**, starts with `☐ ` or `✅ `. `<ul class="checklist">`.
+11. **Bullets**, starts with `- `, `* `, `• `. `<ul>`.
+12. **Numbered items**, `^\d+\.\s+`. `<p class="num-item">`.
+13. **Q&A pairs**, starts with `Q: ` or `A: `. `<p><strong>Q:</strong> ...</p>`.
+14. **Indented code**, 4+ spaces + command keywords. `<pre><code>`.
+15. **Normal paragraphs**, escape HTML first, THEN apply `**bold**`, `*italic*`, `` `code` ``.
 
 ## Cover page design (confirmed working)
 
@@ -101,4 +101,4 @@ if len(lines) < 12:  # force page-break before last major block
 - Body: `#1a1a1a`
 
 ## See also
-- `references/agent-powered-research-format.md` — Format B details (Roman TOC, ═ rulers, broader sub-section patterns)
+- `references/agent-powered-research-format.md`, Format B details (Roman TOC, ═ rulers, broader sub-section patterns)

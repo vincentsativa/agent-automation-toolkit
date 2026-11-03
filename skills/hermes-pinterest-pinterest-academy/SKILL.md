@@ -9,8 +9,8 @@ toolsets: [browser]
 This is the governing skill for ALL Pinterest work. Source: Pinterest's own official Creator Academy (create.pinterest.com) and Pinterest Business Help Center (help.pinterest.com). When Pinterest's official docs and any third-party advice conflict, Pinterest's word wins. Do not improvise SEO tactics that contradict these rules.
 
 ## Source Documents (pulled 2026-08-02)
-- **Creator Academy Fundamentals** — https://create.pinterest.com/fundamentals/
-- **Pin performance & distribution** — https://help.pinterest.com/en-gb/business/article/pin-performance-and-distribution
+- **Creator Academy Fundamentals**, https://create.pinterest.com/fundamentals/
+- **Pin performance & distribution**, https://help.pinterest.com/en-gb/business/article/pin-performance-and-distribution
 
 ## The Core Truth (what the algorithm actually does)
 - Pinterest distributes Pins to people based on **engagement** (search, save, click). As users search/save/engage, Pinterest learns what's relevant and shares more of it. Engagement preferences change over time.
@@ -19,19 +19,19 @@ This is the governing skill for ALL Pinterest work. Source: Pinterest's own offi
 
 ## Three Pillars (from Creator Academy Fundamentals)
 
-### Pillar 1 — Make a Plan
+### Pillar 1, Make a Plan
 - **Trend tools:** use Pinterest Trends + Pinterest Predicts to get ahead of what people search for.
 - **Audience insights:** if any Pins/boards are published, review Pinterest Analytics BEFORE creating anything new. (Requires a free business account.)
 - **Content calendar:** post a MIX of content types and cover key moments.
 - **Content goals:** define a measurable objective for each Pin, and add a clear call to action (site link, affiliate link, or more).
 
-### Pillar 2 — Create Impactful Content
+### Pillar 2, Create Impactful Content
 - **Pin formats:** use a mix of image Pins, video Pins, and collages. Select the format that fits the idea.
 - **Boards:** group Pins into well-structured, themed collections so people can discover and engage.
 - **Creative best practices:** compelling, high-quality, mobile-friendly visuals. Most audience is mobile → use a vertical aspect ratio.
 - **Shoppable/monetization:** affiliate links, product tags, product Pins to drive clicks to shop.
 
-### Pillar 3 — Optimize for Success
+### Pillar 3, Optimize for Success
 - **Audit:** review Pins and boards at a regular cadence. Refresh standout content; update or remove low-performing/outdated assets.
 - **Test:** run A/B tests on copy, visuals, formats. Apply learnings to future content.
 - **Strategy tweaks:** revisit analytics; apply high-engagement themes and refined targeting to new content.
@@ -39,7 +39,7 @@ This is the governing skill for ALL Pinterest work. Source: Pinterest's own offi
 
 ## Distribution Best Practices (from Pin performance & distribution)
 
-### Troubleshoot a performance drop — check ALL of these first
+### Troubleshoot a performance drop, check ALL of these first
 1. **Include saved Pins:** tick "Include saved Pins" under Data in Analytics Overview to see all your stats (published + saved).
 2. **Claim your website:** verify your domain. Without it, all content counts as "saved" and won't be highlighted in analytics. Also unlocks rich pins.
 3. **Create your own Pins:** publish fresh original Pins, don't just save others' Pins.
@@ -47,7 +47,7 @@ This is the governing skill for ALL Pinterest work. Source: Pinterest's own offi
 5. **Create regularly:** create Pins frequently and consistently. **Aim for original content weekly.** You can schedule Pins up to 2 weeks in advance.
 6. **Avoid duplicate Pins:** do NOT repeatedly save the same Pin or re-upload content that already exists on Pinterest. This triggers **spam flagging and temporary Pin-creation blocks.** (This is the #1 way re-activated accounts get throttled.)
 
-### Improve performance — creation
+### Improve performance, creation
 - **Create inspiring content:** solid lighting, great framing, high-res assets, stylized effects, and/or text overlay. Vertical aspect ratio (mobile audience).
 - **Encourage saves:** include a call to action to save and follow. Saves/follows = more distribution.
 - **Add context to Pins:** add title, description, link; strong video thumbnail; save to a RELEVANT board; tag relevant topics; list ingredients/instructions where applicable.
@@ -57,7 +57,7 @@ This is the governing skill for ALL Pinterest work. Source: Pinterest's own offi
 - **Add a Save button** to the website so people can save directly from the site.
 - **Create an ad** from a Pin to reach a wider targeted audience (awareness / clicks / sales).
 
-### Improve performance — review & iterate
+### Improve performance, review & iterate
 - **Review Pin stats** (individual) and **Analytics overview** (overall): saves, Pin clicks. Tick "Include saved Pins."
 - **Audience Insights:** see which Pins/topics/formats resonate; produce more that encourages saves.
 - **Conversion Insights:** see which Pins drive conversions; create more like those or promote them.
@@ -70,14 +70,14 @@ Pinterest is a **search engine, not social media.** Treat every board and Pin li
 - **Pin title:** front-load the primary keyword; Pinterest reads left-to-right. Add a secondary keyword separated by punctuation.
 - **Pin description:** primary keyword in the FIRST ~50 chars (the snippet shown in search); 4-6 distinct high-value terms in natural sentences; end with relevant hashtags. ~450-500 chars.
 - **Alt text is indexed.** Put the keyword in the image alt text.
-- **Hashtags are keyword tags, NOT social discovery** like Instagram. Keep them relevant — irrelevant hashtags hurt placement. Do NOT keyword-stuff hashtags.
+- **Hashtags are keyword tags, NOT social discovery** like Instagram. Keep them relevant, irrelevant hashtags hurt placement. Do NOT keyword-stuff hashtags.
 - **Do NOT keyword-stuff** titles or descriptions. Pure keyword salad gets demoted. Human-readable copy that includes the keyword.
 - **Optimize existing Pins:** keywords can be added to previously published Pins' titles/descriptions to revive them.
 
 ## Cadence Rules
 - **3-5 fresh Pins/day** for an active account (matches Pinterest "create regularly" + avoids the spam flag from flooding).
-- **Fresh original Pins, not repins** — repins don't move the algorithm the same way.
-- **Consistency beats volume** — daily beats weekly bursts, always.
+- **Fresh original Pins, not repins**, repins don't move the algorithm the same way.
+- **Consistency beats volume**, daily beats weekly bursts, always.
 - **Never flood** a re-activated/dormant account with 10+ Pins/day; that trips spam filters (see duplicate/spam rule above).
 - Use the 2-week scheduling window to batch-create and schedule ahead.
 - **Index lag:** new pins can take time to get pushed; old pins keep paying out for years. Patience is the strategy.
@@ -109,7 +109,7 @@ When Vinny hands over a link and wants a title and description, demand data come
 - Goal: funnel traffic to Sovereign AI Stack. Pinterest has real purchase-intent buyers and a decade-long content tail.
 - The SEO changes locked in mid-August 2026 (pre-write dedup gate + per-post board assignment on the daily cron) are working. Keep them going. Consistency and correct board placement compound. Do not regress to flood-posting or unassigned pins.
 
-## Live boards (SOURCE OF TRUTH — fetch, never guess)
+## Live boards (SOURCE OF TRUTH, fetch, never guess)
 
 **Account profile is `PhantomByteAI`** (NOT `phantombyte`, which is a different dormant account). Board slugs 404 on the wrong profile.
 
@@ -198,7 +198,7 @@ The Pinterest Posts cron must check live Pinterest trend data every run and let 
 
 **Forbidden:** stating a trend percentage in a post, writing that anything is "trending on Pinterest", bolting a seasonal term onto an unrelated story, inventing a trend, or claiming the check ran when it did not. Candidate phrases must be human search phrasing ("humanoid robot"), never headline phrasing.
 
-## The daily Pinterest Posts cron — gates are hard, never escapable
+## The daily Pinterest Posts cron, gates are hard, never escapable
 
 - **Title 100 chars, description 500 chars.** Over-limit text is silently truncated in the feed, so an over-limit post is a broken post. Any prompt wording that permits the email to go out carrying an over-limit post is a defect and gets deleted.
 - **Cap loops, never gates.** Wording like "verify once, then proceed regardless", "send it anyway even if a post is over the limit", or "at most 2 execute_code calls" is an escape hatch, and the run takes it. Phrase the check as: rewrite the offending post SHORT from scratch, re-run the check, repeat until it reports zero violations.

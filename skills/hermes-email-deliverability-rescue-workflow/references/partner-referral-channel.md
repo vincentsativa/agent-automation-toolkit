@@ -1,7 +1,7 @@
 # Partner / referral channel (white-label fix + finders fee)
 
 Added 2026-10-08 on Vinny's direction. The plan of record is the dated section
-"2026-10-08 — The partner channel" in
+"2026-10-08, The partner channel" in
 `C:\Users\<user>\workspace\memory\deliverability-rescue-vps-plan.md`. This file is
 the operational doc: the terms, the copy drafts, the sourcing route, the page
 outline, and the checks. Nothing here is built, sent, or deployed until Vinny
@@ -268,10 +268,10 @@ forbidding rule silently became a permitting one.
 
 The buckets exist in `osm_industry_prospects.py`:
 
-- `it_msp` — `office=it|telecommunication|computer`,
+- `it_msp`, `office=it|telecommunication|computer`,
   `shop=computer|electronics|mobile_phone|telecommunication`,
   `craft=electronics_repair|computer|it`.
-- `b2b_agency` — `office=advertising_agency|marketing|public_relations|design|graphic_design|publisher|media`,
+- `b2b_agency`, `office=advertising_agency|marketing|public_relations|design|graphic_design|publisher|media`,
   `shop=advertising|marketing|printing`.
 
 Web development / maintenance and independent IT consultants have no clean OSM

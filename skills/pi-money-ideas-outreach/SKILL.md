@@ -1,7 +1,7 @@
 ---
 name: money-ideas-outreach
 description: >-
-  THE MAP for Vinny's money_ideas cold-outreach project — the "Email
+  THE MAP for Vinny's money_ideas cold-outreach project, the "Email
   Deliverability Rescue" offer. Read this FIRST for anything about email,
   outreach, cold email, the campaign, prospects, the sending pipeline, the
   staging cron, the planning docs, the VPS/SES migration, or money_ideas. When
@@ -11,41 +11,41 @@ description: >-
   has to search the filesystem again.
 ---
 
-# money_ideas outreach — where everything is
+# money_ideas outreach, where everything is
 
 Two worlds, one project. Most mistakes here are boundary mistakes: searching the
 Windows side for a WSL file, or the WSL side for a Windows file.
 
 | | Windows (pi runs here) | WSL Ubuntu (user `<linux-user>`) |
 |---|---|---|
-| Pipeline code | — | `~/money_ideas/` |
-| Plans + memory | `~\workspace\memory\` | — |
+| Pipeline code |, | `~/money_ideas/` |
+| Plans + memory | `~\workspace\memory\` |, |
 | Skills | `~\.pi\agent\skills\` | `~/.hermes/skills/` |
-| Cron | — | `~/.hermes/cron/jobs.json` |
-| Credentials | — | `~/.config/phantombyte/mailer.env` |
+| Cron |, | `~/.hermes/cron/jobs.json` |
+| Credentials |, | `~/.config/phantombyte/mailer.env` |
 
 Crossing: `\\wsl.localhost\Ubuntu\home/<linux-user>\...` is `~/...`;
 `/mnt~/` is `~\`.
 
 ## Read these before touching anything
 
-1. **The planning file** — `~\workspace\memory\deliverability-rescue-vps-plan.md`.
+1. **The planning file**, `~\workspace\memory\deliverability-rescue-vps-plan.md`.
    The VPS plan, the SES migration, the AWS/EC2 credit, the dashboard, the data
    business, the port-25 conflict, and the funding-gated roadmap. **This is what
    Vinny means by "our planning file".** Update it there; do not scatter plan
    text into other docs.
-2. **The pipeline authority** — `~/.hermes/skills/email-deliverability-rescue-workflow/SKILL.md`
+2. **The pipeline authority**, `~/.hermes/skills/email-deliverability-rescue-workflow/SKILL.md`
    (103KB) plus its `references/` (28 files: cadence, copy rules, verification,
    state protection, OSM sourcing, venues, partner/referral channel, the pi
    handoff rules). The skill is the authority; a plan summary is not.
 3. **This session's harness only lists `~\.pi\agent\skills\`.** The
    project's real skills live under `~/.hermes/skills/` and are NOT
    in the startup list. Go read them; do not conclude they do not exist.
-4. `~\.pi\agent\instructions.md` — hard rules (never leak
+4. `~\.pi\agent\instructions.md`, hard rules (never leak
    credentials into a repo; never run `gcloud run domain-mappings`).
-5. **The partner channel** (added 2026-10-08) — the white-label fix + referral
+5. **The partner channel** (added 2026-10-08), the white-label fix + referral
    second go-to-market, aimed at web/IT agencies, MSPs, and consultants. The
-   plan is the dated "2026-10-08 — The partner channel" section in the planning
+   plan is the dated "2026-10-08, The partner channel" section in the planning
    file; the operational doc with the two-arm email drafts and the `/partner`
    page outline is `references/partner-referral-channel.md`.
 
@@ -72,15 +72,15 @@ Crossing: `\\wsl.localhost\Ubuntu\home/<linux-user>\...` is `~/...`;
 | `build_lead_groups.py`, `build_clicker_groups.py`, `click_tokens.py` | `leads/` groups, click attribution (`o` = offer, `c` = per-recipient token) |
 | `test_outreach.py` | Known-answer suite. Run after ANY `outreach.py` edit. Sends nothing. Needs `mailer.env` sourced or one check false-fails on the missing postal address |
 | `stage_drafts.py` | Legacy IMAP-drafts path (kept for when Vinny asks for drafts) |
-| `partner_outreach.py` | **Partner channel sender (added 2026-10-08).** White-label/referral pitch to agencies, MSPs, web/IT shops. Own template, own state (`partner_state.json`), own log. Reuses `schedule_drafts` staging and the `outreach` gates. Read-back is scoped to partner addresses, so it coexists with the buyer batch in `Scheduled`. Role boxes allowed BY DEFAULT (`--drop-role` for strict); the buyer channel still never mails role. Signature = IONOS default (name + websites) + postal. `--reconcile` repairs queued mail left untracked by a failed verify. **`partner_fit()` has two admission routes as of 2026-10-11: an OSM tag in `KEEP_SOURCES` / an agency-shaped name, OR `industry_source` starting `dir:` (a directory row is agency-shaped by construction; DENY_NAME and `partner_exclude.txt` still veto).** Meter: **50/day as of 2026-10-11** (was 30). Sourcing: the agency directories below, plus `partner_metros4.txt` (OSM, 55 metros) as the backstop. **Sourcing-limited, not rate-limited** — measured ~7.6 usable addresses per OSM metro. |
+| `partner_outreach.py` | **Partner channel sender (added 2026-10-08).** White-label/referral pitch to agencies, MSPs, web/IT shops. Own template, own state (`partner_state.json`), own log. Reuses `schedule_drafts` staging and the `outreach` gates. Read-back is scoped to partner addresses, so it coexists with the buyer batch in `Scheduled`. Role boxes allowed BY DEFAULT (`--drop-role` for strict); the buyer channel still never mails role. Signature = IONOS default (name + websites) + postal. `--reconcile` repairs queued mail left untracked by a failed verify. **`partner_fit()` has two admission routes as of 2026-10-11: an OSM tag in `KEEP_SOURCES` / an agency-shaped name, OR `industry_source` starting `dir:` (a directory row is agency-shaped by construction; DENY_NAME and `partner_exclude.txt` still veto).** Meter: **50/day as of 2026-10-11** (was 30). Sourcing: the agency directories below, plus `partner_metros4.txt` (OSM, 55 metros) as the backstop. **Sourcing-limited, not rate-limited**, measured ~7.6 usable addresses per OSM metro. |
 | `directory_prospects.py` | **Directory scraper (added 2026-10-11).** Builds partner prospects from agency directories instead of OSM, because OSM is exhausted for agencies. Reads `topdevelopers.co` (10,836 agency profiles) and `superbcompanies.com` (77,931), honours robots.txt at runtime with RFC 9309 matching (query strings included), single-threaded with a per-host delay, resumable via `directory_seen_<source>.txt`, appends new domains to `partner_prospects_master.csv`. Emits the OSM pool schema with `industry_source="dir:<source>"`. **Measured 40/40 correct domain extraction** on the first twenty profiles of each source. It does NOT find email addresses; that stays `find_contacts.py`. Tests: `test_directory_prospects.py` (85 offline cases, real markup embedded as fixtures). |
 | `directory_pool_todo.py` | **New 2026-10-11.** Works out which pool domains still need a DNS scan and which still need a harvested contact, so a directory run pays only for what is genuinely new (`--only-domains`). |
-| `infer_addresses.py` | **New 2026-10-30. The pool's own data as a source.** `contacts_master.csv` held **1,015 rows where the harvest found a real person's name on the site and no address printed** — those were being discarded. This turns `first last @ domain` into five ordered candidates (first, first.last, firstlast, last, flast), drops business-looking captures (`All Pierogi`, `Vehicles Schedule`, `Us From` — 363 rejected in the first 400 rows), verifies through the RCPT gate and, with `--apply`, patches the winning address into the row that already exists for that domain (same row count, temp + `os.replace`). Only a proven address is kept; nothing is sent. |
+| `infer_addresses.py` | **New 2026-10-30. The pool's own data as a source.** `contacts_master.csv` held **1,015 rows where the harvest found a real person's name on the site and no address printed**, those were being discarded. This turns `first last @ domain` into five ordered candidates (first, first.last, firstlast, last, flast), drops business-looking captures (`All Pierogi`, `Vehicles Schedule`, `Us From`, 363 rejected in the first 400 rows), verifies through the RCPT gate and, with `--apply`, patches the winning address into the row that already exists for that domain (same row count, temp + `os.replace`). Only a proven address is kept; nothing is sent. |
 | `csv_append.py` | **New 2026-10-11.** The only supported way to append rows into a master pool CSV. Refuses a missing/empty/headerless source, dedupes on `--key` (default `domain`) so a re-run is idempotent, pads short rows, refuses to shrink the file, and writes via a temp file + `os.replace`. It exists because the shell idiom it replaced (`[ -s "$M" ] || head -1 "$SRC" > "$M"`) **emptied `partner_contacts_master.csv`** during the 2026-10-11 refill run - and because that script was being edited while it ran. Tests: `test_csv_append.py` (31 offline cases). |
 
 State: `state.json` + `outreach_log.csv` are the campaign's **contact history**.
 Never delete them. The test suite redirects to a temp dir; keep it that way.
-`auth_rejections.txt` (new 2026-10-05) is runtime data too — the gateway
+`auth_rejections.txt` (new 2026-10-05) is runtime data too, the gateway
 rejections `harvest_bounces.py` records, gitignored, regenerable from the inbox.
 
 Cron (WSL Hermes, `~/.hermes/cron/jobs.json`, `hermes cron list`). Seven jobs;
@@ -107,14 +107,14 @@ what limits the agency channel (~7.6 usable addresses per OSM metro). See
 `hermes-outreach-cron` and `references/partner-referral-channel.md`.
 
 Git: `github.com/vincentsativa/money_ideas`, private, branch `main`, pushed from
-WSL. Commit code only — never `state.json` or the `prospects_*.csv` runtime data.
+WSL. Commit code only, never `state.json` or the `prospects_*.csv` runtime data.
 
 ## Gotchas that have already cost time
 
 - **Verification has three layers:** the local RCPT probe (free, IPv6-only reach),
   the hosted verifier for UNKNOWN only (free 100/day, key in `mailer.env`), and
   `verify_cache.json` (30-day TTL, `MAIL_VERIFY_RECHECK=1` to force a re-probe).
-  A remote DEAD is never written to the suppression file — the `REMOTE_` code
+  A remote DEAD is never written to the suppression file, the `REMOTE_` code
   prefix carries that through the cache.
 - **Gateway rejection ≠ dead mailbox (2026-10-05).** A Microsoft `5.7.515` /
   `5.7.509` or a Gmail unauthenticated refusal means the SENDING domain failed

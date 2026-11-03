@@ -2,7 +2,7 @@
 
 ## Why This Pattern Exists
 
-The tensorfeed skill's cron context warns against using `delegate_task` for browsing because subagent results may never arrive in a cron session. The alternative — sequential `browser_navigate` calls — is slow (2-3 minutes for 6-8 articles). The batch curl extraction pattern via `execute_code` is the fastest reliable approach for cron: it downloads all articles in parallel (one `terminal()` call per URL) and extracts them in a single Python pass.
+The tensorfeed skill's cron context warns against using `delegate_task` for browsing because subagent results may never arrive in a cron session. The alternative, sequential `browser_navigate` calls, is slow (2-3 minutes for 6-8 articles). The batch curl extraction pattern via `execute_code` is the fastest reliable approach for cron: it downloads all articles in parallel (one `terminal()` call per URL) and extracts them in a single Python pass.
 
 ## Pattern
 
@@ -45,19 +45,19 @@ Compare to sequential browser_navigate: ~15-20 seconds per article = 2-3 minutes
 
 ## When to Use
 
-- **Cron sessions** (always — this is the fastest reliable pattern)
+- **Cron sessions** (always, this is the fastest reliable pattern)
 - **Interactive sessions** when you have 10+ articles and don't need visual rendering
-- **Paywalled sites** — curl bypasses some paywall JS that the browser stack gets stuck on
+- **Paywalled sites**, curl bypasses some paywall JS that the browser stack gets stuck on
 
 ## When NOT to Use
 
 - Sites that require JavaScript rendering (SPAs, dynamic content loaded via XHR)
-- Sites with aggressive bot detection (Cloudflare, etc.) — the browser stack with residential proxies is better
+- Sites with aggressive bot detection (Cloudflare, etc.), the browser stack with residential proxies is better
 - Sites where you need to interact (click, scroll, fill forms)
 
 ## Known Limitations
 
-- `curl -sL --max-time 20` may time out on slow sites — increase to 30 if needed
-- Some sites return a "Please enable JS" page (Reuters, WSJ) — these need the browser stack
+- `curl -sL --max-time 20` may time out on slow sites, increase to 30 if needed
+- Some sites return a "Please enable JS" page (Reuters, WSJ), these need the browser stack
 - The extraction regex (`re.sub(r'<script[^>]*>.*?</script>', ...)`) is aggressive and may miss content in unusual HTML structures
-- Twitter/X pages return minimal content via curl — use browser_navigate for social media
+- Twitter/X pages return minimal content via curl, use browser_navigate for social media

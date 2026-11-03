@@ -1,4 +1,4 @@
-# Welcome Email — Sovereign AI Stack Blueprint PDF
+# Welcome Email, Sovereign AI Stack Blueprint PDF
 
 **Created:** May 16, 2026
 **Use:** Triggered on all new subscriber signups across all groups
@@ -22,7 +22,7 @@
 
   <p>Questions? Just reply to this email.</p>
 
-  <p style="margin-top: 30px; color: #888; font-size: 13px;">— Vinny<br>PhantomByte</p>
+  <p style="margin-top: 30px; color: #888; font-size: 13px;">- Vinny<br>PhantomByte</p>
 </div>
 
 </body>
@@ -43,7 +43,7 @@ https://vincentsativa.com/assets/The-Sovereign-AI-Stack-Blueprint.pdf
 
 Questions? Just reply to this email.
 
-— Vinny
+- Vinny
 PhantomByte
 ```
 
@@ -60,17 +60,17 @@ PhantomByte
 **Automation flow:** Subscriber joins group → Delay 0 (immediate) → Send Email (above HTML)
 
 **Notes:**
-- The PDF is 14MB — too large for MailerLite attachment limit (10MB). Use hosted download link.
+- The PDF is 14MB, too large for MailerLite attachment limit (10MB). Use hosted download link.
 - PDF hosted at: `https://vincentsativa.com/assets/The-Sovereign-AI-Stack-Blueprint.pdf`
 - This fires for ALL new subscribers regardless of funnel. Existing funnel sequences (5-day challenge, etc.) continue separately.
 - Do NOT modify existing 4 automations when adding this one.
 
-**API key location:** `C:\Users\<user>\workspace\mailerlite_setup_v4.py` — read the file for the full key (eyJ0eX... is truncated in scripts).
+**API key location:** `C:\Users\<user>\workspace\mailerlite_setup_v4.py`, read the file for the full key (eyJ0eX... is truncated in scripts).
 
 ## Design Specs
 - Background: `#0d0d1a`
 - Text: `#e0e0ff`
 - CTA button: `#9D4EDD` background, white text, 8px border-radius, 14px/28px padding
-- From: `hello@phantom-byte.com`, name: `Vinny Barreca — PhantomByte`
+- From: `hello@phantom-byte.com`, name: `Vinny Barreca, PhantomByte`
 - Track opens: true
 - Language: English (language_id: 4 in API)

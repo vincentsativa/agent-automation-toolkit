@@ -9,9 +9,9 @@ metadata:
     related_skills: [kanban-orchestrator]
 ---
 
-# Kanban Worker — Pitfalls and Examples
+# Kanban Worker, Pitfalls and Examples
 
-> You're seeing this skill because the Hermes Kanban dispatcher spawned you as a worker with `--skills kanban-worker` — it's loaded automatically for every dispatched worker. The **lifecycle** (6 steps: orient → work → heartbeat → block/complete) also lives in the `KANBAN_GUIDANCE` block that's auto-injected into your system prompt. This skill is the deeper detail: good handoff shapes, retry diagnostics, edge cases.
+> You're seeing this skill because the Hermes Kanban dispatcher spawned you as a worker with `--skills kanban-worker`, it's loaded automatically for every dispatched worker. The **lifecycle** (6 steps: orient → work → heartbeat → block/complete) also lives in the `KANBAN_GUIDANCE` block that's auto-injected into your system prompt. This skill is the deeper detail: good handoff shapes, retry diagnostics, edge cases.
 
 ## Workspace handling
 
@@ -37,7 +37,7 @@ The `kanban_complete(summary=..., metadata=...)` handoff is how downstream worke
 **Coding task:**
 ```python
 kanban_complete(
-    summary="shipped rate limiter — token bucket, keys on user_id with IP fallback, 14 tests pass",
+    summary="shipped rate limiter, token bucket, keys on user_id with IP fallback, 14 tests pass",
     metadata={
         "changed_files": ["rate_limiter.py", "tests/test_rate_limiter.py"],
         "tests_run": 14,
@@ -78,10 +78,10 @@ Shape `metadata` so downstream parsers (reviewers, aggregators, schedulers) can 
 
 ## Claiming cards you actually created
 
-If your run produced new kanban tasks (via `kanban_create`), pass the ids in `created_cards` on `kanban_complete`. The kernel verifies each id exists and was created by your profile; any phantom id blocks the completion with an error listing what went wrong, and the rejected attempt is permanently recorded on the task's event log. **Only list ids you captured from a successful `kanban_create` return value — never invent ids from prose, never paste ids from earlier runs, never claim cards another worker created.**
+If your run produced new kanban tasks (via `kanban_create`), pass the ids in `created_cards` on `kanban_complete`. The kernel verifies each id exists and was created by your profile; any phantom id blocks the completion with an error listing what went wrong, and the rejected attempt is permanently recorded on the task's event log. **Only list ids you captured from a successful `kanban_create` return value, never invent ids from prose, never paste ids from earlier runs, never claim cards another worker created.**
 
 ```python
-# GOOD — capture return values, then claim them.
+# GOOD, capture return values, then claim them.
 c1 = kanban_create(title="remediate SQL injection", assignee="security-worker")
 c2 = kanban_create(title="fix CSRF middleware", assignee="web-worker")
 
@@ -93,18 +93,18 @@ kanban_complete(
 ```
 
 ```python
-# BAD — claiming ids you don't have captured return values for.
+# BAD, claiming ids you don't have captured return values for.
 kanban_complete(
     summary="Created remediation cards t_a1b2c3d4, t_deadbeef",  # hallucinated
     created_cards=["t_a1b2c3d4", "t_deadbeef"],                   # → gate rejects
 )
 ```
 
-If a `kanban_create` call fails (exception, tool_error), the card was NOT created — do not include a phantom id for it. Retry the create, or omit the id and mention the failure in your summary. The prose-scan pass also catches `t_<hex>` references in your free-form summary that don't resolve; these don't block the completion but show up as advisory warnings on the task in the dashboard.
+If a `kanban_create` call fails (exception, tool_error), the card was NOT created, do not include a phantom id for it. Retry the create, or omit the id and mention the failure in your summary. The prose-scan pass also catches `t_<hex>` references in your free-form summary that don't resolve; these don't block the completion but show up as advisory warnings on the task in the dashboard.
 
 ## Block reasons that get answered fast
 
-Bad: `"stuck"` — the human has no context.
+Bad: `"stuck"`, the human has no context.
 
 Good: one sentence naming the specific decision you need. Leave longer context as a comment instead.
 
@@ -128,26 +128,26 @@ Bad heartbeats: `"still working"`, empty notes, sub-second intervals. Every few 
 
 If you open the task and `kanban_show` returns `runs: [...]` with one or more closed runs, you're a retry. The prior runs' `outcome` / `summary` / `error` tell you what didn't work. Don't repeat that path. Typical retry diagnostics:
 
-- `outcome: "timed_out"` — the previous attempt hit `max_runtime_seconds`. You may need to chunk the work or shorten it.
-- `outcome: "crashed"` — OOM or segfault. Reduce memory footprint.
-- `outcome: "spawn_failed"` + `error: "..."` — usually a profile config issue (missing credential, bad PATH). Ask the human via `kanban_block` instead of retrying blindly.
-- `outcome: "reclaimed"` + `summary: "task archived..."` — operator archived the task out from under the previous run; you probably shouldn't be running at all, check status carefully.
-- `outcome: "blocked"` — a previous attempt blocked; the unblock comment should be in the thread by now.
+- `outcome: "timed_out"`, the previous attempt hit `max_runtime_seconds`. You may need to chunk the work or shorten it.
+- `outcome: "crashed"`, OOM or segfault. Reduce memory footprint.
+- `outcome: "spawn_failed"` + `error: "..."`, usually a profile config issue (missing credential, bad PATH). Ask the human via `kanban_block` instead of retrying blindly.
+- `outcome: "reclaimed"` + `summary: "task archived..."`, operator archived the task out from under the previous run; you probably shouldn't be running at all, check status carefully.
+- `outcome: "blocked"`, a previous attempt blocked; the unblock comment should be in the thread by now.
 
 ## Do NOT
 
 - Call `delegate_task` as a substitute for `kanban_create`. `delegate_task` is for short reasoning subtasks inside YOUR run; `kanban_create` is for cross-agent handoffs that outlive one API loop.
 - Modify files outside `$HERMES_KANBAN_WORKSPACE` unless the task body says to.
-- Create follow-up tasks assigned to yourself — assign to the right specialist.
+- Create follow-up tasks assigned to yourself, assign to the right specialist.
 - Complete a task you didn't actually finish. Block it instead.
 
 ## Pitfalls
 
-**Task state can change between dispatch and your startup.** Between when the dispatcher claimed and when your process actually booted, the task may have been blocked, reassigned, or archived. Always `kanban_show` first. If it reports `blocked` or `archived`, stop — you shouldn't be running.
+**Task state can change between dispatch and your startup.** Between when the dispatcher claimed and when your process actually booted, the task may have been blocked, reassigned, or archived. Always `kanban_show` first. If it reports `blocked` or `archived`, stop, you shouldn't be running.
 
-**Dispatcher will not pick up unassigned tasks.** The dispatcher only spawns workers for `ready` tasks that have a non-null `assignee`. If you see a task has no assignee in `kanban_show`, the dispatcher skips it every tick. This is why tasks can appear "stuck" for long periods with zero worker activity. It is not a dispatcher crash — it's a misconfiguration. Fix: `hermes kanban assign <id> <profile>`.
+**Dispatcher will not pick up unassigned tasks.** The dispatcher only spawns workers for `ready` tasks that have a non-null `assignee`. If you see a task has no assignee in `kanban_show`, the dispatcher skips it every tick. This is why tasks can appear "stuck" for long periods with zero worker activity. It is not a dispatcher crash, it's a misconfiguration. Fix: `hermes kanban assign <id> <profile>`.
 
-**Workspace may have stale artifacts.** Especially `dir:` and `worktree` workspaces can have files from previous runs. Read the comment thread — it usually explains why you're running again and what state the workspace is in.
+**Workspace may have stale artifacts.** Especially `dir:` and `worktree` workspaces can have files from previous runs. Read the comment thread, it usually explains why you're running again and what state the workspace is in.
 
 **Don't rely on the CLI when the guidance is available.** The `kanban_*` tools work across all terminal backends (Docker, Modal, SSH). `hermes kanban <verb>` from your terminal tool will fail in containerized backends because the CLI isn't installed there. When in doubt, use the tool.
 

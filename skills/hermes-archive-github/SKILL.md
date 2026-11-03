@@ -22,15 +22,15 @@ section shows `gh` CLI first, then `git`+`curl` fallback for machines without
 
 ## Subsections
 
-1. **[Authentication](#1-authentication)** — HTTPS tokens, SSH keys, gh CLI login
-2. **[Code Review](#2-code-review)** — Review local changes and PR diffs
-3. **[Issues](#3-issues)** — Create, triage, label, assign, comment
-4. **[Pull Requests](#4-pull-requests)** — Branch, commit, open, CI, merge
-5. **[Repository Management](#5-repository-management)** — Clone, create, fork, settings
-6. **[Releases & Actions](#6-releases--actions)** — Releases, workflows, CI monitoring
-7. **[Codebase Inspection](#7-codebase-inspection)** — LOC, language breakdown, ratios
-8. **[Secrets Management](#8-secrets-management)** — GitHub Actions secrets
-9. **[Quick Reference](#9-quick-reference)** — Cheatsheet tables
+1. **[Authentication](#1-authentication)**, HTTPS tokens, SSH keys, gh CLI login
+2. **[Code Review](#2-code-review)**, Review local changes and PR diffs
+3. **[Issues](#3-issues)**, Create, triage, label, assign, comment
+4. **[Pull Requests](#4-pull-requests)**, Branch, commit, open, CI, merge
+5. **[Repository Management](#5-repository-management)**, Clone, create, fork, settings
+6. **[Releases & Actions](#6-releases--actions)**, Releases, workflows, CI monitoring
+7. **[Codebase Inspection](#7-codebase-inspection)**, LOC, language breakdown, ratios
+8. **[Secrets Management](#8-secrets-management)**, GitHub Actions secrets
+9. **[Quick Reference](#9-quick-reference)**, Cheatsheet tables
 
 ---
 
@@ -72,7 +72,7 @@ For standalone scripts, the helper script at `scripts/gh-env.sh` exports these.
 ```bash
 # Set up credential helper
 git config --global credential.helper store
-# Then do a test operation — enter username + token as password
+# Then do a test operation, enter username + token as password
 git ls-remote https://github.com/<user>/<repo>.git
 
 # Set identity
@@ -84,13 +84,13 @@ Alternative: SSH key authentication (`ssh-keygen -t ed25519`, then add to GitHub
 
 ### Fine-Grained PATs vs Classic PATs
 
-**Classic PAT** — set scope at creation time (`repo`, `workflow`, etc.). Scopes visible in the
+**Classic PAT**, set scope at creation time (`repo`, `workflow`, etc.). Scopes visible in the
 `X-OAuth-Scopes` response header. Simple, works for everything, but broad.
 
-**Fine-Grained PAT** — set granular **Repository permissions** (Contents: RW, Issues: RW,
+**Fine-Grained PAT**, set granular **Repository permissions** (Contents: RW, Issues: RW,
 Pull requests: RW, etc.) AND **Account permissions** (Repositories: Create) per-token in
 the GitHub UI at `github.com/settings/tokens`. **Does NOT show scopes in the response
-header** — `X-OAuth-Scopes: NONE` is normal for fine-grained tokens. Diagnose by attempting
+header**, `X-OAuth-Scopes: NONE` is normal for fine-grained tokens. Diagnose by attempting
 operations; `403 Resource not accessible by personal access token` means the token's
 permissions are too narrow, not that it's broken.
 
@@ -150,13 +150,13 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 
 ### gh CLI Authentication
 
-**Classic PAT** — set scope at creation time (`repo`, `workflow`, etc.). Scopes visible in the
+**Classic PAT**, set scope at creation time (`repo`, `workflow`, etc.). Scopes visible in the
 `X-OAuth-Scopes` response header. Simple, works for everything, but broad.
 
-**Fine-Grained PAT** — set granular **Repository permissions** (Contents: RW, Issues: RW,
+**Fine-Grained PAT**, set granular **Repository permissions** (Contents: RW, Issues: RW,
 Pull requests: RW, etc.) AND **Account permissions** (Repositories: Create) per-token in
 the GitHub UI at `github.com/settings/tokens`. **Does NOT show scopes in the response
-header** — `X-OAuth-Scopes: NONE` is normal for fine-grained tokens. Diagnose by attempting
+header**, `X-OAuth-Scopes: NONE` is normal for fine-grained tokens. Diagnose by attempting
 operations; `403 Resource not accessible by personal access token` means the token's
 permissions are too narrow, not that it's broken.
 
@@ -264,13 +264,13 @@ git diff main...HEAD | grep -n "<<<<<<\|>>>>>>\|======="
 ## Code Review Summary
 
 ### Critical
-- **file:line** — Issue description. Suggestion: fix.
+- **file:line**, Issue description. Suggestion: fix.
 
 ### Warnings
-- **file:line** — Issue description.
+- **file:line**, Issue description.
 
 ### Suggestions
-- **file:line** — Improvement idea.
+- **file:line**, Improvement idea.
 
 ### Looks Good
 - Positive observations.
@@ -491,7 +491,7 @@ pygount --suffix=py,yaml,yml --format=summary .
 Output formats: `summary` (default), `json` (programmatic), detailed (file-by-file).
 
 Pitfalls:
-- Always use `--folders-to-skip` — without it pygount crawls everything
+- Always use `--folders-to-skip`, without it pygount crawls everything
 - Markdown counts as 0 code lines (classified as comments)
 - For large monorepos, use `--suffix` to target specific languages
 
@@ -530,7 +530,7 @@ For `gh`-less systems, secrets require encryption with the repo's public key (se
 | Problem | Solution |
 |---------|----------|
 | `git push` asks for password | Use PAT as password, or switch to SSH |
-| `remote: Permission to X denied` | Check token scopes — classic PAT needs `repo` scope; fine-grained PAT needs per-repo Contents: RW |
+| `remote: Permission to X denied` | Check token scopes, classic PAT needs `repo` scope; fine-grained PAT needs per-repo Contents: RW |
 | `403 Resource not accessible` + `gh repo create` | Fine-grained PAT needs **Account: Repositories: Create** permission. Classic PAT needs `repo` scope. Create via REST API at `/user/repos` for the same 403 signal |
 | `ssh: connect to host github.com port 22: Connection refused` | Try SSH over HTTPS (Host github.com with Port 443) |
 | Multiple accounts | SSH keys per host alias, or per-repo credential URLs |

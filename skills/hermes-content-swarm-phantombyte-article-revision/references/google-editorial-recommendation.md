@@ -1,4 +1,4 @@
-# Google's "Bridge Theory to Code" Recommendation — Known-Good Guardrail Block
+# Google's "Bridge Theory to Code" Recommendation, Known-Good Guardrail Block
 
 **Verified working Aug 2026 (Article 148).** Google repeatedly tells PhantomByte that conceptual security/architecture articles read as thought-leadership and should become bookmarkable engineering resources by injecting a short, practical code block. The fix is a `// THE GUARDRAIL IN CODE`-style section with a working example of the concept the article only described verbally.
 
@@ -48,7 +48,7 @@ The agent never sees the rule. It only meets the consequence. That is the differ
 
 ## Why this satisfies the recommendation
 
-- **Concrete, executable** — not "consider a guardrail" but a callable function and a declarative config.
-- **Ties the article's abstract thesis (defense lives outside the model) to a runnable artifact** — exactly what Google means by "bookmarkable engineering resource."
+- **Concrete, executable**, not "consider a guardrail" but a callable function and a declarative config.
+- **Ties the article's abstract thesis (defense lives outside the model) to a runnable artifact**, exactly what Google means by "bookmarkable engineering resource."
 - **Uses the exact tools the article names** (Gemini hooks, SteerPlane) so the section reinforces, not contradicts, the surrounding prose.
-- **Zero em dashes** in the block itself — write it that way from the start.
+- **Zero em dashes** in the block itself, write it that way from the start.

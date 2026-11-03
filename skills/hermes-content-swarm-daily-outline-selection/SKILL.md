@@ -19,11 +19,11 @@ If the ask is ambiguous, one short question beats a silent run: "Want the select
 
 ## The Selection Lens (learned 2026-08-16)
 
-**Vinny's goal is maximum visibility via GEO (Generative Engine Optimization) and long-term architectural authority — NOT short-term traffic spikes.** Optimize for the metric Vinny explicitly named, not for clickbait recency.
+**Vinny's goal is maximum visibility via GEO (Generative Engine Optimization) and long-term architectural authority, NOT short-term traffic spikes.** Optimize for the metric Vinny explicitly named, not for clickbait recency.
 
 The wrong lens (which caused a real miss on 2026-08-16): ranking a LiteLLM supply-chain breach post above the execution-layer architecture split because the breach was "urgent" and "high-hook." Google corrected this. A news-recap incident post decays the moment patches land and credentials rotate. It is NOT the authority signal.
 
-The correct hierarchy — in order of weight:
+The correct hierarchy, in order of weight:
 
 1. **GEO rewards structural standards, not news recaps.** Does the outline define a permanent engineering framework (a reference blueprint) that AI engines will index and cite for years? Or is it a time-stamped incident recap? Prefer the blueprint. Security panic and breaking-news urgency decay fast; frameworks are indexed for years.
 
@@ -55,7 +55,7 @@ grep -o 'https://articles.phantom-byte.com/[^ ]*' "$SCRATCH/sitemap.txt" | grep 
 
 Then filter those slugs per outline keyword set: voice, speech, audio, determinism, reproducib, arxiv, preprint, review, verif, research, latency, train, gpu, cluster, energy. This converts "is this a coverage gap?" from a guess into a count, and it is the number to check the outline's own gap claim against.
 
-3. **Read each outline** — extract core thesis, category fit, data density, cross-reference potential, actionability.
+3. **Read each outline**, extract core thesis, category fit, data density, cross-reference potential, actionability.
 
 4. **Rank on the four lenses above**, in the order given: (1) structural framework vs news recap, (2) genuine synthesis vs true overlap, (3) systems-engineering mandate fit, (4) timeless pattern vs vendor-specific claim. Then apply lens 5, category balance, as the tiebreak.
 

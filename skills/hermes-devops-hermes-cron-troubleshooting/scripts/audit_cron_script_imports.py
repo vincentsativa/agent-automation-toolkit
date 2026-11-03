@@ -2,7 +2,7 @@
 """Audit every cron script for imports the cron interpreter cannot satisfy.
 
 Why: a no_agent cron job runs ``sys.executable <script>`` (cron/scheduler_script.py::
-_script_argv), and that interpreter is the gateway's own — on this box the standalone
+_script_argv), and that interpreter is the gateway's own, on this box the standalone
 managed toolchain under ~/.hermes/tools/python-<ver>/bin/python3, whose site-packages
 holds only pip. The project's real dependencies live in the install venv. A script that
 imports ``yaml``, ``ruamel.yaml``, or a Hermes module without bootstrapping the install's
@@ -36,7 +36,7 @@ SCRIPTS_DIR = os.path.join(
 
 def top_level_modules(path: str) -> set[str]:
     """Top-level modules a file imports, at any nesting depth (so try/except fallbacks
-    that swallow the ImportError are still counted — a fallback hides the gap)."""
+    that swallow the ImportError are still counted, a fallback hides the gap)."""
     try:
         with open(path, encoding="utf-8", errors="replace") as fh:
             tree = ast.parse(fh.read())
@@ -67,7 +67,7 @@ def main() -> int:
             flagged += 1
             print("MISSING  %-40s %s" % (name, ", ".join(missing)))
     if not flagged:
-        print("ok — every cron script imports only what this interpreter carries")
+        print("ok, every cron script imports only what this interpreter carries")
     else:
         print("\n%d script(s) will crash or silently take a fallback under this interpreter." % flagged)
     return 0

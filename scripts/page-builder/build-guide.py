@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build-guide.py — Generate a new guide page from the template or fetch a live URL.
+build-guide.py, Generate a new guide page from the template or fetch a live URL.
 
 Usage:
     python build-guide.py --name "Sovereign AI Stack" --slug sovereign-ai-stack ^

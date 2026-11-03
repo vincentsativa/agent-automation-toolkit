@@ -45,7 +45,7 @@ For Anthropic sycophancy, Simon Willison's direct quote confirmed: 9% overall, 3
 Follow PhantomByte structural preferences (from phantom-byte-writing-style skill):
 - Visceral hook with hard numbers
 - Evidence stack (excitement first, then complication)
-- The creative leap (connect what nobody's connecting — name the paradox)
+- The creative leap (connect what nobody's connecting, name the paradox)
 - Deployment urgency (why it matters now, not theoretically)
 - Solution section (what a fix looks like, what won't work)
 - Loop back to opening image in the close
@@ -97,5 +97,5 @@ When Vinny provides a **THEME document** (thesis, section headings, argument str
 - Don't recommend stories that overlap with recent PhantomByte articles. Check the site first.
 - Don't trust IronPulse summaries for exact figures. Verify against source articles.
 - When a source is unreachable (Nature cookie wall, Google CAPTCHA), find a credible tech press summary with enough specificity.
-- If a story sits near an anti-Elon guardrail and every outlet is covering it, it's probably not a good PhantomByte pick — too crowded, wrong framing.
+- If a story sits near an anti-Elon guardrail and every outlet is covering it, it's probably not a good PhantomByte pick, too crowded, wrong framing.
 - Deliver everything via Windows Desktop file path. Never dump outlines or articles directly into Telegram.

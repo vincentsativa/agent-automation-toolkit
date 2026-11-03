@@ -13,7 +13,7 @@ metadata:
 
 ## Purpose
 
-When Vinny makes (or asks me to make) a change on the WSL side — a new/updated skill, a memory/profile change, a script or tooling change, a behavioral rule — that he wants **shared with the other agents** (the Windows agent Pi, and Bill's agent), we push it to the shared repo `vincentsativa/agent-change-briefs`.
+When Vinny makes (or asks me to make) a change on the WSL side, a new/updated skill, a memory/profile change, a script or tooling change, a behavioral rule, that he wants **shared with the other agents** (the Windows agent Pi, and Bill's agent), we push it to the shared repo `vincentsativa/agent-change-briefs`.
 
 ## Key Distinction
 
@@ -39,10 +39,10 @@ When Vinny makes (or asks me to make) a change on the WSL side — a new/updated
    git pull   # get latest from Bill so we don't clobber
    ```
 3. **Write the change as a dated brief** at `briefs/<YYYY-MM-DD>.md` following the same section convention Bill uses:
-   - **(A) Behavioral rules / constitution** — apply FIRST
-   - **(B) Skills to create or update** — exact skill file content or instructions
-   - **(C) Memory / profile changes** — the new MEMORY.md / USER.md content
-   - **(D) Scripts / tooling** — install/configure commands
+   - **(A) Behavioral rules / constitution**, apply FIRST
+   - **(B) Skills to create or update**, exact skill file content or instructions
+   - **(C) Memory / profile changes**, the new MEMORY.md / USER.md content
+   - **(D) Scripts / tooling**, install/configure commands
 4. If a brief already exists for today, **append to it** (don't overwrite Bill's work). Merge the new change in.
 5. **Update README.md** "Latest brief" date if it changed.
 6. **Commit and push:**
@@ -51,7 +51,7 @@ When Vinny makes (or asks me to make) a change on the WSL side — a new/updated
    git commit -m "Add brief YYYY-MM-DD: <change summary>"
    git push origin main
    ```
-7. **Confirm push succeeded** — verify with `git ls-remote origin` or the push output.
+7. **Confirm push succeeded**, verify with `git ls-remote origin` or the push output.
 8. **Notify Bill** via AgentMail (`[REDACTED_EMAIL]` → `[REDACTED_EMAIL]`) so his agent and the Windows agent know a new brief is up.
 9. **Tell Vinny you emailed Bill.** Bill has no auto mail-checker yet, so Vinny needs to nudge him to look. Flag it in your reply to Vinny (or via the home channel) whenever you email Bill.
 

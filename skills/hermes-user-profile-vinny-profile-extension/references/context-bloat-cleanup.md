@@ -1,20 +1,20 @@
 # Context Bloat Cleanup Procedure
 
 ## Diagnosis
-If models behave stupidly in Hermes but work fine in other tools (OpenClaw, Pi, Claude Code), the cause is almost always context bloat — too much injected into the system prompt before the model sees the user's message.
+If models behave stupidly in Hermes but work fine in other tools (OpenClaw, Pi, Claude Code), the cause is almost always context bloat, too much injected into the system prompt before the model sees the user's message.
 
 ## What Bloats the Prompt
-1. **Skills list** — Each enabled skill adds a name + description line to the system prompt. 114 skills = 114 lines of noise on every turn.
-2. **Memory files** — `~/.hermes/memories/MEMORY.md` and `USER.md` are injected every turn. ALL-CAPS instructions are counter-productive (they waste tokens and don't change behavior).
-3. **Persona file** — Loaded every turn. Keep it minimal.
-4. **Tool descriptions** — Every enabled toolset adds descriptions. Disable unused toolsets via `hermes tools`.
+1. **Skills list**, Each enabled skill adds a name + description line to the system prompt. 114 skills = 114 lines of noise on every turn.
+2. **Memory files**, `~/.hermes/memories/MEMORY.md` and `USER.md` are injected every turn. ALL-CAPS instructions are counter-productive (they waste tokens and don't change behavior).
+3. **Persona file**, Loaded every turn. Keep it minimal.
+4. **Tool descriptions**, Every enabled toolset adds descriptions. Disable unused toolsets via `hermes tools`.
 
 ## Cleanup Steps
 
 ### 1. Trim Memory Files
 Location: `~/.hermes/memories/MEMORY.md` and `USER.md`
 
-- Strip ALL-CAPS instructions — they don't work and just eat tokens
+- Strip ALL-CAPS instructions, they don't work and just eat tokens
 - Keep only declarative facts about the user
 - Good: "Runs Hermes via Telegram in WSL. Prefers event-driven solutions."
 - Bad: "YOU ARE NOT ALLOWED TO ADD ANYTHING TO THIS FILE. STAY OUT OF MEMORY."

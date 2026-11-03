@@ -3,7 +3,7 @@
 When extracting structured data from `blogwatcher-cli articles --all`, the output is plain text with indented blocks. Two things trip up naive parsers:
 
 ## 1. Leading whitespace on `[ID]` lines
-The `[ID] [new] HEADLINE` lines are indented with 2 leading spaces. A regex like `^\[(\d+)\]` fails silently — use `^\s*\[(\d+)\]` or skip regex entirely and scan for `Published:` lines.
+The `[ID] [new] HEADLINE` lines are indented with 2 leading spaces. A regex like `^\[(\d+)\]` fails silently, use `^\s*\[(\d+)\]` or skip regex entirely and scan for `Published:` lines.
 
 ## 2. Better pattern: filter by `Published:` line, walk backwards
 Instead of trying to parse from the `[ID]` header line, scan for lines containing the target date, then walk backward to collect headline, blog, URL, and categories.

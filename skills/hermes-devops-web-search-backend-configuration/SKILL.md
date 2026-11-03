@@ -19,7 +19,7 @@ Configure web search backend for ONE-OFF queries (NOT cron).
 hermes plugins list | grep -i keenable
 
 # Only when the plugin is absent, install into the SAME python hermes runs from
-# (NOT system pip — PEP 668 blocks it, and a different venv won't be discovered).
+# (NOT system pip, PEP 668 blocks it, and a different venv won't be discovered).
 # Find it via the first line of the launcher: head -3 $(which hermes) | grep -o '/[^ ]*python3'
 ~/.hermes/hermes-agent/venv/bin/pip install hermes-keenable-web
 

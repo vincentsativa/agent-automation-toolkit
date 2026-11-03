@@ -6,9 +6,9 @@ Use this when a job's report or deliverable arrived, but `last_status` is `error
 
 The scheduler writes its error text from the code path that gave up. Several distinct failures share generic labels:
 
-- `Interrupted by shutdown before terminal completion.` — written when a fire claim was lost (`_OWNERSHIP_LOST_INTERRUPTED`). No shutdown required.
-- `Fire claim ownership lost; stale result was discarded.` — the run's result was dropped because another owner held the claim.
-- `Interrupted by gateway shutdown before the run finished (tool subprocess was killed mid-flight).` — this one does involve a shutdown.
+- `Interrupted by shutdown before terminal completion.`, written when a fire claim was lost (`_OWNERSHIP_LOST_INTERRUPTED`). No shutdown required.
+- `Fire claim ownership lost; stale result was discarded.`, the run's result was dropped because another owner held the claim.
+- `Interrupted by gateway shutdown before the run finished (tool subprocess was killed mid-flight).`, this one does involve a shutdown.
 
 Confirm the cause from logs and process state before repeating the label to the user.
 
@@ -45,17 +45,17 @@ for r in c.execute('select status,error,claimed_at,started_at,finished_at,delive
 
 Comparison table once you have both:
 
-- `deliveries` says `delivered` + `executions` says `failed` — the user has the report and only the bookkeeping is wrong. Do not re-fire; find the scheduler bug.
-- `deliveries` says `delivered` + `executions` says `completed` — the recorded error is stale metadata from an earlier attempt.
-- no `deliveries` row + `executions` says `failed` — the work genuinely did not reach the user. Re-fire is appropriate after clearing the failure cause.
-- no output file at all — the run never executed. Check `next_run_at` and the missed-run protocol.
+- `deliveries` says `delivered` + `executions` says `failed`, the user has the report and only the bookkeeping is wrong. Do not re-fire; find the scheduler bug.
+- `deliveries` says `delivered` + `executions` says `completed`, the recorded error is stale metadata from an earlier attempt.
+- no `deliveries` row + `executions` says `failed`, the work genuinely did not reach the user. Re-fire is appropriate after clearing the failure cause.
+- no output file at all, the run never executed. Check `next_run_at` and the missed-run protocol.
 
 ## 4. Fire-claim contention: local fence versus file fence
 
 The per-job fire fence is re-entrant and cross-process (`_fire_job_lock`). The error line names which layer timed out:
 
-- `Timed out waiting for local fire fence <cron_dir>::<job_id>` — a thread lock inside one process. Self-contention: the job's own heartbeat is fighting the run's terminal phase. The heartbeat must never hold the fire fence while writing the jobs store.
-- `Timed out waiting for fire fence <cron_dir>/.fire-<hash>.lock` — a competing process holds the file lock, usually a second gateway, a manual `cronjob(action='run')`, or a detached worker.
+- `Timed out waiting for local fire fence <cron_dir>::<job_id>`, a thread lock inside one process. Self-contention: the job's own heartbeat is fighting the run's terminal phase. The heartbeat must never hold the fire fence while writing the jobs store.
+- `Timed out waiting for fire fence <cron_dir>/.fire-<hash>.lock`, a competing process holds the file lock, usually a second gateway, a manual `cronjob(action='run')`, or a detached worker.
 
 A 30-second wait is the acquisition timeout. When the wait is exhausted the code fails closed, so ownership loss is silent about which side was slow.
 

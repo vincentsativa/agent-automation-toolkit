@@ -18,11 +18,11 @@ both machines' bots appear in one roster and can @mention each other.
 - Windows Hermes must be a FULL install with `hermes serve` available (not
   Desktop-only). Confirm this first.
 
-## Step 1 — Update both sides
+## Step 1, Update both sides
 - WSL: `hermes update`
 - Windows: update Hermes Desktop there too
 
-## Step 2 — Run `hermes serve` on Windows
+## Step 2, Run `hermes serve` on Windows
 ```
 hermes serve --host 0.0.0.0 --port 9119
 ```
@@ -37,7 +37,7 @@ HERMES_DASHBOARD_BASIC_AUTH_SECRET=<random value>
 The SECRET line matters: without a stable value you get logged out on every
 restart. Generate with `openssl rand -base64 32`.
 
-## Step 3 — Register Windows from WSL Desktop
+## Step 3, Register Windows from WSL Desktop
 1. Settings → Gateways (or plug button in profile rail).
 2. Add connection → Remote gateway.
 3. Name: `Windows` (must be unique, case-insensitive).
@@ -47,7 +47,7 @@ restart. Generate with `openssl rand -base64 32`.
 5. Sign in → username/password from Step 2.
 6. Save, then Test → wait for "Reachable".
 
-## Step 4 — Verify
+## Step 4, Verify
 Bots tab shows WSL bots AND the Windows agent. Same-named profiles become
 `@name-windows`.
 

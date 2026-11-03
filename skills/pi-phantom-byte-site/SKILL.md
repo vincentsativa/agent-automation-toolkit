@@ -3,7 +3,7 @@ name: phantom-byte-site
 description: Deploy, update, and manage phantom-byte.com main site (NOT articles.phantom-byte.com). Covers the AI R&D studio homepage, tutorials page, about page, SEO files, Docker/Cloud Run deployment, and the terminal-aesthetic design system. Use when the user wants to work on, change, or deploy anything related to phantom-byte.com.
 ---
 
-# PhantomByte Main Site — Deployment Reference
+# PhantomByte Main Site, Deployment Reference
 
 Use this skill when the user wants to work on, change, or deploy anything related to **phantom-byte.com** (the main site, NOT articles.phantom-byte.com).
 
@@ -12,17 +12,17 @@ Use this skill when the user wants to work on, change, or deploy anything relate
 - **Local repo:** `~/workspace/phantom-byte-website`
 - **Git remote:** `https://github.com/vincentsativa/phantom-byte-website.git` (branch: `main`)
 - **Key files:**
-  - `index.html` — the redesigned homepage (inline CSS/JS, no external deps)
-  - `about.html` — about page
-  - `tutorials/index.html` — tutorials page (served at /tutorials)
-  - `sitemap.xml` — SEO sitemap
-  - `llms.txt` — LLM reference file
-  - `robots.txt` — bot permissions
-  - `nginx.conf` — nginx config (HSTS, security headers, caching)
-  - `Dockerfile` — nginx:alpine container
-  - `cloudbuild.yaml` — Cloud Build deploy config
-  - `firebase-messaging-sw.js` — FCM service worker
-  - `images/` — phantombyte-og.jpg, phantombyte-logo.png
+  - `index.html`, the redesigned homepage (inline CSS/JS, no external deps)
+  - `about.html`, about page
+  - `tutorials/index.html`, tutorials page (served at /tutorials)
+  - `sitemap.xml`, SEO sitemap
+  - `llms.txt`, LLM reference file
+  - `robots.txt`, bot permissions
+  - `nginx.conf`, nginx config (HSTS, security headers, caching)
+  - `Dockerfile`, nginx:alpine container
+  - `cloudbuild.yaml`, Cloud Build deploy config
+  - `firebase-messaging-sw.js`, FCM service worker
+  - `images/`, phantombyte-og.jpg, phantombyte-logo.png
 
 ## Deploy (One Command)
 
@@ -60,7 +60,7 @@ gcloud run deploy phantom-byte \
 |---------|--------|------|-------------------|
 | Main site | phantom-byte.com | `workspace/phantom-byte-website` | `phantom-byte` |
 | Articles | articles.phantom-byte.com | `articles-phantom-byte` | `articles` |
-| Contact API | — | `phantom-byte-contact-api` | `phantom-byte-contact-ionos` |
+| Contact API |, | `phantom-byte-contact-api` | `phantom-byte-contact-ionos` |
 | Tutorials | phantom-byte.com/tutorials | (in main repo: `tutorials/`) | (same as main) |
 
 ## Design Style (Terminal Aesthetic)
@@ -77,21 +77,21 @@ gcloud run deploy phantom-byte \
 ## Key Implementation Details
 
 ### Header
-- Sticky header with `backdrop-filter: blur(10px)` — this creates a CSS containing block for `position:fixed` children
+- Sticky header with `backdrop-filter: blur(10px)`, this creates a CSS containing block for `position:fixed` children
 - **IMPORTANT:** The external web-push script (`web-push-client.js`) appends the push button INSIDE `<header>`. Because of `backdrop-filter`, `position:fixed` on the button resolves against the header, not the viewport. The fix: a relocation script moves `#phantombyte-push-container` to `document.body` after the script inserts it. CSS `!important` overrides also enforce bottom-right positioning.
 - Mobile: only "FREE AUDIT" button shows (Tutorials hidden). Desktop: both "Tutorials" (purple) and "Get a Free Audit" (green) show.
 
 ### Sections (in order)
-1. **Hero** — tag, h1, lead, tagline, terminal block, CTAs
-2. **Stats** — 110+ / 20+ / 64 / 6 grid
-3. **The Gap** — problem statement
-4. **Services** — 8 service panels with "What it is / What you get" + pricing
-5. **Process** — 4-step flow (Scope → Build → Test → Ship)
-6. **Proof** — authority card + metric stack
-7. **Articles** — 6 most recent article cards
-8. **Tutorials** — 9 tutorial links with prices
-9. **Final CTA** — contact form (kept exactly as original)
-10. **Footer** — About | Articles | Tutorials | Sitemap + tagline
+1. **Hero**, tag, h1, lead, tagline, terminal block, CTAs
+2. **Stats**, 110+ / 20+ / 64 / 6 grid
+3. **The Gap**, problem statement
+4. **Services**, 8 service panels with "What it is / What you get" + pricing
+5. **Process**, 4-step flow (Scope → Build → Test → Ship)
+6. **Proof**, authority card + metric stack
+7. **Articles**, 6 most recent article cards
+8. **Tutorials**, 9 tutorial links with prices
+9. **Final CTA**, contact form (kept exactly as original)
+10. **Footer**, About | Articles | Tutorials | Sitemap + tagline
 
 ### Contact Form (KEPT EXACTLY FROM ORIGINAL)
 - **Form ID:** `contactForm`
@@ -108,7 +108,7 @@ gcloud run deploy phantom-byte \
 - **JSON-LD:** Organization + WebSite + OfferCatalog (8 services with real pricing)
 - **Sitemap:** `sitemap.xml` (4 URLs: /, /tutorials, /about, /articles)
 - **llms.txt:** Full service descriptions for AI crawlers
-- **robots.txt:** Allows GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot + wildcard (do NOT add an `LLMs-txt:` directive — Google rejects it as a syntax error; llms.txt is served standalone at the root)
+- **robots.txt:** Allows GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot + wildcard (do NOT add an `LLMs-txt:` directive, Google rejects it as a syntax error; llms.txt is served standalone at the root)
 
 ### Tracking & Push
 - **Google Analytics:** `G-PDQCZE09E4` (gtag)

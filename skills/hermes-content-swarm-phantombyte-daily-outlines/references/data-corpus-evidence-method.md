@@ -1,4 +1,4 @@
-# Data Corpus Evidence Method (Worked Example — Aug 1, 2026)
+# Data Corpus Evidence Method (Worked Example, Aug 1, 2026)
 
 ## Context
 
@@ -87,7 +87,7 @@ Record the filename and the quote text for each problem that passed the bar.
   precision.
 - The zombie agent attack only appeared in 1 file and was correctly
   discarded despite 8 mentions in that file (failed the 2-file rule but
-  passed the 3-mention rule — it was borderline and should be treated
+  passed the 3-mention rule, it was borderline and should be treated
   cautiously).
 - Problems with high mention counts but low file counts may indicate a
   single-day story, not a recurring pain point. Weight file count over

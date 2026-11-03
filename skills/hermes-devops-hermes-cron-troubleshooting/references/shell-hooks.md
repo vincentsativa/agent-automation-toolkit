@@ -20,7 +20,7 @@ hooks:
 `matcher` is ignored (with a warning) on any other event, and the hook then fires on
 every instance of that event.
 
-## The allowlist gate — why a correct hook can silently never run
+## The allowlist gate, why a correct hook can silently never run
 
 Registration requires an entry in `~/.hermes/shell-hooks-allowlist.json` keyed by
 `(event, command)`. The gateway has **no TTY**, so it cannot prompt. An unapproved
@@ -43,7 +43,7 @@ _record_approval("pre_tool_call", "python3 ~/scripts/<name>.py")
 hook stops firing. **Re-approve after every edit to the hook script.** This is the
 most common cause of "I fixed the hook and it still does nothing".
 
-## Wire format — the key-name trap
+## Wire format, the key-name trap
 
 stdin is JSON:
 
@@ -66,12 +66,12 @@ for key in ("tool_input", "args"):
 ```
 
 stdout is parsed only for events that have a response channel:
-- `{"action": "block", "message": "..."}` — block the tool call
-- `{"action": "modify", "args": {...}}` — replace the tool's arguments
+- `{"action": "block", "message": "..."}`, block the tool call
+- `{"action": "modify", "args": {...}}`, replace the tool's arguments
 - exit code `2` also blocks a `pre_tool_call`, even with no JSON
 
 Print **nothing** when the hook is not acting; stray stdout on a `fail_closed: true`
-hook reads as a malformed gate response. Put diagnostics on stderr — that reaches the
+hook reads as a malformed gate response. Put diagnostics on stderr, that reaches the
 log, not the parser.
 
 ## Restart requirement
@@ -117,4 +117,4 @@ reason, nothing was lost. Prune asides by count so they do not grow unbounded.
 
 Keep the hook's scope narrow and explicit: match on exact parent directories and file
 extensions, never touch a directory, and verify the hook **cannot act on its own
-script** — a naive directory-wide rule will move the guard itself.
+script**, a naive directory-wide rule will move the guard itself.

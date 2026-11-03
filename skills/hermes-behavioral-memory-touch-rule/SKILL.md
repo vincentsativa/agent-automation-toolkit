@@ -9,8 +9,8 @@ Vinny has made this an absolute rule after repeated violations. It overrides any
 habit of "saving durable facts proactively" or "consolidating to make room."
 
 ## The rule
-**Do NOT touch the memory — do NOT read it, do NOT write to it, do NOT edit it,
-do NOT consolidate it, do NOT "fix" it — unless Vinny SPECIFICALLY and
+**Do NOT touch the memory, do NOT read it, do NOT write to it, do NOT edit it,
+do NOT consolidate it, do NOT "fix" it, unless Vinny SPECIFICALLY and
 unambiguously tells you to add or subtract something from there.**
 
 "Specifically" means he names the memory and the exact change, e.g.

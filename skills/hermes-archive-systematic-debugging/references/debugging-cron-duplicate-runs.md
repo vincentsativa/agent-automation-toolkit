@@ -2,9 +2,9 @@
 
 ## Symptom
 
-A cron job scheduled for `0 8 * * *` (8am daily) fires twice on the same day — once at 8am, once in the afternoon (~3:30pm). The second run is NOT scheduled in the job's `schedule` field — it's a ghost fire.
+A cron job scheduled for `0 8 * * *` (8am daily) fires twice on the same day, once at 8am, once in the afternoon (~3:30pm). The second run is NOT scheduled in the job's `schedule` field, it's a ghost fire.
 
-## Evidence Pattern (June 2026 — Job 0c6b83ba6986)
+## Evidence Pattern (June 2026, Job 0c6b83ba6986)
 
 Output files from `~/.hermes/cron/output/{job_id}/`:
 
@@ -21,7 +21,7 @@ Same gap pattern on two different days. The `last_run_at` and `next_run_at` in j
 
 ### The Lock Architecture (the problem)
 
-`tick()` in `cron/scheduler.py` uses `fcntl.flock()` on a file as its cross-process lock. But **inside a single process**, two threads can hold the same flock independently — each has its own file descriptor, and the OS grants them independently.
+`tick()` in `cron/scheduler.py` uses `fcntl.flock()` on a file as its cross-process lock. But **inside a single process**, two threads can hold the same flock independently, each has its own file descriptor, and the OS grants them independently.
 
 The race:
 
@@ -34,17 +34,17 @@ BUT the actual bug pattern here doesn't match a simple race on the same tick cyc
 ### The Real Sequence
 
 1. 8am: job fires, `advance_next_run()` pushes `next_run_at` from "2026-06-11T08:00" to "2026-06-12T08:00"
-2. Job runs in pool thread (takes a while — tens of minutes because it's an LLM agent task)
+2. Job runs in pool thread (takes a while, tens of minutes because it's an LLM agent task)
 3. `mark_job_run()` completes, writes `next_run_at = "2026-06-12T08:00"` 
 4. **Later:** Gateway restarted or process experienced some state reset
-5. The running-set (`_running_job_ids`) was a set in memory — it dies with the process
+5. The running-set (`_running_job_ids`) was a set in memory, it dies with the process
 6. After restart, `_get_due_jobs()` runs. It checks `next_run_at <= now`. But something caused it to see the job as due again
 
 **Most likely path:** The job's `next_run_at` was advanced to the next day's 8am correctly. But on process restart, some state recovery or tick timing glitch caused `get_due_jobs()` to recompute the schedule differently, landing on an earlier time.
 
 ### Why 3:30pm specifically?
 
-The duplicate runs happened at 14:10 and 15:24 on two different days — different times, not a fixed offset from 8am. This rules out a constant timezone shift or a second crontab expression. More likely: the previous day's long-running job completed around that time, and `mark_job_run`'s `compute_next_run()` call recomputed `next_run_at` relative to `last_run_at` (the completion time) instead of the desired base.
+The duplicate runs happened at 14:10 and 15:24 on two different days, different times, not a fixed offset from 8am. This rules out a constant timezone shift or a second crontab expression. More likely: the previous day's long-running job completed around that time, and `mark_job_run`'s `compute_next_run()` call recomputed `next_run_at` relative to `last_run_at` (the completion time) instead of the desired base.
 
 In `compute_next_run()` in `jobs.py`:
 
@@ -55,7 +55,7 @@ cron = croniter(schedule["expr"], base_time)
 next_run = cron.get_next(datetime)
 ```
 
-If the job completed at ~14:10 (say, 6+ hour run), `compute_next_run(schedule, "2026-06-06T14:10:00")` would compute the *next* occurrence of `0 8 * * *` after 14:10 — which is **tomorrow at 8am**, correct. So the next_run_at AFTER mark_job_run should be fine.
+If the job completed at ~14:10 (say, 6+ hour run), `compute_next_run(schedule, "2026-06-06T14:10:00")` would compute the *next* occurrence of `0 8 * * *` after 14:10, which is **tomorrow at 8am**, correct. So the next_run_at AFTER mark_job_run should be fine.
 
 **The true culprit:** The `advance_next_run()` call in `tick()` line 2017 runs BEFORE `mark_job_run()`. It bumps next_run_at forward using `compute_next_run(schedule, now)` where `now` is the current time during tick. Then `mark_job_run()` runs later with `compute_next_run(schedule, last_run_at)` where `last_run_at` is the completion time. If these two calls disagree on which is the "real" next run, and the job record's `next_run_at` is read by a subsequent tick before `mark_job_run` writes its value... the job could be considered due again.
 

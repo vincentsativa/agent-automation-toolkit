@@ -5,13 +5,13 @@ description: Complete backup of all websites under phantom-byte.com, articles.ph
 
 # Backup Websites to GitHub
 
-## ⚠️ THE PI BACKUP REPO (MY OWN CONFIG — DO NOT FORGET THIS)
+## ⚠️ THE PI BACKUP REPO (MY OWN CONFIG, DO NOT FORGET THIS)
 
 **There IS a dedicated GitHub backup for MY OWN pi agent config/skills/extensions. It is literally named "PI BACKUP". Use it FIRST whenever the user says "back up", "push to github", or any change is made to skills/settings.**
 
 | What | Value |
 |---|---|
-| **Repo (GitHub)** | `vincentsativa/pi-agent-backup` — description: "Backup of pi coding agent configs, skills, extensions, and custom packages" |
+| **Repo (GitHub)** | `vincentsativa/pi-agent-backup`, description: "Backup of pi coding agent configs, skills, extensions, and custom packages" |
 | **Local clone** | `~/workspace/pi-agent-backup/` |
 | **Visibility** | PUBLIC |
 | **Structure** | `config/` (models.json, settings.json, trust.json), `extensions/` (browser-tool, context-manager.ts), `npm/`, `skills/` (all skills) |
@@ -23,12 +23,12 @@ description: Complete backup of all websites under phantom-byte.com, articles.ph
 - Basically any time the `.pi/agent/` config changes and the user wants a backup
 
 **Source vs repo layout:**
-- Live config lives in `~/.pi/agent/` (has `auth.json`, `github-token.txt`, `models-store.json`, `sessions/` at the root — **NEVER copy these**).
+- Live config lives in `~/.pi/agent/` (has `auth.json`, `github-token.txt`, `models-store.json`, `sessions/` at the root, **NEVER copy these**).
 - The repo splits the safe files into `config/`, `extensions/`, `npm/`, `skills/` subfolders.
 - Sync safe files only: skills → `skills/`, extensions source (NO node_modules) → `extensions/`, `models.json`/`settings.json`/`trust.json` → `config/`, `package*.json` → `npm/`.
 
 **Files that must NEVER be pushed (they contain real credentials):**
-- `auth.json`, `github-token.txt`, `test-token.ps1`, `token-*.png`, `models-store.json`, `sessions/`, and `skills/blogwatcher/config/n8n.env` (real `N8N_API_KEY`). The repo `.gitignore` already excludes these — do not `git add -f` them.
+- `auth.json`, `github-token.txt`, `test-token.ps1`, `token-*.png`, `models-store.json`, `sessions/`, and `skills/blogwatcher/config/n8n.env` (real `N8N_API_KEY`). The repo `.gitignore` already excludes these, do not `git add -f` them.
 
 **Push workflow (from the local clone `~/workspace/pi-agent-backup/`):**
 ```bash
@@ -42,7 +42,7 @@ git commit -m "Sync pi agent config - YYYY-MM-DD"
 git push origin main
 ```
 
-> ⚠️ **KNOWN FALSE POSITIVE:** `skills/backup-websites/SKILL.md` legitimately *documents* the secret-detection patterns (`ghp_`, `sk_live_`, etc.) as grep examples. The pre-commit hook will flag it. Verify it's just the documented prefixes (no real 20+ char tokens) — if so, commit with `git commit --no-verify`. Do NOT weaken the hook for this.
+> ⚠️ **KNOWN FALSE POSITIVE:** `skills/backup-websites/SKILL.md` legitimately *documents* the secret-detection patterns (`ghp_`, `sk_live_`, etc.) as grep examples. The pre-commit hook will flag it. Verify it's just the documented prefixes (no real 20+ char tokens), if so, commit with `git commit --no-verify`. Do NOT weaken the hook for this.
 
 > ⚠️ The pre-commit secret-scan hook (from `prevent-secret-leak` skill) must be installed in this repo. If it's missing, copy it:
 > `cp ~/.pi/agent/scripts/prevent-secret-leak.sh .git/hooks/pre-commit`
@@ -164,7 +164,7 @@ build/
 GITIGNORE
 ```
 
-> ⚠️ **CRITICAL: Pre-commit secret scan** — Before adding/committing, scan all staged files for leaked credentials:
+> ⚠️ **CRITICAL: Pre-commit secret scan**, Before adding/committing, scan all staged files for leaked credentials:
 >
 > ```bash
 > # Scan for Google/Firebase API keys, tokens, etc.
@@ -240,17 +240,17 @@ Full list as of 2026-05-26:
 
 | Repo | Contents | Last Pushed |
 |---|---|---|
-| `clawdbot` | Clawd bot project | — |
-| `larry-bot` | Larry bot | — |
-| `larry-bot-rebuild` | Larry bot rebuild | — |
-| `NoMoreWars` | NoMoreWars project | — |
+| `clawdbot` | Clawd bot project |, |
+| `larry-bot` | Larry bot |, |
+| `larry-bot-rebuild` | Larry bot rebuild |, |
+| `NoMoreWars` | NoMoreWars project |, |
 | `phantom-byte-funnels` | PhantomByte funnel pages | May 24 | PRIVATE |
-| `PhantomByte-Dev` | Entire workspace (mono backup) | — | PRIVATE |
-| `profile` | GitHub profile | — | PUBLIC |
-| `sativa-ai-ultra` | Ultra AI project | — | PRIVATE |
-| `the-truth` | Truth site | — | PRIVATE |
-| `the-truth-v2` | Truth site v2 | — | PRIVATE |
-| `trends-tracker-free` | Trends tracker | — | PRIVATE |
+| `PhantomByte-Dev` | Entire workspace (mono backup) |, | PRIVATE |
+| `profile` | GitHub profile |, | PUBLIC |
+| `sativa-ai-ultra` | Ultra AI project |, | PRIVATE |
+| `the-truth` | Truth site |, | PRIVATE |
+| `the-truth-v2` | Truth site v2 |, | PRIVATE |
+| `trends-tracker-free` | Trends tracker |, | PRIVATE |
 | `vincent-sativa-website` | vincent-sativa.com | May 24 | PUBLIC |
 | `articles-phantom-byte` | articles.phantom-byte.com | May 26 | PUBLIC |
 | `phantom-byte-website` | phantom-byte.com | May 26 | PUBLIC |
@@ -274,9 +274,9 @@ Full list as of 2026-05-26:
 All Cloud Run services are under: `gen-lang-client-0237860564` (us-central1)
 
 Key Cloud Run services:
-- `articles` — articles.phantom-byte.com (from `workspace/articles/`)
-- `landing-page` — landing page (from `workspace/landing-page/`)
-- `phantom-byte-website` — phantom-byte.com (from `workspace/phantom-byte-website/`)
+- `articles`, articles.phantom-byte.com (from `workspace/articles/`)
+- `landing-page`, landing page (from `workspace/landing-page/`)
+- `phantom-byte-website`, phantom-byte.com (from `workspace/phantom-byte-website/`)
 
 ### Credentials
 

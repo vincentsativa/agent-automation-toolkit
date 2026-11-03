@@ -4,7 +4,7 @@ Historical record moved out of SKILL.md to keep the main file under the size lim
 
 ## Sync sections
 
-**October 3, 2026 sync (`last sync 2026-10-02T16:00:41Z`, commit b412112) — NO action weight changed.** The whole action-weight block, including the three Sept 30 2026 moves, is unchanged. The changes are all non-weight. New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
+**October 3, 2026 sync (`last sync 2026-10-02T16:00:41Z`, commit b412112), NO action weight changed.** The whole action-weight block, including the three Sept 30 2026 moves, is unchanged. The changes are all non-weight. New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
 
 | Param | Type | Value |
 |---|---|---|
@@ -32,7 +32,7 @@ Changed defaults at this sync:
 
 `AuthorExplorationBonus` is added to each post's weighted score by the new `add_exploration_bonus` in `xai-value-model/scoring.rs` before `adjust_base_scores` and the multipliers run. Its default is `0.0`, so it changes nothing in production today, but it is now the one f64 score knob outside the action-weight block. `EnablePhoenixOonReplies` gates a new `OONRetweetReplyFilter` behavior: at HEAD the filter reads the param and keeps out-of-network replies found by Phoenix home retrieval instead of dropping them, whereas before it dropped every out-of-network reply unconditionally. New candidate sources landed in `phoenix_candidate_pipeline.rs` (`PopularPostsSource` and `SidSource`), both behind their `Enable*` gates, which are `false` by default, plus a `PhoenixReplyAncestorsHydrator` and a `SimClustersAnnCacheClient`.
 
-**October 6, 2026 sync (`last sync 2026-10-06T16:00:58Z`, commit 78460ca) — ONE ACTION WEIGHT CHANGED.** `PostUnexploredWeight` was cut from `0.02` to `0.015` in `home-mixer/params/param.rs`. Note the two files now DISAGREE: `vm-ranker/params.rs` still carries `PostUnexploredWeight` `0.02`. Every other action weight, including the three Sept 30 2026 values (`ClickWeight` 0.3, `ContClickDwellTimeWeight` 0.4, `NotInterestedWeight` -47.52), is unchanged in both files.
+**October 6, 2026 sync (`last sync 2026-10-06T16:00:58Z`, commit 78460ca), ONE ACTION WEIGHT CHANGED.** `PostUnexploredWeight` was cut from `0.02` to `0.015` in `home-mixer/params/param.rs`. Note the two files now DISAGREE: `vm-ranker/params.rs` still carries `PostUnexploredWeight` `0.02`. Every other action weight, including the three Sept 30 2026 values (`ClickWeight` 0.3, `ContClickDwellTimeWeight` 0.4, `NotInterestedWeight` -47.52), is unchanged in both files.
 
 Three NEW f64 action-weight-style params landed in `vm-ranker/params.rs`, all defaulting to `0.0`, so they score nothing in production today but are the knobs to watch:
 
@@ -66,7 +66,7 @@ Changed and removed non-weight params in `home-mixer/params/param.rs`:
 
 **Pipeline filter lineup unchanged.** The pre-scoring and post-selection filter vectors in `home-mixer/candidate_pipeline/phoenix_candidate_pipeline.rs` are identical to Oct 3 2026, and the `home-mixer/filters/` diff at this sync is empty. No filter file was added or removed.
 
-**September 30, 2026 sync (`last sync 2026-09-29T17:02:52Z`, commit 77d431a) — THREE ACTION WEIGHTS CHANGED.** This is the first sync since Aug 13 2026 that moved an action weight. Quoted exactly from `home-mixer/params/param.rs`:
+**September 30, 2026 sync (`last sync 2026-09-29T17:02:52Z`, commit 77d431a), THREE ACTION WEIGHTS CHANGED.** This is the first sync since Aug 13 2026 that moved an action weight. Quoted exactly from `home-mixer/params/param.rs`:
 
 | Param | Old (Aug 13 to Sept 25 2026) | New (Sept 30 2026) |
 |---|---|---|
@@ -92,13 +92,13 @@ Note: `ContClickDwellTimeWeight` at 0.4 is now equal to `ClickWeight`, so a view
 
 **Unchanged in `home-mixer/params/param.rs` at the Sept 30 2026 check:** `PhoenixMoeColdStartMaxResults` (200), `PhoenixMOEMaxResults` (0), `EnablePhoenixMOESource` (false), `PhoenixRetrievalMOEInferenceClusterId` ("Experiment2Memy04"), `SimclustersMaxCandidateAgeHours` (48), `RetrievalCandidatesKafkaSamplePercent` (5.0), `RetrievalCandidatesKafkaMaxCandidates` (200 at this check; raised to 100000 on Oct 6 2026), `MinVideoDurationMs` (10_000). `MAX_POST_AGE` lives in `home-mixer/params/config.rs` and is still `48 * 60 * 60`.
 
-**September 25, 2026 sync (commit 4c5cfe8) — NO action weight changed.** What moved was WHERE the non-weight params live and how the arithmetic is wired.
+**September 25, 2026 sync (commit 4c5cfe8), NO action weight changed.** What moved was WHERE the non-weight params live and how the arithmetic is wired.
 
 **Gating params removed from `home-mixer/params/param.rs` (22 total).** They were duplicate entries; the same values live on in `vm-ranker/params.rs`, which was byte-identical before and after this commit (44 params). Removed names and their surviving values: `EnableAuthorDiversity` (true), `AuthorDiversityDecay` (0.5), `AuthorDiversityFloor` (0.25), `OonWeightFactor` (0.75), `TopicOonWeightFactor` (0.5), `NewUserOonWeightFactor` (0.00001), `NewUserAgeThresholdSecs` (0), `EnableOonRescoreForInNetworkRepliesRetweets` (true), `MultiplierPreOffset` (false), `WeightPerturbationSigma` (0.0), `WeightPerturbationSalt` (""), `VMRankerComputeValueModel` (false), `VMRankerDppTheta` (0.65), `VMRankerDppMaxSelectedRank` (150), `VMRankerSendValueModelInputs` (false), `CachedPostsReuseWeightedScore` (false), `EnableVMRanker` (true), `EnableMultiplicativePostUnexplored` (false), `MultiplicativePostUnexploredAlpha` (0.0), `PostUnexploredWeightInNetworkOnly` (true), `EnableCdwellOnImpr` (false), `ContActiveSecs5mResidualNormWeight` (0.0).
 
 **Renamed in `vm-ranker/params.rs` (same values, new names).** Use the new names when reading the repo: `VMRankerDppTheta` is now `DppTheta` (0.65), `VMRankerDppMaxSelectedRank` is now `DppMaxSelectedRank` (150), `VMRankerComputeValueModel` is now `ComputeValueModel` (false). `DppEnabled` (bool, true) is the DPP on/off gate, keyed `rust_home_mixer_vm_ranker_dpp_enabled`.
 
-**Superseded Sept 30 2026 — read the Sept 30 table above first.** The old "still in `home-mixer/params/param.rs` and unchanged" list of Sept 25 2026 said the action-weight block and `ColdStartImpressionThreshold` (1000) were unchanged; the Sept 30 2026 sync changed the click and click-dwell weights and cut `ColdStartImpressionThreshold` to 200. Still unchanged at Sept 30: `MinVideoDurationMs` (10_000, and the VQV eligibility threshold: QVQV only fires above it when `EnableQuotedVqvDurationCheck` is on, and there is a `MAX_FOLLOWERS_THRESHOLD` of 10_000 that suppresses VQV weight for very large accounts), `SimclustersMaxCandidateAgeHours` (48), `RetrievalCandidatesKafkaSamplePercent` (5.0), `RetrievalCandidatesKafkaMaxCandidates` (200 at this check; now 100000), `PhoenixMoeColdStartMaxResults` (200), `PhoenixMOEMaxResults` (0), `PhoenixRetrievalMOEInferenceClusterId` ("Experiment2Memy04"), `EnablePhoenixMOESource` (false).
+**Superseded Sept 30 2026, read the Sept 30 table above first.** The old "still in `home-mixer/params/param.rs` and unchanged" list of Sept 25 2026 said the action-weight block and `ColdStartImpressionThreshold` (1000) were unchanged; the Sept 30 2026 sync changed the click and click-dwell weights and cut `ColdStartImpressionThreshold` to 200. Still unchanged at Sept 30: `MinVideoDurationMs` (10_000, and the VQV eligibility threshold: QVQV only fires above it when `EnableQuotedVqvDurationCheck` is on, and there is a `MAX_FOLLOWERS_THRESHOLD` of 10_000 that suppresses VQV weight for very large accounts), `SimclustersMaxCandidateAgeHours` (48), `RetrievalCandidatesKafkaSamplePercent` (5.0), `RetrievalCandidatesKafkaMaxCandidates` (200 at this check; now 100000), `PhoenixMoeColdStartMaxResults` (200), `PhoenixMOEMaxResults` (0), `PhoenixRetrievalMOEInferenceClusterId` ("Experiment2Memy04"), `EnablePhoenixMOESource` (false).
 
 **Changed defaults:**
 | Param | Old | New |

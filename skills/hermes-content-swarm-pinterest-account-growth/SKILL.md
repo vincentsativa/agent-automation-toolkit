@@ -11,7 +11,7 @@ toolsets: [web]
 Strategy-level rules for growing a Pinterest account and reactivating one with
 dormant history. Covers cadence, the long-tail compounding asset, buyer intent,
 and where to learn Pinterest SEO. Board-level metadata/keyword work lives in the
-`social-board-seo` skill (pinned) — this skill is the growth-strategy layer on top.
+`social-board-seo` skill (pinned), this skill is the growth-strategy layer on top.
 
 ## Re-Activated (Dormant) Accounts
 
@@ -21,7 +21,7 @@ revived March 2026, still getting views from 2019 pins today.
 
 - **Old history does NOT auto-prioritize you.** After long dormancy Pinterest treats
   you as a re-activation risk. Flooding new pins right away = throttle/shadowban risk.
-- **The old authority is still real and helps** — the crawler knows the account, so new
+- **The old authority is still real and helps**, the crawler knows the account, so new
   pins index/push faster than a brand-new account. But it unlocks only after you show
   consistent fresh activity again.
 - **Cadence: 3-5 fresh pins/day.** Below ~2/day loses momentum; above ~10/day on a
@@ -42,7 +42,7 @@ revived March 2026, still getting views from 2019 pins today.
 ## Buyer Intent (why it's a real funnel channel)
 
 - Pinterest is a **visual search engine with purchase intent**, not a social feed.
-  Saves = "I'm going to build/buy this later" — a warm signal.
+  Saves = "I'm going to build/buy this later", a warm signal.
 - Buyers + decade tail + transferable Google-style SEO skill = a rare combo worth
   treating as a first-class funnel channel (feeds the Sovereign AI Stack funnels).
 
@@ -58,7 +58,7 @@ Foundation:
 Content engine:
 6. Fresh images, not just repins (repins don't move the algorithm the same way).
 7. 2:3 vertical (~1000x1500px), text overlay near-required for mobile feed.
-8. Alt text is indexed — keyword in alt like image SEO for Google.
+8. Alt text is indexed, keyword in alt like image SEO for Google.
 9. Every pin targets one keyword across title/description/alt/hashtags.
 
 Cadence:
@@ -79,17 +79,17 @@ every pin like a Google landing page, post a little every day, let the decade ta
 
 ## Best Sources (validated by search)
 
-- **Tier 1 (authority):** Pinterest's own Creator Academy / Fundamentals —
+- **Tier 1 (authority):** Pinterest's own Creator Academy / Fundamentals, 
   `create.pinterest.com`. Pinterest teaching Pinterest; algorithm changes land here first.
   This is the primary source text, not blog rehashes.
   - **How to fetch these official docs** (both are JS-rendered React; scrapling fails,
     use browser): see `references/fetching-official-pinterest-docs.md`. Note the old
-    `help.pinterest.com/.../pinterest-seo` URL is a 404 — use Pin performance & distribution instead.
+    `help.pinterest.com/.../pinterest-seo` URL is a 404, use Pin performance & distribution instead.
 
   ## Board Audit & Restructure (catch-all → keyword-focused boards)
 
   When asked to audit/optimize a board URL, diagnose the catch-all problem and split into
-  one-keyword-per-board — see `references/board-audit-and-restructure.md` for the full
+  one-keyword-per-board, see `references/board-audit-and-restructure.md` for the full
   workflow, the ordered launch plan, and a worked PhantomByte example with copy-paste-ready
   board metadata. Key points: bucket pins by intent, flag duplicate pins as the FIRST action
   item (spam risk), launch boards 1-2 at a time (never all at once), validate demand via
@@ -97,7 +97,7 @@ every pin like a Google landing page, post a little every day, let the decade ta
   Telegram note (Vinny works from email).
 - **Tier 2 (proven operators):** Tailwind (`tailwindapp.com`), Madpin Media
   (`madpinmedia.com`).
-- **Tier 3 (case studies):** Medium "hit X monthly views on Pinterest" posts — real numbers.
+- **Tier 3 (case studies):** Medium "hit X monthly views on Pinterest" posts, real numbers.
 
 ## Behavioral Note (for Vinny)
 
@@ -125,7 +125,7 @@ Vinny's recurring daily cron produces a document of 10 Pinterest titles + descri
 - Read stories from `~/Desktop/TODAYS DATA FILES/` (`20-AI-News-Stories-<date>.md` is primary).
 - First visit Vinny's five Pinterest boards to avoid duplicate topics.
 - Assign each post to exactly ONE board by topic: AI agents → ai-agents-automation-guide; AI tools/business/productivity → ai-tools-for-business-productivity-2026; AI for developers/coding/APIs → ai-for-developers-programming-ai-tutorials; AI security/agent security/prompt injection/sandboxing/least-privilege → agent-security-prompt-injection-sandboxing; everything else → ai-news-machine-learning-emerging-tech (default).
-- MANDATORY: programmatic `len()` check on every title (max 100) and description (max 500) from a script — do not trust your own annotation. Titles/descriptions land at 450-520 when drafted naturally; iterate until all pass.
+- MANDATORY: programmatic `len()` check on every title (max 100) and description (max 500) from a script, do not trust your own annotation. Titles/descriptions land at 450-520 when drafted naturally; iterate until all pass.
 - Deliver: write `social-media-posts-<date>.txt` to the data folder, email as attachment to hello@phantom-byte.com (subject `Bill: Daily Social Media Posts For X and Pinterest`), notify Telegram with ONLY a brief "Email sent with today's social media posts" confirmation. No post content in Telegram.
 
 ### Board labels are Vinny's picker (Aug 2026)
@@ -133,7 +133,7 @@ Vinny reads the `BOARD:` labels in the text file to decide which posts to publis
 place into boards himself. His articles anchor the Main AI News board. So when the
 day's data allows, spread posts across the non-news boards (AI Agents, AI Tools,
 AI for Developers, Agent Security) so he has candidates to fill them. The day's data
-is the hard constraint — never force a topic that has no story. Keep labels clean and
+is the hard constraint, never force a topic that has no story. Keep labels clean and
 consistent so he can scan and pick fast.
 
 ### Adding a new board (Aug 2026)
@@ -159,5 +159,5 @@ When asked for a Pinterest title and description promoting a specific URL, write
 - **Do not conflate this growth-strategy layer with board SEO.** The board keyword/title/
   description mechanics live in `social-board-seo` (pinned). This skill is cadence, index
   lag, reactivation, and sources.
-- **Don't advise flooding a dormant account** — the re-activation risk throttle is real.
-- **Don't treat Pinterest like a social feed** — it's a search engine with purchase intent.
+- **Don't advise flooding a dormant account**, the re-activation risk throttle is real.
+- **Don't treat Pinterest like a social feed**, it's a search engine with purchase intent.
