@@ -5,12 +5,24 @@ Windows and **Hermes** on a Linux dev box — as a working automation system rat
 demo.
 
 Every piece of this repository exists because a previous run reported success that was not
-true. A send went out with no attachment; a "verified" job link was already dead; a backup
-that ran every night had never pushed a commit. The scripts here close those gaps with
-checks that fail loudly: re-read the inbox and compare the decoded attachment length to the
-file on disk, fetch the posting's own page and classify it live or dead, print nothing when
-healthy and something when not. That rule — *verify before you report* — is the design
-constraint behind most of the code, the cron jobs, and the skills.
+true.
+
+- A keyword report went out with the attachment missing, because the send was handed a path
+  Windows Python could not resolve. `scripts/email-ops/imap_readback.py` now re-reads the
+  inbox and compares the attachment's decoded byte length to the file on disk.
+- A backup job failed for many consecutive runs behind a global pre-push guard, with an
+  error that pointed at the repository rather than at the hook.
+  `scripts/devops/hermes-backup-restore/scripts/hermes-backup.py` runs every git call with
+  a timeout and a non-zero exit, so a failed push is a failed run.
+- Aggregator "Apply" buttons pointed back at the aggregator, and the pipeline dropped
+  in-band work as "no direct application path" even when the job existed.
+  `scripts/job-search/resolve_employer.py` finds the employer's own posting, and `verify.py`
+  fetches that page and classifies it live, dead, blocked or unknown — a blocked fetch is
+  not a verified lead.
+
+That rule — *verify before you report* — is the design constraint behind most of the code,
+the cron jobs, and the skills. Jobs print nothing when healthy and something when not,
+because a status line that is always printed stops being read.
 
 ## What is in here
 
