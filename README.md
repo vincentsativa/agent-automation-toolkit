@@ -14,7 +14,7 @@ because a previous run reported success that was not true.
 
 | Path | Contents |
 | --- | --- |
-| [`scripts/`](scripts) | 93 runnable scripts (Python, Bash, Node), grouped by domain |
+| [`scripts/`](scripts) | 92 runnable scripts (Python, Bash, Node), grouped by domain |
 | [`skills/`](skills) | 281 agent skill definitions (262 Hermes, 19 Pi) — the procedures the agents load before acting |
 | [`crons/`](crons) | Scheduled jobs: expressions, runner type, and the full instruction each one executes |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the two-agent system fits together |
