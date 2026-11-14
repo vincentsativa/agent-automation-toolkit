@@ -227,7 +227,7 @@ When running blogwatcher as a scheduled cron job (no user present, autonomous ex
 8. **Ensure output directory exists:** `mkdir -p ~/.hermes/cron/output`
 
 9. **Response protocol for cron jobs.** The user's instructions explicitly state: "In your final response, state ONLY the full file path, the number of stories collected, and a brief confirmation message. Do NOT output the article content." Follow these delivery rules:
-   - Report: `\\wsl.localhost\Ubuntu\home\vincent\.hermes\cron\output\daily-ai-news-YYYY-MM-DD.txt`
+   - Report: `\\wsl.localhost\Ubuntu\home\<user>\.hermes\cron\output\daily-ai-news-YYYY-MM-DD.txt`
    - Count: X total (Y industry news + Z research papers)
    - Brief confirmation sentence
 
@@ -308,8 +308,8 @@ When the user asks for a blogwatcher run that produces editorial-style output (h
 
 11. **Copy to Windows Desktop folder**, when the user specifies a Windows path (e.g. `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES\`), copy the file there:
     ```bash
-    mkdir -p "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES"
-    cp ~/blogwatcher-dump-YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/"
+    mkdir -p ".../<user>/OneDrive/Desktop/TODAYS DATA FILES"
+    cp ~/blogwatcher-dump-YYYY-MM-DD.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/"
     ```
     Convert Windows paths to WSL paths: `C:\Users\...` → `/mnt/c/Users/...`
 

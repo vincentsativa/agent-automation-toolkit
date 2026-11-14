@@ -68,6 +68,7 @@ From Tailwind Turbo Beta (Feb 2026):
 - Pins link to PhantomByte articles (articles.phantom-byte.com)
 - Long game: AI is the next .com, everyone will eventually need to learn AI agents
 - Aged domains + Pinterest distribution + growing category = compounding moat
+- **Topic mix is set by measured board rates, not an even spread.** The 90-day audit puts the daily batch at 3 AI News, 2 Robotics & Physical AI, 2 AI for Developers, 2 AI Tools, 1 AI Agents, with security and quantum as contingencies only. Robotics saves 13x better than developers on a sixth of the reach, so it earns doubled slots. See the `pinterest-academy` skill, file references/performance-allocation.md.
 
 ## Related Files
 

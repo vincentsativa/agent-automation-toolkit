@@ -142,7 +142,7 @@ Create and manage Gumroad digital products via the Gumroad API v2. Covers produc
 
 Stored in `~/.hermes/credentials.md`:
 - **Account:** phantombyteai.gumroad.com
-- **Access Token:** `[REDACTED_TOKEN]`
+- **Access Token:** `_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE`
 - **API Base:** `https://api.gumroad.com/v2/`
 
 ### Workflow
@@ -155,7 +155,7 @@ Read the markdown or text file containing the tutorial content. Extract:
 - **Price** from frontmatter `gumroad_price:` field, convert dollar amount to cents (e.g. `$0.99` → `99`)
 - **Content** for writing description and summary
 
-Source files live on Windows at paths like `/mnt/c/Users/<user>/OneDrive/Desktop/PI TUTORIAL/...`
+Source files live on Windows at paths like `.../<user>/OneDrive/Desktop/PI TUTORIAL/...`
 
 #### 2. CRAFT DESCRIPTION AND SUMMARY
 
@@ -182,7 +182,7 @@ This applies to BOTH `custom_summary` AND `description` fields. Do not substitut
 
 ```bash
 curl -s -X POST "https://api.gumroad.com/v2/products" \
-  -d "access_token=[REDACTED_TOKEN]" \
+  -d "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
   -d "name=<product name>" \
   -d "price=<price in cents>" \
   -d "custom_summary=<short summary>" \
@@ -199,7 +199,7 @@ Gumroad's API silently ignores the `permalink` field on POST. The product is cre
 
 ```bash
 curl -s -X PUT "https://api.gumroad.com/v2/products/<PRODUCT_ID>" \
-  -d "access_token=[REDACTED_TOKEN]" \
+  -d "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
   -d "custom_permalink=<desired-slug>"
 ```
 
@@ -209,7 +209,7 @@ After this call, `short_url` will update to `https://phantombyteai.gumroad.com/l
 
 ```bash
 curl -s -X PUT "https://api.gumroad.com/v2/products/<PRODUCT_ID>" \
-  -d "access_token=[REDACTED_TOKEN]" \
+  -d "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
   -d "name=<new name>" \
   -d "description=<updated description>"
 ```
@@ -483,7 +483,7 @@ Common linking patterns:
 ### Inputs
 
 1. **The existing Gumroad catalog**, list all products via the Gumroad API v2 GET endpoint
-2. **The new/just-uploaded tutorial**, read the user's uploaded content from the cache directory at `~/cache/documents/`
+2. **The new/just-uploaded tutorial**, read the user's uploaded content from the cache directory at `~/.hermes/cache/documents/`
 3. **User's audience split**, typically two tiers: beginners (non-technical, can type a sentence but don't code) and developers/engineers
 
 ### Workflow
@@ -492,7 +492,7 @@ Common linking patterns:
 
 ```bash
 curl -s "https://api.gumroad.com/v2/products" -G \
-  -d "access_token=[REDACTED_TOKEN]" \
+  -d "access_token=_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE" \
   | python3 -c "import sys,json;d=json.load(sys.stdin);[print(f'{p[\"name\"]} | {p.get(\"custom_summary\",\"\")[:200]}') for p in d.get('products',[])]"
 ```
 

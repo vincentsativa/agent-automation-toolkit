@@ -5,8 +5,8 @@ Numbers drift. Every figure below carries the command that produces it. Run the 
 ## Automation fleet (scheduled jobs running unattended)
 
 ```bash
-python3 -c "import json;d=json.load(open('~/cron/jobs.json'));print(len(d['jobs']))"
-python3 -c "import json;d=json.load(open('~/cron/jobs.json'));[print(j['name'],'|',j['schedule'].get('expr')) for j in d['jobs']]"
+python3 -c "import json;d=json.load(open('~/.hermes/cron/jobs.json'));print(len(d['jobs']))"
+python3 -c "import json;d=json.load(open('~/.hermes/cron/jobs.json'));[print(j['name'],'|',j['schedule'].get('expr')) for j in d['jobs']]"
 ```
 
 Proves the job count and lets you name the categories honestly: research collection, article generation, outline selection, social publishing, inbound email processing, backup, health monitoring. Count the enabled ones separately if asked for "running" versus "configured."
@@ -16,7 +16,7 @@ Proves the job count and lets you name the categories honestly: research collect
 ```bash
 /usr/bin/python3 - <<'EOF'
 import json
-d = json.load(open('~/cron/jobs.json'))
+d = json.load(open('~/.hermes/cron/jobs.json'))
 s = [j for j in d['jobs'] if j.get('script')]
 a = [j for j in d['jobs'] if not j.get('script')]
 print('total', len(d['jobs']), 'script', len(s), 'agent', len(a))
@@ -30,8 +30,8 @@ Run this before claiming any split. The durable shape is that a large share of t
 ## Per-job model and provider (proof the harness is customized, not stock)
 
 ```bash
-/usr/bin/python3 -c "import json,collections;d=json.load(open('~/cron/jobs.json'));print(collections.Counter((j.get('model'),j.get('provider')) for j in d['jobs']).most_common())"
-/usr/bin/python3 -c "import json;d=json.load(open('~/cron/jobs.json'));[print(j['name'],'->',j.get('skills') or j.get('skill')) for j in d['jobs'] if (j.get('skills') or j.get('skill'))]"
+/usr/bin/python3 -c "import json,collections;d=json.load(open('~/.hermes/cron/jobs.json'));print(collections.Counter((j.get('model'),j.get('provider')) for j in d['jobs']).most_common())"
+/usr/bin/python3 -c "import json;d=json.load(open('~/.hermes/cron/jobs.json'));[print(j['name'],'->',j.get('skills') or j.get('skill')) for j in d['jobs'] if (j.get('skills') or j.get('skill'))]"
 ```
 
 Model, provider and the skill documents a job loads are set per job, so the same fleet runs several models at once and each stage loads only its own rules. That is the concrete evidence behind any claim about taming context bloat by splitting a large task into scheduled stages.
@@ -65,7 +65,7 @@ The highest article number is the floor for "more than N original articles." Use
 
 ```bash
 hermes --version
-ls ~/skills | wc -l
+ls ~/.hermes/skills | wc -l
 ```
 
 Useful for the TOOLING block and for a version-accurate line about the orchestration layer.
@@ -112,7 +112,7 @@ Every module carries a docstring naming its single job, so the stage breakdown f
 ```bash
 python3 - <<'EOF'
 import sqlite3
-c = sqlite3.connect('~/cron/executions.db')
+c = sqlite3.connect('~/.hermes/cron/executions.db')
 print([r[1] for r in c.execute("PRAGMA table_info(executions)")])
 print('rows', c.execute('SELECT COUNT(*) FROM executions').fetchone()[0])
 for r in c.execute('SELECT job_id, status, started_at, finished_at, error, delivery_outcome FROM executions ORDER BY rowid DESC LIMIT 5'):

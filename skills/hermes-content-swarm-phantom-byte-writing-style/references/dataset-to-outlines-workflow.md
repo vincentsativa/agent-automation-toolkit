@@ -185,7 +185,7 @@ def send_email_with_attachments(to, subject, body, attachment_paths):
     server = smtplib.SMTP('smtp.ionos.com', 587, timeout=60)
     server.set_debuglevel(1)
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.send_message(msg)
     server.quit()
     return True

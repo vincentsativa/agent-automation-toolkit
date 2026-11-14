@@ -14,7 +14,7 @@ metadata:
 > Status: DESIGN PHASE, awaiting three-way alignment session (Vinny + Hermes + Larry)
 > For: Joe (Vinny's brother, SHIFT44) AND Hermes/PhantomByte's own workflows
 > Budget: Joe has money, spend what makes sense, but don't waste. Philosophy is fast/cheap on infrastructure, not a financial constraint.
-> Blueprint document: `~/cache/documents/doc_826dcc863863_shift44-bi-blueprint.md`
+> Blueprint document: `~/.hermes/cache/documents/doc_826dcc863863_shift44-bi-blueprint.md`
 
 ## CRITICAL: DUAL-USE DESIGN CONSTRAINT
 

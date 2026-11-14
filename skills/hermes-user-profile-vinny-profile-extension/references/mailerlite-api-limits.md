@@ -57,7 +57,7 @@
 - **URL:** https://mailerlite-proxy-1091380733401.us-east1.run.app
 - **Endpoint:** POST /api/subscribe
 - **Health:** GET /health
-- **Source:** /mnt/c/Users/<user>/workspace/phantom-byte-funnels/mailerlite-proxy/
+- **Source:** .../<user>/workspace/phantom-byte-funnels/mailerlite-proxy/
 - **Maps group slugs to IDs server-side** (playbook → 186325633265042550, etc.)
 - **Rate limiting:** 5 req/min per IP
 - **Old proxy (dead):** mailerlite-proxy-mvcy5omgra-uc.a.run.app, redirects to static thanks page

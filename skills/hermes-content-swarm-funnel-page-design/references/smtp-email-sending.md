@@ -18,7 +18,7 @@ from email import encoders
 SMTP_HOST = "smtp.ionos.com"
 SMTP_PORT = 587
 SMTP_USER = "hello@phantom-byte.com"
-SMTP_PASS = "VJBvjbhydro1202$$"
+SMTP_PASS = "[REDACTED_PASSWORD]"
 
 def send_email(to, subject, body_text, attachment_path=None, attachment_name=None):
     msg = MIMEMultipart()

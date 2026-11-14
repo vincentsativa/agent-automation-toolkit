@@ -18,7 +18,7 @@ Windows, driven from the WSL agent (always `cd` into the folder first, because
 `cmd.exe` refuses UNC working directories):
 
 ```bash
-cd /mnt/c/Users/<user>/workspace/openleads
+cd .../<user>/workspace/openleads
 /mnt/c/Windows/System32/cmd.exe /c "ol.cmd doctor"
 ```
 
@@ -100,7 +100,7 @@ the same interpreter, retries on empty output, and prints the tier split:
   --out /tmp/leads.csv -- "marketing agencies in Miami" -s local -n 30 --format csv
 
 # Windows (from WSL)
-cd /mnt/c/Users/<user>/workspace/openleads
+cd .../<user>/workspace/openleads
 /mnt/c/Windows/System32/cmd.exe /c "set PYTHONIOENCODING=utf-8&& C:\Users\<user>\.venvs\openleads\Scripts\python.exe ol_retry.py --out C:\Users\<user>\leads.csv -- \"marketing agencies in Miami\" -s local -n 30 --format csv"
 ```
 

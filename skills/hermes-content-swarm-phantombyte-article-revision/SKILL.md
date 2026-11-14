@@ -16,11 +16,11 @@ description: Edit a PhantomByte article per one external rec.
 
 ## Verified workflow
 
-1. `cp` the source draft into the drafts folder, beside the sibling COMPLETE files: `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/ARTICLE N COMPLETE.txt`. That folder, not `$HOME`, is where every earlier `ARTICLE N COMPLETE.txt` lives and where Vinny goes looking for them. Copy first and patch the copy, so the source draft is never opened for writing.
+1. `cp` the source draft into the drafts folder, beside the sibling COMPLETE files: `.../<user>/workspace/article-drafts/ghostwriter-terminal/ARTICLE N COMPLETE.txt`. That folder, not `$HOME`, is where every earlier `ARTICLE N COMPLETE.txt` lives and where Vinny goes looking for them. Copy first and patch the copy, so the source draft is never opened for writing.
 2. `patch` (mode=replace) to insert exactly one block at a chosen anchor line, a unique sentence that precedes the insertion point.
 3. **Prove the original is untouched:** `diff ARTICLE N COMPLETE.txt <original path>`. Output must show ONLY the inserted lines (e.g. `47,84d46`), nothing else. Any deleted/modified original line means you went too far, revert and redo.
 4. **Prove zero dashes:** `search_files` for `-` (em) and `–` (en) in the output file. Both must return 0 matches.
-5. Write the send script into a fresh `SCRATCH=$(mktemp -d ~/cache/scratch/<job>-XXXXXX)` directory for this run, never a fixed or reused path (a stale file from an earlier run trips the overwrite guard and kills the send), and never inline `python3 -c`, which fails SMTP auth with IONOS. Audit every email address in the script, send once, confirm on Telegram, then delete the scratch directory.
+5. Write the send script into a fresh `SCRATCH=$(mktemp -d ~/.hermes/cache/scratch/<job>-XXXXXX)` directory for this run, never a fixed or reused path (a stale file from an earlier run trips the overwrite guard and kills the send), and never inline `python3 -c`, which fails SMTP auth with IONOS. Audit every email address in the script, send once, confirm on Telegram, then delete the scratch directory.
 
 ## Google's recurring "bridge theory to code" recommendation
 

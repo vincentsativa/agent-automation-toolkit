@@ -128,7 +128,7 @@ This ensures the afternoon agent sees the morning report's full output before ge
 When IronPulse is triggered as a **scheduled cron job** (not interactive), the delivery must include more than just the file path. Vinny specified this format for cron-based runs:
 
 **Delivery message must contain:**
-1. First line: Windows-native file path (`C:\\Users\\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`)
+1. First line: Windows-native file path (`C:\Users\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`)
 2. **Themes & Messages Summary**, 2-4 paragraphs identifying the dominant themes, patterns, or narratives connecting multiple stories in today's batch. What does the data actually say?
 3. **3 Article Ideas**, Specific, compelling article ideas for phantom-byte.com, grounded in what the data actually shows. Do not force ideas if nothing is interesting.
 4. **Namediff required for every theme**, Each theme MUST explicitly state why it does NOT overlap with a specific published PhantomByte article. Reference the actual article titles from articles.phantom-byte.com. A theme that overlaps without acknowledgment will be proposed as a duplicate on the next editorial pass. This rule applies to ALL theme delivery contexts: email body, Telegram inline delivery, and cron inline output.
@@ -158,13 +158,13 @@ Full report with all 30 ranked stories is in the attachment.
 - Hermes
 """
 msg.attach(MIMEText(body, 'plain'))
-with open('~/workspace/larry-weekly/larry-weekly-MMM-DD-YYYY.txt', 'r') as f:
+with open('~/.hermes/workspace/larry-weekly/larry-weekly-MMM-DD-YYYY.txt', 'r') as f:
     attachment = MIMEText(f.read(), 'plain')
     attachment.add_header('Content-Disposition', 'attachment', filename='Larry Weekly News - MMM DD YYYY.txt')
     msg.attach(attachment)
 
 with smtplib.SMTP('smtp.ionos.com', 587) as server:
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.sendmail('hello@phantom-byte.com', 'hello@phantom-byte.com', msg.as_string())
 ```

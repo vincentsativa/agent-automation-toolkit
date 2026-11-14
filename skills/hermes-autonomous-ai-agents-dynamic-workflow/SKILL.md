@@ -30,7 +30,7 @@ orchestrator: every intermediate result piles into context, which is exactly
 what caps you at a handful of agents. A workflow keeps only the *final verified
 answer* in context; the script holds everything else.
 
-> This skill is self-contained, but it builds on standard fan-out hygiene, 
+> This skill is self-contained, but it builds on standard fan-out hygiene -
 > chunk inputs to ~50-70KB per child, route structured output to files (not the
 > `summary` field, which truncates under load), use delimiter-separated lines
 > over JSON wrappers, and remember that a "stalled" child often completed its
@@ -71,7 +71,7 @@ So a "workflow" in Hermes is one of:
    within a single turn. Good for minutes-long fan-out (dozens of units). The
    user waits. This is what you build 90% of the time.
 2. **Durable workflow (hours/days, survives interruption):** use the **kanban
-   swarm** (the SQLite-backed multi-agent kernel that ships with Hermes, 
+   swarm** (the SQLite-backed multi-agent kernel that ships with Hermes -
    `hermes_cli/kanban_swarm.py` + the kanban plugin; if your install has a
    `kanban-multiagent` skill, load it for the workflow). It
    writes a task graph (root → parallel workers → verifier → synthesizer) into
@@ -202,7 +202,7 @@ user say go.
 
 - Did the deterministic pre-pass actually run, and does the manifest line-count
   match the expected unit count? (`wc -l /tmp/wf_<name>/manifest.jsonl`)
-- Did every fan-out child write its output file? (`ls /tmp/wf_<name>/out_*.csv`), 
+- Did every fan-out child write its output file? (`ls /tmp/wf_<name>/out_*.csv`) -
   remember stalled children often completed anyway (Pattern 6).
 - For the verify recipe: can you point to the refuter counter-evidence for every
   DROPPED claim, and confirm every SURFACED claim went through refutation?

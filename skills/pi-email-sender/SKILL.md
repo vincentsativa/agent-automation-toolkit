@@ -21,7 +21,7 @@ trigger: "user asks to email, send email, attach file to email, send document, o
 - **Server:** smtp.ionos.com
 - **Port:** 587 (TLS)
 - **Username:** hello@example.com
-- **Password:** VJBvjbhydro1202$$
+- **Password:** [REDACTED_PASSWORD]
 
 ## Sending Email (Python)
 
@@ -54,7 +54,7 @@ def send_email(to, subject, body, attachment_path=None):
         print(f"WARNING: attachment not found at {attachment_path}, sending without attachment")
     server = smtplib.SMTP('smtp.ionos.com', 587, timeout=30)
     server.starttls()
-    server.login('hello@example.com', 'VJBvjbhydro1202$$')
+    server.login('hello@example.com', '[REDACTED_PASSWORD]')
     server.send_message(msg)
     server.quit()
     return True

@@ -34,7 +34,7 @@ The API-call count and latency profile also separate a healthy run (roughly 10-2
 ```bash
 python3 -c "
 import sqlite3
-c = sqlite3.connect('~/cron/executions.db'); c.row_factory = sqlite3.Row
+c = sqlite3.connect('~/.hermes/cron/executions.db'); c.row_factory = sqlite3.Row
 print([d[0] for d in c.execute(\"select name from sqlite_master where type='table'\")])
 for r in c.execute('select status,error,claimed_at,started_at,finished_at,delivery_outcome from executions where job_id=? order by rowid desc limit 5', ('<job_id>',)):
     print(dict(r))

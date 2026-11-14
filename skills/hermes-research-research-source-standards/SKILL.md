@@ -299,6 +299,16 @@ When the user asks for what *users* are saying (not journalists/influencers/medi
 
 7. **Filter out press/reviewer noise aggressively**: ignore TechCrunch, The Verge, Ars Technica, VentureBeat, YouTubers, and press-release reprints. A "user" runs the model or builds with it, not someone who read the press release.
 
+### B1. Anonymous / Stealth Model Lookup (OpenRouter `stealth/<name>`)
+
+A model that a provider lists under a `stealth/<name>` slug or a code name has no model card, no Hugging Face repo, and no named maker. It is found on the gateway page, on fingerprinting trackers, and in three communities that need no auth, and nowhere else.
+
+1. **Fetch the gateway page, not the model API.** `https://openrouter.ai/stealth/<name>` and its `/llms.txt` mirror return the context window, the "free to use" flag, the price, and the modality line; the `og:description` meta carries the same facts even where the body is JS. A direct call to `api.openrouter.ai` is often DNS-blocked from cloud IPs, so do not work around the public page with a JSON endpoint that never resolves.
+2. **Check stealthmodels.com/<name>.** It carries the benchmark table, launch-day token volume, request availability percent, provider routing breakdowns, and geo-block status. Read availability as serving quality, not capability: low availability is usually capacity, not model quality.
+3. **Run the HN Algolia query both ways.** An exact-phrase query (grouped words in quotes) can return zero hits while the plain keyword query returns the live threads, because Algolia treats the quoted form as a phrase match over a different index slice. Never take a zero from the quoted form as "nothing exists"; run the plain keyword form as well and trust it for discovery.
+4. **Read Reddit thread bodies, not titles.** The reddit-reading skill's search (anonymous feed calls, roughly one a minute) surfaces the first user voices on a stealth model. The listing carries only the first ~300 characters per post, so read the thread itself for the complaint or the speed claim, and expect top-level comments only.
+5. **Self-ID is noise; fingerprints are hard evidence.** A stealth model tells you to stay anonymous, so its own answer about its creator is a guess that varies by language and is worthless in either direction. Tokenizer matching, the ID format in API responses, and rare shared menus such as a reasoning-level list are the hard signals; collect them, state the direction of the evidence, and keep the caveat that a routing or tokenizer match proves whose stack served the tokens, not whose brain is inside.
+
 ### B2. Model-vs-Model Head-to-Head (When Asked "Is X Better Than Y?")
 
 When asked "is X better than Y?", do NOT pick a winner from vibes. The honest answer is often "they share no like-for-like benchmarks", that IS the finding. Workflow:

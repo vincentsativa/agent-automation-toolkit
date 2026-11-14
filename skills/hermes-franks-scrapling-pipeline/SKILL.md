@@ -170,7 +170,7 @@ Daily run takes priority. If you can only do one thing today, scrape Simon Willi
 
 ### 2. Weekly Intelligence Brief (Weekly Only, Every Monday)
 
-Save to: `/mnt/c/Users/<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
+Save to: `.../<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
 
 The brief must contain exactly these sections in order:
 
@@ -248,7 +248,7 @@ If any check fails, fix it. Do not declare the run complete with partial data.
 
 All data lives under YOUR WSL filesystem:
 - Raw data dumps: `~/data/scrapling/raw/`
-- Weekly briefs: `/mnt/c/Users/<user>/workspace/data/scrapling/` (Windows side)
+- Weekly briefs: `.../<user>/workspace/data/scrapling/` (Windows side)
 - Previous runs for duplicate detection: check last 3 files in `~/data/scrapling/raw/`
 
 ---

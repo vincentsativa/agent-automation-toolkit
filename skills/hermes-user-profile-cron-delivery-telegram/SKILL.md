@@ -30,7 +30,7 @@ When setting up any cron job for Vinny, the delivery target must always be `deli
 ```bash
 python3 -c "
 import json
-d = json.load(open('~/cron/jobs.json'))
+d = json.load(open('~/.hermes/cron/jobs.json'))
 for j in d['jobs']:
     if j['id'] == '<job_id>': print(j['name'], '| deliver:', j['deliver'], '| origin:', j.get('origin'))
 "
@@ -52,7 +52,7 @@ field, and each execution's `delivery_outcome`. Check both before re-firing anyt
 # 1. per-run delivery verdict for that job
 python3 -c "
 import sqlite3
-c = sqlite3.connect('~/cron/executions.db')
+c = sqlite3.connect('~/.hermes/cron/executions.db')
 for r in c.execute(\"select started_at, status, delivery_outcome, error from executions where job_id='<job_id>' order by started_at desc limit 10\"):
     print(r)
 "

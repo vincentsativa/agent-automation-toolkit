@@ -14,7 +14,7 @@ description: |
 2. Write the article (no em dashes)
 3. Add: X post (190 chars), Pinterest title (60-80 chars), Pinterest description (150-300 chars), quick keywords
 4. Save to `C:\Users\<user>\workspace\article-drafts\ghostwriter-terminal\YYYY-MM-DD-slug-draft.txt`
-   - In WSL, the equivalent path is `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/`. Always translate Windows paths to `/mnt/c/` equivalents when writing files.
+   - In WSL, the equivalent path is `.../<user>/workspace/article-drafts/ghostwriter-terminal/`. Always translate Windows paths to `/mnt/c/` equivalents when writing files.
 5. If Vinny asks to email the draft, use the `email-sender` skill to send it to hello@phantom-byte.com with the file attached. Do NOT paste the full article text into chat.
 6. Deliver the Windows path
 

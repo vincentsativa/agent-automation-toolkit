@@ -96,8 +96,8 @@ Reuse these; do not rebuild them. But do NOT describe them as verified until you
 - `domains_example.txt` - PLACEHOLDER only, not real prospects.
 - `email_scan_results.csv`, `site_check_results.csv` - test-run outputs only.
 - `HOWTO.txt`, `HOWTO_ADDENDUM.txt` - run instructions and open items.
-- Offer page: `C:\Users\<user>\OneDrive\Desktop\MONEY MAKING OPPORTUNITIES\offer-pages\email-deliverability-rescue.html` (Linux view: `/mnt/c/Users/<user>/OneDrive/...`). It lives on the Windows OneDrive side, not in `money_ideas/`, so a search of the Linux home directory will not find it. Treat the addendum's `offer-pages/email-deliverability-rescue.html` relative path as stale.
-- Do not claim any of these files is missing until you have searched `/mnt/c/Users/<user>/`.
+- Offer page: `C:\Users\<user>\OneDrive\Desktop\MONEY MAKING OPPORTUNITIES\offer-pages\email-deliverability-rescue.html` (Linux view: `.../<user>/OneDrive/...`). It lives on the Windows OneDrive side, not in `money_ideas/`, so a search of the Linux home directory will not find it. Treat the addendum's `offer-pages/email-deliverability-rescue.html` relative path as stale.
+- Do not claim any of these files is missing until you have searched `.../<user>/`.
 
 ## The four open items before outreach can send
 1. Real domain list: 100-150 local businesses + 60-80 agencies, one per line.
@@ -387,7 +387,7 @@ The standing solution for every offer page CTA is an inline form that POSTs to t
 - Send `source: "deliverability-offer-page"` so these submissions are separable from the homepage form in the inbox.
 - The top CTA anchors to the form (`href="#start"`), it does not open a mail client. Keep that pattern.
 - Include a hidden honeypot field and a visible status line that reports success or failure, so a failed send does not look like a silent success.
-- Backend source lives at `/mnt/c/Users/<user>/phantom-byte-contact-api/server.js`, with git remote `github.com/vincentsativa/phantom-byte-contact-api`. Edit it there. Pi deploys it; see the deployment boundary below.
+- Backend source lives at `.../<user>/phantom-byte-contact-api/server.js`, with git remote `github.com/vincentsativa/phantom-byte-contact-api`. Edit it there. Pi deploys it; see the deployment boundary below.
 
 The dash rule still applies to any href, not just the visible copy. A subject like `Deliverability rescue - my domain` ships a dash-as-separator inside a URL, so scan the decoded value and not only the rendered text.
 
@@ -490,7 +490,7 @@ The full verification set (render, send-and-read-back, every refusal, the dedupe
 
 ## Offer page files live on the Windows side
 
-The mockups sit under `/mnt/c/Users/<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES/offer-pages/`, not in `~/money_ideas/`. Search there before saying a page does not exist. `write_file` will refuse to overwrite one until it has been read in full in that session, so read it first, then write.
+The mockups sit under `.../<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES/offer-pages/`, not in `~/money_ideas/`. Search there before saying a page does not exist. `write_file` will refuse to overwrite one until it has been read in full in that session, so read it first, then write.
 
 Host offer pages on `phantom-byte.com` (the domain the outreach sends from, so sender and link match), not on `vincentsativa.com`, which is the personal brand. Deep pages like `/deliverability/` earn no search traffic on their own; the indexed articles on `articles.phantom-byte.com` are what pull traffic, and each service page should have one explaining article linking to it.
 
@@ -540,7 +540,7 @@ Do not answer this question with a narrative of what happened, and do not answer
 
 A report from `noreply-dmarc-support@google.com` arrives in Vinny's own mailbox (`hello@phantom-byte.com`), one per day, roughly 24 hours behind the window it covers, with a `.zip` attachment holding one XML file. Read it over IMAP, never AgentMail.
 
-- Do not use the IONOS web panel, a browser, or a login screen for DNS edits under any circumstance. The panel route burns a 2FA round trip and is what caused a wrong-turn attempt at Vinny's IONOS account; the API does the same job in one PUT. A browser vault entry for IONOS exists, and it must never be used for DNS work. Reach for the API key at `/mnt/c/Users/<user>/workspace/memory/ionos-credentials.md` instead.
+- Do not use the IONOS web panel, a browser, or a login screen for DNS edits under any circumstance. The panel route burns a 2FA round trip and is what caused a wrong-turn attempt at Vinny's IONOS account; the API does the same job in one PUT. A browser vault entry for IONOS exists, and it must never be used for DNS work. Reach for the API key at `.../<user>/workspace/memory/ionos-credentials.md` instead.
 - Never call these records stale, never flag them as a defect, and never propose removing them.
 - Stale on-disk documents will contradict the live records and the live page. `HOWTO_ADDENDUM.txt` still describes the offer page CTA as a `mailto` link and still gives `phantom-byte.com/deliverability` as the URL; the page actually uses an inline form and lives at `/email-deliverability-rescue`, and `/deliverability` returns 404. `DMARC_FIX_phantom-byte.txt` still describes the domain as `p=none`. Trust a live query over any file in `money_ideas/`, and never quote a record string or a URL out of a local note without checking it first.
 - The `.zip` filename encodes the window: `<submitter>!<domain>!<begin-epoch>!<end-epoch>.zip`. Convert the epochs with `datetime.utcfromtimestamp(ts)`; a report's `date_range` is always UTC and is a fixed 24-hour window, so a report landing mid-day is normal and not a delayed failure.
@@ -558,8 +558,8 @@ DNS records on this domain are correct and complete. Verified 2026-09-19 after t
 - `python3 email_scan.py phantom-byte.com` now grades OVERALL: PASS on all four records with zero findings. Do not describe the domain as having an open SPF or DMARC item; both are closed.
 
 - DNS, MX, and mailbox hosting: IONOS (name servers `ns.ui-global-dns.de/.org/.com/.biz`, MX `mx00/mx01.ionos.com`). **All DNS edits go through the IONOS DNS API. Never the web panel, never a browser, never a login screen.** The panel route burns a 2FA round trip and is what caused a wrong-turn attempt at Vinny's IONOS account; the API does the same job in one PUT.
-- IONOS DNS API, verified working 2026-09-19: base `https://api.hosting.ionos.com/dns/v1`, auth header `X-API-Key: <prefix>.<secret>`, key stored at `/mnt/c/Users/<user>/workspace/memory/ionos-credentials.md`. phantom-byte.com zone id `f9a1e796-0c8f-11f1-8880-0a5864440f43`. List zones `GET /zones`, read one `GET /zones/<id>`, change one record `PUT /zones/<id>/records/<record_id>` with `{name,type,content,ttl,disabled,prio}`, then read the zone back. Back up the full zone JSON to `/mnt/c/Users/<user>/workspace/dns-backups/` before any edit. KARMA uses this same API; she never opens the panel either.
-- IONOS, every time: use the DNS API. The key is on disk at `/mnt/c/Users/<user>/workspace/memory/ionos-credentials.md`.
+- IONOS DNS API, verified working 2026-09-19: base `https://api.hosting.ionos.com/dns/v1`, auth header `X-API-Key: <prefix>.<secret>`, key stored at `.../<user>/workspace/memory/ionos-credentials.md`. phantom-byte.com zone id `f9a1e796-0c8f-11f1-8880-0a5864440f43`. List zones `GET /zones`, read one `GET /zones/<id>`, change one record `PUT /zones/<id>/records/<record_id>` with `{name,type,content,ttl,disabled,prio}`, then read the zone back. Back up the full zone JSON to `.../<user>/workspace/dns-backups/` before any edit. KARMA uses this same API; she never opens the panel either.
+- IONOS, every time: use the DNS API. The key is on disk at `.../<user>/workspace/memory/ionos-credentials.md`.
 - SendGrid is a deliberate backup sending channel he keeps live. Never call these records stale, never flag them as a defect, never propose removing them, and never add a cleanup step for them to a prompt.
 - MailerLite sends as this domain and carries a verification TXT, and no MailerLite DKIM selector resolves publicly. This is not a defect in practice: delivered mail returns `dmarc=pass`, so the platform's own hosted authentication is covering it. Do not raise a missing public selector as a problem without a failing header to back it. The MailerLite API key is currently dead (401), so the panel cannot be read over API.
 - Four separate verification TXTs sit on the apex (Pinterest, Google, MailerLite). They are unrelated to mail, never delete or reorder them.

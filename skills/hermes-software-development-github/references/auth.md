@@ -182,7 +182,7 @@ while true; do
   case "$POLL" in
     *access_token*)
       # Never echo the token; pipe it straight into gh.
-      # timeout guards the headless-keyring hang (see pitfall below), 
+      # timeout guards the headless-keyring hang (see pitfall below) -
       # on exit 124, fall back to writing ~/.config/gh/hosts.yml directly.
       echo "$POLL" | sed 's/.*"access_token":"\([^"]*\)".*/\1/' | timeout 20 gh auth login --with-token \
         || { echo "WITH_TOKEN_HUNG_OR_FAILED, use the hosts.yml fallback below"; exit 1; }

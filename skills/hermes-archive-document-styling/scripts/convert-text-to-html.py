@@ -77,7 +77,7 @@ def html_table(rows):
     out.append('</tbody></table>')
     return '\n'.join(out)
 
-CSS = open('~/skills/creative/document-styling/references/weasyprint-light-professional.css').read()
+CSS = open('~/.hermes/skills/creative/document-styling/references/weasyprint-light-professional.css').read()
 
 def build_html(content_lines):
     parts = [f'<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Guide</title><style>{CSS}</style></head><body>']

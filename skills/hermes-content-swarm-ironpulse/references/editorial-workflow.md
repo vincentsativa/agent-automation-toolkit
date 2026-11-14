@@ -45,11 +45,11 @@ See `references/knowledge-based-summary-writing.md` for the full strategy, inclu
 
 When the user says "tensorfeed report" (any variant: TensorFeed, tensorfeed, TENSORFEED):
 
-1. **Run the report:** Use `python scripts/tensorfeed_news.py` from `/mnt/c/Users/<user>/workspace/` to get headlines, then browse stories directly for full 5-sentence summaries.
+1. **Run the report:** Use `python scripts/tensorfeed_news.py` from `.../<user>/workspace/` to get headlines, then browse stories directly for full 5-sentence summaries.
 
-2. **Save everything to a file FIRST**, `/mnt/c/Users/<user>/Desktop/tensorfeed-report-YYYY-MM-DD.txt`. Write the full report to this path using `write_file`. This is MANDATORY before any other action.
+2. **Save everything to a file FIRST**, `.../<user>/Desktop/tensorfeed-report-YYYY-MM-DD.txt`. Write the full report to this path using `write_file`. This is MANDATORY before any other action.
 
-3. **Email the file as attachment** to hello@phantom-byte.com via IONOS SMTP (smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$). Use `MIMEMultipart` with `MIMEBase` attachment, never inline body text.
+3. **Email the file as attachment** to hello@phantom-byte.com via IONOS SMTP (smtp.ionos.com:587, user hello@phantom-byte.com, pass [REDACTED_PASSWORD]). Use `MIMEMultipart` with `MIMEBase` attachment, never inline body text.
 
 4. **Reply in Telegram with ONLY the file path.** Example: `C:\Users\<user>\Desktop\tensorfeed-report-2026-05-16.txt`
 

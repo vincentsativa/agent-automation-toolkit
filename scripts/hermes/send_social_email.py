@@ -10,7 +10,7 @@ Usage:
 
 If no path is given, it looks for today's file in the standard locations:
     ~/social_media_posts_YYYY-MM-DD.txt
-    /mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/social_media_posts_YYYY-MM-DD.txt
+    .../<user>/OneDrive/Desktop/TODAYS DATA FILES/social_media_posts_YYYY-MM-DD.txt
 """
 import smtplib
 import os
@@ -27,12 +27,12 @@ FROM = "hello@phantom-byte.com"
 SMTP_HOST = "smtp.ionos.com"
 SMTP_PORT = 587
 SMTP_USER = "hello@phantom-byte.com"
-SMTP_PASS = "VJBvjbhydro1202$$"
+SMTP_PASS = "[REDACTED_PASSWORD]"
 SEARCH_DIRS = [
     "~",
-    "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES",
+    ".../<user>/OneDrive/Desktop/TODAYS DATA FILES",
 ]
-MARKER_DIR = "~/cron/sent_markers"
+MARKER_DIR = "~/.hermes/cron/sent_markers"
 
 
 def find_today_file():

@@ -63,7 +63,7 @@ timeout 120 grep -rln "<old-token>" /mnt/c/Users/<user>/workspace/scripts /mnt/c
 Do not report the sweep off the diff. Execute each documented form once:
 
 ```bash
-SCRATCH=$(mktemp -d ~/cache/scratch/smoke-XXXXXX)
+SCRATCH=$(mktemp -d ~/.hermes/cache/scratch/smoke-XXXXXX)
 scrapling extract fetch "https://example.com" "$SCRATCH/out.txt"
 scrapling extract fetch "https://example.com" "$SCRATCH/out.html" --network-idle --wait 3000
 scrapling extract get "https://example.com" "$SCRATCH/g.txt"

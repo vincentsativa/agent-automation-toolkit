@@ -83,7 +83,19 @@ Match each story to the board whose topic fits best:
 - business / productivity tool → AI Tools
 - general AI news → Main AI News
 
-Spread posts across boards sensibly, never all 10 on one board. The email body MUST list each post as `[BOARD NAME], Post title` followed by the description. A post with no board assignment is a failure.
+Spread posts across boards sensibly, never all 10 on one board. The email body MUST list each post as `[BOARD NAME] - Post title` followed by the description. A post with no board assignment is a failure.
+
+### Board quotas are measured, not even (performance audit 2026-08-14 to 2026-11-12)
+
+An even spread is wrong. The 10 daily slots follow the measured rates of each board, and these quotas are the version of record: 3 AI News, 2 Robotics & Physical AI, 2 AI for Developers, 2 AI Tools, 1 AI Agents, 0 Agent Security (a genuine attack-plus-fix story swaps out one news slot), 0 Quantum (a major dated development swaps out one news slot, maximum once a week).
+
+Why: Robotics carries a sixth of the news board's impressions but the best engagement rate (2.30%) and save rate (0.82%) on the account, so it is under-published rather than weak. Developer and tools carry the reach but sit at 0.73% engagement, so their posts must earn a save (a snippet, command, checklist, or comparison) rather than add volume. Quantum produced 1,147 impressions and zero outbound clicks. Never add a quantum slot just because a quantum story exists.
+
+Read the live numbers with `python3 ~/.hermes/scripts/pinterest_performance.py --brief` before choosing stories, and check the finished batch against the quotas before emailing. Full table, formula, and angle rules: `pinterest-academy` references/performance-allocation.md.
+
+### Repetition rule beyond exact duplicates
+
+The dedup gate removes an exact story repeat. It cannot see the softer repeat, which is the same company's news retold with a different angle two days running. So: no story, company, or concept on two consecutive days in the same board, and no more than two posts in one batch may share a company.
 
 ## Cron Execution Discipline (CRITICAL, Aug 7, 2026)
 The daily Pinterest cron failed twice in a row with "Response remained truncated after 4 continuation attempts" because it burned its entire tool budget before reaching the email step. Root cause: it visited all 5 boards in the browser, then wrote each of the 10 posts with separate write/patch iterations. Context ballooned past 110K tokens, the model truncated, and the email never sent.

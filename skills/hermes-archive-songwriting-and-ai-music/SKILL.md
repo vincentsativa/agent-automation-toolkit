@@ -35,12 +35,12 @@ AAA     Verse/Verse/Verse (strophic, no chorus)     (folk, storytelling)
 ```
 
 The six building blocks:
-- Intro      - set the mood, pull the listener in
-- Verse      - the story, the details, the world-building
+- Intro     , set the mood, pull the listener in
+- Verse     , the story, the details, the world-building
 - Pre-Chorus, optional tension ramp before the payoff
-- Chorus     - the emotional core, the part people remember
-- Bridge     - a detour, a shift in perspective or key
-- Outro      - the farewell, can echo or subvert the rest
+- Chorus    , the emotional core, the part people remember
+- Bridge    , a detour, a shift in perspective or key
+- Outro     , the farewell, can echo or subvert the rest
 
 You don't need all of these. Some great songs are just one section
 that evolves. Structure serves the emotion, not the other way around.

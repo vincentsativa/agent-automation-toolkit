@@ -503,8 +503,8 @@ Expect a `list`, never a `str`.
 ```bash
 cd ~ && python3 - <<'EOF'
 import sys, os
-sys.path.insert(0, '~/hermes-agent')
-os.environ['HERMES_HOME'] = '/mnt/c/Users/<user>/AppData/Local/hermes'  # or the WSL home
+sys.path.insert(0, '~/.hermes/hermes-agent')
+os.environ['HERMES_HOME'] = '.../<user>/AppData/Local/hermes'  # or the WSL home
 from agent.skill_commands import resolve_auto_load_skills, build_auto_load_prompt
 print("resolved:", resolve_auto_load_skills())
 text, loaded, missing = build_auto_load_prompt()
@@ -518,7 +518,7 @@ Success is the skill name in `loaded` with `missing: []`. A name in `missing` me
 
 ### Editing the Windows config.yaml
 
-The Windows home is `/mnt/c/Users/<user>/AppData/Local/hermes/` (config.yaml at the root). The security guard that blocks `patch`/`write_file` on the WSL config does NOT apply here, so writes go through directly, and that makes the following mandatory:
+The Windows home is `.../<user>/AppData/Local/hermes/` (config.yaml at the root). The security guard that blocks `patch`/`write_file` on the WSL config does NOT apply here, so writes go through directly, and that makes the following mandatory:
 
 1. **Back up first, then RE-LIST the backup in a separate step to prove it persists.** A backup that is never re-listed may not be on disk, and a vanished backup turns a recoverable edit into a loss.
 2. **Anchor the insert on a unique block and assert the match count** before replacing (e.g. `skills:\r\n  external_dirs: []\r\n`), so exactly one key is inserted and the `disabled` list and every other section survive.

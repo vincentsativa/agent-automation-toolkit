@@ -115,13 +115,13 @@ POSIX-only signals to search for in `scripts/`: `fcntl`, `termios`, `pty`, `os.f
 # <Skill> Skill
 2-3 sentence intro: what it does, what it doesn't do, dependency stance.
 
-## When to Use          - bulleted triggers (+ "Don't use for:" counter-triggers)
-## Prerequisites        - exact env vars, installs, API key sourcing
-## How to Run           - canonical invocation through the `terminal` tool
-## Quick Reference      - flat command list, no narration
-## Procedure            - numbered steps, each with a checkable completion criterion
-## Pitfalls             - known limits, things that look broken but aren't
-## Verification         - how to prove the skill worked
+## When to Use         , bulleted triggers (+ "Don't use for:" counter-triggers)
+## Prerequisites       , exact env vars, installs, API key sourcing
+## How to Run          , canonical invocation through the `terminal` tool
+## Quick Reference     , flat command list, no narration
+## Procedure           , numbered steps, each with a checkable completion criterion
+## Pitfalls            , known limits, things that look broken but aren't
+## Verification        , how to prove the skill worked
 ```
 
 Not every section applies to every skill (a pure-procedure task skill may have no Quick Reference), but When to Use + actionable body + Pitfalls + Verification are the minimum. Cut marketing intros, "Setup Check" no-ops, and re-explanations of env vars already in Prerequisites.

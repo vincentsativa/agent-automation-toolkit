@@ -12,7 +12,7 @@ POST https://phantom-byte-contact-ionos-1091380733401.us-central1.run.app/api/co
 Accepts `{ name, email, message, domain, source }`. Sends via IONOS SMTP
 (`smtp.ionos.com:587`) to `hello@phantom-byte.com`.
 
-Backend source: `/mnt/c/Users/<user>/phantom-byte-contact-api/server.js`
+Backend source: `.../<user>/phantom-byte-contact-api/server.js`
 Repo: `github.com/vincentsativa/phantom-byte-contact-api`
 
 Two endpoints:
@@ -40,7 +40,7 @@ The token carries its own payload and an HMAC, so nothing is stored.
 
 ```js
 const VERIFY_TTL_MS = 48 * 60 * 60 * 1000;
-const VERIFY_SECRET = [REDACTED] || crypto.createHash('sha256')
+const VERIFY_SECRET = process.env.VERIFY_SECRET || crypto.createHash('sha256')
   .update('phantombyte-verify-v1:' + smtpConfig.auth.pass).digest('hex');
 
 function b64url(input) {

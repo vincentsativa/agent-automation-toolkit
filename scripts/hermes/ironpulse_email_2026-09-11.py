@@ -4,7 +4,7 @@ import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-report_path = "~/workspace/ironpulse-outputs/ironpulse-2026-09-11.txt"
+report_path = "~/.hermes/workspace/ironpulse-outputs/ironpulse-2026-09-11.txt"
 
 # Read report for attachment
 with open(report_path, "r") as f:
@@ -53,7 +53,7 @@ msg.attach(attachment)
 
 with smtplib.SMTP("smtp.ionos.com", 587) as server:
     server.starttls()
-    server.login("hello@phantom-byte.com", "VJBvjbhydro1202$$")
+    server.login("hello@phantom-byte.com", "[REDACTED_PASSWORD]")
     server.sendmail("hello@phantom-byte.com", "hello@phantom-byte.com", msg.as_string())
 
 print("EMAIL SENT")

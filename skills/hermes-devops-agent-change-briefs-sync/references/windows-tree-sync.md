@@ -7,7 +7,7 @@ pipeline looks dead.
 ## Trees
 
 - WSL: `~/.hermes` (skills under `~/.hermes/skills/<category>/<skill>/`).
-- Windows: `/mnt/c/Users/<user>/AppData/Local/hermes` (same relative layout).
+- Windows: `.../<user>/AppData/Local/hermes` (same relative layout).
 - Source of truth for what is current: `/tmp/hermes-backup`, a clone of
   `github.com/vincentsativa/linux-hermes-backup` refreshed by the daily/weekly
   backup job.
@@ -51,7 +51,7 @@ across the tree rewrites every untouched line and buries the real diff.
 ```bash
 git -C ~/agent-change-briefs pull && ls ~/agent-change-briefs/briefs/
 ls -la ~/.hermes/cron/output/agent-change-brief-*.md
-python3 -c "import json;d=json.load(open('~/cron/jobs.json'));j=d if isinstance(d,list) else d.get('jobs',[]);print([{k:x.get(k) for k in ('id','name','schedule','enabled')} for x in j if 'brief' in (x.get('name') or '').lower()])"
+python3 -c "import json;d=json.load(open('~/.hermes/cron/jobs.json'));j=d if isinstance(d,list) else d.get('jobs',[]);print([{k:x.get(k) for k in ('id','name','schedule','enabled')} for x in j if 'brief' in (x.get('name') or '').lower()])"
 diff -q /tmp/hermes-backup/skills/vinny-constitution/SKILL.md ~/.hermes/skills/vinny-constitution/SKILL.md
 ```
 

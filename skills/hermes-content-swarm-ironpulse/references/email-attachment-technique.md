@@ -32,7 +32,7 @@ Full report with all 20 ranked stories is attached.
 
 msg.attach(MIMEText(body, 'plain'))
 
-with open('~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt', 'r') as f:
+with open('~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt', 'r') as f:
     attachment = MIMEBase('application', 'octet-stream')
     attachment.set_payload(f.read())
     encoders.encode_base64(attachment)
@@ -41,7 +41,7 @@ with open('~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt', 'r') as f:
 
 with smtplib.SMTP('smtp.ionos.com', 587) as server:
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.sendmail('hello@phantom-byte.com', 'hello@phantom-byte.com', msg.as_string())
 
 print('Email sent successfully')
@@ -70,5 +70,5 @@ After sending, the script prints "Email sent successfully" to stdout. No return 
 - Server: smtp.ionos.com:587
 - TLS required: `server.starttls()`
 - Username: hello@phantom-byte.com
-- Password: VJBvjbhydro1202$$
+- Password: [REDACTED_PASSWORD]
 - Recipient: hello@phantom-byte.com

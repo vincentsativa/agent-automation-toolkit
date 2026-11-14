@@ -120,7 +120,7 @@ Ollama Blog (ollama.com/blog), PerformCB (performcb.com, login)
 Save JSON to: `~/data/scrapling/deep/YYYY-MM-DD-raw.json`
 
 ### Intelligence Brief
-Save to: `/mnt/c/Users/<user>/workspace/data/scrapling/reports/competitive-deep-dive-YYYY-MM-DD.md`
+Save to: `.../<user>/workspace/data/scrapling/reports/competitive-deep-dive-YYYY-MM-DD.md`
 
 Format:
 ```
@@ -227,7 +227,7 @@ page = sf.fetch(url, headless=True, network_idle=True)
 **Output paths:**
 - Daily raw: `~/data/scrapling/raw/daily-YYYY-MM-DD.json`
 - Weekly raw: `~/data/scrapling/raw/weekly-YYYY-MM-DD.json`
-- Weekly brief: `/mnt/c/Users/<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
+- Weekly brief: `.../<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
 
 ### BI Agent Blueprint, Lead Gen Intelligence Automation
 

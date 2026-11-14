@@ -189,7 +189,7 @@ delegation:
 
 1. **Telegram (CRITICAL):** Output ONLY the UNC file path. NEVER dump article content.
 2. **Local Files:** Save all drafts, evaluation results, synthesis brief
-3. **Format:** `\\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\q-article-swarm\{DATE}-draft-{winner}.md`
+3. **Format:** `\\wsl.localhost\Ubuntu\home\<user>\.hermes\workspace\q-article-swarm\{DATE}-draft-{winner}.md`
 
 ---
 

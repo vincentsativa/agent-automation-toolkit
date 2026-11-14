@@ -572,8 +572,8 @@ import matplotlib.pyplot as plt
 import scienceplots  # registers the styles
 
 # Pick a style:
-# 'science'        - clean, serif fonts, suitable for most venues
-# 'science+ieee'   - IEEE-style (good for two-column papers)
+# 'science'       , clean, serif fonts, suitable for most venues
+# 'science+ieee'  , IEEE-style (good for two-column papers)
 # 'science+nature', Nature-style
 # Add 'no-latex' if LaTeX is not installed on the machine generating plots
 

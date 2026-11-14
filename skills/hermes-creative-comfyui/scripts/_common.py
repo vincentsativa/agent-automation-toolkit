@@ -144,7 +144,7 @@ MODEL_LOADERS: dict[str, list[tuple[str, str]]] = {
     "HypernetworkLoader":       [("hypernetwork_name", "hypernetworks")],
     # IPAdapter family (community).
     # Note: IPAdapterUnifiedLoader's `preset` and IPAdapterInsightFaceLoader's
-    # `provider` are enums (not file paths), so they're intentionally omitted, 
+    # `provider` are enums (not file paths), so they're intentionally omitted -
     # check_deps would otherwise treat enum values as missing model files.
     "IPAdapterModelLoader":     [("ipadapter_file", "ipadapter")],
     "InstantIDModelLoader":     [("instantid_file", "instantid")],
@@ -499,7 +499,7 @@ if HAS_REQUESTS:
         `requests` already strips `Authorization` cross-host (rebuild_auth),
         but it does NOT strip custom headers like `X-API-Key`. We override
         `rebuild_auth` to additionally strip every header in
-        `_SENSITIVE_HEADERS` when the destination is a different host, 
+        `_SENSITIVE_HEADERS` when the destination is a different host -
         critical when ComfyUI Cloud's `/api/view` redirects to a signed S3 URL.
         """
 

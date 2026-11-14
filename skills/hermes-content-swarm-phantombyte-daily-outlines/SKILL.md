@@ -37,7 +37,7 @@ Check three sources, and prove the read is fresh before trusting any of them:
 
 1. **Sitemap, not the homepage render.** Fetch `https://articles.phantom-byte.com/sitemap.xml` and grep the slug list for each angle's keywords. The rendered homepage can be served from a stale cache; the sitemap is the archive and is never the old copy. Never conclude "zero coverage" from a note count and a "latest note" line alone.
 2. **Prior outline batches.** List the last three days of `outline*.txt` in the data-files folder and reject any angle whose story appears there. The same topic can be re-derived a day after it was issued.
-3. **Written but not yet published.** Check `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/` for `ARTICLE <n> COMPLETE.txt` and `*-draft.txt`. A batch is typically written the same evening and published the next day, so the live site cannot see a story that is already fully written. Dedupe against the drafts folder, not just the site.
+3. **Written but not yet published.** Check `.../<user>/workspace/article-drafts/ghostwriter-terminal/` for `ARTICLE <n> COMPLETE.txt` and `*-draft.txt`. A batch is typically written the same evening and published the next day, so the live site cannot see a story that is already fully written. Dedupe against the drafts folder, not just the site.
 
 **Freshness assertion (run before selecting anything).** Compare the highest note number visible on the page you read against the highest number in the sitemap. If they disagree, that read is stale: discard it and use the sitemap. A stale catalog silently passes the mandatory check and produces a duplicate outline for a story that is already written or already live.
 
@@ -49,7 +49,7 @@ The full voice signature lives in two places: the condensed reference at `refere
 
 ### 2. Read the Source Data Files
 
-The task specifies a folder (typically `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES`, mapped to `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES` in WSL). Use `search_files` with `target="files"` to list, then `read_file` every file. The drop typically contains 4-5 files: IronPulse, TensorFeed, BlogWatcher, Weekly AI News Report, and a 20-stories digest.
+The task specifies a folder (typically `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES`, mapped to `.../<user>/OneDrive/Desktop/TODAYS DATA FILES` in WSL). Use `search_files` with `target="files"` to list, then `read_file` every file. The drop typically contains 4-5 files: IronPulse, TensorFeed, BlogWatcher, Weekly AI News Report, and a 20-stories digest.
 
 Extract: themes, concrete facts, named events, stats, dates, and source attributions. Every claim in every outline must trace back to one of these files. No fabricated stats. No unverified claims. Accuracy is non-negotiable for the SEO/GEO reputation strategy.
 

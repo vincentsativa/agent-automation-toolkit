@@ -3,7 +3,7 @@
 # Mirrors Bill's daily-data-backup.sh, adapted to Frank (WSL) paths.
 set -euo pipefail
 
-SRC="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES"
+SRC=".../<user>/OneDrive/Desktop/TODAYS DATA FILES"
 REPO_DIR="/tmp/daily-data-backup"
 REMOTE_URL="https://github.com/vincentsativa/linux-hermes-backup.git"
 BRANCH="main"

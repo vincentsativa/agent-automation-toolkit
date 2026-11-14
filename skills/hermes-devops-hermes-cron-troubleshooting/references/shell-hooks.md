@@ -11,7 +11,7 @@ is mandatory.
 ```yaml
 hooks:
   pre_tool_call:
-    - command: python3 ~/scripts/<name>.py
+    - command: python3 ~/.hermes/scripts/<name>.py
       matcher: write_file        # regex; honored ONLY for pre_tool_call / post_tool_call
       timeout: 15                # default 60, max 300
       fail_closed: false         # true = spawn error/timeout BLOCKS the action
@@ -33,9 +33,9 @@ Approval comes from one of:
 - writing the allowlist entry directly (the normal route for a headless/gateway setup)
 
 ```python
-import sys; sys.path.insert(0, "~/hermes-agent")
+import sys; sys.path.insert(0, "~/.hermes/hermes-agent")
 from agent.shell_hooks import _record_approval
-_record_approval("pre_tool_call", "python3 ~/scripts/<name>.py")
+_record_approval("pre_tool_call", "python3 ~/.hermes/scripts/<name>.py")
 ```
 
 **mtime drift silently disables the hook.** The entry stores

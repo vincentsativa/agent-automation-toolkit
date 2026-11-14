@@ -24,7 +24,7 @@ There is no real display in WSL. Wrap launch in `xvfb-run`:
 xvfb-run -a --server-args="-screen 0 1920x1080x24" \
   ~/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome \
   --remote-debugging-port=9222 \
-  --user-data-dir=~/chrome-debug \
+  --user-data-dir=~/.hermes/chrome-debug \
   --no-first-run --no-default-browser-check \
   --disable-gpu --disable-software-rasterizer --no-sandbox about:blank
 ```
@@ -47,7 +47,7 @@ WSL2 shares localhost with Windows. The WSL-side Hermes holds port 9222. So the 
 
 ### 1. Config
 
-Set in `/mnt/c/Users/<user>/AppData/Local/hermes/config.yaml`:
+Set in `.../<user>/AppData/Local/hermes/config.yaml`:
 
 ```yaml
 browser:
@@ -56,7 +56,7 @@ browser:
 
 ### 2. Launcher script
 
-`/mnt/c/Users/<user>/.hermes/start-windows-browser.bat`:
+`.../<user>/.hermes/start-windows-browser.bat`:
 
 ```bat
 @echo off

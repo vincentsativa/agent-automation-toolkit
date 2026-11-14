@@ -19,7 +19,7 @@ import os
 import sys
 
 WSL = os.path.expanduser('~/.hermes')
-WIN = '/mnt/c/Users/<user>/AppData/Local/hermes'
+WIN = '.../<user>/AppData/Local/hermes'
 
 
 def count(root, rel, phrase):

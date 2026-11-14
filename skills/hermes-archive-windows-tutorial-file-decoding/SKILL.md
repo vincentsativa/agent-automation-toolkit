@@ -6,7 +6,7 @@ description: Decode Windows .txt files that read_file flags as binary.
 # Windows Tutorial File Decoding
 
 ## When to use
-- Vinny points you at a tutorial/source `.txt` file on the Windows Desktop (e.g. `/mnt/c/Users/<user>/OneDrive/Desktop/<TUTORIAL>/...`) and `read_file` returns `"Binary file - cannot display"` or garbled/mojibake text.
+- Vinny points you at a tutorial/source `.txt` file on the Windows Desktop (e.g. `.../<user>/OneDrive/Desktop/<TUTORIAL>/...`) and `read_file` returns `"Binary file - cannot display"` or garbled/mojibake text.
 - Any PhantomByte/Gumroad task that starts from a Windows-authored tutorial file (publishing, ideation, content writing).
 - Trigger symptom: `file_size` is non-zero but `content` comes back empty, or text is full of `\x00`/CJK-looking mojibake.
 

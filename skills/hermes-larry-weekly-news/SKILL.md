@@ -113,7 +113,7 @@ After the 20 stories, identify exactly 3 themes exposed by the data. Each gets:
    (use write_file tool, not terminal echo/heredoc)
 2. **Copy to Windows Desktop:**
    ```bash
-   cp ~/workspace/larry-weekly/larry-weekly-MMM-DD-YYYY.txt "/mnt/c/Users/<user>/Desktop/Larry Weekly News - MMM DD YYYY.txt"
+   cp ~/.hermes/workspace/larry-weekly/larry-weekly-MMM-DD-YYYY.txt ".../<user>/Desktop/Larry Weekly News - MMM DD YYYY.txt"
    ```
    Confirm the copy exists.
 3. **Return the Windows path as the first line of your response.**
@@ -122,12 +122,12 @@ After the 20 stories, identify exactly 3 themes exposed by the data. Each gets:
 1. **Write report to:** `~/daily_ai_news_report_YYYY-MM-DD.txt`
 2. **Copy to Windows TODAYS DATA FILES folder:**
    ```bash
-   cp ~/daily_ai_news_report_YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
+   cp ~/daily_ai_news_report_YYYY-MM-DD.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
    ```
 
 ## Email Delivery
 
-Send via IONOS SMTP (smtp.ionos.com:587, hello@phantom-byte.com, pass VJBvjbhydro1202$$):
+Send via IONOS SMTP (smtp.ionos.com:587, hello@phantom-byte.com, pass [REDACTED_PASSWORD]):
 
 - **To:** hello@phantom-byte.com
 - **From:** hello@phantom-byte.com
@@ -166,7 +166,7 @@ with open(attachment_path, 'rb') as f:
     msg.attach(part)
 server = smtplib.SMTP('smtp.ionos.com', 587, timeout=30)
 server.starttls()
-server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
 server.send_message(msg)
 server.quit()
 ```

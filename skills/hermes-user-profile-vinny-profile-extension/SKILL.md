@@ -19,7 +19,7 @@ references:
 IONOS SMTP is live and confirmed working:
 - Server: smtp.ionos.com:587
 - User: hello@phantom-byte.com
-- Pass: VJBvjbhydro1202$$
+- Pass: [REDACTED_PASSWORD]
 - Use Python smtplib with MIMEMultipart + MIMEBase attachment
 
 Full send function in: `~/.hermes/skills/user-profile/vinny-profile-extension/references/ionos-email-access.md`
@@ -497,15 +497,15 @@ When he says something costs too much: believe him, don't rationalize why the fe
 
 ## File Path Delivery (CRITICAL)
 
-Hermes is installed in WSL. Its data lives in the WSL Linux filesystem (`~/`), NOT in the Windows filesystem. There is NO `C:\Users\...\hermes` path. Do not claim or imply one exists.
+Hermes is installed in WSL. Its data lives in the WSL Linux filesystem (`~/.hermes/`), NOT in the Windows filesystem. There is NO `C:\Users\...\hermes` path. Do not claim or imply one exists.
 
 **If the user asks for a file from Hermes storage (memory, skills, outputs, etc.):**
-1. Copy it to Desktop: `cp /source/path /mnt/c/Users/<user>/Desktop/`
+1. Copy it to Desktop: `cp /source/path .../<user>/Desktop/`
 2. Return `C:\Users\<user>\Desktop\filename.ext`, the Windows path only
 3. Stop. No explanation of why. No WSL path. No UNC path. No "the file is at..." framing.
 
 **If the user asks for the location of Hermes memory/profile files:**
-- They are at `\\wsl.localhost\Ubuntu\home\vincent\.hermes\memories\` (network path, requires WSL to be running)
+- They are at `\\wsl.localhost\Ubuntu\home\<user>\.hermes\memories\` (network path, requires WSL to be running)
 - OR copy to Desktop and give the Windows path
 
 **What NOT to do:**
@@ -821,7 +821,7 @@ If the answer to any of the last three is "no" or "they can just tell me", don't
 - **Session proof (June 6, 2026):** User casually listed models he uses (DeepSeek, Gemma, GPT-5.6, Claude Sonnet, Kimi K2.6, GLM-5.1, Gemini, Grok) during a conversation about model quality. I saved it thinking "good to know his toolkit." User's response: "STOP SAVING THIS TO MEMORY." Not because the info was wrong, because it was casual conversation content he can tell me anytime.
 
 ### CRITICAL, Do NOT use memory(action="add") as a read/check operation
-Calling `memory(action="add", content="checking X")` adds a trash entry to the user's store every time. The memory tool has no read-only mode via the "add" action. If you need to see what's in memory, call the tool WITHOUT an "add" action if possible, or read MEMORY.md / USER.md directly via their filesystem paths (`~/memories/MEMORY.md` and `~/memories/USER.md`). If neither is possible, tell the user what you need to check and ask.
+Calling `memory(action="add", content="checking X")` adds a trash entry to the user's store every time. The memory tool has no read-only mode via the "add" action. If you need to see what's in memory, call the tool WITHOUT an "add" action if possible, or read MEMORY.md / USER.md directly via their filesystem paths (`~/.hermes/memories/MEMORY.md` and `~/.hermes/memories/USER.md`). If neither is possible, tell the user what you need to check and ask.
 
 - **Session proof (May 5, 2026):** I called `memory(action="add", content="checking X")` three times in a single session, each call left a garbage entry in the user's profile that he then had to clean up.
 

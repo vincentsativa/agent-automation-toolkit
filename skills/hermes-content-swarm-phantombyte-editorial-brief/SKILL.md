@@ -52,16 +52,16 @@ Use the email-sender skill to email the file as an attachment to hello@phantom-b
 
 **Do this by copying the file that is already on disk, before or after the email, but never report it as done without stat-ing the destination.** Copy the file to Vinny's Windows desktop folder:
 ```bash
-mkdir -p "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES"
-cp ~/blogwatcher-dump-YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/"
+mkdir -p ".../<user>/OneDrive/Desktop/TODAYS DATA FILES"
+cp ~/blogwatcher-dump-YYYY-MM-DD.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/"
 ```
-Then confirm the file is really there with `search_files (target='files', pattern='blogwatcher-dump-*', path='/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/')` before saying it landed. That check is not decoration: a previous run reported this stage as `Filed to: <path>` and the file was absent from the folder, on two consecutive days. The claim came from the run's intent, not from a write that landed.
+Then confirm the file is really there with `search_files (target='files', pattern='blogwatcher-dump-*', path='.../<user>/OneDrive/Desktop/TODAYS DATA FILES/')` before saying it landed. That check is not decoration: a previous run reported this stage as `Filed to: <path>` and the file was absent from the folder, on two consecutive days. The claim came from the run's intent, not from a write that landed.
 
 ### 8. DB Cleanup
 
 After the email is sent, clear the stockpile with the two-phase script:
 ```bash
-bash ~/scripts/blogwatcher-cleanup.sh
+bash ~/.hermes/scripts/blogwatcher-cleanup.sh
 ```
 It marks older articles read (keeping their URLs, which blocks re-import) and then purges truly ancient rows, printing the final totals. Run it AFTER the send, never before. Then delete the dump file and the run's scratch dir.
 
@@ -84,7 +84,7 @@ first build already cleared, and re-firing duplicates a report that may already 
 out.
 
 **Then finish the tail in order:**
-1. Stat the dump file. If present, copy it to `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` and confirm the copy landed with `md5sum` on BOTH paths, matching hashes are the proof, the `cp` exit code is not.
+1. Stat the dump file. If present, copy it to `.../<user>/OneDrive/Desktop/TODAYS DATA FILES/` and confirm the copy landed with `md5sum` on BOTH paths, matching hashes are the proof, the `cp` exit code is not.
 2. Email it from a fresh `mktemp -d` scratch dir per `email-sender-cron`. Assert `REFUSED RECIPIENTS: {}` and a `250 ... completed` reply; `send_message` returning without complaint is not a send.
 3. Run the cleanup script and read the totals it prints.
 4. Delete the dump file from `~/` and the run's scratch dir, leaving the desktop copy as the only copy.
@@ -115,7 +115,7 @@ Send ONE Telegram message confirming the email was sent. Do NOT paste document c
 
 Vinny's "no duplicates" rule is strict and phrase-based, not title-based. TensorFeed/IronPulse files reword headlines, so exact-title matching fails. Use this procedure:
 
-1. Concatenate every file in `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` (both the Windows/OneDrive mount and the `~/Desktop/` mirror) into one lowercased, punctuation-stripped blob (`re.sub(r"[^a-z0-9 ]", " ", s)` then collapse whitespace).
+1. Concatenate every file in `.../<user>/OneDrive/Desktop/TODAYS DATA FILES/` (both the Windows/OneDrive mount and the `~/Desktop/` mirror) into one lowercased, punctuation-stripped blob (`re.sub(r"[^a-z0-9 ]", " ", s)` then collapse whitespace).
 2. For each candidate story, extract 4 to 5 sentences worth of distinctive facts from the source article via `web_extract`, then test whether a 4-gram or 5-gram from those facts appears in the blob. A single keyword hit ("nscale", "palantir", "suno") is NOT a duplicate on its own; a matched 4-gram phrase is.
 3. Verify borderline cases with a ±150-char context window around the hit before deciding. Common false positives: a keyword appearing in a round-up list, a paper abstract, or an unrelated table row.
 4. Prefer newer stories. If yesterday's file covered a story under different wording, drop it; if today's fresh story is a genuine follow-up with new facts, it can stay only if the new facts are absent from the blob.
@@ -130,6 +130,6 @@ Vinny's "no duplicates" rule is strict and phrase-based, not title-based. Tensor
 - **Volume:** Vinny's floor is 30, ceiling 40, each with 5-6 sentences. See step 2.
 - **Summary depth:** 1-2 sentence summaries are too short. Every story needs 5-6 sentences minimum.
 - **Theme count:** 3 themes is the blogwatcher default. Vinny wants 5.
-- **Windows path:** Always use `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` for the desktop copy, and stat it before claiming the copy landed.
+- **Windows path:** Always use `.../<user>/OneDrive/Desktop/TODAYS DATA FILES/` for the desktop copy, and stat it before claiming the copy landed.
 - **Email first, then Telegram:** Send the email before sending the Telegram notification. The Telegram message is just a doorbell.
 - **DB cleanup is mandatory:** Run the cleanup script after delivery, then remove the dump file and scratch dir. Do not stockpile.

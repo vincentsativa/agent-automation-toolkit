@@ -19,12 +19,12 @@ Before any research, read ALL data files in the target directory to identify sto
 
 ```python
 # Query pattern: search for files in the target folder
-search_files(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES", target="files", pattern="*")
+search_files(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES", target="files", pattern="*")
 
 # Read each file with read_file to build the exclusion list
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/blogwatcher-dump-YYYY-MM-DD.txt")
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt")
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.md")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/blogwatcher-dump-YYYY-MM-DD.txt")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.md")
 ```
 
 Build a list of topics/headlines to avoid. The goal is to find stories NOT covered in those files.
@@ -117,7 +117,7 @@ When direct navigation is impossible, note the source and the access limitation,
 Copy to the exact Windows path the user specified:
 
 ```bash
-cp ~/output.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
+cp ~/output.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
 ```
 
 **Verify** the file exists after copying, confirm the exact filename matches what the user requested, including any "(IMPORTANT)" suffix and exact casing.

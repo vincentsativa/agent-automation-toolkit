@@ -1,8 +1,7 @@
 # Agent Automation Toolkit
 
-Scripts, scheduled jobs and skill definitions that run two AI coding agents, **Pi** on
-Windows and **Hermes** on a Linux dev box, as a working automation system rather than a
-demo.
+Scripts, scheduled jobs and skill definitions that run six agents on two harnesses,
+**Hermes** and **Pi**, as a working automation system rather than a demo.
 
 Every piece of this repository exists because a previous run reported success that was not
 true.
@@ -28,10 +27,10 @@ because a status line that is always printed stops being read.
 
 | Path | Contents |
 | --- | --- |
-| [`scripts/`](scripts) | 92 runnable scripts (Python, Bash, Node), grouped by domain |
-| [`skills/`](skills) | 281 skill definitions, 262 Hermes (200 active, 62 retired) and 19 Pi, each with its bundled `references/`, `scripts/` and `templates/` |
-| [`crons/`](crons) | 34 scheduled jobs: expression, runner type, model, preloaded skills and the full instruction each one executes |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the two-agent system fits together |
+| [`scripts/`](scripts) | 103 runnable scripts (Python, Bash, Node), grouped by domain and by the agent that runs them |
+| [`skills/`](skills) | 297 skill definitions, 264 Hermes (195 active, 69 retired), 20 Pi, 6 Fifi and 7 InstaBox, each with its bundled `references/`, `scripts/` and `templates/` |
+| [`crons/`](crons) | 51 scheduled jobs across the four Hermes agents: expression, runner type, model, preloaded skills and the full instruction each one executes |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the two harnesses and six agents fit together |
 
 Python 3.9+ with the standard library for most of it; `playwright`, `requests`, `scrapling`
 and `weasyprint` only where a script says so. Bash for the shell helpers, Node 18+ for the
@@ -39,28 +38,45 @@ two `.mjs` files.
 
 ## How it fits together
 
-Two agents share one machine profile. **Pi** runs on the Windows side and handles the
-public sites and deployment work; **Hermes** runs in WSL with its own home directory, its
-own cron scheduler and a Telegram gateway. Each side runs its own nightly self-backup,
-pushing its home directory to a git remote (`hermes-backup.py` on Windows,
-`hermes-backup.sh` in WSL), and `agent-change-brief-collect.sh` turns the week's commits in
-the shared repository into a brief the other agent reads before it changes anything.
+Two harnesses, six agents. **Hermes** (an open-source agent with its own home directory,
+skills, memories, cron scheduler and Telegram gateway) runs in four places:
+
+- **WSL Hermes** on the Linux dev box (the `frank` mailbox, agent 2). Its own home
+  directory, a 36-job cron table and its own nightly backup.
+- **Windows Hermes** on the Windows workstation (the `karma` mailbox, agent 3). The
+  Windows-native twin: its own skills, its own 10-job cron table, its own backup.
+- **Fifi**, a separate Hermes profile on the same Windows machine with its own home,
+  skills and a two-job cron table (a daily remote-jobs finder and a nightly backup of the
+  profile itself).
+- **InstaBox Hermes** on the InstaBox cloud VM (`freemachine`), the same harness running
+  in the cloud with a three-job cron table.
+
+**Pi** (this coding agent) runs in two places:
+
+- **Windows Pi** on the workstation, handling the public sites and deployment work.
+- **InstaBox Pi** on the same cloud VM.
+
+Each agent keeps its own state and backs up to its own private git remote
+(`hermes-backup.sh` in WSL, `hermes-backup.py` on Windows, `hermes-backup-fifi.py` for the
+fifi profile, a nightly job on the VM), and `agent-change-brief-collect.sh` turns the
+week's commits in the shared backup repository into a brief the agents read before they
+change anything.
 
 Three mechanisms do most of the work:
 
-**A scheduler that distinguishes scripts from prompts.** Every job in
-[`crons/hermes-cron-jobs.json`](crons) carries a `runner`. A `deterministic-script` job has
-`no_agent: true`: it runs its script and nothing else, so it makes no model call at all.
-That covers twelve of the thirty-four jobs, including both backups, the verifier prefills,
-the harvest and refill scripts and the post-update health check. An `agent-prompt` job runs
-its `instructions` in a session, and six of those run a script first that states the
-verdict in its output, so the instruction can tell the agent to report one line and stop or
-go ahead and do the work. The cheap half of every job stays deterministic.
+**A scheduler that distinguishes scripts from prompts.** Every job in the four cron tables
+carries a `runner`. A `deterministic-script` job has `no_agent: true`: it runs its script
+and nothing else, so it makes no model call at all. That covers twelve of the thirty-six
+WSL Hermes jobs, including both backups, the verifier prefills, the harvest and refill
+scripts and the post-update health check. An `agent-prompt` job runs its `instructions` in
+a session, and seven of those run a script first that states the verdict in its output, so
+the instruction can tell the agent to report one line and stop or go ahead and do the
+work. The cheap half of every job stays deterministic.
 
 **Silence as a signal.** Jobs print nothing when there is nothing to say. The cron treats
 empty output as a silent success, so the Telegram channel stays quiet and the one job that
 must always speak (`BRUSH FEFE'S TEETH`) is written to say so explicitly. That convention
-is what makes a 34-job schedule readable instead of a stream of "nothing happened"
+is what makes a 36-job schedule readable instead of a stream of "nothing happened"
 messages.
 
 **Pre-tool-call hooks.** Three scripts in [`scripts/hermes/`](scripts/hermes) run before a
@@ -99,7 +115,7 @@ rate-limit and their "Apply" links point back at themselves.
 | `probe_ats_slugs.py` | Probe Greenhouse / Lever / Ashby slugs in parallel before adding a company |
 | `seed_ledger_from_document.py` | Seed the cross-day ledger from a list delivered outside the pipeline |
 
-### Hermes agent home, `scripts/hermes/` (35 scripts)
+### Hermes agent home, `scripts/hermes/` (37 scripts)
 
 The scripts in the WSL agent's own `~/.hermes/scripts` directory: the cron workers, the
 pre-tool-call hooks, and the operational jobs the schedule calls. These are what the jobs
@@ -141,7 +157,37 @@ in [`crons/`](crons) actually run.
 | `update_health_check.py` | Post-update health check that prints nothing when healthy and only speaks when something regressed, so it costs zero tokens |
 | `weekday_verifier_prefill.sh` | Spends the weekday's free verifier credits ahead of time and writes the verdict cache, sends no mail |
 | `weekend_verifier_prefill.sh` | Same prefill for the weekend credit pool |
+| `pinterest_performance.py` | Weekly Pinterest performance ledger: pulls the account's own analytics, rescores topic weights inside fixed bands, prints a report the cron job delivers |
+| `reply_lists.sh` | Scans the inbox for replies and opt-outs and routes each address to the right list; silent when there is nothing new |
 | `x-algorithm-update-check.sh` | Watches a third-party repo for new commits and releases, silent when nothing moved |
+
+### Windows Hermes agent, `scripts/windows-hermes/` (6 scripts)
+
+The Windows-native twin of the WSL agent, run by the Windows Hermes scheduler:
+
+| Script | What it does |
+| --- | --- |
+| `check_agentmail.py` | Cron gate for the inbox processor (Karma's mailbox): prints unread threads when there is mail, prints nothing when there is not |
+| `check_outlines.py` | Gate for the article-outline panel job: reports whether the three outline slots are filled |
+| `clear_stale_outlines.py` | Clears outline state left behind by an interrupted panel run |
+| `panel_rearm.py` | Re-arms the panel polling window so a failed step cannot leave the panel dead until the next day |
+| `push_panel_to_instabox.py` | Pushes the panel folder to the InstaBox VM and starts the bot run there |
+| `hermes-backup.py` | Nightly backup of the Windows Hermes home to a private git remote |
+
+### InstaBox Hermes agent, `scripts/instabox/` (2 scripts)
+
+Run on the InstaBox cloud VM, referenced by its cron table:
+
+| Script | What it does |
+| --- | --- |
+| `prep_campaign.py` | Gate and launcher for the article-outline panel cron: detects the folder on the box desktop, launches or resumes the bot run, prints a one-line status |
+| `disk_stale_cleanup.py` | Reclaims disk on the VM: pip and npm caches and stale Playwright builds, silent unless it frees enough to matter |
+
+### Fifi profile, `scripts/fifi/` (1 script)
+
+| Script | What it does |
+| --- | --- |
+| `hermes-backup-fifi.py` | Nightly backup of the `fifi` Hermes profile to its own private git remote; refuses to run against any other home |
 
 ### Email operations, `scripts/email-ops/` (3 scripts)
 
@@ -218,11 +264,12 @@ Format parsers that turn structured plain text into HTML ready for WeasyPrint PD
 
 ## Scheduled jobs, `crons/`
 
-[`crons/hermes-cron-jobs.json`](crons/hermes-cron-jobs.json) is the live job table, exported
+[`crons/hermes-cron-jobs.json`](crons/hermes-cron-jobs.json) is the WSL Hermes job table, exported
 with credentials and delivery targets removed: name, expression, enabled state, runner
-type, model, provider, preloaded skills and the full instruction.
-[`crons/README.md`](crons/README.md) documents every field and lists all 34 jobs with what
-each one runs.
+type, model, provider, preloaded skills and the full instruction. Three more tables ship
+alongside it: `windows-hermes-cron-jobs.json` (10 jobs), `fifi-cron-jobs.json` (2 jobs) and
+`instabox-cron-jobs.json` (3 jobs), same format, one per agent.
+[`crons/README.md`](crons/README.md) documents every field and lists what each job runs.
 
 | Job | Expression | Runner |
 | --- | --- | --- |
@@ -247,9 +294,11 @@ each one runs.
 | `PARTNER OUTREACH REFILL` | `30 9 * * 1-5` | script |
 | `PRLog.org FREE press release - MONTHLY` | `31 16 7 * *` | agent |
 | `PROSPECT POOL REFILL` | `0 21 * * 0-4` | agent |
+| `PINTEREST PERFORMANCE FEEDBACK LOOP` | `30 12 * * 0` | agent |
 | `PRUNE STALE PINTEREST POSTS` | `0 4 * * *` | script |
 | `Pinterest Email Backstop` | `55 17 * * *` | script |
 | `REMINDER ONLY - UPLOAD PRESS RELEASE - MONTHLY` | `1 18 7 * *` | agent |
+| `REPLY LIST FILER` | `15 22 * * *` | agent |
 | `SOCIAL MEDIA QUESTIONS - 5PM` | `50 16 * * *` | agent |
 | `Social Media Questions Email Backstop` | `0 17 * * *` | script |
 | `TUTORIAL IDEAS USING THE DATA` | `0 22 * * *` | agent |
@@ -262,24 +311,28 @@ each one runs.
 | `x-algorithm repo update watcher` | `15 8 * * 0,3,6` | agent |
 
 `script` runs with no model attached; `agent` runs the instruction in a session with the
-listed skills preloaded. One job is disabled and kept for reference.
+listed skills preloaded. One job is disabled and kept for reference. The other three
+agents get the same treatment in their own tables; see
+[`crons/README.md`](crons/README.md).
 
 ## Skills, `skills/`
 
-281 skill definitions. A skill is what an agent loads before doing that class of work:
+297 skill definitions. A skill is what an agent loads before doing that class of work:
 preconditions, procedure, the exact commands, and the pitfalls already paid for, plus
 whatever `references/`, `scripts/` and `templates/` the work needs.
 
 | Prefix | Count | What it covers |
 | --- | --- | --- |
-| `hermes-` | 200 | Active procedures for the WSL agent |
-| `hermes-archive-` | 62 | Retired procedures kept as reference rather than deleted |
-| `pi-` | 19 | Deployment and maintenance for the public sites, built around idempotent rebuilds and post-deploy checks |
+| `hermes-` | 195 | Active procedures for the WSL agent |
+| `hermes-archive-` | 69 | Retired procedures kept as reference rather than deleted |
+| `pi-` | 20 | Pi agent procedures: site deploys, repo maintenance, this toolkit's own pipeline |
+| `fifi-` | 6 | The fifi Hermes profile: model evaluation, job-board scanning, Pinterest trends, link picking |
+| `instabox-` | 7 | The InstaBox Hermes agent: Pi orchestration, PDF handling, disk hygiene, reviews, digests |
 
 Largest groups: `content-swarm` (37), the article pipeline from outline selection to
-publication, distribution, keyword research and platform-specific copy; `devops` (25), 
+publication, distribution, keyword research and platform-specific copy; `devops` (24),
 installation, config, backup, desktop app, containers, model routing; `mlops` (22);
-`research` (15); `productivity` (14); `creative` (13); `behavioral` (11), the verification
+`research` (13); `productivity` (14); `creative` (13); `behavioral` (11), the verification
 rules the agent applies to itself; `software-development` (7), debugging, planning, TDD,
 code review, subagent workflows; `autonomous-ai-agents` (6).
 

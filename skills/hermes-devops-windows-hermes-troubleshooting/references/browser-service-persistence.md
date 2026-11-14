@@ -21,11 +21,11 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/xvfb-run -a --server-args="-screen 0 1920x1080x24" ~/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome --remote-debugging-port=9222 --user-data-dir=~/chrome-debug --no-first-run --no-default-browser-check --disable-gpu --disable-software-rasterizer --no-sandbox about:blank
+ExecStart=/usr/bin/xvfb-run -a --server-args="-screen 0 1920x1080x24" ~/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome --remote-debugging-port=9222 --user-data-dir=~/.hermes/chrome-debug --no-first-run --no-default-browser-check --disable-gpu --disable-software-rasterizer --no-sandbox about:blank
 WorkingDirectory=~
 Restart=always
 RestartSec=5
-ExecStartPre=/bin/sh -c 'rm -f ~/chrome-debug/SingletonLock'
+ExecStartPre=/bin/sh -c 'rm -f ~/.hermes/chrome-debug/SingletonLock'
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=30
@@ -64,7 +64,7 @@ Create the task from WSL via a `.ps1` file (write to `/mnt/c/...`, run with `pow
 
 ```powershell
 $action = New-ScheduledTaskAction -Execute 'C:\Users\<user>\.hermes\start-windows-browser.bat'
-$trigger = New-ScheduledTaskTrigger -AtLogOn -User <user>
+$trigger = New-ScheduledTaskTrigger -AtLogOn -User '<user>'
 $settings = New-ScheduledTaskSettingsSet `
     -RestartCount 999 `
     -RestartInterval (New-TimeSpan -Minutes 5) `

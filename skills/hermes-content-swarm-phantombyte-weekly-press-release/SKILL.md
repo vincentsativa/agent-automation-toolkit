@@ -101,6 +101,17 @@ When triggered for a **PRLog release** specifically:
 2. Email the release to hello@phantom-byte.com as a .txt attachment.
 3. Notify on Telegram: "Email sent. Check your inbox for the press release."
 
+### Producing another release on request
+
+When Vinny names something new to promote (a repository, a page, a service) instead of asking for the monthly release, the format does not change, only the hook:
+
+1. **Take the governing instructions from the job, not from memory.** The monthly PRLog job's full prompt is stored in `~/.hermes/cron/jobs.json`: the list sits under `jobs`, and each entry's key is `id` (the cronjob listing reports the same value as `job_id`). It carries the current reference release and the message-control rules, so read it before writing anything.
+2. **Fetch the thing being promoted and take every number from the live page.** Counts, license, runtime requirements and file totals come off that page, and anything it does not state stays out of the release. Scrapling via terminal is the fetch: `scrapling extract get "<url>" "$SCRATCH/page.txt"`.
+3. **Diff against the last published release in the newsroom** and rewrite any headline pattern, subtitle shape, or opening sentence that matches it. The previous month's .txt often exists only as an email attachment, so recover it from INBOX first (recovery steps live in the `email-sender` skill) rather than working from a summary.
+4. **Keep the shape**: title, subtitle, dateline, four short body paragraphs, one quote from Vinny as systems builder (never founder), the promoted URL as the only link, and one About sentence that keeps the stable brand lines.
+5. **Measure before sending**: `len(text.split())` for 350 to 450 words against a 500 cap, confirm no em dash characters, and run the `awk` longest-line check so no paragraph was hard-wrapped. Spell-check with pyspellchecker, then email the .txt (see `email-sender`).
+6. **Save as** `~/press_release_<YYYY-MM-DD>_<topic>.txt`, and confirm delivery by reading the attachment back out of INBOX before reporting it sent.
+
 ## Pitfalls
 
 - Do not fabricate scores. If you cannot find new content, report zero activity.

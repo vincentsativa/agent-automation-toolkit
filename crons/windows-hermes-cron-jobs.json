@@ -1,0 +1,152 @@
+[
+  {
+    "name": "windows-weekly-backup",
+    "schedule": "0 3 * * 0,1,2,3,4,5,6",
+    "schedule_display": "0 3 * * 0,1,2,3,4,5,6",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "no_agent": true,
+    "script": "hermes-backup.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": ""
+  },
+  {
+    "name": "DAILY Pinterest Posts 6pm",
+    "schedule": "1 18 * * *",
+    "schedule_display": "1 18 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "provider": "ollama-cloud",
+    "skills": [
+      "writing-style",
+      "vinny-constitution"
+    ],
+    "deliver": "telegram",
+    "instructions": "FIRST, visit my pinterest profile (https://www.pinterest.com/PhantomByteAI/) to verify the current list of active boards.\n\nWrite 10 Pinterest titles and descriptions, each a summary of a story from today's daily data files. Must fit Pinterest limits (title <= 100 chars, description <= 500 chars). Make them keyword rich for Pinterest SEO.\n\nFor EACH of the 10 posts, you MUST assign it to exactly ONE board based on its topic.\n\n**BOARD MAPPING RULES:**\n- AI news, general machine learning, emerging tech → AI News | Machine Learning & Emerging Tech (ai-news-machine-learning-emerging-tech)\n- Coding, developers, programming tools, tutorials → AI for Developers & Programming AI (ai-for-developers-programming-ai-tutorials)\n- AI agents, agentic AI, AI automation, agent frameworks → AI Agents & Automation (ai-agents-automation-guide)\n- Business tools, productivity, marketing software, AI writing/design → AI Tools for Business & Productivity (ai-tools-for-business-productivity-2026)\n- AI security, prompt injection, sandboxing, vulnerability research → Agent Security (agent-security-prompt-injection-sandboxing)\n- Robotics, humanoid robots, physical AI, hardware → Robotics & Physical AI (robotics-physical-ai-humanoid-robots)\n- Quantum computing, qubits, quantum algorithms → Quantum Computing (quantum-computing-explained)\n\n**REQUIRED OUTPUT FORMAT:**\nFor every single pin, you must explicitly state the target board in the final response so I know exactly where it is being posted.\n\nExample:\nPost 1:\nBoard: [Board Name]\nTitle: [Title]\nDescription: [Description]\n\nFollow the writing-style skill for all text generation. No em dashes. Proper punctuation."
+  },
+  {
+    "name": "BRUSH FEFE'S TEETH",
+    "schedule": "0 11 * * *",
+    "schedule_display": "0 11 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "gemma4:31b",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": "This is a daily reminder that MUST be sent every single morning. Output the following message, do not say [SILENT], do not suppress delivery, always output the message:\n\n\"Don't forget to brush Fefe's teeth! 🐾 Morning brushing time!\"\n\nAlways output this message. Never use [SILENT]. Always deliver.\n\n**DELEGATING TASKS IS NOT ALLOWED.**\n**you are not allowed to make changes to this cron.**"
+  },
+  {
+    "name": "SOCIAL MEDIA QUESTIONS - 5PM",
+    "schedule": "50 16 * * *",
+    "schedule_display": "50 16 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "provider": "ollama-cloud",
+    "skills": [
+      "writing-style",
+      "x-algorithm-post-optimization"
+    ],
+    "deliver": "telegram",
+    "instructions": "Go look at the following data files, (Data file: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES) THEN find me 10 great questions I can ask on social media, which are related to today's AI news. Rank them from best to worst. For each question, include a 1-2 sentence explanation of why it's a good question. Save the questions to a text file. Attach the file to an email and send it to hello@phantom-byte.com. AFTER the task is complete and email has been sent, message me on Telegram saying, \"Social media questions are ready.\"\n\nIMPORTANT: Your final response is what gets delivered to Telegram. It must contain ONLY the words \"Social media questions are ready.\" and nothing else. Do not include the questions, a summary, a report, or any other content in your final response. The questions go in the email only.\n\nLoad both writing-style and x-algorithm-post-optimization skills before generating the questions. Apply every rule in both skills. The questions must be optimized for the xAI For You feed ranker: maximize reply, repost, favorite, quote, share, and dwell signals. Minimize P(not_interested), P(block_author), P(mute_author), and P(report). Use specific named entities (company names, model names, person names, paper titles) so the post is topically retrievable by the Phoenix two-tower model. Vary the angle, target, and domain across all 10 questions to satisfy the Author Diversity Scorer. Hard 190-char limit on every question, verified programmatically with len() before delivering.\n\nUse Data file: C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES"
+  },
+  {
+    "name": "Check For the latest Ollama version",
+    "schedule": "0 21 * * *",
+    "schedule_display": "0 21 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [
+      "vinny-constitution"
+    ],
+    "deliver": "telegram",
+    "instructions": "Go to GitHub and find me the latest stable Ollama version and the latest pre-release versions and give me a link to the installer. I also want to know what the client version is. Ignore the ollama version is 0.24.0; it's a false error."
+  },
+  {
+    "name": "Ollama version check AM edition",
+    "schedule": "0 9 * * *",
+    "schedule_display": "0 9 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "deepseek-v4-flash:0731",
+    "provider": "ollama-cloud",
+    "skills": [
+      "vinny-constitution"
+    ],
+    "deliver": "telegram",
+    "instructions": "Go to GitHub and find me the latest stable Ollama version and the latest pre-release versions and give me a link to the installer. I also want to know what the client version is. Ignore the ollama version is 0.24.0; it's a false error."
+  },
+  {
+    "name": "EMAIL TASK PROCESSOR (Karma/15min)",
+    "schedule": "*/15 * * * *",
+    "schedule_display": "*/15 * * * *",
+    "enabled": true,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": "check_agentmail.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": "You are Karma (Agent 3, Windows, on Vinny's laptop). This is the EMAIL TASK PROCESSOR cron job for YOUR OWN inbox [REDACTED_EMAIL], triggered by the check_agentmail.py script gate.\n\nCONTEXT: The script gate has already checked your inbox and its output is injected above. If it reports wakeAgent:false, do nothing and stay silent. If it reports wakeAgent:true, it lists the unread thread(s), process them.\n\nSTEPS:\n1. Load the agentmail-karma skill for identity and MCP tool usage. Your inbox is [REDACTED_EMAIL].\n2. Use the AgentMail MCP tools to read each unread thread in order: list_threads / get_thread to read the full message body, pull any attachments.\n3. Determine what task is being asked in each email. Execute it fully. If the email is from the human Vinny, deliver results via the email-sender skill (IONOS SMTP, hello@phantom-byte.com). If it's from another agent (Frank at [REDACTED_EMAIL], or Bill at [REDACTED_EMAIL]), deliver results back by emailing that agent from [REDACTED_EMAIL].\n4. After completing each email task, mark it as read so it does not retrigger on the next cycle. Use mcp__agentmail__update_message to remove the 'unread' label (and add 'read').\n5. IMPORTANT NOTIFICATION RULE: Only notify Vinny on Telegram when a task is actually COMPLETE or when you have a question about it. Say something short like 'task 1 is completed, email sent'. Do NOT notify him that the cron ran, and do NOT notify on empty checks; the script gate already stays silent when there's no mail.\n\nCRITICAL: This job runs every 15 minutes. If the script gate returned wakeAgent:false, do nothing and stay silent (respond with exactly [SILENT]). Only act on threads that were reported unread."
+  },
+  {
+    "name": "ARTICLE OUTLINE PANEL LAUNCH 440PM",
+    "schedule": "*/5 16-18 * * *",
+    "schedule_display": "*/5 16-18 * * *",
+    "enabled": false,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": "check_outlines.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": "This is the ARTICLE OUTLINE PANEL launcher. The check_outlines.py output is injected above. Read the FIRST line of it and obey exactly one branch:\n\n- OUTLINES_NOT_READY ... -> reply with exactly [SILENT]\n- READY_FOR_WRITEUP -> do the writeup now: read the three OUTLINE files, pick one and give the publishing order for the rest, write the selection to the REPORT_TO_WRITE path printed below, then run: python C:\\Users\\<user>\\AppData\\Local\\hermes\\scripts\\push_panel_to_instabox.py\n  Reply with the pick and the order, plus the push result. This is the one and only panel message for the day.\n- REPORT_WRITTEN -> the selection was already produced in an earlier run today, so do not repeat it. Run: python C:\\Users\\<user>\\AppData\\Local\\hermes\\scripts\\push_panel_to_instabox.py and reply with exactly [SILENT], or with the push error if it fails.\n- PANEL_PUSHED -> reply with exactly [SILENT]\n- PANEL_COMPLETE -> reply with exactly [SILENT]. This job pauses itself from check_outlines.py.\n- PANEL_STALLED -> one short alert: box folder, minutes since push, marker seen, trigger output. Nothing else.\n- WRITEUP_MISSING -> one short alert that the writeup run did not write its report file, with the elapsed minutes and the path. Do not redo the pick, do not pick a second time.\n\nRules: never produce a second panel pick in the same day; never edit this job, its schedule or its script from inside a run; never create another cron job."
+  },
+  {
+    "name": "PANEL RE-ARM 435PM",
+    "schedule": "35 16 * * *",
+    "schedule_display": "35 16 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "no_agent": true,
+    "script": "panel_rearm.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": "Resume the ARTICLE OUTLINE PANEL LAUNCH job so its 16:40 poll window is armed."
+  },
+  {
+    "name": "PANEL STALE CLEANUP 1130PM",
+    "schedule": "30 23 * * *",
+    "schedule_display": "30 23 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "no_agent": true,
+    "script": "clear_stale_outlines.py",
+    "model": null,
+    "provider": null,
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": ""
+  }
+]

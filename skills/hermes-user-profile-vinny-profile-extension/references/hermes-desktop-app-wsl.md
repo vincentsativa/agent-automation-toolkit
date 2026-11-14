@@ -6,7 +6,7 @@ The **Hermes Desktop app** (native Windows/macOS installer from nousresearch.com
 
 ## What This Means for Vinny's Setup
 
-Vinny runs Hermes in **WSL** (`~/`). The Hermes Desktop Windows app cannot connect to or control that WSL Hermes instance. They are separate installs with separate configs, sessions, skills, and memory.
+Vinny runs Hermes in **WSL** (`~/.hermes/`). The Hermes Desktop Windows app cannot connect to or control that WSL Hermes instance. They are separate installs with separate configs, sessions, skills, and memory.
 
 ## What DOES Work to Control WSL Hermes from Windows
 

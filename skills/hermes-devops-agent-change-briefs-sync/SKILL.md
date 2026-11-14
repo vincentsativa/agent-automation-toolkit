@@ -18,7 +18,7 @@ Every **Sunday ~5am**, Bill's agent diffs the last 7 days of changes to Vinny's 
 | Agent | Where it runs | Hermes home |
 |-------|--------------|-------------|
 | **Frank** (this WSL agent) | Windows laptop, WSL | `~/.hermes` (Linux path) |
-| **Windows agent** (called **Pi** in the briefs, identifies itself as **Karma**, agent3, in its own memory) | Windows | `/mnt/c/Users/<user>/AppData/Local/hermes` |
+| **Windows agent** (called **Pi** in the briefs, identifies itself as **Karma**, agent3, in its own memory) | Windows | `.../<user>/AppData/Local/hermes` |
 
 Read the Windows tree's own `memories/MEMORY.md` to learn which agent it currently is before writing to it. That tree has changed identity once already, and a stale label is how you end up reporting work against the wrong agent.
 
@@ -39,7 +39,7 @@ Read the Windows tree's own `memories/MEMORY.md` to learn which agent it current
    - **(B) Skills to create or update**, replicate each skill on BOTH agents
    - **(C) Memory / profile changes**, DO NOT APPLY. Memory is never touched unless Vinny personally says add or subtract (see `memory-touch-rule`); a brief listing memory edits is not that permission. Report the skipped memory items and the reason.
    - **(D) Scripts / tooling**, install/configure tools on BOTH
-5. **Apply to the Windows tree too**, writing under `/mnt/c/Users/<user>/AppData/Local/hermes/` (skills in `skills/`, memories in `memories/`).
+5. **Apply to the Windows tree too**, writing under `.../<user>/AppData/Local/hermes/` (skills in `skills/`, memories in `memories/`).
    - A file present on both trees gets the DELTA only: patch the exact bullet or section the brief names. Never overwrite a shared skill with the WSL copy, because each tree carries content the other lacks.
    - A skill missing on the Windows tree gets copied whole (`shutil.copytree`, which brings `references/` with it), then proven with `diff -r`.
    - Match the target file's existing line ending when inserting text. A CRLF file that receives LF lines renders with join breaks; test `'\r\n' in text` first and convert the inserted block.

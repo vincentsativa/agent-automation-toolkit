@@ -48,7 +48,7 @@ clean and consistent so he can scan and pick fast.
 
 ## 5. Delivery
 1. Write the document to `~/Desktop/TODAYS DATA FILES/social-media-posts-<date>.txt`
-   - label each post with its rank and `BOARD: <name>`.
+  , label each post with its rank and `BOARD: <name>`.
 2. Email it as an attachment to `hello@phantom-byte.com` (the ONLY Vinny address;
    run the pre-flight address grep on the script). Subject: `Bill: Daily Social Media Posts For X and Pinterest`. Sign body with `- Bill`.
 3. Telegram notification: ONLY a brief confirmation that the email was sent (e.g. "Email sent with today's social media posts for X and Pinterest"). Do NOT paste post content, titles, summaries, or lists into Telegram. The email is the delivery mechanism; the Telegram note is a doorbell.

@@ -7,7 +7,7 @@ Strips the DISTRIBUTION ASSETS section and its TOC entry per user request.
 import re
 import html as html_mod
 
-SRC = "/mnt/c/Users/<user>/OneDrive/Desktop/Stop Burning Tokens - $24.99/STOP BURNING TOKENS - COMPLETE.txt"
+SRC = ".../<user>/OneDrive/Desktop/Stop Burning Tokens - $24.99/STOP BURNING TOKENS - COMPLETE.txt"
 OUT = "/tmp/doc.html"
 
 with open(SRC, "r", encoding="utf-8") as f:

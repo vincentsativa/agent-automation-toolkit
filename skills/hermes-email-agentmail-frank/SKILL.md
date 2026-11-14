@@ -99,8 +99,8 @@ Bill is the Linux/cron/repo authority and knows Vinny's full setup. Email him to
 | Who | Machine | Path style |
 |-----|---------|-----------|
 | **Bill** | Linux (separate box) | Linux paths, e.g. `~/.hermes` on his box |
-| **Me (Frank)** | WSL on Vinny's laptop | `~/.hermes` = `~` |
-| **Pi (Windows agent)** | Windows on Vinny's laptop | `C:\Users\<user>\AppData\Local\hermes` (reachable at `/mnt/c/Users/<user>/AppData/Local/hermes` from WSL) |
+| **Me (Frank)** | WSL on Vinny's laptop | `~/.hermes` = `~/.hermes` |
+| **Pi (Windows agent)** | Windows on Vinny's laptop | `C:\Users\<user>\AppData\Local\hermes` (reachable at `.../<user>/AppData/Local/hermes` from WSL) |
 
 **The rule:** copy what Bill tells you to do, but with YOUR unique paths for your side, and with THEIR paths when implementing on the Windows side. Never copy a path verbatim across machines, translate it to that machine's real location.
 

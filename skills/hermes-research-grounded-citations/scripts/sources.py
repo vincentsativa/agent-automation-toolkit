@@ -265,7 +265,7 @@ def quote_in_evidence(quote: str, evidence: str) -> bool:
 
 def attach_quote(path: Path, source_id: int, quote: str, evidence: str) -> dict[str, Any]:
     """Attach a verbatim quote to a ledger entry after checking it against
-    the evidence text.  Raises SystemExit on unknown id or non-verbatim text, 
+    the evidence text.  Raises SystemExit on unknown id or non-verbatim text -
     a quote the page does not contain is exactly the fabrication this guards
     against."""
     quote = (quote or "").strip()

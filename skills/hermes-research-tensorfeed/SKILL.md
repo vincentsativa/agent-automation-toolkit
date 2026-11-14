@@ -1,6 +1,6 @@
 ---
 name: tensorfeed
-description: Free AI ecosystem API (HN, ZDNet, The Verge, WIRED, MIT Tech Review). No auth, unlimited, CORS enabled. Run via local client script at /mnt/c/Users/<user>/workspace/scripts/tensorfeed_client.py or hit https://tensorfeed.ai directly. Use when Vinny says "run tensorfeed" or "tensorfeed report."
+description: Free AI ecosystem API (HN, ZDNet, The Verge, WIRED, MIT Tech Review). No auth, unlimited, CORS enabled. Run via local client script at .../<user>/workspace/scripts/tensorfeed_client.py or hit https://tensorfeed.ai directly. Use when Vinny says "run tensorfeed" or "tensorfeed report."
 trigger: "user says 'tensorfeed', 'run tensorfeed', or 'tensorfeed report', NOTE: ironpulse is a DIFFERENT skill, not this one"
 ---
 
@@ -37,14 +37,14 @@ if raw[:2] == b'\x1f\x8b':
 - **API Base:** https://tensorfeed.ai
 - **Docs:** https://tensorfeed.ai/developers
 - **Auth:** None (free, unlimited, CORS enabled)
-- **Local Client:** /mnt/c/Users/<user>/workspace/scripts/tensorfeed_client.py
+- **Local Client:** .../<user>/workspace/scripts/tensorfeed_client.py
 
 ## Quick Usage
 
 ### Python (via local client)
 ```python
 import sys
-sys.path.insert(0, '/mnt/c/Users/<user>/workspace/scripts')
+sys.path.insert(0, '.../<user>/workspace/scripts')
 from tensorfeed_client import TensorFeed
 
 tf = TensorFeed()
@@ -59,7 +59,7 @@ repos = tf.trending_repos(limit=20)  # Top 20 trending AI GitHub repos
 
 ### Shell (via client)
 ```bash
-cd /mnt/c/Users/<user>/workspace/scripts
+cd .../<user>/workspace/scripts
 python tensorfeed_news.py          # print top 24
 python tensorfeed_news.py --save   # save to file
 ```
@@ -109,11 +109,11 @@ Each article dict includes: id, title, url, source, sourceDomain, snippet, categ
 Community, Enterprise, General AI, Research, Policy & Safety, Open Source, Models
 
 ## Output & Delivery
-- Report saved to Windows Desktop folder: `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.txt`
+- Report saved to Windows Desktop folder: `.../<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.txt`
   - Use `.txt` extension when the report will be emailed as an attachment (Vinny's preference).
   - Use `.md` extension only when saving to disk without emailing.
-  - Vinny's confirmed save path is `C:\\Users\\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\`, NOT `~/.hermes/hermes-agent/`.
-  - The folder may not exist; create it with `mkdir -p /mnt/c/Users/<user>/OneDrive/Desktop/TODAYS\ DATA\ FILES` before writing.
+  - Vinny's confirmed save path is `C:\Users\<user>\\OneDrive\\Desktop\\TODAYS DATA FILES\\`, NOT `~/.hermes/hermes-agent/`.
+  - The folder may not exist; create it with `mkdir -p .../<user>/OneDrive/Desktop/TODAYS\ DATA\ FILES` before writing.
 - Emailed via IONOS SMTP (skill: email-sender) with the .md file attached
 - Email body should include: brief summary of top stories, the 3 themes, and the #1 article pick. Do NOT paste the full report into the email body.
 - Do NOT paste report content into Telegram, send silent confirmation only after email confirms
@@ -169,8 +169,8 @@ The complete daily report includes:
 The report file extension depends on delivery method:
 - **Saved to disk only:** use `.md` (markdown formatting preserved for reading)
 - **Emailed as attachment:** use `.txt` (Vinny expects .txt files for email attachments, see email-sender skill)
-- The save path is always: `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.EXT`
-- Create the folder if missing: `mkdir -p "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES"`
+- The save path is always: `.../<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.EXT`
+- Create the folder if missing: `mkdir -p ".../<user>/OneDrive/Desktop/TODAYS DATA FILES"`
 
 ## Fallback: When Browser Times Out
 

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Remote jobs finder",
+    "schedule": "0 10 * * *",
+    "schedule_display": "0 10 * * *",
+    "enabled": true,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [
+      "email-sender",
+      "remote-job-sources"
+    ],
+    "deliver": "telegram",
+    "instructions": "Using my resume located in remote job sources skill I want you to find me 10 remote jobs using the parameters the skill tells you to use. I am looking for part time work/1099 work, OR $90K+ full time preferably 1099 jobs.\n\nSTEP 0 - MANDATORY, BEFORE ANYTHING ELSE: run\npython C:/Users/<user>/AppData/Local/hermes/profiles/fifi/skills/research/remote-job-sources/jobicy_pool.py --pick\nBuild the report from pool_pick.txt and nothing else. That script drops every job already emailed on an earlier day, so no job can repeat.\n\nNO REPEATS RULE: if a job's ID is in reported_ids.json (or in any earlier report), it must NOT appear in this report. Do not re-list a job because it is still open, still a fit, or because a tier is short. Never edit reported_ids.json to make room.\n\nTIER RULE: the list is 10 jobs, 5 part time between $1k and $2500 per month plus 5 at $90K+/yr. When Tier 1 cannot fill 5, Tier 2 makes up the difference, so I still get 10 jobs. pool_pick.txt states the exact split for the run, for example \"Report exactly 0 Tier 1 + 10 Tier 2 = 10 jobs\" - follow that line. Put the real split in the report header (e.g. \"Tier split: 0 Part-Time/1099 | 10 Full-Time $90K+\"). Only if Tier 2 runs out too does the list come in under 10, and then it says how many are missing. You MUST make sure the jobs are still available BEFORE giving them to me on the list.\n\nPROFILE RULE - non-negotiable: never list a tutoring, teaching, translation/linguist, medical/clinical, legal, accounting, HR, sales/account-executive/partnership/channel, licence-gated or security-clearance role. I am an AI systems builder. The pool already excludes these by title; if one still appears in the window, skip it. Never pad a tier with an off-profile role to reach 10.\n\nCompile a list, make sure to format it nicely using spaces, making it easy to read, and create a text document, then use email sender skill to email it to me by attaching the text document to the email. AFTER the email has been sent message me on Telegram to notify me that the email has been sent.\n\nBefore sending, run the skill's checks: grep -c \"weworkremotely\" on the report must be 0, and\npython C:/Users/<user>/AppData/Local/hermes/profiles/fifi/skills/research/remote-job-sources/check_repeats.py <report file>\nmust exit 0. If it fails, rebuild the report from pool_pick.txt.\n\nOutput facts only. No caveats, no catches, no dropped-list commentary, no editorializing. Just the jobs."
+  },
+  {
+    "name": "fifi-profile-daily-backup",
+    "schedule": "30 3 * * *",
+    "schedule_display": "30 3 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "no_agent": true,
+    "script": "hermes-backup-fifi.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "telegram",
+    "instructions": ""
+  }
+]

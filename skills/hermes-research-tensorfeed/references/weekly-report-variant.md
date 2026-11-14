@@ -17,7 +17,7 @@ Use when the user asks for "weekly AI news," "this week's AI stories," "last 7 d
 
 ```python
 import sys
-sys.path.insert(0, '/mnt/c/Users/<user>/workspace/scripts')
+sys.path.insert(0, '.../<user>/workspace/scripts')
 from tensorfeed_client import TensorFeed
 tf = TensorFeed()
 result = tf.news_recent(hours=168, limit=80)

@@ -65,9 +65,9 @@ From the WSL agent, driving `cmd.exe` (always `cd` into a `C:` path first, becau
 `cmd.exe` cannot use a UNC working directory):
 
 ```bash
-cp -r ~/tools/openleads /mnt/c/Users/<user>/workspace/openleads
-rm -rf /mnt/c/Users/<user>/workspace/openleads/.git
-cd /mnt/c/Users/<user>/workspace/openleads
+cp -r ~/tools/openleads .../<user>/workspace/openleads
+rm -rf .../<user>/workspace/openleads/.git
+cd .../<user>/workspace/openleads
 /mnt/c/Windows/System32/cmd.exe /c "C:\Users\<user>\AppData\Local\Programs\Python\Python312\python.exe -m venv C:\Users\<user>\.venvs\openleads"
 /mnt/c/Windows/System32/cmd.exe /c "C:\Users\<user>\.venvs\openleads\Scripts\python.exe -m pip install -U pip"
 /mnt/c/Windows/System32/cmd.exe /c "C:\Users\<user>\.venvs\openleads\Scripts\python.exe -m pip install .[all]"

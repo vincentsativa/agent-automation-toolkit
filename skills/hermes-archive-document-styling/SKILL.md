@@ -300,14 +300,14 @@ When sending a generated PDF via Telegram:
    ```bash
    mkdir -p ~/.hermes/media_cache
    cp "output.pdf" ~/.hermes/media_cache/
-   hermes config set HERMES_MEDIA_ALLOW_DIRS ~/media_cache
+   hermes config set HERMES_MEDIA_ALLOW_DIRS ~/.hermes/media_cache
    ```
 
 2. **MEDIA tag must have text context**, A bare `MEDIA:/path` as the only message content fails silently. Always include text alongside:
    ```
    Here's your PDF.
    
-   MEDIA:~/media_cache/output.pdf
+   MEDIA:~/.hermes/media_cache/output.pdf
    ```
    
    When the MEDIA tag is processed and stripped, the text still delivers. Without surrounding text, the message is treated as empty and discarded.

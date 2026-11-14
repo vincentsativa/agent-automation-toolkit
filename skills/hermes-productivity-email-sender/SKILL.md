@@ -22,7 +22,7 @@ trigger: "user asks to email, send email, attach file to email, send document, o
 - **Server:** smtp.ionos.com
 - **Port:** 587 (TLS)
 - **Username:** hello@phantom-byte.com
-- **Password:** VJBvjbhydro1202$$
+- **Password:** [REDACTED_PASSWORD]
 
 ## Sending Email (Python)
 
@@ -55,7 +55,7 @@ def send_email(to, subject, body, attachment_path=None):
         print(f"WARNING: attachment not found at {attachment_path}, sending without attachment")
     server = smtplib.SMTP('smtp.ionos.com', 587, timeout=60)
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.send_message(msg)
     server.quit()
     return True
@@ -104,9 +104,9 @@ def send_email_with_attachments(to, subject, body, attachment_paths):
         else:
             print(f"WARNING: attachment not found at {path}")
     server = smtplib.SMTP('smtp.ionos.com', 587, timeout=60)
-    server.set_debuglevel(1)
+    # Never enable SMTP debug logging during login: AUTH PLAIN output exposes reusable credentials.
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.send_message(msg)
     server.quit()
     print("Email sent successfully.")
@@ -128,7 +128,7 @@ Key differences from the single-attachment pattern:
 - Takes a list of paths instead of a single path
 - Loops through attachments, attaching each one
 - Prints a confirmation per attachment so you can verify all files were included
-- Always include `set_debuglevel(1)` and a final print after `send_message`
+- Never enable `set_debuglevel(1)` during authentication, because Python prints AUTH PLAIN payloads that decode to the mailbox password. Use explicit milestone prints after login and `send_message`, then prove delivery with the IMAP verifier.
 
 ## Press Release Distribution: HTML Required (CRITICAL, July 14, 2026)
 
@@ -168,7 +168,7 @@ This typically halves the file size with minimal quality loss. Target under 30MB
    same refusal. Create the `mktemp -d` directory first and write `send.py` straight into that
    path in the same call. If the write was aimed at anything else, copy the file into $SCRATCH
    and delete the placeholder before sending.
-3. Delete the scratch dir after the run so nothing is left for the next job to trip over.
+3. Delete the scratch dir after the run so nothing is left for the next job to trip over. The terminal session keeps its working directory between calls, so a scratch dir the shell `cd`'d into and that you then delete becomes a dead cwd: every later call in that session fails with exit 126 and `cd: <dir>: No such file or directory` before the command ever runs. Pass `workdir=~` on terminal calls, and delete the scratch dir from a live directory.
 4. Confirm to Vinny on Telegram -- do NOT paste document content into the chat
 
 ## Cron Job Email Pattern (July 10, 2026)
@@ -197,7 +197,7 @@ Rule: build the file, verify it, send it ONCE, then stop touching it.
 
 A clean SMTP return and a printed confirmation prove the server ACCEPTED the message, not that it arrived with its attachments intact. Close the loop in the same turn: read the delivered copy back out of the mailbox over IMAP and confirm the attachment filenames on it.
 
-- Credentials: `set -a; source ~/.config/phantombyte/mailer.env; set +a` for `PHANTOMBYTE_SMTP_PASS`. IMAP is `imap.ionos.com:993`, login `hello@phantom-byte.com`.
+- Credentials: `set -a; source ~/.config/phantombyte/mailer.env; set +a` for `PHANTOMBYTE_SMTP_PASS`. IMAP is `imap.ionos.com:993`, login `hello@phantom-byte.com`. The verifier refuses to start until that file is sourced, printing `REFUSED: source ~/.config/phantombyte/mailer.env first`, so the source and the python call belong in the same shell command. An unsourced refusal is a setup miss, never evidence that the mail failed to arrive.
 - A self-send to hello@phantom-byte.com lands in INBOX within seconds. Search INBOX and Spam by subject.
 - Run `scripts/verify_delivery.py --subject "<exact subject>"` (in this skill's directory). It polls, prints the delivered Date, From, To and Subject plus the attachment filenames, and exits non-zero when the message is not there. Report only what it printed.
 - **A NOT FOUND from that script is not proof of non-delivery when the subject is long.** Subjects over roughly 60 characters are RFC-2822 folded in the raw header, so the stored value carries a CRLF and a leading space at the fold point and an exact-string match misses mail that is sitting right there in INBOX. Before concluding anything, list the last 8 to 10 INBOX headers and compare against the *parsed* subject (`decode_header` plus unfolding), not the raw one: `python3 scripts/verify_recent_headers.py --count 10` prints Date, parsed Subject, and attachment filenames for INBOX and Spam, and `--contains "<fragment>"` exits non-zero when nothing matches. Only after that comes back empty do you treat the send as failed, and even then check Spam before touching the sender again. A false negative that triggers a re-send delivers a duplicate, which is the worse outcome. Keep emailed subjects short enough to avoid the fold when you control them.
@@ -263,7 +263,7 @@ When Vinny says "remind me of this in X time" or "remind me about X":
 ## CRITICAL PITFALLS (June 15, 2026)
 
 ### Silent SMTP Failure, Exit Code 0 Means Nothing
-The script can return exit code 0 and still fail to send. SMTP errors, auth failures, or connection timeouts may be swallowed if the script does not explicitly surface them. Always add `server.set_debuglevel(1)` when debugging a send, and always include a confirmation print after `server.send_message()`. If the output is empty, the email was NOT verified as sent. This is the most common cause of "the email was never sent" reports from Vinny.
+The script can return exit code 0 and still fail to send. SMTP errors, auth failures, or connection timeouts may be swallowed if the script does not explicitly surface them. Never enable `server.set_debuglevel(1)` during authentication, because the resulting transcript exposes reusable credentials. Print explicit milestones after connection, TLS, login, and `server.send_message()`, then use the IMAP read-back verifier below for actual delivery proof. If the output is empty, the email was NOT verified as sent. This is the most common cause of "the email was never sent" reports from Vinny.
 
 ### "Send me that file" means EMAIL, not Telegram
 When Vinny says "send me that file" or "send me that right" after you already sent it to Telegram, he means **email it to him as a .txt attachment**. Do NOT send it to Telegram again. The SMTP library should be invoked immediately, no detour through Telegram delivery.

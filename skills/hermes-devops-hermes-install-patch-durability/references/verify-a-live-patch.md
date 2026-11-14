@@ -20,10 +20,10 @@ Use a fresh scratch dir per run, never a fixed filename:
 SCRATCH=$(mktemp -d /tmp/hermes-verify-XXXXXX)
 cat > "$SCRATCH/t.py" <<'EOF'
 import sys
-sys.path.insert(0, '~/hermes-agent')
+sys.path.insert(0, '~/.hermes/hermes-agent')
 ...
 EOF
-cd ~/hermes-agent && python "$SCRATCH/t.py"; echo "exit=$?"
+cd ~/.hermes/hermes-agent && python "$SCRATCH/t.py"; echo "exit=$?"
 rm -rf "$SCRATCH"
 ```
 

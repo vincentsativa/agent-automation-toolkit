@@ -82,6 +82,25 @@ Pinterest is a **search engine, not social media.** Treat every board and Pin li
 - Use the 2-week scheduling window to batch-create and schedule ahead.
 - **Index lag:** new pins can take time to get pushed; old pins keep paying out for years. Patience is the strategy.
 
+## Performance-weighted topic allocation (governs every daily batch)
+
+The 90-day audit (2026-08-14 to 2026-11-12) is the standing input to topic selection. Full table, formula, angle rules, and the loop spec live in `references/performance-allocation.md`. The rules that bind every batch:
+
+- **The 10 daily slots are fixed by the measured rates, not by feel:** 3 AI News, 2 Robotics & Physical AI, 2 AI for Developers, 2 AI Tools for Business, 1 AI Agents. Agent Security holds 0 with a contingency of 1 (it swaps out one news slot when a genuine attack-plus-fix story exists). Quantum holds 0 with a contingency of 1 (major dated development only, maximum once a week).
+- **This is a re-weighting, never a volume increase.** Ten posts a day stays ten posts a day. Optimize topic choice, the visual hook, and the save reason instead.
+- **Robotics is under-published, not weak.** It carries a sixth of the news board's impressions at the best engagement rate (2.30%) and save rate (0.82%) on the account. It keeps two slots and its pins must show hardware or a deployment scene.
+- **Developer and tools posts are judged by their save reason.** Both boards sit at 0.73% engagement, which is a creative problem, not a volume problem. A developer pin carries a snippet, command, diff, or architecture comparison. A tools pin carries a prompt, checklist, or pricing and feature comparison.
+- **Agent posts lead with architecture, benchmarks, or a named deployment.** The agents board has the best outbound-click rate (0.106%), and concept explainers waste it.
+- **Quantum gets nothing unless a major development is genuinely timely.** 1,147 impressions and zero outbound clicks is not a board to feed on speculation.
+- **Read the live allocation before writing.** `python3 ~/.hermes/scripts/pinterest_performance.py --brief` prints today's slot counts, the per-board angles, and the measured rates from the newest export. The script recomputes the allocation from the data, and a validated override in `~/.hermes/state/pinterest_allocation.json` (written only by the weekly feedback job) takes precedence.
+- **Repetition rule:** no story, company, or concept on two consecutive days in the same board, and no more than two posts in one batch sharing a company. The dedup script catches exact repeats; this rule covers the same company's news retold with a different angle.
+
+## The feedback loop (weekly, and it is what keeps this current)
+
+`PINTEREST PERFORMANCE FEEDBACK LOOP` runs Sundays at 12:30. It refreshes the ledger from the newest analytics export, compares board rates against the previous snapshot, evaluates the top pins by board and by whether they follow the angle rules, and may adjust the allocation inside fixed bands by writing `~/.hermes/state/pinterest_allocation.json` with a reason and a timestamp. The script validates the override against the bands and the 10-slot total, so drift cannot accumulate silently.
+
+A change is justified only when a board appears in the board table in BOTH exports AND its save rate or engagement rate moved more than 25% relative between them. Below that threshold it is noise, and the loop says so and leaves the allocation alone. The loop always states which export it used; a stale export means it reports staleness instead of recycling old numbers.
+
 ## Pinterest Trends: what is reachable without a login
 
 The page is client-rendered: a plain fetch returns HTTP 200 with only the shell text ("Pinterest Trends"), so a scraping tool reads as empty and looks like a block. Drive it with the browser and read `document.body.innerText`.
@@ -94,9 +113,10 @@ The page is client-rendered: a plain fetch returns HTTP 200 with only the shell 
 
 When Vinny hands over a link and wants a title and description, demand data comes FIRST, before a word of copy is written. Procedure:
 
+0. **The pin is for the EXACT URL handed over, never a page you picked off it.** A site root or homepage gets a site-level pin describing the site itself (what it publishes, cadence, archive size); do not open it, find today's article, and write the pin for that instead. Substituting a more interesting page rewrites the instruction, and the copy then promotes a destination he never asked to promote. If the given URL is an article, pin that article. One link in, that same link out.
 1. **Run the metrics endpoint on the candidate set**, in one call, before drafting: `python3 ~/.hermes/scripts/pinterest_trends.py --terms "<8-16 candidate phrases>"`. Use human search phrasing ("python", "developer", "programming"), never headline phrasing.
 2. **Expect the AI vocabulary to be absent.** Pinterest has no measurable volume for "ai automation", "ai agents", "ai tools", "automation", "chatgpt", "workflow automation", "artificial intelligence". A missing term is a fact about demand, not a failed query, so re-running it or hunting another endpoint is wasted effort.
-3. **Build the keyword set from what does measure.** The developer vocabulary carries the volume: `programming` (the one reliably RISING term), `python`, `developer`, `software engineer`, `computer science`, `terminal`, `github` (trending down, use as a secondary only). Measure again at post time rather than quoting this list from memory.
+3. **Build the keyword set from what does measure.** The developer vocabulary usually carries the volume: `programming`, `python`, `developer`, `computer science`, `terminal`, plus general terms like `tech`, `technology`, `news` (often the strongest and rising). Directions flip between runs, so NEVER quote a direction from this list from memory: the `--terms` run in the current session is the only source for whether a term is rising or falling, and `github` trends down, use as a secondary only.
 4. **Front-load the board's own keyword, then carry the measured terms.** The title leads with the subject the target board owns, and the secondary slots go to phrases that actually register volume. Never substitute a trending term for a term that describes the link; that trades placement for nothing.
 5. **Say the absence out loud in the reply.** One line stating which candidate terms had no Pinterest volume, so Vinny sees the copy was built on data instead of vibes.
 
@@ -152,6 +172,7 @@ Route every pin to the live board whose topic it actually targets. Never invent 
 - robotics, humanoids, physical AI, chips-for-robots → **Robotics & Physical AI [Humanoid Robots]**
 - quantum → **Quantum Computing [Explained]**
 - general lab/frontier news with no agent or developer angle → **AI News | Machine Learning & Emerging Tech**
+- a site-level pin (homepage or archive root, no single article subject) → **AI News | Machine Learning & Emerging Tech**, since a whole-site pin owns no topic board's single keyword
 
 Do not create thin new boards. Only add one when volume can sustain 3-5 fresh pins per day across the set; start lean.
 One board equals ONE keyword and ONE intent. This is the highest-leverage board setup. Do not blend topics into a single board and do not route a pin to a board whose keyword it does not target.
@@ -167,6 +188,8 @@ Established live boards: see the **Live boards (SOURCE OF TRUTH)** section above
 ## Reading a Pinterest analytics export (audit, then CHANGE the cron)
 
 **An analytics question from Vinny is an instruction to change the cron, not a request for a report.** Do the audit, then apply the change to the job in the same turn and verify it landed. Never end with "want me to apply it?" and never hand back a list of recommendations as the deliverable.
+
+**Run the packaged engine instead of hand-rolling the arithmetic:** `python3 ~/.hermes/scripts/pinterest_performance.py` parses the newest export in `.../<user>/Downloads`, computes per-board rates and weekly buckets, derives the 10-slot allocation, optionally enriches the top pins with their board, and rewrites `~/.hermes/state/pinterest_performance.json`. Use `--brief` for the compact daily block and `--refresh --enrich 30` for the weekly evaluation. The audit rules below explain what the numbers mean; the script does the math.
 
 Audit order, and the mechanics for each step are in `references/analytics-audit.md`:
 
@@ -201,6 +224,7 @@ The Pinterest Posts cron must check live Pinterest trend data every run and let 
 ## The daily Pinterest Posts cron, gates are hard, never escapable
 
 - **Title 100 chars, description 500 chars.** Over-limit text is silently truncated in the feed, so an over-limit post is a broken post. Any prompt wording that permits the email to go out carrying an over-limit post is a defect and gets deleted.
+- **The batch obeys the performance allocation, not an even spread.** Read the allocation from `python3 ~/.hermes/scripts/pinterest_performance.py --brief` before choosing stories, and check the batch against it before emailing. A batch with no robotics post, or with a quantum post and no major development behind it, is off-allocation and gets fixed before it ships.
 - **Cap loops, never gates.** Wording like "verify once, then proceed regardless", "send it anyway even if a post is over the limit", or "at most 2 execute_code calls" is an escape hatch, and the run takes it. Phrase the check as: rewrite the offending post SHORT from scratch, re-run the check, repeat until it reports zero violations.
 - **Rewrite, do not trim.** Trimming an over-limit description degrades the prose and burns iterations. Write a fresh 380 to 420 char description for that post.
 - **The board separator in the delivered file is a hyphen, never an em dash** ("[BOARD NAME] - Post title").

@@ -8,10 +8,10 @@ Every shortlisted idea must pass all four:
 1. Easy for a business owner to understand in one sentence without jargon.
 2. Addresses a problem most businesses actually have right now.
 3. Not many people offer a standalone fix, agencies bundle it into retainers or ignore it.
-4. Programmatically verifiable before outreach so every email names a specific defect you measured that day.
+4. Programmatically verifiable before outreach so every email names a specific defect you measured that day. When public evidence proves exposure but cannot prove that the buyer missed or mishandled it, say exactly that. For example, a public addendum proves that a tracked bid changed, not that a contractor failed to read it.
 
 ## Template to copy
-Live reference is `offer-pages/email-deliverability-rescue.html` and the live URL `https://phantom-byte.com/email-deliverability-rescue`. Price is $500 flat for one domain or one profile, fixed within 24 hours, entirely by email. Each offer page needs the same sections: headline that names the invisible problem, price plus monitoring upsell, three questions answered honestly, diagnostic table with four failure modes, what you get for $500, what you will not promise, who it is for, monitoring at $75 to $250 per month, and free-findings CTA plus direct PayPal button.
+Check for `offer-pages/email-deliverability-rescue.html` and read it when present. If it is absent, use the checklist below and do not claim the page was reviewed. The live URL is `https://phantom-byte.com/email-deliverability-rescue`. Price is $500 flat for one domain or one profile, fixed within 24 hours, entirely by email. Each offer page needs the same sections: headline that names the invisible problem, price plus monitoring upsell, three questions answered honestly, diagnostic table with four failure modes, what you get for $500, what you will not promise, who it is for, monitoring at $75 to $250 per month, and free-findings CTA plus direct PayPal button.
 
 ## Scanner plus findings sheet pattern
 Reuse the deliverability pipeline shape for every rescue:
@@ -29,6 +29,7 @@ Reuse the deliverability pipeline shape for every rescue:
 
 ## Text report delivery
 - Body paragraphs are ONE long unwrapped line per Article 14; verify with `awk '{ if (length($0) > m) m = length($0) } END { print m }' <file>` and expect the max to be well over 200. A short max means the file was wrapped and is wrong.
-- Windows path on WSL is `/mnt/c/Users/<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES`; list files with `ls` to confirm counts before relying on memory.
+- Verify the selected-item count and every five-part score sum programmatically before delivery, because a ranked report with seven headings can still contain a missing section or arithmetic mismatch.
+- Windows path on WSL is `.../<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES`; list files with `ls` to confirm counts before relying on memory.
 - Send via IONOS SMTP `smtp.ionos.com:587` as `hello@phantom-byte.com` using `PHANTOMBYTE_SMTP_PASS` and `PHANTOMBYTE_POSTAL_ADDRESS` from `~/.config/phantombyte/mailer.env`. Use `MIMEMultipart` with attachment. Sign as instructed for the workflow, Frank for the next-offer shortlist, Bill for the daily cron.
 - After the send returns SENT OK, notify on Telegram that the email was sent. Final response is the delivery channel, do not call a separate send tool for the notification.

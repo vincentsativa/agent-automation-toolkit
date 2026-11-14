@@ -18,7 +18,7 @@ The `python_library_version` comes from `pyproject.toml`'s `version` field. If `
 2. Bump `pythonlib/pyproject.toml` version to match the tag (e.g. `0.1.0` → `0.5.1`). This local edit is required and is expected to show as a dirty working tree, upstream tags ship `version = "0.1.0"`. Verified live at tag v0.5.1 on 2026-09-25.
 3. Resolve the live interpreter (PM-managed environment, not `hermes-agent/venv`):
    ```bash
-   python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])"
+   python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/.hermes/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])"
    # append /bin/python (WSL) or \Scripts\python.exe (Windows)
    ```
 4. Reinstall: `uv pip install -e pythonlib --force-reinstall --python <resolved interpreter>`, then re-pin `playwright==1.62.0` (Rotunda's soft `<=1.59.0` pin drags it down and breaks Scrapling's fetchers extra)

@@ -25,9 +25,9 @@ Where to write it: the `PROMPTS I USE DAILY` folder on his Desktop, next to his 
 - Windows into WSL:
   `wsl.exe -d Ubuntu bash -lc "cd ~/money_ideas && source ~/.config/phantombyte/mailer.env && python3 test_email_scan.py"`
 - Anything WSL will execute must be written with LF line endings. A `.py` or `.sh` saved with CRLF fails inside WSL with an error that reads like a syntax problem on line 1 and costs an hour.
-- Path translation, both directions: inside WSL `/mnt/c/Users/<user>/` is `C:\Users\<user>\`; from Windows `\\wsl.localhost\Ubuntu\home\vincent\` is `~/`. `~/` is not a Windows path and cannot be read as one.
+- Path translation, both directions: inside WSL `.../<user>/` is `C:\Users\<user>\`; from Windows `\\wsl.localhost\Ubuntu\home\<user>\` is `~/`. `~/` is not a Windows path and cannot be read as one.
 - A UNC path as the current directory makes `cmd.exe`, `reg.exe`, and other Windows tools fail with “UNC paths are not supported”. Change to a drive-letter path first.
-- WSL-resident Hermes state is out of bounds: `~/` config, crons, memories, and the venv.
+- WSL-resident Hermes state is out of bounds: `~/.hermes/` config, crons, memories, and the venv.
 
 ## Verify the prompt file before sending it
 

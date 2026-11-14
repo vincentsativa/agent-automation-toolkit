@@ -154,8 +154,8 @@ heatmaps, direction plots, and layer-wise analysis charts.
 obliteratus run analysis-study.yaml --preset quick
 
 # Available study presets:
-# quick     - Fast sanity check (2-3 modules)
-# full      - All core + geometric analysis
+# quick    , Fast sanity check (2-3 modules)
+# full     , All core + geometric analysis
 # jailbreak, Refusal circuit localization
 # knowledge, Knowledge preservation analysis
 # robustness, Stress testing / defense evaluation

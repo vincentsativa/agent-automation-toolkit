@@ -17,7 +17,7 @@ tutorial ideas with source quotes.
 
 ```python
 import os
-base = "/mnt/c/Users/<user>/OneDrive/Desktop/NEXT TUTORIALS TO WRITE/NEWEST TUTORIAL IDEAS"
+base = ".../<user>/OneDrive/Desktop/NEXT TUTORIALS TO WRITE/NEWEST TUTORIAL IDEAS"
 files = sorted(os.listdir(base))
 all_text = {}
 for f in files:

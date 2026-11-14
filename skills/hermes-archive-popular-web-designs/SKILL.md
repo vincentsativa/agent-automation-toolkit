@@ -110,7 +110,7 @@ substitute that preserves the design's character. Common mappings:
 
 When a template's CDN font matches the original (Inter, IBM Plex, Rubik, Geist), no
 substitution loss occurs. When a substitute is used (DM Sans for Circular, Source Sans 3
-for sohne-var), follow the template's weight, size, and letter-spacing values closely, 
+for sohne-var), follow the template's weight, size, and letter-spacing values closely -
 those carry more visual identity than the specific font face.
 
 ## Design Catalog

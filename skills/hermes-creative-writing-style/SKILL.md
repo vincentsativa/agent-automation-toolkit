@@ -232,6 +232,20 @@ These rules apply in addition to all the above when writing Pinterest descriptio
 
 **Lead with the news hook, follow with the value.** First sentence states the concrete story (who, what, number). Second paragraph explains why it matters. Close with a call to action or a follow prompt ("Follow PhantomByte for..." or "Save this for your next deep dive into...").
 
+**Match the board's measured angle (performance audit, 2026-08-14 to 2026-11-12).** The account's 90-day rates say what each board needs from the copy, so the board label on a post decides its shape.
+
+- AI News: the number or the exact change inside the first 50 characters. What changed, who it hits, why it matters now.
+- Robotics & Physical AI: the strongest save rate on the account (0.82%). Name the robot, factory, or pilot plus a spec or count, and give an explicit save reason. Abstract framing wastes the board's best surface.
+- Developers: the weakest save rate (0.06%). The description must carry something the reader keeps: a command, a config, a diff, or a measurable before and after. A developer post with nothing saveable has failed even if the character count is perfect.
+- AI Tools for Business: same 0.73% engagement problem, same fix. A prompt, a checklist, or a pricing and feature comparison, plus the save reason.
+- AI Agents: best outbound-click rate on the account. Lead with architecture, a benchmark number, or a named deployment result. Never "what is an agent".
+- Agent Security: one specific attack path and the specific control that stops it.
+- Quantum: only a major dated development. Never an explainer.
+
+**Every post names its save reason.** One clause that tells the reader why to keep the pin: the number to remember, the command to run, the prompt to copy, the comparison to check. Saves are the distribution signal that compounds, and a pin with no reason to keep it is a pin that only ever gets one impression cycle.
+
+**Respect the batch quotas.** Ten posts split 3 AI News, 2 Robotics, 2 Developers, 2 Tools, 1 Agents, with Agent Security and Quantum only as defined contingencies. Do not rebalance the batch toward whatever was easiest to write.
+
 **Order posts from best to worst when delivering a batch.** The user explicitly requires ranking. #1 is the strongest story with the broadest appeal. #10 is the weakest or most niche.
 
 **Evergreen posts are a LAST-RESORT FALLBACK, not a per-batch requirement (CRITICAL, reconciled Sep 3, 2026).** The default deliverable is 10 story summaries from today's data files. Do NOT include an evergreen post in a normal batch, and do NOT write the batch as evergreen content. Evergreen (timeless educational posts like "What Is Agentic AI", "How LLMs Work") is only acceptable when you have genuinely read ALL the data files and EVERY story in them is already pinned, which should be extremely rare. Even then, give each evergreen post a fresh, current angle tied to a specific story or trend in today's data, not a stale textbook definition. The old guidance to "include at least one evergreen post per batch" is superseded: it caused a batch of 10 canned evergreen posts and Vinny rejected it as trash. Story summaries always win.

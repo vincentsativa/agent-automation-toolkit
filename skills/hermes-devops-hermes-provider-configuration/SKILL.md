@@ -189,7 +189,7 @@ the picker uses, at the same scope:
 
 ```bash
 cd ~/.hermes/hermes-agent && ./venv/bin/python3 - <<'PY'
-import sys; sys.path.insert(0, "~/hermes-agent")
+import sys; sys.path.insert(0, "~/.hermes/hermes-agent")
 from hermes_cli.config import load_config
 from hermes_cli.model_switch import list_authenticated_providers
 cfg = load_config()

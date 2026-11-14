@@ -11,8 +11,8 @@ Standard report to `~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.t
 
 ### Step 2: Copy to BOTH Desktop locations
 ```bash
-cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/Desktop/ironpulse-YYYY-MM-DD.txt"
-cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt"
+cp ~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt ".../<user>/Desktop/ironpulse-YYYY-MM-DD.txt"
+cp ~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt"
 ```
 Verify both with `ls -la`.
 

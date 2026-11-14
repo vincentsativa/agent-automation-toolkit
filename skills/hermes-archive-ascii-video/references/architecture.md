@@ -10,7 +10,7 @@
 RESOLUTION_PRESETS = {
     "landscape":  (1920, 1080),  # 16:9, YouTube, default
     "portrait":   (1080, 1920),  # 9:16, TikTok, Reels, Stories
-    "square":     (1080, 1080),  # 1:1  - Instagram feed
+    "square":     (1080, 1080),  # 1:1 , Instagram feed
     "ultrawide":  (2560, 1080),  # 21:9, cinematic
     "landscape4k":(3840, 2160),  # 16:9, 4K
     "portrait4k": (2160, 3840),  # 9:16, 4K portrait

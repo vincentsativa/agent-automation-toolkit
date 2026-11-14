@@ -14,7 +14,7 @@ When the user has multiple pre-existing data files (IronPulse, TensorFeed, Blogw
 
 List the target directory to find all data files:
 ```bash
-ls -la "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/"
+ls -la ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/"
 ```
 
 Read each file with `read_file()` to build a mental exclusion list. Key stories to track:
@@ -80,7 +80,7 @@ Format requirements for FINAL reports:
 ### Step 6: File Delivery + Email
 
 ```bash
-cp ~/report.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
+cp ~/report.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/FINAL Daily AI News Report (IMPORTANT).txt"
 ```
 
 Email via IONOS SMTP with the .txt file attached. Subject should include date. Body should have brief summary of themes + top stories.

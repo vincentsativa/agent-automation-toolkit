@@ -21,7 +21,7 @@ editing YAML directly:
 cfg["agent"]["max_turns"] = <ceiling>          # iterations per turn, forces a wrap-up
 cfg["tool_loop_guardrails"]["hard_stop_enabled"] = True
 cfg["hooks"]["pre_tool_call"].append({
-    "command": "python3 ~/scripts/turn_tool_cap_guard.py",
+    "command": "python3 ~/.hermes/scripts/turn_tool_cap_guard.py",
     "timeout": 10,
     "fail_closed": False,
 })
@@ -74,7 +74,7 @@ run_once(spec, {"tool_name": "terminal", "args": {}, "session_id": SID,
 
 ## Current Installed Values
 
-On this machine the guard is `~/scripts/turn_tool_cap_guard.py`, wired as
+On this machine the guard is `~/.hermes/scripts/turn_tool_cap_guard.py`, wired as
 an unmatchered `pre_tool_call` hook, with `INTERACTIVE_WARN = 20`,
 `INTERACTIVE_CAP = 80`, and `CRON_WARN = 40` with no cap. Read the constants out of the
 script before quoting them; a raise ordered later makes any remembered number wrong. The cap

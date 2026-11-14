@@ -54,7 +54,7 @@ sweeps ("sessions older than 60 days from telegram"), use
 ② **Summarize per session.** The discovery result's `bookend_start` (goal),
 match window, and `bookend_end` (resolution) usually suffice, only dump a
 full session (`session_search(session_id=...)`) when the user asks for
-decisions in depth. Report each as: link (`@session:` form), one-line goal, 
+decisions in depth. Report each as: link (`@session:` form), one-line goal -
 one-line outcome.
 
 ③ **Plan before acting (MANDATORY for anything that mutates).** Present a
@@ -77,7 +77,7 @@ anything exported, anything skipped and why.
 ## Parallel Workstreams
 
 For "one session per ticket, investigate each, report back": do NOT try to
-drive other live sessions. Use `delegate_task` with one task per workstream, 
+drive other live sessions. Use `delegate_task` with one task per workstream -
 each subagent runs in its own session automatically, then synthesize their
 summaries. Mention that each delegation's transcript is itself searchable
 later via `session_search`.

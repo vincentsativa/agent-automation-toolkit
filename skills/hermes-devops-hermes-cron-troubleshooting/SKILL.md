@@ -43,7 +43,7 @@ BEFORE `hermes gateway restart`:
 python3 -c "
 import json
 from datetime import datetime, timezone, timedelta
-j = json.load(open('~/cron/jobs.json'))
+j = json.load(open('~/.hermes/cron/jobs.json'))
 now = datetime.now(timezone.utc).astimezone()
 deadline = now + timedelta(minutes=5)
 for job in j['jobs']:
@@ -151,7 +151,7 @@ The agent's work (email send, file write, API call) can complete fully while the
 ```bash
 python3 -c "
 import json
-d = json.load(open('~/cron/jobs.json'))
+d = json.load(open('~/.hermes/cron/jobs.json'))
 j = [x for x in d['jobs'] if x['id'] == '<job_id>'][0]
 print(j['prompt'])
 "
@@ -240,7 +240,7 @@ hermes cron create "<schedule>" \
 hermes cron list | grep -A10 "<job name>"
 python3 -c "
 import json
-d=json.load(open('~/cron/jobs.json'))
+d=json.load(open('~/.hermes/cron/jobs.json'))
 j=[x for x in d['jobs'] if x['name'].startswith('<job name>')][0]
 print(j['id'], j['model'], j['provider'], j['deliver'], j['script'], j['no_agent'], j['schedule']['run_at'])
 "
@@ -337,7 +337,7 @@ job field, not a prompt instruction, and a local job writes its final response t
 ```bash
 python3 -c "
 import sqlite3
-c = sqlite3.connect('~/cron/executions.db')
+c = sqlite3.connect('~/.hermes/cron/executions.db')
 for r in c.execute(\"select started_at, status, delivery_outcome from executions where job_id='<job_id>' order by started_at desc limit 10\"):
     print(r)
 "
@@ -781,7 +781,7 @@ A timeout on the *local* fence (a thread lock inside one process) means self-con
 ```bash
 python3 -c "
 import sqlite3
-c = sqlite3.connect('~/cron/executions.db'); c.row_factory = sqlite3.Row
+c = sqlite3.connect('~/.hermes/cron/executions.db'); c.row_factory = sqlite3.Row
 for r in c.execute('select status,error,started_at,finished_at from executions where job_id=? order by rowid desc limit 3', ('<job_id>',)):
     print(dict(r))
 "
@@ -865,7 +865,7 @@ Confirm with the pid column rather than assuming either way:
 ```bash
 python3 -c "
 import sqlite3
-c=sqlite3.connect('~/cron/executions.db'); c.row_factory=sqlite3.Row
+c=sqlite3.connect('~/.hermes/cron/executions.db'); c.row_factory=sqlite3.Row
 for r in c.execute(\"select status,pid,started_at,finished_at from executions where job_id='<job_id>' order by rowid desc limit 4\"):
     print(dict(r))
 "
@@ -905,7 +905,7 @@ python3 -m pytest tests/cron/ -q
 # Check a specific job's status
 python3 -c "
 import json
-j = json.load(open('~/cron/jobs.json'))
+j = json.load(open('~/.hermes/cron/jobs.json'))
 for job in j['jobs']:
     if job.get('running_at'):
         print(f'STILL RUNNING: {job[\"name\"]} since {job[\"running_at\"]}')

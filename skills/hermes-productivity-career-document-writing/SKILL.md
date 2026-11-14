@@ -100,7 +100,7 @@ His instruction overrides the genre caution below. When Vinny says to tell the e
 
 ### When he asks for a file on the desktop, not an email
 
-"Put the text file on desktop" is a delivery order, not an email order. Write a plain `.txt` with body paragraphs as one unwrapped line each (Article 14), place it on the Windows desktop, and confirm the path in chat. Do not also stage or send email unless he asked for it. The Windows desktop is `/mnt/c/Users/<user>/Desktop/` for career documents, while the job reports that feed these applications sit beside it under `/mnt/c/Users/<user>/OneDrive/Desktop/`; when the destination is ambiguous, write where the most recent same-class deliverable already sits rather than picking blind.
+"Put the text file on desktop" is a delivery order, not an email order. Write a plain `.txt` with body paragraphs as one unwrapped line each (Article 14), place it on the Windows desktop, and confirm the path in chat. Do not also stage or send email unless he asked for it. The Windows desktop is `.../<user>/Desktop/` for career documents, while the job reports that feed these applications sit beside it under `.../<user>/OneDrive/Desktop/`; when the destination is ambiguous, write where the most recent same-class deliverable already sits rather than picking blind.
 
 ## Answering a recruiter's screening questions (a different genre again)
 

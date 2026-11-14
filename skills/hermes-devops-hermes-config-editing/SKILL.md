@@ -99,5 +99,5 @@ Restarting the gateway fixes actual cron *delivery*; it does NOT update the cron
 
 ## Related skills
 - `hermes-agent` (bundled), full CLI/config reference.
-- `hermes-gateway-troubleshooting`, `photon-imessage-setup` (user-owned), 
+- `hermes-gateway-troubleshooting`, `photon-imessage-setup` (user-owned) -
   platform- and gateway-specific detail; read, don't edit.

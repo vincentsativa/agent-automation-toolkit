@@ -1,7 +1,7 @@
 ---
 name: x-algorithm-post-optimization
 description: "Write X posts tuned to the open For You feed signals."
-version: 0.3.12
+version: 0.3.15
 author: Hermes
 metadata:
   hermes.tags: [X, Twitter, Social-Media, Ranking, Algorithm]
@@ -11,7 +11,7 @@ metadata:
 
 Write X (Twitter) posts and non-Pinterest social posts that align with the engagement signals the open-source xAI For You feed algorithm (`github.com/xai-org/x-algorithm`) actually scores, filters, and ranks on. This skill does NOT cover Pinterest. Use it any time the user asks for an X post, tweet, thread, or "social post" unless they explicitly say it is for Pinterest.
 
-The algorithm is a Grok-based transformer with NO hand-engineered relevance features. It predicts probabilities for engagement actions and combines them into a weighted score. As of the **August 13, 2026 release**, the actual weight values are public, so this skill encodes the REAL constants, not guesses. Re-verified against `home-mixer/params/param.rs`, `vm-ranker/params.rs`, `xai-value-model/`, the pipeline source, `home-mixer/filters/`, and `visibility-filtering/` at repo HEAD on **October 31, 2026** (`last sync 2026-10-30T22:59:56Z`, commit 9106e9f, three commits 606b254, 7fef3ba and 9106e9f past 5ed7963). NO action weight VALUE changed at this sync: `weights_mut` in `xai-value-model/weights.rs` is still 29 entries, `vm-ranker/params.rs` still 58 params, and every weight in the tables below is byte-identical to its Oct 23 2026 value. The only action-weight-family change is a RENAME, `ReactWithVideoWeight` to `PostVideoWeight` (still `0.0` in both `home-mixer/params/param.rs` and `vm-ranker/params.rs`), so every constant below is current as of this check. What moved was an ads blender default, a page-logging default, two new video-carousel scoring knobs, and `VIDEO_CAROUSEL_EXTRA_CANDIDATES` migrating out of `config.rs` into `param.rs` as `VideoCarouselExtraCandidates` (see "October 31, 2026 sync"). The prior sync, October 28, 2026 (`last sync 2026-10-27T16:00:37Z`, commit 5ed7963), also changed NO action weight: it DELETED `Brazil2026ElectionFilter`, appended two gated-off scorers, and added a page-decode/page-RL param family. Before that, October 23, 2026 (`last sync 2026-10-23T16:00:34Z`, commit 6258a15), also changed NO action weight: it added four params, flipped `EnableFairShareRanking` `false` to `true`, and inserted a gated-off `NewUserSoftNsfwFilter`. Before that, October 20, 2026 (`last sync 2026-10-20T16:00:34Z`, commit 7f2ca2b), changed NO action weight either: it added eight params, removed `EnablePhoenixRetrievalFallback`, and appended a gated-off `FairShareRankingFilter`. The prior sync, October 16, 2026 (`last sync 2026-10-16T16:00:32Z`, commit 862a123), added a `ZeroFavCodivertFilter` and turned on the video-carousel dedupe knobs. Before that, October 14, 2026 (`last sync 2026-10-13T16:00:30Z`, commit 17c96bf), moved FOUR action weights, the first such move since Oct 6 2026: `FavoriteWeight` `0.5` to `0.66`, `VideoOpenWeight` `0.07` to `0.02`, `ContDwellTimeWeight` `0.004` to `0.006`, and `NotInterestedWeight` `-47.52` to `-52.272`, all in `home-mixer/params/param.rs` while `vm-ranker/params.rs` kept the old values. Also new: `ReactWithVideoWeight` (`0.0`, both files), `PhoenixOonRepliesRootOnly` (`false`), `EnableVideoCarouselAuthorDedupe` (`false`), `VideoCarouselSemanticIdDedupeLevels` (`0`), `TopicDppEnabled` (`false`), an `AncestorVideoFilter` in the post-selection lineup, and a widened `VideoFilter`. See "Params added or changed since Aug 13 2026".
+The algorithm is a Grok-based transformer with NO hand-engineered relevance features. It predicts probabilities for engagement actions and combines them into a weighted score. As of the **August 13, 2026 release**, the actual weight values are public, so this skill encodes the REAL constants, not guesses. Re-verified against `home-mixer/params/param.rs`, `vm-ranker/params.rs`, `xai-value-model/`, the pipeline source, `home-mixer/filters/`, and `visibility-filtering/` at repo HEAD on **November 11, 2026** (`last sync 2026-11-10T16:00:31Z`, commit f06f45a, two commits 660cd74 and f06f45a past 3b6919f). NO ACTION WEIGHT MOVED: `weights_mut` in `xai-value-model/weights.rs` is still 30 entries, `home-mixer/params/param.rs` grew from 225 to 237 params (twelve additions, no removals), `vm-ranker/params.rs` has NO diff and stays 59 params, and `home-mixer/params/config.rs` and `README.md` have NO diff (see "November 11, 2026 sync"). The only reach-relevant move is that `NewUserMinEngagementFilterUseRatio` flipped `false` to `true` and `NewUserMinEngagementThreshold` moved `0.0` to `0.004`. The prior sync, November 7, 2026 (`last sync 2026-11-06T16:00:45Z`, commit 3b6919f, four commits b508926, 021afa4, 2e2295b and 3b6919f past b220448). SEVEN ACTION WEIGHTS MOVED, the first such move since October 13 2026, and a THIRTIETH scored action landed: `FavoriteWeight` `0.66` to `0.708`, `ClickWeight` `0.3` to `0.274`, `ShareWeight` `2.0` to `2.118`, `VideoOpenWeight` `0.02` to `0.0`, `ContDwellTimeWeight` `0.006` to `0.0075`, `ContClickDwellTimeWeight` `0.4` to `0.385`, `NotInterestedWeight` `-52.272` to `-53.07`, plus new `GrokAnalyzeWeight` (`0.0`). `weights_mut` in `xai-value-model/weights.rs` is now 30 entries and `weighted_terms` in `xai-value-model/scoring.rs` is `[(&'static str, f64); 30]`. `home-mixer/params/param.rs` grew from 218 to 225 params and `vm-ranker/params.rs` from 58 to 59, and `PhoenixAggregationType` moved to `DENSE_WITH_LONG_DWELL_HOME_EXCURSION` with `EnableHomeExcursionScores` flipped `false` to `true` (see "November 7, 2026 sync"). The prior sync, November 3, 2026 (`last sync 2026-11-02T16:00:39Z`, commit b220448, one commit past 9106e9f), changed NO action weight VALUE: `weights_mut` was still 29 entries, `vm-ranker/params.rs` still 58 params, with one gated-off video-carousel risk knob, `AdsBlenderType` reverted `"slot_spread"` to `"multi_risk"` (ad accounting only), and `xai-value-model/scoring.rs` refactored the weighted sum into a named `weighted_terms` array with no change to any coefficient. Before that, October 31, 2026 (`last sync 2026-10-30T22:59:56Z`, commit 9106e9f, three commits 606b254, 7fef3ba and 9106e9f past 5ed7963), also changed NO action weight VALUE: its only action-weight-family change was a RENAME, `ReactWithVideoWeight` to `PostVideoWeight` (still `0.0` in both files), alongside an ads blender default, a page-logging default, two new video-carousel scoring knobs, and `VIDEO_CAROUSEL_EXTRA_CANDIDATES` migrating out of `config.rs` into `param.rs` as `VideoCarouselExtraCandidates`. Before that, October 28, 2026 (`last sync 2026-10-27T16:00:37Z`, commit 5ed7963), also changed NO action weight: it DELETED `Brazil2026ElectionFilter`, appended two gated-off scorers, and added a page-decode/page-RL param family. Before that, October 23, 2026 (`last sync 2026-10-23T16:00:34Z`, commit 6258a15), also changed NO action weight: it added four params, flipped `EnableFairShareRanking` `false` to `true`, and inserted a gated-off `NewUserSoftNsfwFilter`. Before that, October 20, 2026 (`last sync 2026-10-20T16:00:34Z`, commit 7f2ca2b), changed NO action weight either: it added eight params, removed `EnablePhoenixRetrievalFallback`, and appended a gated-off `FairShareRankingFilter`. The prior sync, October 16, 2026 (`last sync 2026-10-16T16:00:32Z`, commit 862a123), added a `ZeroFavCodivertFilter` and turned on the video-carousel dedupe knobs. Before that, October 14, 2026 (`last sync 2026-10-13T16:00:30Z`, commit 17c96bf), moved FOUR action weights, the first such move since Oct 6 2026: `FavoriteWeight` `0.5` to `0.66`, `VideoOpenWeight` `0.07` to `0.02`, `ContDwellTimeWeight` `0.004` to `0.006`, and `NotInterestedWeight` `-47.52` to `-52.272`, all in `home-mixer/params/param.rs` while `vm-ranker/params.rs` kept the old values. Also new: `ReactWithVideoWeight` (`0.0`, both files), `PhoenixOonRepliesRootOnly` (`false`), `EnableVideoCarouselAuthorDedupe` (`false`), `VideoCarouselSemanticIdDedupeLevels` (`0`), `TopicDppEnabled` (`false`), an `AncestorVideoFilter` in the post-selection lineup, and a widened `VideoFilter`. See "Params added or changed since Aug 13 2026".
 
 ## When to Use
 
@@ -37,41 +37,154 @@ These are the actual production default values. Final Score = Σ (weight × P(ac
 ### Positive weights (ranked by value)
 | Action | Weight | Note |
 |---|---|---|
-| **Share via copy link** | **20.0** | THE highest positive weight. About 30× a favorite at the Oct 13 2026 favorite weight of 0.66. |
+| **Share via copy link** | **20.0** | THE highest positive weight. About 28.2× a favorite at the Nov 7 2026 favorite weight of 0.708. |
 | **Reply** | **5.0** | Tied 2nd. |
 | **Quote** | **5.0** | Tied 2nd. |
 | **Share via DM** | **5.0** | Tied 2nd. |
 | **Follow author** | **4.0** | |
-| **Share** | **2.0** | |
+| **Share** | **2.118** | Was 2.0 through Nov 3 2026; raised to 2.118 on Nov 7 2026, which is 3.0× a favorite. |
 | **Retweet** | **1.0** | |
-| **Favorite** | **0.66** | Was 0.5 through Oct 9 2026; raised to 0.66 on Oct 13 2026. |
-| Click | 0.3 | Was 0.4 through Sept 25 2026; lowered to 0.3 on Sept 30 2026. |
+| **Favorite** | **0.708** | Was 0.5 through Oct 9 2026 and 0.66 from Oct 13 2026; raised to 0.708 on Nov 7 2026. |
+| Click | 0.274 | Was 0.4 through Sept 25 2026 and 0.3 from Sept 30 2026; lowered to 0.274 on Nov 7 2026. |
 | Open link | 0.2 | |
 | Photo expand | 0.05 | |
-| Video open | 0.02 | Was 0.07 through Oct 9 2026; cut to 0.02 on Oct 13 2026. |
-| VQV (video quality view) | 0.0 | |
+| Dwell | 0.05 | Re-enabled Aug 25 2026. Was 0.0. |
 | Quoted click | 0.05 | |
 | Post unexplored | 0.015 | Was 0.02 through Oct 3 2026; cut to 0.015 on Oct 6 2026 in `home-mixer/params/param.rs` (vm-ranker still 0.02). |
-| Dwell | 0.05 | Re-enabled Aug 25 2026. Was 0.0. |
+| **Video open** | **0.0** | Was 0.07 through Oct 9 2026 and 0.02 from Oct 13 2026; cut to `0.0` on Nov 7 2026, so a video open scores nothing at all today. |
+| VQV (video quality view) | 0.0 | |
 | Profile click | 0.0 | |
 | Quoted VQV | 0.0 | |
-| Cont dwell time | 0.006 | Continuous dwell time, per unit. Was 0.004 through Oct 9 2026; raised to 0.006 on Oct 13 2026. |
-| Cont click dwell time | 0.4 | Was 0.0 through Sept 25 2026; raised to 0.4 on Sept 30 2026. NOW A REAL POSITIVE, equal to the click itself. |
-| Post video | 0.0 | Renamed from `ReactWithVideoWeight` on October 31, 2026 (`PostVideoWeight`, key `rust_home_mixer_post_video_weight`, in both `param.rs` and `vm-ranker/params.rs`); default `0.0`, so it scores nothing today. The knob to watch. |
+| Cont dwell time | 0.0075 | Continuous dwell time, per unit. Was 0.004 through Oct 9 2026 and 0.006 from Oct 13 2026; raised to 0.0075 on Nov 7 2026. |
+| Cont click dwell time | 0.385 | Was 0.0 through Sept 25 2026 and 0.4 from Sept 30 2026; cut to 0.385 on Nov 7 2026. |
+| Post video | 0.0 | Renamed from `ReactWithVideoWeight` on October 31, 2026 (`PostVideoWeight`, key `rust_home_mixer_post_video_weight`, in both `param.rs` and `vm-ranker/params.rs`); default `0.0`, so it scores nothing today. |
+| Grok analyze | 0.0 | NEW on Nov 7 2026 (`GrokAnalyzeWeight`, key `rust_home_mixer_grok_analyze_weight`, in both `param.rs` and `vm-ranker/params.rs`). The thirtieth scored head, and the knob to watch. |
 
 ### Negative weights (massive, one can wipe out many positives)
 | Action | Weight |
 |---|---|
 | **Report** | **-234.0** |
 | **Mute author** | **-58.8** |
-| **Not interested** | **-52.272** | Was -47.52 through Oct 9 2026; raised to -52.272 on Oct 13 2026. |
+| **Not interested** | **-53.07** | Was -47.52 through Oct 9 2026 and -52.272 from Oct 13 2026; deepened to -53.07 on Nov 7 2026. |
 | **Block author** | **-31.2** |
 | Not dwelled | -0.02 |
 
 ### Bidirectional follow boost (NEW, huge)
 `BidirectionalFollowReplyWeightBoost` = **15.0**. A reply from a user who follows you back is worth 15× the base reply weight. Replies from mutuals are the single most valuable engagement you can earn. `BidirectionalFollowDwellWeightBoost` = 0.0.
 
-### Params added or changed since Aug 13 2026 (verified October 31, 2026)
+### Params added or changed since Aug 13 2026 (verified November 11, 2026)
+
+**November 11, 2026 sync (`last sync 2026-11-10T16:00:31Z`, commit f06f45a, two commits 660cd74 and f06f45a past 3b6919f, checked November 11, 2026), NO ACTION WEIGHT MOVED, twelve params added, two new-user engagement defaults flipped on.** Every action weight VALUE in `home-mixer/params/param.rs` is byte-identical to its Nov 7 2026 value: `FavoriteWeight` `0.708`, `ClickWeight` `0.274`, `ShareWeight` `2.118`, `VideoOpenWeight` `0.0`, `ContDwellTimeWeight` `0.0075`, `ContClickDwellTimeWeight` `0.385`, `NotInterestedWeight` `-53.07`, `GrokAnalyzeWeight` `0.0`, `ShareViaCopyLinkWeight` `20.0`, `ReplyWeight` `5.0`, `QuoteWeight` `5.0`, `ShareViaDmWeight` `5.0`, `FollowAuthorWeight` `4.0`, `RetweetWeight` `1.0`, `DwellWeight` `0.05`, `PhotoExpandWeight` `0.05`, `QuotedClickWeight` `0.05`, `PostUnexploredWeight` `0.015`, `PostVideoWeight` `0.0`, `ProfileClickWeight` `0.0`, `QuotedVqvWeight` `0.0`, `VqvWeight` `0.0`, `ReportWeight` `-234.0`, `MuteAuthorWeight` `-58.8`, `BlockAuthorWeight` `-31.2`, `NotDwelledWeight` `-0.02`, `BidirectionalFollowReplyWeightBoost` `15.0`, `BidirectionalFollowDwellWeightBoost` `0.0`. `weights_mut` in `xai-value-model/weights.rs` is still `[(&'static str, &mut f64); 30]`, so no new scored action exists. `home-mixer/params/param.rs` grew from 225 to 237 params (twelve additions, no removals). `vm-ranker/params.rs` has NO diff at all this sync, still 59 params with its older values. `home-mixer/params/config.rs` has NO diff (`FEED_MODULE_SLOTS` still `5`, `RESULT_SIZE` still `35`, `TOP_K_CANDIDATES_TO_SELECT` still `50`, carousel min/max still `3`/`5`, `MAX_POST_AGE` still `48 * 60 * 60`) and `README.md` has NO diff.
+
+Changed defaults in `home-mixer/params/param.rs`:
+
+| Param | Old (Nov 7 2026) | New (Nov 11 2026) |
+|---|---|---|
+| `NewUserMinEngagementFilterUseRatio` | `false` | `true` |
+| `NewUserMinEngagementThreshold` | `0.0` | `0.004` |
+| `AdsBlenderType` | `"multi_risk"` | `"slot_spread"` |
+| `EnableVideoCarouselMediumRiskFilter` | `false` | `true` |
+| `EnableVideoCarouselSeenFilter` | `false` | `true` |
+
+**`NewUserMinEngagementFilter` is now live with a ratio threshold, and that is the one change in this sync that touches reach.** `NewUserMinEngagementFilterUseRatio` flipped `true` and `NewUserMinEngagementThreshold` moved `0.0` to `0.004`, so the filter now keeps or drops a candidate on a RATIO against the viewer's own engagement baseline rather than an absolute count, cutting out-of-network posts from new or resurrected accounts whose ratio falls under `0.004`. New accounts posting out-of-network content see a stricter bar than before. The filter's own account-age window (`NewUserMinEngagementFilterMaxAccountAgeSecs`) is unchanged.
+
+New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
+
+| Param | Type | Value |
+|---|---|---|
+| `EnableShuffledHistoryRetrieval` | bool | `false` |
+| `VMRankerSendPostTopics` | bool | `false` |
+| `PostTopicsMaxCandidates` | usize | `200` |
+| `PostTopicsTimeoutMs` | u64 | `80` |
+| `RecentViewsRows` | usize | `64` |
+| `RecentViewsSequenceLength` | u32 | `256` |
+| `EnableUnderTheHoodFrame` | bool | `false` |
+| `EnableJetfuelFrameGrokbotSuggestedTasks` | bool | `false` |
+| `JetfuelFrameGrokbotSuggestedTasksFatigueHours` | u32 | `6` |
+| `EnableVideoCarouselHeaderIcon` | bool | `false` |
+| `EnableVideoCarouselTakeFromFeed` | bool | `false` |
+| `VideoCarouselNotInterestedWeight` | f64 | `0.0` |
+
+**New retrieval source, new viewer-interest hydrator, new VMRanker inputs, all inert or additive.** `home-mixer/sources/shuffled_history_phoenix_source.rs` (`ShuffledHistoryPhoenixSource`) is added to the Phoenix source vec and gated by `EnableShuffledHistoryRetrieval` (`false`), so a shuffled-history retrieval path exists but does not run. `home-mixer/query_hydrators/recent_views_query_hydrator.rs` (`RecentViewsQueryHydrator`, fed by `RecentViewsRows` `64` and `RecentViewsSequenceLength` `256`) is inserted after `RetrievalSequenceQueryHydrator`, so recent views are now a hydrated viewer signal. `VMRankerSendPostTopics` (`false`) with `PostTopicsMaxCandidates` (`200`) and `PostTopicsTimeoutMs` (`80`) threads post topics into the vm-ranker request only when it is on and `query.recent_views` is non-empty. The For You pipeline also gained a `JetfuelDirectFrameSource` backed by a new `JetfuelClient`; the Grok Bot suggested-tasks frame is gated by `EnableJetfuelFrameGrokbotSuggestedTasks` (`false`).
+
+**Video carousel risk and seen filters are now ON, the carousel itself is still OFF.** `EnableVideoCarouselMediumRiskFilter` and `EnableVideoCarouselSeenFilter` both flipped to `true`, and `home-mixer/filters/video_carousel_filter.rs` gained `EnableVideoCarouselTakeFromFeed` (`false`): when it is on, the carousel pool starts at `VideoCarouselPosition` (`6`) minus one instead of at `RESULT_SIZE` (`35`), and posts the carousel shows are removed from the main feed so nobody sees the same video twice. `EnableVideoCarousel` is still `false`, so none of it runs in production. One consequence worth recording: with `EnableVideoCarouselHighRiskFilter` and `EnableVideoCarouselMediumRiskFilter` now BOTH `true`, an unlabeled carousel candidate (`brand_safety_verdict` `None`) is dropped, where the Nov 3 2026 note described it as kept while only one gate was on.
+
+**`ShadowTrafficPhoenixClusterRates` grew from four clusters to nine**, adding `Experiment24Fou` through `Experiment28Fou` at `0.3` each alongside `Experiment18Fou`, `Experiment19Fou`, `Experiment22Fou` and `Experiment23Fou`. More scoring variants are being compared against production. Not an action weight.
+
+**Filters were refactored onto `FilterResult::partition` with no behavior change.** `video_filter.rs`, `fav_holdout_filter.rs`, `inventory_holdout_filter.rs`, `fair_share_ranking_filter.rs`, `new_user_soft_nsfw_filter.rs`, `new_user_min_engagement_filter.rs` and `oon_nsfw_simclusters_filter.rs` were all rewritten as `FilterResult::partition(candidates, |c| !drop(c))`, and `oon_nsfw_simclusters_filter.rs` gained a test. Same predicates, same order, same memberships. No filter was added to or removed from the pre-scoring or post-selection vecs, and the scorers vec is still `[PhoenixScorer, ImmersiveVideoScorer, VMRanker, PageDecodeRerankScorer, PageRlExplorationScorer]`.
+
+**Visibility filtering: no verdict, reason, or country-list change.** `LimitedEngagementReason` is still FOURTEEN variants, `TombstoneReason` still five, `SCALA_FILES` still 7, and the five country lists are unchanged. `visibility-filtering/params.rs` only reworked DDG impression logging (`Experiments::serving` now returns a null impressor unless `crate::config::logs_ddg_impressions()`), and `treatment.rs` was split into `treatment/thrift.rs`, `treatment/rpc.rs` and `treatment/proto.rs`. None of it moves an organic action weight.
+
+**November 7, 2026 sync (`last sync 2026-11-06T16:00:45Z`, commit 3b6919f, four commits b508926, 021afa4, 2e2295b and 3b6919f past b220448, checked November 7, 2026), SEVEN ACTION WEIGHTS MOVED AND A THIRTIETH SCORED ACTION LANDED.** This is the first action-weight move since October 13 2026 and the largest one yet. `weights_mut` in `xai-value-model/weights.rs` is now `[(&'static str, &mut f64); 30]` and `weighted_terms` in `xai-value-model/scoring.rs` is `[(&'static str, f64); 30]`, because `grok_analyze` was added as a scored head. `home-mixer/params/param.rs` grew from 218 to 225 params (seven additions, no removals); `vm-ranker/params.rs` grew from 58 to 59 (the same `GrokAnalyzeWeight` only, and it still carries the older `FavoriteWeight` `0.5`, `ClickWeight` `0.3`, `ShareWeight` `2.0`, `VideoOpenWeight` `0.07`, `ContDwellTimeWeight` `0.004`, `ContClickDwellTimeWeight` `0.4` and `NotInterestedWeight` `-47.52`).
+
+Changed action weights in `home-mixer/params/param.rs`:
+
+| Param | Old (Nov 3 2026) | New (Nov 7 2026) |
+|---|---|---|
+| `FavoriteWeight` | `0.66` | `0.708` |
+| `ClickWeight` | `0.3` | `0.274` |
+| `ShareWeight` | `2.0` | `2.118` |
+| `VideoOpenWeight` | `0.02` | `0.0` |
+| `ContDwellTimeWeight` | `0.006` | `0.0075` |
+| `ContClickDwellTimeWeight` | `0.4` | `0.385` |
+| `NotInterestedWeight` | `-52.272` | `-53.07` |
+
+New scored action in BOTH `home-mixer/params/param.rs` and `vm-ranker/params.rs`: `GrokAnalyzeWeight` (`f64`, `0.0`, key `rust_home_mixer_grok_analyze_weight`). It is wired as `("grok_analyze", apply(scores.grok_analyze_score, weights.grok_analyze))` in `xai-value-model/scoring.rs`, with a new `grok_analyze_score: Option<f64>` field carried through `xai-value-model/phoenix_scores.rs`, `xai-value-model/proto.rs`, `home-mixer/scorers/value_model.rs` and `vm-ranker/scoring/value_model.rs`. Default `0.0`, so it scores nothing today; when it moves, asking Grok to analyze a post becomes a scored action.
+
+**What the seven moves change for copy.** The hierarchy the guidance above rests on is intact: copy link (`20.0`) is still 28.2× a favorite, replies and quotes and DMs are still `5.0`, the mutual-reply boost is still `15.0` (a mutual's reply is still 75.0 effective), and the negative family still dwarfs everything (`Report` `-234.0`, `MuteAuthor` `-58.8`, `BlockAuthor` `-31.2`). Three things did move in a way that matters. First, a favorite (`0.708`) now OUTWEIGHS the whole click path: click `0.274` plus click-dwell `0.385` is `0.659`, so opening a post and reading the opened content is worth less than one like. Second, plain `ShareWeight` rose to `2.118`, nearly three favorites, so a repost-ready post is worth more than it was. Third, `VideoOpenWeight` is now `0.0`, so a video open earns nothing at all and posting video for that reason is pointless until the knob moves.
+
+Changed defaults in `home-mixer/params/param.rs`:
+
+| Param | Old (Nov 3 2026) | New (Nov 7 2026) |
+|---|---|---|
+| `PhoenixAggregationType` | `"DENSE_WITH_LONG_DWELL"` | `"DENSE_WITH_LONG_DWELL_HOME_EXCURSION"` |
+| `EnableHomeExcursionScores` | `false` | `true` |
+| `ShadowTrafficPhoenixClusterRates` | `vec!["Experiment18Fou:0.3", "Experiment19Fou:0.3"]` | the same two plus `"Experiment22Fou:0.3"` and `"Experiment23Fou:0.3"` |
+
+`PhoenixAggregationType` now names the same home-excursion aggregation the shadow traffic has carried since October 20 2026, and `EnableHomeExcursionScores` is on, so retrieval now aggregates on long-dwell-with-home-excursion behaviour rather than plain long dwell. Four shadow clusters now carry 30% of traffic each, up from two, so more scoring variants are being compared against production than before. Neither is an action weight.
+
+New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
+
+| Param | Type | Value |
+|---|---|---|
+| `GrokAnalyzeWeight` | f64 | `0.0` |
+| `EnableAdsHistoryXdcCacheWrite` | bool | `true` |
+| `AdsHistoryCacheTtlSecs` | u64 | `300` |
+| `EnableVideoCarouselCtrModel` | bool | `false` |
+| `VideoCarouselCtrModelName` | String | `"lr_v8_search_video_1_2026-11-03_no_high_risk"` |
+| `EnableVideoCarouselSeenFilter` | bool | `false` |
+| `VideoCarouselVideoContinuationWeight` | f64 | `0.0` |
+
+**Video carousel gained a CTR model and a seen-filter, and is still gated off.** `home-mixer/util/video_carousel.rs` `CarouselScoring` now carries `video_continuation_weight` and an `Option<Arc<CtrModel>>`; when a CTR model is present `score()` returns `model.score(video_open_score, video_embedding)` and skips the linear sum entirely, and otherwise adds the term `video_continuation_weight × video_open_score × home_video_continuation_secs`. Both new weights default to `0.0`/`false`. `home-mixer/filters/video_carousel_filter.rs` now also skips any candidate where `video_carousel::was_seen(&query.seen_carousel_video_ids, candidate)`, fed by a new `VideoCarouselSeenQueryHydrator` (`home-mixer/query_hydrators/video_carousel_seen_query_hydrator.rs`) gated by `EnableVideoCarouselSeenFilter` and backed by a `redis-global.video-carousel-seen-cache` client that falls back to a no-op on failure. A new `VideoCarouselCtrModelQueryHydrator` plus `home-mixer/util/video_carousel_ctr_model.rs` and a `vm-ranker/carousel_model.rs` back the CTR path. `EnableVideoCarousel` is still `false`, so none of it runs in production.
+
+**Ads history cache write is new and on.** `EnableAdsHistoryXdcCacheWrite` (`true`) and `AdsHistoryCacheTtlSecs` (`300`) back a reworked `home-mixer/ads/following_ad_blender.rs` and `served_ad_history_cache_side_effect.rs`. Ad accounting only.
+
+**Pipeline vecs are unchanged.** Pre-scoring, post-selection and scorers are all identical to November 3 2026, `home-mixer/params/config.rs` has NO diff (`FEED_MODULE_SLOTS` still `5`, `RESULT_SIZE` still `35`, `TOP_K_CANDIDATES_TO_SELECT` still `50`, carousel min/max still `3`/`5`, `MAX_POST_AGE` still `48 * 60 * 60`), and `README.md` has NO diff this sync. `self_tweet_filter.rs` and `previously_served_posts_filter.rs` were refactored onto `FilterResult::partition` with behaviour unchanged (both diffs are almost entirely new tests), and `home-mixer/candidate_pipeline/` gained a `performance_params.json` (`224` lines) plus `performance_tests.rs` (`647` lines) that benchmark existing stages without changing a score.
+
+**Visibility filtering: `LimitedEngagementReason` gained a FOURTEENTH variant, and the verdict model was reshaped.** `visibility-filtering/models/verdict.rs` added `DynamicProductAd` (wire string `dynamic_product_ad`) after `CommunityTweetViewerRemoved`, so the enum now reads fourteen variants. `Verdict` gained a top-level `Fosnr(Decided<Notice>)` variant and `Verdict::Shown`'s `notice` field was renamed `label_interstitial`; the `Notice` enum lost its `LabelInterstitial` variant and its `is_whole_verdict`/`limited_engagement_reason` helpers, replaced by `kind()`. A new `VerdictAction` enum (`Allow`, `Drop`, `Tombstone`, `Interstitial`, `LimitedEngagement`, `TweetInterstitial`, `SoftIntervention`, `Appealable`) plus `rules/action_kind.rs` plumbing lets `Verdict::decided()` report which action fired and which rule id decided it. `visibility-filtering/params.rs` changed only to wire `LabelCacheSwitches` from the reloadable feature-switch engine into `safety-label-source`, which also grew a `dragonfly.rs` (`2566` lines) and reworked `remote.rs`/`source.rs`. `TombstoneReason` is unchanged at five, the five country lists are unchanged, and no new `DropReason` or `FilteredReason` variant landed. None of it moves an organic action weight.
+
+
+**November 3, 2026 sync (`last sync 2026-11-02T16:00:39Z`, commit b220448, one commit past 9106e9f, checked November 3, 2026), NO ACTION WEIGHT MOVED, one gated-off carousel risk knob added, `AdsBlenderType` reverted.** Every action weight VALUE in `home-mixer/params/param.rs` is byte-identical to its Oct 31 2026 value (`FavoriteWeight` `0.66`, `ReplyWeight` `5.0`, `QuoteWeight` `5.0`, `ShareViaCopyLinkWeight` `20.0`, `ClickWeight` `0.3`, `ContClickDwellTimeWeight` `0.4`, `ContDwellTimeWeight` `0.006`, `VideoOpenWeight` `0.02`, `PostUnexploredWeight` `0.015`, `NotInterestedWeight` `-52.272`, `ReportWeight` `-234.0`, `MuteAuthorWeight` `-58.8`, `BlockAuthorWeight` `-31.2`, `BidirectionalFollowReplyWeightBoost` `15.0`, and all the rest), and `weights_mut` in `xai-value-model/weights.rs` is still `[(&'static str, &mut f64); 29]`, so no new scored action exists anywhere. `home-mixer/params/param.rs` grew from 217 to 218 params (one addition, no removals). `vm-ranker/params.rs` has NO diff at all this sync (still 58 params, still the older `FavoriteWeight` `0.5` and `VideoOpenWeight` `0.07`). `home-mixer/params/config.rs` has NO diff (`FEED_MODULE_SLOTS` still `5`, `RESULT_SIZE` still `35`, `TOP_K_CANDIDATES_TO_SELECT` still `50`, `MAX_POST_AGE` still `48 * 60 * 60`). `README.md` has NO diff this sync.
+
+Changed default in `home-mixer/params/param.rs`:
+
+| Param | Old (Oct 31 2026) | New (Nov 3 2026) |
+|---|---|---|
+| `AdsBlenderType` | `"slot_spread"` | `"multi_risk"` |
+
+Ad blending is back on the multi-risk blender after one sync on slot spread. Ad accounting only, not an organic ranking signal.
+
+New param in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
+
+| Param | Type | Value |
+|---|---|---|
+| `EnableVideoCarouselMediumRiskFilter` | bool | `false` |
+
+**`VideoCarouselFilter` now also drops medium-risk carousel candidates, and drops unlabeled ones whenever either risk gate is on.** The inline predicate became a `match` on `candidate.brand_safety_verdict`: `Some(BrandSafetyVerdict::HighRisk)` is kept only while `EnableVideoCarouselHighRiskFilter` (`true`) is off, `Some(BrandSafetyVerdict::MediumRisk)` is kept only while `EnableVideoCarouselMediumRiskFilter` (`false`) is off, any other verdict is kept, and `None` is kept only when BOTH gates are off. That is a real change beyond the new knob: with the high-risk filter on and the medium-risk filter off, an UNLABELED carousel candidate (`brand_safety_verdict` `None`) is now dropped, where the old predicate kept it. `EnableVideoCarousel` is still `false`, so the carousel does nothing in production, and none of this touches organic ranking.
+
+**`xai-value-model/scoring.rs` refactor: `compute_weighted_score` is now a sum over a named `weighted_terms` array.** The 29 per-head terms moved into `pub fn weighted_terms(...) -> [(&'static str, f64); 29]` and `compute_weighted_score` maps it and sums. Every coefficient, the `vqv_eligible` branch, and the `weights.reply_weight_for(candidate)` and `weights.dwell_weight_for(candidate)` calls are unchanged, so the score arithmetic is identical. `vm-ranker/scoring/value_model.rs` and `home-mixer/scorers/vm_ranker.rs` changed alongside it (the vm_ranker scorer now carries the named terms), and `home-mixer/scorers/vm_ranker_request.rs` plus `home-mixer/models/candidate.rs` picked up small field plumbing. Nothing here adds a weight or changes an existing one.
+
+**Visibility filtering: a new `Deletion` enum and `Evaluation::Deleted` variant, no verdict-reason change.** `visibility-filtering/models/verdict.rs` added `Evaluation::Deleted(Deletion)` with `Deletion { Deleted, BounceDeleted }`, and both `verdict()` and `into_verdict()` map `Deleted` to the same `NOT_FOUND` verdict as `NotFound`. `LimitedEngagementReason` is unchanged at THIRTEEN variants and `TombstoneReason` is unchanged at five, so no post becomes droppable or limited for a new named reason. `visibility-filtering/params.rs` and `visibility-filtering/params/client_switches.rs` have NO diff. The rest of the sync is visibility-filtering hydration and `verdict_gate.rs` work plus a large Phoenix model and Python pass; the pre-scoring vec, post-selection vec and scorers vec are all unchanged this sync.
 
 **October 31, 2026 sync (`last sync 2026-10-30T22:59:56Z`, commit 9106e9f, three commits 606b254, 7fef3ba and 9106e9f past 5ed7963, checked October 31, 2026), NO ACTION WEIGHT MOVED, but `ReactWithVideoWeight` IS RENAMED `PostVideoWeight`.** Every action weight VALUE in `home-mixer/params/param.rs` is byte-identical to its Oct 28 2026 value (`FavoriteWeight` `0.66`, `ReplyWeight` `5.0`, `QuoteWeight` `5.0`, `ShareViaCopyLinkWeight` `20.0`, `ClickWeight` `0.3`, `ContClickDwellTimeWeight` `0.4`, `ContDwellTimeWeight` `0.006`, `VideoOpenWeight` `0.02`, `PostUnexploredWeight` `0.015`, `NotInterestedWeight` `-52.272`, `ReportWeight` `-234.0`, `BidirectionalFollowReplyWeightBoost` `15.0`, and all the rest), and `weights_mut` in `xai-value-model/weights.rs` is still `[(&'static str, &mut f64); 29]`, so no new scored action exists anywhere. `home-mixer/params/param.rs` grew from 212 to 217 params (five additions, no removals). `vm-ranker/params.rs` is still 58 params and its only diff is the same rename. `README.md` has NO diff this sync.
 
@@ -195,118 +308,7 @@ Changed defaults in the same file:
 
 **Visibility filtering: `LimitedEngagementReason` gained a THIRTEENTH variant, `NonCompliant`, and notification filtering is new.** `visibility-filtering/models/verdict.rs` now reads `NonCompliant, ConversationControl, ReadonlyViewer, BlockedViewer, RootAuthorBlockedViewer, StaleTweet, CommunityTweetHidden, CommunityTweetMemberRemoved, CommunityTweetCommunityNotFound, CommunityTweetCommunityDeleted, CommunityTweetCommunitySuspended, CommunityTweetViewerRemoved, LocalTweet`; `NonCompliant` maps to the wire string `non_compliant` and is the fallback reason for emergency dynamic labels. `TombstoneReason` is unchanged at five variants. New files: `visibility-filtering/filter_notifications.rs` (697 lines) filters `Follow` and `FollowRequestAccepted` notifications against `SafetyLevel::NotificationsFollow` and `SafetyLevel::NotificationsWriterV2` and returns `vf_pb::NotificationDropReason`; `visibility-filtering/result_label.rs`; `visibility-filtering/pinned.rs`; `visibility-filtering/rules/author_rules.rs`; `visibility-filtering/hydration/store/key_origin.rs`. `filter_notifications.rs` plus `visibility-filtering-client/notifications.rs` mean visibility filtering now also governs whether a follow notification is DELIVERED, which is a separate surface from ranking. `visibility-filtering/params/client_switches.rs` changed one line: `limited_actions_policies` now chains `.in_language(language)`, so limited-action prompt copy is language-matched. `SCALA_FILES` stays 7 (`age_verification.yml`, `community_tweet.yml`, `country_specific_nsfw_content_gating.yml`, `freedom_of_speech_not_reach.yml`, `media_visibility_treatments.yml`, `soft_nsfw.yml`, `stale_tweet.yml`), the country lists are unchanged, and `visibility-filtering/params.rs` only lost dead test helpers (`codes`, `CountryLists::from_codes`). The bulk of the sync is an `abuse-enforcement-service` rework (a new `head_guard.rs`, `action_control` levels, sliding windows) plus Phoenix model work, none of which moves an organic action weight.
 
-**October 20, 2026 sync (`last sync 2026-10-20T16:00:34Z`, commit 7f2ca2b, two commits 74d49a4 and 7f2ca2b, checked October 21, 2026), NO ACTION WEIGHT CHANGED.** Every action weight in `home-mixer/params/param.rs` is byte-identical to its Oct 13 2026 value (`FavoriteWeight` `0.66`, `ClickWeight` `0.3`, `ContClickDwellTimeWeight` `0.4`, `ContDwellTimeWeight` `0.006`, `VideoOpenWeight` `0.02`, `NotInterestedWeight` `-52.272`, `ShareViaCopyLinkWeight` `20.0`, and all the rest), `vm-ranker/params.rs` has NO diff at all this sync, and `weights_mut` in `xai-value-model/weights.rs` is still 29 entries, so no new scored action exists anywhere. `home-mixer/params/param.rs` grew from 191 to 198 params: eight additions, one removal.
-
-New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
-
-| Param | Type | Value |
-|---|---|---|
-| `ShadowTrafficPhoenixClusterAggregationTypes` | `Vec<String>` | `vec!["Experiment16Fou:DENSE_WITH_LONG_DWELL_HOME_EXCURSION".to_string()]` |
-| `RetrievalValueModelWeights` | `String` | `""` |
-| `VMRankerSendHistoryTopics` | bool | `false` |
-| `HistoryTopicsEnabled` | bool | `false` |
-| `HistoryTopicsWindowDays` | i64 | `28` |
-| `EnableSerendipityStatsExperimentBucket` | bool | `false` |
-| `EnableVideoCarouselCandidatesLogging` | bool | `false` |
-| `EnableFairShareRanking` | bool | `false` |
-
-Removed param: `EnablePhoenixRetrievalFallback` (bool, was `false`, key `rust_home_mixer_phoenix_retrieval_enable_fallback`). The `PredictionDispatch` and `RetrievalDispatch` egress structs lost their `prod`/`paths`/`enable_fallback_key` fields in the same work, so the xDS shadow-traffic path is gone from the request wiring and the Phoenix client is now the only client a scorer holds (`dispatch.client`, `max_retries_key` `rust_home_mixer_phoenix_xds_max_retries`).
-
-**New `FairShareRankingFilter` is now the LAST pre-scoring filter.** `home-mixer/filters/fair_share_ranking_filter.rs` (170 lines) is appended after `FavHoldoutFilter`, so the pre-scoring vec now ends `..., InventoryHoldoutFilter, FavHoldoutFilter, FairShareRankingFilter`. It is gated by `EnableFairShareRanking` (`false` at this sync; SUPERSEDED October 23, 2026, when the gate flipped to `true` and the filter went live) and is also inert when `query.has_cached_posts`, when `query.scoring_sequence` is `None`, or when the Phoenix ranker kill-switch decider is enabled. When on, it groups candidates by `served_type` (falling back to the first `retrieval_sources` entry) and allocates each group a proportional share of the `PhoenixScoresResultSize` budget (`2800`), dropping the overflow with a largest-remainder rounding pass. The same filter is also appended to `PhoenixScoresPipeline` after `CoreDataHydrationFilter`.
-
-**`VideoAspectRatioHydrator` renamed to `VideoMediaHydrator`.** `home-mixer/candidate_hydrators/video_media_hydrator.rs` replaces `video_aspect_ratio_hydrator.rs` in the post-selection hydrator lineup; the carousel still needs `video_aspect_ratio < 1.0`, so nothing behavioral changed.
-
-**New side effects.** `SerendipityStatsSideEffect` (`home-mixer/side_effects/serendipity_stats_side_effect.rs`) is added to the Phoenix candidate pipeline side-effect vec, and `VideoCarouselCandidatesKafkaSideEffect` plus its `video_carousel_candidates` field are added to the `ForYouCandidatePipeline` wiring, both behind their own params. `home-mixer/util/shadow_scores.rs` is new and `phoenix_experiments_side_effect.rs` was reworked to take a Redis client and the user-action-aggregation client.
-
-**`VideoCarouselFilter` now dedupes against the main feed.** `select_videos` takes the first `RESULT_SIZE` kept candidates as `main_feed` and uses them for the author/semantic/embedding dedupe passes. `EnableVideoCarousel` is still `false` and `home-mixer/params/config.rs` has no diff this sync (`FEED_MODULE_SLOTS` still `5`, `RESULT_SIZE` still `35`, carousel min/max still `3`/`5`).
-
-**Visibility filtering: `SCALA_FILES` 6 to 7, a new tombstone verdict, DDG experiment bucketing.** `visibility-filtering/params.rs` now loads seven Scala configs (`SCALA_FILES: [&str; 7]`), adding `soft_nsfw.yml` alongside `age_verification.yml`, `community_tweet.yml`, `country_specific_nsfw_content_gating.yml`, `freedom_of_speech_not_reach.yml`, `media_visibility_treatments.yml`, and `stale_tweet.yml`. `TombstoneReason` gained a FIFTH variant, `Bounced`, now first in the enum before `SensitiveViewerAgeVerification`, `UpdateAppIos`, `UpdateAppAndroid`, and `LocalRegulations`. `client_switches.rs` gained a `soft_nsfw_new_user_drop` switch keyed `soft_nsfw_tweet_label_new_user_rule_enabled` (default `false`, looked up per viewer id and country), and the feature-switch engine behind visibility filtering now runs on a reloadable abdecider store with DDG experiment bucketing (`DdgExperimentBucketsChooser`, Kafka bucket impressions). `Decided<T>` now also carries a `RuleId` (`id`), so every verdict names the rule that produced it. Country lists are unchanged (age-verification/tombstone 30 codes, `LocalRegulations` `in`), and `LimitedEngagementReason` is unchanged at twelve variants. Most of the sync is a large rework of the visibility-filtering rule engine, hydration, quote handling (`visibility-filtering/quote.rs`, 989 lines new), and the abuse-enforcement backfill service; no `FilteredReason` variant was added and no ranking behavior changed.
-
-**October 16, 2026 sync (`last sync 2026-10-16T16:00:32Z`, commit 862a123, checked October 17, 2026), NO ACTION WEIGHT CHANGED.** Every action weight in `home-mixer/params/param.rs` is byte-identical to its Oct 13 2026 value (`FavoriteWeight` `0.66`, `ClickWeight` `0.3`, `ContClickDwellTimeWeight` `0.4`, `ContDwellTimeWeight` `0.006`, `VideoOpenWeight` `0.02`, `NotInterestedWeight` `-52.272`, and all the rest), and `vm-ranker/params.rs` has NO diff at all this sync (still 51 params, still the older `FavoriteWeight` `0.5` and `VideoOpenWeight` `0.07`). `weights_mut` in `xai-value-model/weights.rs` is still 29 entries, so no new scored action exists anywhere. `home-mixer/params/param.rs` grew from 181 to 191 params; all ten additions are below.
-
-New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
-
-| Param | Type | Value |
-|---|---|---|
-| `ViewerZeroFavCodivertIsTreatment` | bool | `false` |
-| `AuthorZeroFavCodivertIsTreatment` | bool | `false` |
-| `AuthorZeroFavCodivertIsControl` | bool | `false` |
-| `EnablePostEngagers` | bool | `false` |
-| `EnableVideoCarouselEmbeddingDedupe` | bool | `true` |
-| `VideoCarouselEmbeddingDedupeThreshold` | f64 | `0.72` |
-| `VideoCarouselVideoOpenWeight` | f64 | `1.0` |
-| `VideoCarouselImmersiveVqvWeight` | f64 | `0.0` |
-| `VideoCarouselImmersiveClusterId` | String | `"Experiment3Fou"` |
-| `VideoCarouselImmersiveAggregationType` | String | `"IMMERSIVE_LONG_DWELL"` |
-
-Changed defaults in the same file:
-
-| Param | Old (Oct 13 2026) | New (Oct 16 2026) |
-|---|---|---|
-| `EnableAdsAuthorBrandSafetyFallback` | `false` | `true` |
-| `EnableVideoCarouselAuthorDedupe` | `false` | `true` |
-| `VideoCarouselSemanticIdDedupeLevels` | `0` | `3` |
-
-**New `ZeroFavCodivertFilter` added to the pre-scoring lineup.** `home-mixer/filters/zero_fav_codivert_filter.rs` (110 lines) is inserted immediately after `DropDuplicatesFilter` and before `CoreDataHydrationFilter`, and is enabled by `ViewerZeroFavCodivertIsTreatment` (`false`). When on, it keeps a candidate whose `served_type` is `ServedType::ForYouPhoenixRetrievalZeroFav` AND whose every `retrieval_sources` entry is also `ForYouPhoenixRetrievalZeroFav` (a zero-favorite post found only by the zero-fav retrieval path) only when the author is bucketed `treatment` by `AuthorZeroFavCodivertIsTreatment` via `AuthorRulesEvaluator`; `control` and `unbucketed` authors lose those candidates. It emits a `ZeroFavCodivert` metric labeled by `author_bucket`. Default off, so production behavior is unchanged.
-
-**New `ImmersiveVideoScorer` added between `PhoenixScorer` and `VMRanker`.** The scorers vec now reads `[phoenix_scorer, immersive_video_scorer, vm_ranker]`. `home-mixer/scorers/immersive_video_scorer.rs` is enabled only when `!query.has_cached_posts` AND `video_carousel::is_enabled(query)` AND `video_carousel::ranks_by_immersive_scores(query)` AND the query carries an `immersive_columnar_scoring_sequence` (new `home-mixer/query_hydrators/immersive_scoring_sequence_query_hydrator.rs`), so it is inert while `EnableVideoCarousel` is `false`. It writes `candidate.immersive_scores` from a Phoenix prediction request sent to `VideoCarouselImmersiveClusterId` (`"Experiment3Fou"`).
-
-**Video carousel dedupe knobs turned on, carousel still gated off overall.** `video_carousel::select_videos` now also takes `VideoCarouselVideoOpenWeight` (`1.0`), `VideoCarouselImmersiveVqvWeight` (`0.0`) and an optional `Option<f64>` embedding-dedupe threshold (`VideoCarouselEmbeddingDedupeThreshold` `0.72`, passed only when `EnableVideoCarouselEmbeddingDedupe` is `true`), fed by a new `home-mixer/candidate_hydrators/video_embedding_hydrator.rs` backed by `ManhattanPostV8SearchEmbeddingClient` (falls back to a no-op client when unavailable). `EnableVideoCarousel` itself is still `false`, so the carousel still does nothing in production.
-
-**New hydrator and client wiring.** A new `home-mixer/candidate_hydrators/post_engagers_hydrator.rs` plus `PostEngagersClient` / `ProdPostEngagersClient` / `MockPostEngagersClient` back the new `EnablePostEngagers` param (`false`). `home-mixer/params/config.rs` is unchanged this sync (`FEED_MODULE_SLOTS` still `5`, `VIDEO_CAROUSEL_MAX_VIDEOS` `5`, `VIDEO_CAROUSEL_MIN_VIDEOS` `3`, `VIDEO_CAROUSEL_EXTRA_CANDIDATES` `30`, `RESULT_SIZE` `35`).
-
-**Visibility filtering: no rule, verdict, or country-list change.** `visibility-filtering/params.rs` gained only helper methods on `CountryList` (`names_by_default`, `listed_by_default`) plus module moves; `limited_actions_copy.rs` and `limited_actions_policy.rs` moved under `params/`. The bulk of the sync is a rework of the visibility-filtering rule engine (`rules/engine.rs`, `rules/rule_spec/features/*`, `rules/legacy_table.rs`, `hydration/`) that added no verdict variant, no `LimitedEngagementReason`, and no `FilteredReason`. One model change worth knowing: `Evaluation::Complete { verdict }` now also carries `fail_open_defaults: Hydrators`, so a Complete evaluation can name hydrators that failed open, and `LimitedEngagement::add` returns a `bool` for whether the reason was newly added. All five country lists are byte-identical to Oct 13 2026 (age-verification/tombstone 30 codes, NSFW gating 16 codes, `LocalRegulations` `in`), and `SCALA_FILES` is still 6.
-
-**October 13, 2026 sync (`last sync 2026-10-13T16:00:30Z`, commit 17c96bf), FOUR ACTION WEIGHTS CHANGED.** `home-mixer/params/param.rs` moved four production weights, the first action-weight change since Oct 6 2026:
-
-| Param (in `home-mixer/params/param.rs`) | Old (Oct 9 2026) | New (Oct 13 2026) |
-|---|---|---|
-| `FavoriteWeight` | `0.5` | `0.66` |
-| `VideoOpenWeight` | `0.07` | `0.02` |
-| `ContDwellTimeWeight` | `0.004` | `0.006` |
-| `NotInterestedWeight` | `-47.52` | `-52.272` |
-
-Note the two files now DISAGREE on these four: `vm-ranker/params.rs` still reads `FavoriteWeight` `0.5`, `VideoOpenWeight` `0.07`, `ContDwellTimeWeight` `0.004` and `NotInterestedWeight` `-47.52`, so `home-mixer/params/param.rs` is the file that moved. `ClickWeight` (0.3), `ContClickDwellTimeWeight` (0.4), `PostUnexploredWeight` (0.015 in home-mixer, 0.02 in vm-ranker) and every other action weight are unchanged.
-
-New f64 action-weight-style param in BOTH `home-mixer/params/param.rs` and `vm-ranker/params.rs`: `ReactWithVideoWeight` `0.0` (key `rust_home_mixer_react_with_video_weight`). It is wired into `compute_weighted_score` in `xai-value-model/scoring.rs` as `apply(scores.react_with_video_score, weights.react_with_video)`, and `weights_mut` in `xai-value-model/weights.rs` grew from 28 to 29 entries. Default `0.0`, so it scores nothing in production today; it is the knob to watch.
-
-New params in `home-mixer/params/param.rs`: `PhoenixOonRepliesRootOnly` (bool, `false`), `EnableVideoCarouselAuthorDedupe` (bool, `false`), `VideoCarouselSemanticIdDedupeLevels` (u32, `0`). New param in `vm-ranker/params.rs`: `TopicDppEnabled` (bool, `false`, key `rust_home_mixer_vm_ranker_topic_dpp_enabled`). `vm-ranker/params.rs` grew from 49 to 51 params.
-
-**New `AncestorVideoFilter` added to post-selection.** `home-mixer/filters/ancestor_video_filter.rs` is inserted between `AncillaryVFFilter` and `DedupConversationFilter`, so the post-selection vec now reads `VFFilter, AncillaryVFFilter, AncestorVideoFilter, DedupConversationFilter, VideoCarouselFilter`. It is enabled by `query.exclude_videos` and removes any candidate whose `ancestor_has_video == Some(true)` (a post whose parent carries a video). A new `home-mixer/candidate_hydrators/ancestor_video_hydrator.rs` (172 lines) hydrates that field.
-
-**`VideoFilter` widened.** `home-mixer/filters/video_filter.rs` now removes a candidate when it has a video OR its quoted post does: `has_video` is `candidate.min_video_duration_ms.is_some() || candidate.quoted_max_video_duration_ms.is_some()`, so when a request excludes video a quote of a video post is now dropped too (new `quoted_max_video_duration_ms` field on the candidate).
-
-**Video carousel dedupe added.** `home-mixer/util/video_carousel.rs` gained a `take_distinct` pass: `select_videos` now takes `dedupe_by_author` and `semantic_id_dedupe_levels` and skips videos that repeat an author (when `EnableVideoCarouselAuthorDedupe` is true) or that share a semantic-id prefix of the given depth (when `VideoCarouselSemanticIdDedupeLevels` is above 0). Both default off/zero, and `EnableVideoCarousel` is still `false`, so the carousel still does nothing in production.
-
-**`OONRetweetReplyFilter` root-only gate added.** The filter now also reads `PhoenixOonRepliesRootOnly` (`false`): when it is true, an out-of-network reply is kept only if it replies to the conversation root (`in_reply_to_tweet_id == conversation_id`). Both gates off by default.
-
-**Pipeline and visibility params otherwise unchanged.** `home-mixer/params/config.rs` is byte-identical this sync (`FEED_MODULE_SLOTS` still `5`, `VIDEO_CAROUSEL_MAX_VIDEOS` `5`, `VIDEO_CAROUSEL_MIN_VIDEOS` `3`), `visibility-filtering/params.rs` and the rest of `visibility-filtering/params/` have NO diff, and the pre-scoring filter list is unchanged. The `brazil_2026_election_filter.rs` account list was refreshed (README now says updated October 13, 2026); the bulk of the sync is an unrelated rework of `abuse-enforcement-service/`. Every value above is quoted exactly from `home-mixer/params/param.rs` at commit 17c96bf.
-
-**October 9, 2026 sync (`last sync 2026-10-08T16:00:35Z`, commit cb45b550), NO action weight changed.** Two commits landed since the Oct 6 check (35650fb, cb45b55) and neither moved an action weight. The whole action-weight block in `home-mixer/params/param.rs` is byte-identical to Oct 6 2026, including `PostUnexploredWeight` `0.015` and the three Sept 30 moves, and `vm-ranker/params.rs` has NO diff at all this sync (still 49 params). The new work is a video carousel.
-
-New params in `home-mixer/params/param.rs` (quoted exactly, type and trailing default):
-
-| Param | Type | Value |
-|---|---|---|
-| `EnableVideoCarousel` | bool | `false` |
-| `VideoCarouselFatigueMinutes` | u32 | `60` |
-| `VideoCarouselPosition` | u32 | `6` |
-
-New and changed constants in `home-mixer/params/config.rs`:
-
-| Constant | Value | Note |
-|---|---|---|
-| `VIDEO_CAROUSEL_EXTRA_CANDIDATES` | `30` | new |
-| `VIDEO_CAROUSEL_MAX_VIDEOS` | `5` | new |
-| `VIDEO_CAROUSEL_MIN_VIDEOS` | `3` | new |
-| `FEED_MODULE_SLOTS` | `4` | changed to `5` |
-
-**New `VideoCarouselFilter` added to post-selection.** `home-mixer/filters/video_carousel_filter.rs` is appended as the LAST post-selection filter, after `DedupConversationFilter`, so that vec now reads `VFFilter, AncillaryVFFilter, DedupConversationFilter, VideoCarouselFilter`. It is gated by `video_carousel::is_enabled`: `EnableVideoCarousel` (false by default) AND a `ForYou` request AND `query.video_carousel_eligible`. When on, `home-mixer/util/video_carousel.rs` selects up to `VIDEO_CAROUSEL_MAX_VIDEOS` (5) vertical videos (`video_aspect_ratio < 1.0`) that are non-reply top-level posts carrying a Phoenix `video_open_score`, sorts them by that score, and returns nothing unless it finds at least `VIDEO_CAROUSEL_MIN_VIDEOS` (3). Supporting new files: `home-mixer/util/video_carousel.rs`, `home-mixer/candidate_hydrators/video_aspect_ratio_hydrator.rs`, `home-mixer/util/urt/video_carousel_marshaller.rs`, and a new `video_carousel_extra` field on the candidate. Default OFF, so it changes nothing in production today; it is the knob to watch if X starts surfacing a vertical-video carousel.
-
-**Ad-side change.** `AdAdjacentServedFilter` now records `DroppedAd` entries into `query.ad_drops` (new `home-mixer/ads/drops.rs`) with `AdDropReason::ServedNeighbour` and `AdDropReason::Truncated`. This is ad accounting, not organic ranking.
-
-**Visibility filtering.** `visibility-filtering/params.rs` grew `SCALA_FILES` from 5 to 6, adding `community_tweet.yml` alongside `age_verification.yml`, `country_specific_nsfw_content_gating.yml`, `freedom_of_speech_not_reach.yml`, `media_visibility_treatments.yml`, and `stale_tweet.yml`. `visibility-filtering/params/client_switches.rs` added a `CommunityViewerRemovedLimits` switch keyed `community_tweet_viewer_removed_limited_actions_rules_enabled` (field `community_viewer_removed_limits`), so a removed community tweet can now carry a limited-actions prompt. The `CountryList` country lists are unchanged. Rule internals were reworked (`rules/tweet_rules.rs`, `rules/registry.rs`, `rules/rule_spec.rs`, `treatment.rs`, `staging/recording.rs`) and a new golden-corpus file `rules/golden_corpus/local_tweet.rs` was added, but no verdict variant or `LimitedEngagementReason` was added.
-
+**Syncs from October 9, 2026 through October 20, 2026 are archived in `references/sync-archive.md`.** None of them contradicts the tables above. The only action-weight move in that window is already reflected in them: the October 13, 2026 move of `FavoriteWeight` `0.5` to `0.66`, `VideoOpenWeight` `0.07` to `0.02`, `ContDwellTimeWeight` `0.004` to `0.006` and `NotInterestedWeight` `-47.52` to `-52.272`. Still live from that window: `FairShareRankingFilter` (added October 20 2026, switched ON October 23 2026), `AncestorVideoFilter` (added October 13 2026), the widened `VideoFilter` that also drops a quote of a video post, `EnablePageLogging` `true`, and the gated-off page scorers plus video carousel.
 **Syncs from October 3, 2026 back through September 25, 2026 are archived in `references/sync-archive.md`.** None of them left a value that contradicts the tables above; the only action-weight move in that window was `PostUnexploredWeight` `0.02` to `0.015` on October 6, 2026, already reflected in the table.
 
 ### Scoring adjustments (after the weighted sum)
@@ -317,7 +319,7 @@ New and changed constants in `home-mixer/params/config.rs`:
 
 ## Pipeline filters that kill reach (from `home-mixer/filters/`)
 
-This is the exact order in the Phoenix For You candidate pipeline (`home-mixer/candidate_pipeline/phoenix_candidate_pipeline.rs`, verified October 31, 2026, commit 9106e9f; the vecs are unchanged since the October 28, 2026 check). Pre-scoring reads `DropDuplicatesFilter, ZeroFavCodivertFilter, CoreDataHydrationFilter, NewUserSoftNsfwFilter, AgeFilter, SelfTweetFilter, OONRetweetReplyFilter, OONNsfwSimclustersFilter, RetweetDeduplicationFilter, IneligibleSubscriptionFilter, PreviouslySeenPostsFilter, PreviouslySeenPostsBackupFilter, PreviouslyServedPostsFilter, ViewerMutedKeywordFilter, AuthorSocialgraphFilter, VideoFilter, TopicIdsFilter, NewUserMinEngagementFilter, InventoryHoldoutFilter, FavHoldoutFilter, FairShareRankingFilter`. `Brazil2026ElectionFilter` was REMOVED from this vec on October 26, 2026 (the filter file is deleted), so `AuthorSocialgraphFilter` now hands straight to `VideoFilter`. `ZeroFavCodivertFilter` is gated off by `ViewerZeroFavCodivertIsTreatment` (`false`); `NewUserSoftNsfwFilter` (added Oct 23 2026, between `CoreDataHydrationFilter` and `AgeFilter`) is gated off by `EnableNewUserSoftNsfwFilter` (`false`); `FairShareRankingFilter` is now ON because `EnableFairShareRanking` flipped to `true` on Oct 23 2026. The `VideoFilter` behavior changed Oct 13 2026, its position did not. Post-selection reads `VFFilter, AncillaryVFFilter, AncestorVideoFilter, DedupConversationFilter, VideoCarouselFilter`; the last entry is gated off by `EnableVideoCarousel` (`false`). The scorers vec is `[PhoenixScorer, ImmersiveVideoScorer, VMRanker, PageDecodeRerankScorer, PageRlExplorationScorer]`, with `ImmersiveVideoScorer` inert unless the carousel is enabled and both page scorers gated off by `EnablePageDecodeRerank` and `EnablePageRlExploration` (`false`).
+This is the exact order in the Phoenix For You candidate pipeline (`home-mixer/candidate_pipeline/phoenix_candidate_pipeline.rs`, verified November 11, 2026, commit f06f45a; the filter vecs are unchanged since the October 28, 2026 check). Pre-scoring reads `DropDuplicatesFilter, ZeroFavCodivertFilter, CoreDataHydrationFilter, NewUserSoftNsfwFilter, AgeFilter, SelfTweetFilter, OONRetweetReplyFilter, OONNsfwSimclustersFilter, RetweetDeduplicationFilter, IneligibleSubscriptionFilter, PreviouslySeenPostsFilter, PreviouslySeenPostsBackupFilter, PreviouslyServedPostsFilter, ViewerMutedKeywordFilter, AuthorSocialgraphFilter, VideoFilter, TopicIdsFilter, NewUserMinEngagementFilter, InventoryHoldoutFilter, FavHoldoutFilter, FairShareRankingFilter`. `Brazil2026ElectionFilter` was REMOVED from this vec on October 26, 2026 (the filter file is deleted), so `AuthorSocialgraphFilter` now hands straight to `VideoFilter`. `ZeroFavCodivertFilter` is gated off by `ViewerZeroFavCodivertIsTreatment` (`false`); `NewUserSoftNsfwFilter` (added Oct 23 2026, between `CoreDataHydrationFilter` and `AgeFilter`) is gated off by `EnableNewUserSoftNsfwFilter` (`false`); `FairShareRankingFilter` is now ON because `EnableFairShareRanking` flipped to `true` on Oct 23 2026. The `VideoFilter` behavior changed Oct 13 2026, its position did not. Post-selection reads `VFFilter, AncillaryVFFilter, AncestorVideoFilter, DedupConversationFilter, VideoCarouselFilter`; the last entry is gated off by `EnableVideoCarousel` (`false`). The scorers vec is `[PhoenixScorer, ImmersiveVideoScorer, VMRanker, PageDecodeRerankScorer, PageRlExplorationScorer]`, with `ImmersiveVideoScorer` inert unless the carousel is enabled and both page scorers gated off by `EnablePageDecodeRerank` and `EnablePageRlExploration` (`false`).
 
 **Pre-scoring (in this order):**
 - `DropDuplicatesFilter`, same post from multiple sources. As of Sept 22 2026 it merges rather than just drops: duplicate candidates are appended into the kept candidate's `retrieval_sources` before removal, so a post found by several retrieval paths keeps its full source list.
@@ -336,7 +338,7 @@ This is the exact order in the Phoenix For You candidate pipeline (`home-mixer/c
 - `AuthorSocialgraphFilter`, blocked/muted accounts
 - `VideoFilter`, video posts when the request excludes video. Widened October 13, 2026: it now also removes a post whose QUOTED post carries a video (`quoted_max_video_duration_ms.is_some()`), not just a post that itself has one.
 - `TopicIdsFilter`, outside requested topics
-- `NewUserMinEngagementFilter`, for new or resurrected accounts, OON posts below an engagement threshold (metric configurable: fav, engagement, or view)
+- `NewUserMinEngagementFilter`, for new or resurrected accounts, OON posts below an engagement threshold (metric configurable: fav, engagement, or view). As of Nov 11 2026 it runs in RATIO mode: `NewUserMinEngagementFilterUseRatio` flipped `true` and `NewUserMinEngagementThreshold` moved `0.0` to `0.004`, so the bar is now relative to the viewer's own engagement baseline rather than an absolute count.
 - `InventoryHoldoutFilter`, a configured % of original posts, replies, and retweets removed as inventory holdout
 - `FavHoldoutFilter`, posts removed as a function of their favorite count (stepped percentages from ~15% down to 2% as favs fall; 0% at 1 or fewer favs)
 - `FairShareRankingFilter`, added October 20, 2026 as the LAST pre-scoring filter, and **switched ON October 23, 2026** (`EnableFairShareRanking` flipped `false` to `true`). It caps each `served_type` group at its proportional share of the `PhoenixScoresResultSize` budget (`2800`) by largest-remainder rounding and drops the overflow, so no single retrieval source can fill the result set. Still inert on cached-post requests, when `query.scoring_sequence` is `None`, or when the Phoenix ranker kill-switch decider is enabled.
@@ -346,7 +348,7 @@ This is the exact order in the Phoenix For You candidate pipeline (`home-mixer/c
 - `AncillaryVFFilter`, posts whose parent/quoted/reposted post was dropped
 - `AncestorVideoFilter`, added October 13, 2026, between `AncillaryVFFilter` and `DedupConversationFilter`. Enabled by `query.exclude_videos`; removes posts whose parent carries a video (`ancestor_has_video == Some(true)`).
 - `DedupConversationFilter`, extra branches of the same conversation
-- `VideoCarouselFilter`, added October 9, 2026 as the LAST post-selection filter. Gated off by default (`EnableVideoCarousel` `false`); when enabled for a `ForYou` request it partitions vertical videos (`video_aspect_ratio < 1.0`) into a carousel capped at `VIDEO_CAROUSEL_MAX_VIDEOS` (5), ranked by `VideoCarouselVideoOpenWeight` (`1.0`, added Oct 16 2026) times the Phoenix `video_open_score` plus `VideoCarouselImmersiveVqvWeight` (`0.0`) times the immersive VQV score, and needs at least `VIDEO_CAROUSEL_MIN_VIDEOS` (3) to return anything. As of Oct 16 2026 its dedupe passes are on (`EnableVideoCarouselAuthorDedupe` `true`, `VideoCarouselSemanticIdDedupeLevels` `3`, `EnableVideoCarouselEmbeddingDedupe` `true` at threshold `0.72`) but the overall gate is still off.
+- `VideoCarouselFilter`, added October 9, 2026 as the LAST post-selection filter. Gated off by default (`EnableVideoCarousel` `false`); when enabled for a `ForYou` request it partitions vertical videos (`video_aspect_ratio < 1.0`) into a carousel capped at `VIDEO_CAROUSEL_MAX_VIDEOS` (5), ranked by `VideoCarouselVideoOpenWeight` (`1.0`, added Oct 16 2026) times the Phoenix `video_open_score` plus `VideoCarouselImmersiveVqvWeight` (`0.0`) times the immersive VQV score, and needs at least `VIDEO_CAROUSEL_MIN_VIDEOS` (3) to return anything. As of Oct 16 2026 its dedupe passes are on (`EnableVideoCarouselAuthorDedupe` `true`, `VideoCarouselSemanticIdDedupeLevels` `3`, `EnableVideoCarouselEmbeddingDedupe` `true` at threshold `0.72`) but the overall gate is still off. As of Nov 3 2026 it keeps a carousel-extra candidate only if its `brand_safety_verdict` survives both gates: `HighRisk` requires `EnableVideoCarouselHighRiskFilter` (`true`) off, `MediumRisk` requires `EnableVideoCarouselMediumRiskFilter` (`false` through Nov 7 2026, `true` from Nov 11 2026) off, and an absent verdict requires BOTH off. As of Nov 11 2026 the medium-risk gate is ON too, so an unlabeled carousel candidate is dropped while the high-risk gate stays on, `EnableVideoCarouselSeenFilter` is `true`, and new `EnableVideoCarouselTakeFromFeed` (`false`) would start the carousel pool at `VideoCarouselPosition` (`6`) instead of `RESULT_SIZE` (`35`) and pull shown videos out of the main feed. `EnableVideoCarousel` itself is still `false`.
 
 Some filters exist in the directory that are NOT in the For You pipeline (they serve other pipelines or are gated off in this build): `FollowingRetweetDeduplicationFilter`, `FollowingViewerMutedKeywordFilter`, `PopularTopicsAuthorDedupFilter`, `PushToHomeDedupFilter`, `SelfReplyChainFilter`, `AdAdjacentServedFilter`, `InvalidConversationModuleFilter`, `ResultSizeFilter`. Do NOT cite these as For You ranking signals.
 
@@ -392,7 +394,7 @@ Anatomy, in order, five stanzas separated by blank lines:
 Rules for this format:
 
 - **It is longer than 190 characters and that is correct.** The 190-character limit applies to the separate Social Media Questions batch output only. A post in this format runs 150 to 280 characters, and 280 is the hard ceiling on a free X account. Every stanza has to stay tight to fit: a 3 to 6 word hook, a fact paragraph of two to three lines, a one line take carrying the question, and a one line closer. Count with programmatic len() before delivering.
-- **Five stanzas, four blank lines.** Never run the stanzas together into a paragraph. The blank-line separators are real characters and they count against the 280 ceiling, so measure the extracted block with `len()` including its blank lines, not just the prose, and keep trimming the fact stanza until the whole block fits under the cap.
+- **One block per anatomy item: four blocks, three blank lines.** The reference post above is four blocks separated by three blank-line separators, and the four-item anatomy is the shipped shape, so count blocks in `text.split("\n\n")` instead of trusting the word "five" here or anywhere else in this file. A fifth block spends the fact stanza's character budget and matches nothing Vinny has approved. Never run the blocks together into a paragraph. The blank-line separators are real characters and they count against the 280 ceiling (three of them cost 6), so measure the extracted block with `len()` including its blank lines, not just the prose, and keep trimming the fact stanza until the whole block fits under the cap.
 - **Budget the 280 outward from the fixed parts.** The hook runs 30 to 40 characters, the take carrying the question 55 to 65, the closer 45 to 55, and the three blank-line separators cost 6, which leaves roughly 115 to 135 for the fact stanza. Write the fact stanza last, assemble the block in code, and print `len()` before the post goes into the article file. A fact stanza built from a dense vendor announcement runs about 180 characters on the first attempt, and every trim after that is another measurement cycle; the arithmetic is how a five-stanza post lands near 270 without ever crossing the cap. When the block is over, cut the fact stanza only, keeping every number and proper noun, and never touch the hook's punch, the take's question, or the closer.
 - **No link on a free account.** Name the thing so it is searchable instead.
 - **Numbers and entity names stay in the fact stanza.** No vagueness, no adjectives standing in for specifics.
@@ -422,9 +424,9 @@ When Vinny supplies a finished post and asks to fit it to a cap (a free X accoun
 Measure with `scripts/fit_x_char_cap.py` (in this skill's directory). It prints, per candidate, the body length, the body + space + raw URL total, and the exact OK / OVER / SHORT delta, so a candidate is never judged by eye:
 
 ```bash
-SCRATCH=$(mktemp -d ~/cache/scratch/xcap-XXXXXX)
+SCRATCH=$(mktemp -d ~/.hermes/cache/scratch/xcap-XXXXXX)
 # write each candidate to its own file in $SCRATCH, then:
-python3 ~/skills/content-swarm/x-algorithm-post-optimization/scripts/fit_x_char_cap.py 280 "<url>" "$SCRATCH"/*.txt
+python3 ~/.hermes/skills/content-swarm/x-algorithm-post-optimization/scripts/fit_x_char_cap.py 280 "<url>" "$SCRATCH"/*.txt
 ```
 
 The script also prints the count X itself shows (a raw URL wraps to 23 chars via t.co). Report the raw total unless Vinny said to count the t.co form.
@@ -446,14 +448,14 @@ The script also prints the count X itself shows (a raw URL wraps to 23 chars via
 ## Procedure
 
 1. **Optimize for the weight hierarchy, not likes.** The real weights make the priority order explicit:
-   - **#1: Share via copy link (20.0).** Write something a person copies and pastes to a specific friend or group. "Send this to someone who needs it" framing, or content so specific/valuable it gets forwarded. This is about 30× a favorite at the Oct 13 2026 favorite weight of 0.66.
+   - **#1: Share via copy link (20.0).** Write something a person copies and pastes to a specific friend or group. "Send this to someone who needs it" framing, or content so specific/valuable it gets forwarded. This is about 28.2× a favorite at the Nov 7 2026 favorite weight of 0.708.
    - **#2: Replies from mutuals (5.0 × 15.0 boost = 75 effective).** End with a question, a stake, or a claim that invites a reply from people who follow you back. This is the single highest-value engagement available.
    - **#3: Quote (5.0) and Share via DM (5.0).** Make it quotable (self-contained, opinionated) and DM-worthy.
    - **#4: Follow author (4.0).** Give a reason to check the profile and follow.
    - **#5: Share (2.0) and Retweet (1.0).** Make it shareable as-is.
-   - **Favorite (0.66) is the floor.** A post that only gets likes is leaving about 30× on the table.
+   - **Favorite (0.708) is the floor.** A post that only gets likes is leaving about 28× on the table.
 
-2. **Write the hook for dwell time.** Dwell is scored THREE ways now: binary `DwellWeight` (0.05), continuous `ContDwellTimeWeight` (0.004/unit), and continuous click dwell `ContClickDwellTimeWeight` (**0.4**, up from 0.0 on Sept 30 2026, now equal to the click weight itself). The first line must earn the next. Pattern interrupt, specific number, contrarian claim, concrete detail. Do NOT start with "I think" or "Just" or throat-clearing. If a line doesn't earn the next, cut it. The click-dwell raise means a post that makes someone click it and then keep reading the opened content is now a top mid-tier signal: 0.4 for the click plus 0.4 for the click dwell is 0.7, above a favorite's 0.5.
+2. **Write the hook for dwell time.** Dwell is scored THREE ways now: binary `DwellWeight` (0.05), continuous `ContDwellTimeWeight` (**0.0075**/unit, raised Nov 7 2026), and continuous click dwell `ContClickDwellTimeWeight` (**0.385**, cut from 0.4 on Nov 7 2026). The first line must earn the next. Pattern interrupt, specific number, contrarian claim, concrete detail. Do NOT start with "I think" or "Just" or throat-clearing. If a line doesn't earn the next, cut it. As of Nov 7 2026 the click path no longer beats a like: `0.274` for the click plus `0.385` for the click dwell is `0.659`, below a favorite's `0.708`. A click still pays, but the body has to earn the like itself.
 
 3. **Engineer for reply probability, especially from mutuals.** The bidirectional follow boost (15×) makes replies from people who follow you back the most valuable action in the system. Ask a question, take a stance, invite pushback. A post that gets 50 replies from mutuals outranks one with 500 likes and 0 replies.
 
@@ -489,10 +491,10 @@ For the existing jobs:
 ## Pitfalls
 
 - **The weights ARE public now.** As of Aug 13 2026, `home-mixer/params/param.rs` contains the real production defaults. Use them. Do NOT invent values that aren't in the file, and re-check the file if the repo updates again. October 3, 2026 update: the repo moved three commits (76843a5, b79b947, b412112; `last sync 2026-10-02T16:00:41Z`) and changed NO action weight. The action-weight block is byte-identical to Sept 30 2026. What landed: `EnablePhoenixOonReplies` (false), `EnableSidSource` (false) plus `SidSourceMaxResults` (800), `SidSourceMaxSeeds` (50), `SidSourceMaxPerSeed` (100), `SidSourceMinPrefixDepth` (3), `EnablePopularPostsSource` (false) plus `PopularPostsTopAuthors` (1000), `PopularPostsMaxResults` (500), `PopularPostsMaxPerAuthor` (3), `PopularPostsMaxRepliesRepostsPerAuthor` (0), `VMRankerSendPacingInputs` (false), `EnableAdsAuthorBrandSafetyFallback` (false), `AuthorExplorationBonus` in `vm-ranker/params.rs` (0.0), `EnableAdsBrandSafetyVerdictV2` flipped false to true, and `FeedSurveyFatigueHours` (24) replaced by `FeedSurveyFatigueMinutes` (1440). Note: the repo commits daily, but most commits do NOT change weight values. Diff `param.rs` AND `vm-ranker/params.rs` against the previous check before assuming anything changed; the gating and DPP params migrated to `vm-ranker/params.rs` on Sept 25 2026. The full check-by-check chronology lives in `references/sync-archive.md`.
-- **Share via copy link is the #1 signal (20.0), not likes.** A post optimized only for favorites is leaving about 30× on the table (favorite is 0.66 as of Oct 13 2026).
+- **Share via copy link is the #1 signal (20.0), not likes.** A post optimized only for favorites is leaving about 28× on the table (favorite is 0.708 as of Nov 7 2026).
 - **Replies from mutuals are the highest-value engagement (5.0 × 15.0 boost).** The bidirectional follow boost is the single biggest multiplier in the system.
 - **Negative signals are catastrophic, but not via "1 report = N likes."** Weights scale the model's *predicted probabilities* of actions, not raw engagement counts (official Aug 14 clarification). Report (-234) and Mute (-58.8) are still enormous relative to other weights, so provoking reports/mutes remains ruinous, just don't claim a report numerically cancels N likes.
-- **A click is now worth less than a click-dwell (Sept 30 2026).** `ClickWeight` fell to 0.3 while `ContClickDwellTimeWeight` rose to 0.4. A post that earns a click but loses the reader scores 0.3; a post that earns the click and holds the reader on the opened content scores 0.7. The body and any linked content must deliver on the hook.
+- **A like now beats the whole click path (Nov 7 2026).** `ClickWeight` fell to `0.274` and `ContClickDwellTimeWeight` to `0.385`, so a click plus a full click-dwell is `0.659` while a favorite is `0.708`. A post that earns a click but loses the reader scores `0.274`, and even the ideal click-and-read scores less than one like. The body and any linked content must deliver on the hook. `VideoOpenWeight` also went to `0.0`, so a video open earns nothing at all.
 - **Author diversity is a penalty, not a reward.** Posting more does not increase reach per post. It halves each subsequent post in the batch.
 - **Out-of-network reach requires topic vocabulary.** Vague, clever-but-unspecific posts are not retrievable by the Two-Tower model. If the goal is new followers, use the words your target audience already engages with.
 - **Ranking and visibility are separate.** A post can score perfectly and still be DROPPED by visibility filtering if it triggers a spam/adult/violence/inauthentic label. Don't risk it.

@@ -134,9 +134,9 @@ is the proof source.
 All IONOS DNS changes go through the IONOS DNS API. Never `my.ionos.com`, never a browser, never a login screen. The browser path hits a 2FA wall, and it is the wrong door regardless.
 
 - Base `https://api.hosting.ionos.com/dns/v1`, header `X-API-Key: <public_prefix>.<secret>`.
-- Key file `/mnt/c/Users/<user>/workspace/memory/ionos-credentials.md`.
+- Key file `.../<user>/workspace/memory/ionos-credentials.md`.
 - Read `GET /zones/<zone_id>`, change one record `PUT /zones/<zone_id>/records/<record_id>` with `{name, type, content, ttl, disabled, prio}`, read the zone back to confirm.
-- Back up the full zone JSON to `/mnt/c/Users/<user>/workspace/dns-backups/` before any edit.
+- Back up the full zone JSON to `.../<user>/workspace/dns-backups/` before any edit.
 - KARMA uses this same API and never opens the panel.
 
 When another agent is doing the fix, or when the change is handed to Vinny:

@@ -20,7 +20,7 @@ Vinny asks this mid-build, from Telegram, with no context carried over. Answer i
 
 ```python
 import sqlite3, datetime
-c = sqlite3.connect('~/cron/executions.db'); cur = c.cursor()
+c = sqlite3.connect('~/.hermes/cron/executions.db'); cur = c.cursor()
 cur.execute("select claimed_at, finished_at, status, delivery_outcome from executions where job_id=? order by claimed_at desc limit 40", ('<job_id>',))
 for cl, fi, st, do in cur.fetchall():
     d = (datetime.datetime.fromisoformat(fi) - datetime.datetime.fromisoformat(cl)).total_seconds() / 60

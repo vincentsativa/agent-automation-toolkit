@@ -5,7 +5,7 @@ fenced ``` code blocks, ☐ checklists, - bullets. Strips distribution assets
 (X POST / PINTEREST / KEYWORDS). Em dashes replaced with en dashes."""
 import re, html
 
-SRC = '/mnt/c/Users/<user>/OneDrive/Desktop/Give Your Agent a Memory/GIVE YOUR AGENT A MEMORY COMPLETE.txt'
+SRC = '.../<user>/OneDrive/Desktop/Give Your Agent a Memory/GIVE YOUR AGENT A MEMORY COMPLETE.txt'
 OUT = '/tmp/agent_memory.html'
 
 def esc(p):

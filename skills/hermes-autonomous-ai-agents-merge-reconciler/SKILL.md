@@ -49,7 +49,7 @@ repo: load the skill, then follow the Procedure top to bottom.
   both branch names, and both sides' intent summaries verbatim, plus an
   instruction to follow this skill.
 - Kanban-native: create a reconciliation card assigned to a **third profile**
-  (not either worker's profile) with BOTH conflicted cards linked as parents, 
+  (not either worker's profile) with BOTH conflicted cards linked as parents -
   `kanban_create(title="reconcile branch-a x branch-b", assignee="reconciler",
   parents=["t_a", "t_b"])`. The parent links carry both sides' completion
   summaries into the reconciler's context automatically; the card body should

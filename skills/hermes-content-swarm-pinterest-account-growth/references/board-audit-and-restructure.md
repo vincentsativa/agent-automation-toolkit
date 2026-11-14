@@ -23,7 +23,7 @@ Signs it's a catch-all:
    1-2 boards at a time; never create all at once). Repurpose the original board as its
    namesake cluster only; MOVE pins out to their new homes.
 4. **Validate demand on-platform:** `https://www.pinterest.com/search/pins/?q=<topic>`
-   - dense + competitive results = huge validated demand. Capture autocomplete early;
+  , dense + competitive results = huge validated demand. Capture autocomplete early;
    login/signup modals block further autocomplete after ~1 query.
 5. **Deliverable format that works:**
    - Headline finding stated bluntly (the one-board problem)

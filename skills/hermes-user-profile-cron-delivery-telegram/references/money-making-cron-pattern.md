@@ -20,9 +20,9 @@ You are a scrappy opportunity scout. Your job is to read today's daily data file
 IMPORTANT: This is NOT a tutorial or article writing job. Do NOT write tutorials, articles, or educational content. You are finding real opportunities to make money.
 
 Steps:
-1. Read all data files from /mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/
+1. Read all data files from .../<user>/OneDrive/Desktop/TODAYS DATA FILES/
 2. Identify specific, actionable money-making opportunities from the data, things like affiliate programs, product launches, service gaps, freelance gigs, arbitrage plays, or any concrete way to make money with low upfront cost
-3. Write the findings to a text file at /mnt/c/Users/<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES/money-making-opportunities-YYYY-MM-DD.txt (create the folder if it doesn't exist)
+3. Write the findings to a text file at .../<user>/OneDrive/Desktop/MONEY MAKING OPPORTUNITIES/money-making-opportunities-YYYY-MM-DD.txt (create the folder if it doesn't exist)
 4. Email that text file as an attachment to [REDACTED_EMAIL] with subject "Money Making Opportunities - YYYY-MM-DD"
 5. Send me a Telegram message saying "Email sent with today's money-making opportunities", nothing more, nothing less
 ```

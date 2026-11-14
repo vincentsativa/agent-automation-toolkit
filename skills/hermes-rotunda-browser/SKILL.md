@@ -34,7 +34,7 @@ humanizes inputs, and avoids fingerprint detection without lying about its ident
 
 Rotunda is installed editable from the shared repo into the live PM-managed environment, and its browser binary is cached. Verified live 2026-09-25:
 
-- Python package: `/mnt/c/Users/<user>/workspace/rotunda/pythonlib/` (editable install; on Windows the same repo at `C:\Users\<user>\workspace\rotunda\pythonlib`)
+- Python package: `.../<user>/workspace/rotunda/pythonlib/` (editable install; on Windows the same repo at `C:\Users\<user>\workspace\rotunda\pythonlib`)
 - Git tag: `v0.5.1`, HEAD `e90a7cc`, 0 commits behind origin/main. Newest tag upstream is also v0.5.1 (published 2026-08-31).
 - pyproject.toml version: `0.5.1`. Upstream never bumps this field; the tags carry `version = "0.1.0"`. The local 0.1.0 → 0.5.1 edit is required and is expected to show as a dirty working tree, Rotunda builds its download asset name from the installed library version (`pattern: "{name}-{build}-{version}-{os}.{arch}.zip"` in `assets/repos.yml`, read via `installed_library_version()` in `pkgman.py`), so without the bump the version gate silently finds no release. Do not revert it and do not commit it away.
 - Browser binary (WSL): `~/.cache/rotunda/browsers/official/0.5.1-154.0.1/rotunda` (Firefox 154.0.1)
@@ -48,7 +48,7 @@ directly (`headless=True`). For headed mode, use `xvfb-run` (already installed).
 **Hermes environment path (current):** the agent runs from a PM-managed environment, not a venv under `hermes-agent/`. Resolve it live:
 
 ```bash
-python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])"
+python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/.hermes/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])"
 # append /bin/python  (WSL) or \Scripts\python.exe  (Windows)
 ```
 
@@ -143,7 +143,7 @@ mode. Prefer the Python API with `headless=True` from within Hermes.
    package:
    ```bash
    cd /tmp && python3 -c "import rotunda; print(rotunda.__file__)"
-   # expect: /mnt/c/Users/<user>/workspace/rotunda/pythonlib/rotunda/__init__.py
+   # expect: .../<user>/workspace/rotunda/pythonlib/rotunda/__init__.py
    ```
    If the import is clean from `/tmp` but fails from your cwd, the cwd is the
    problem, not the install. The direct-binary method below still remains the
@@ -203,13 +203,13 @@ When a new Rotunda version is released:
 
 ```bash
 # 0. First, check if there are actually new commits (avoid unnecessary pulls)
-cd /mnt/c/Users/<user>/workspace/rotunda
+cd .../<user>/workspace/rotunda
 git fetch origin
 git log --oneline HEAD..origin/main | wc -l
 # If output is 0, you're already up to date, skip the rest.
 
 # 1. Git pull the repo
-cd /mnt/c/Users/<user>/workspace/rotunda && git pull origin main
+cd .../<user>/workspace/rotunda && git pull origin main
 
 # 2. Re-apply the version bump in pythonlib/pyproject.toml to match the new tag.
 #    Upstream tags carry version = "0.1.0"; the asset-name pattern and the
@@ -218,11 +218,11 @@ cd /mnt/c/Users/<user>/workspace/rotunda && git pull origin main
 #    pyproject version, and installed dist-info version equal.
 
 # 3. Resolve both live interpreters, then install into each
-WSL_PY=$(python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])")/bin/python
-WIN_PY=$(python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('/mnt/c/Users/<user>/AppData/Local/hermes/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])")/Scripts/python.exe
+WSL_PY=$(python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('~/.hermes/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])")/bin/python
+WIN_PY=$(python3 -c "import json,glob;print(json.load(open(sorted(glob.glob('.../<user>/AppData/Local/hermes/installs/*/facts.json'))[-1]))['packages']['venv']['environment'])")/Scripts/python.exe
 
-uv pip install -e /mnt/c/Users/<user>/workspace/rotunda/pythonlib --force-reinstall --python "$WSL_PY"
-"$WIN_PY" -m pip install -e C:\\Users\\<user>\\workspace\\rotunda\\pythonlib --force-reinstall
+uv pip install -e .../<user>/workspace/rotunda/pythonlib --force-reinstall --python "$WSL_PY"
+"$WIN_PY" -m pip install -e C:\Users\<user>\\workspace\\rotunda\\pythonlib --force-reinstall
 
 # 4. Rotunda's playwright<=1.59.0 pin pulls Playwright DOWN and breaks
 #    Scrapling's fetchers extra. The pin is soft, restore the environment's

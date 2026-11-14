@@ -89,7 +89,7 @@ stadium, nightclub.
 
 Each result includes: `name`, `address`, `lat`/`lon`, `distance_m`,
 `maps_url` (clickable Google Maps link), `directions_url` (Google Maps
-directions from the search point), and promoted tags when available, 
+directions from the search point), and promoted tags when available -
 `cuisine`, `hours` (opening_hours), `phone`, `website`.
 
 ### distance, Travel distance and time
@@ -161,7 +161,7 @@ current.
 
 **"Find Italian restaurants near the Colosseum":**
 1. `nearby --near "Colosseum Rome" --category restaurant --radius 500`
-   - one command, auto-geocoded
+  , one command, auto-geocoded
 
 **"What's near this location pin they sent?":**
 1. Extract lat/lon from the Telegram message

@@ -176,7 +176,7 @@ Pass these four goals (drop any the user's focus excludes):
 > an earlier workaround; a wrapper added to avoid touching the thing that
 > actually needs changing; configuration or flags introduced to route around
 > a broken default instead of fixing the default. For each, identify the
-> underlying mechanism the change is dodging and describe the deeper fix, 
+> underlying mechanism the change is dodging and describe the deeper fix -
 > generalize the shared path, fix the root default, or fix the whole bug
 > class, and honestly note when the deeper fix is large enough that it
 > should be its own task rather than part of this cleanup. Read the
@@ -188,7 +188,7 @@ Pass these four goals (drop any the user's focus excludes):
 
 Wait for all four to return (batch mode returns them together).
 
-1. **Merge** the findings into one list, deduping where reviewers overlap, 
+1. **Merge** the findings into one list, deduping where reviewers overlap -
    when two findings target the same line or the same underlying mechanism,
    collapse them into one.
 2. **Discard false positives**, you have the most context; you don't have to

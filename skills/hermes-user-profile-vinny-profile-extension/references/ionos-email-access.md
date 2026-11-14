@@ -4,7 +4,7 @@
 - **Server:** smtp.ionos.com
 - **Port:** 587 (TLS)
 - **Username:** hello@phantom-byte.com
-- **Password:** VJBvjbhydro1202$$
+- **Password:** [REDACTED_PASSWORD]
 - Tested and working May 8 2026, sent email from hello@phantom-byte.com to itself with attachment support
 
 ## Sending Email with Attachments (Python)
@@ -33,7 +33,7 @@ def send_email(to, subject, body, attachment_path=None):
     
     server = smtplib.SMTP('smtp.ionos.com', 587, timeout=30)
     server.starttls()
-    server.login('hello@phantom-byte.com', 'VJBvjbhydro1202$$')
+    server.login('hello@phantom-byte.com', '[REDACTED_PASSWORD]')
     server.send_message(msg)
     server.quit()
 ```
@@ -44,10 +44,10 @@ Anything that changes a DNS record on an IONOS domain is done through the IONOS 
 
 - **Base:** `https://api.hosting.ionos.com/dns/v1`
 - **Auth header:** `X-API-Key: <public_prefix>.<secret>`
-- **Key file:** `/mnt/c/Users/<user>/workspace/memory/ionos-credentials.md`
+- **Key file:** `.../<user>/workspace/memory/ionos-credentials.md`
 - **Zones:** phantom-byte.com = `f9a1e796-0c8f-11f1-8880-0a5864440f43`, vincentsativa.com = `f1c666a0-1417-11f0-aecf-0a5864441ac4`
 - **Calls:** `GET /zones` (list), `GET /zones/<zone_id>` (read, get record ids), `PUT /zones/<zone_id>/records/<record_id>` with `{name, type, content, ttl, disabled, prio}` (change one record), `POST /zones/<zone_id>/records` (create), `DELETE /zones/<zone_id>/records/<record_id>` (remove). Read the zone back after any write.
-- **Back up the full zone JSON before any edit**, to `/mnt/c/Users/<user>/workspace/dns-backups/`.
+- **Back up the full zone JSON before any edit**, to `.../<user>/workspace/dns-backups/`.
 - KARMA, the Windows agent, uses this same API. She never opens the panel either.
 
 ## Webmail (reading mail in a browser)

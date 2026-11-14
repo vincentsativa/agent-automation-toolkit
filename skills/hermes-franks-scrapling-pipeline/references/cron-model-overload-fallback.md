@@ -24,7 +24,7 @@ When the cron job fails due to model overload, run the pipeline manually:
 
 ### Step 1: Verify Scrapling still works
 ```bash
-~/hermes-agent/venv/bin/python3 -c "
+~/.hermes/hermes-agent/venv/bin/python3 -c "
 from scrapling.fetchers import StealthyFetcher
 sf = StealthyFetcher()
 page = sf.fetch('https://simonwillison.net', headless=True, network_idle=True)
@@ -59,8 +59,8 @@ Collect: post titles, publish dates, content types, structural changes, revenue 
 ### Step 4: Build the JSON + brief
 Use write_file to save:
 1. Raw JSON to `~/data/scrapling/raw/weekly-YYYY-MM-DD.json`
-2. Intelligence brief to `/mnt/c/Users/<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
-   - Also copy to Desktop: `cp ... /mnt/c/Users/<user>/Desktop/`
+2. Intelligence brief to `.../<user>/workspace/data/scrapling/weekly-brief-YYYY-MM-DD.md`
+   - Also copy to Desktop: `cp ... .../<user>/Desktop/`
 
 ### Step 5: Verify
 - `test -f` both files exist

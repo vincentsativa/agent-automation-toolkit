@@ -49,7 +49,7 @@ prints, the bytes are right):
 ```bash
 cd ~/.hermes/hermes-agent && python3 -c "
 import os
-for line in open('~/.env'):
+for line in open('~/.hermes/.env'):
     line=line.strip()
     if line and not line.startswith('#') and '=' in line:
         k,v=line.split('=',1); os.environ[k]=v.strip()
@@ -101,7 +101,7 @@ for EVERY platform including working ones):
 ```bash
 cd ~/.hermes/hermes-agent && python3 -c "
 import os
-for line in open('~/.env'):
+for line in open('~/.hermes/.env'):
     line=line.strip()
     if line and not line.startswith('#') and '=' in line:
         k,v=line.split('=',1); os.environ[k]=v.strip()
@@ -123,7 +123,7 @@ fails silently, the most common reason "my text never arrived."
 ```bash
 cd ~/.hermes/hermes-agent && python3 -c "
 import json
-d=json.load(open('~/auth.json'))
+d=json.load(open('~/.hermes/auth.json'))
 u=d['credential_pool'].get('photon_user',[{}])[0]
 print('ASSIGNED:', u.get('assigned_phone_number'))
 print('MY_REGISTERED:', u.get('phone_number'))
@@ -159,7 +159,7 @@ line sits in "starting" indefinitely. Do not chase it as a bug.
 
 Probe real upstream liveness:
 ```bash
-TOKEN=$(python3 -c "import json;print(json.load(open('~/runtime/photon-sidecar.json'))['token'])")
+TOKEN=$(python3 -c "import json;print(json.load(open('~/.hermes/runtime/photon-sidecar.json'))['token'])")
 curl -s -m 10 -X POST -H "X-Hermes-Sidecar-Token: $TOKEN" http://127.0.0.1:8789/healthz
 # state 'starting' + a successful /probe response = channel reachable.
 ```
@@ -211,7 +211,7 @@ responding (conservative: 10-min probe, never restarts on silence alone). To
 force a fresh gRPC connection without a full gateway restart, kill the sidecar
 PID, the supervisor auto-respawns it in ~2s:
 ```bash
-kill $(python3 -c "import json;print(json.load(open('~/runtime/photon-sidecar.json'))['pid'])")
+kill $(python3 -c "import json;print(json.load(open('~/.hermes/runtime/photon-sidecar.json'))['pid'])")
 ```
 
 ## Verify setup

@@ -10,7 +10,7 @@ trigger: "user asks to create a Gumroad product, publish a tutorial on Gumroad, 
 
 Stored in `~/.hermes/credentials.md`:
 - **Account:** phantombyteai.gumroad.com
-- **Access Token:** `[REDACTED_TOKEN]`
+- **Access Token:** `_XrppXV5YPWu7FeqrA2dMh-zQ39Qe6sO2-rrqEzX5BE`
 - **API Base:** `https://api.gumroad.com/v2/`
 
 ## Workflow
@@ -23,7 +23,7 @@ Read the markdown or text file containing the tutorial content. Extract:
 - **Price** from frontmatter `gumroad_price:` field - convert dollar amount to cents (e.g. `$0.99` -> `99`)
 - **Content** for writing description and summary
 
-Source files live on Windows at paths like `/mnt/c/Users/<user>/OneDrive/Desktop/PI TUTORIAL/...`
+Source files live on Windows at paths like `.../<user>/OneDrive/Desktop/PI TUTORIAL/...`
 
 ### 2. CRAFT DESCRIPTION AND SUMMARY
 

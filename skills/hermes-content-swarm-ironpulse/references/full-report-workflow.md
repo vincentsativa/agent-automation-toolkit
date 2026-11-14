@@ -33,7 +33,7 @@ Loaded on demand by the ironpulse SKILL.md when the request is a full report (fi
 Save all results to: `~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt`
 
 **CRITICAL, Windows path delivery:** Vinny's on WSL but uses Windows. After writing the file:
-1. Copy it to Windows Desktop: `cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/Desktop/ironpulse-YYYY-MM-DD.txt"`
+1. Copy it to Windows Desktop: `cp ~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt ".../<user>/Desktop/ironpulse-YYYY-MM-DD.txt"`
 2. Return the **Windows-native** full path as the very first line of your response: `C:\Users\<user>\Desktop\ironpulse-YYYY-MM-DD.txt`
 3. Do NOT return the WSL path (~/...), Vinny can't paste that into Windows File Explorer or Run dialog
 4. A "full file path" means one he can copy-paste directly into a Windows context (Explorer, cmd, Run dialog)
@@ -173,13 +173,13 @@ END OF REPORT
 
 10. **Copy to Windows Desktop for easy access:**
     - After writing the file, copy it to the Windows user's Desktop:
-      - `cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/Desktop/ironpulse-YYYY-MM-DD.txt"`
+      - `cp ~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt ".../<user>/Desktop/ironpulse-YYYY-MM-DD.txt"`
     - If the user specified a OneDrive subfolder (e.g. `TODAYS DATA FILES`), ALSO copy there:
-      - `cp ~/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt"`
+      - `cp ~/.hermes/workspace/ironpulse-outputs/ironpulse-YYYY-MM-DD.txt ".../<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt"`
     - Verify the copies exist.
 
-**Interactive mode path delivery, ** First line is the Windows-native full path, nothing else.
-**Cron/scheduled mode delivery, ** First line is the Windows-native full path, followed by analysis sections (see "Analysis Delivery Mode" below).
+**Interactive mode path delivery -** First line is the Windows-native full path, nothing else.
+**Cron/scheduled mode delivery -** First line is the Windows-native full path, followed by analysis sections (see "Analysis Delivery Mode" below).
 
 **Interactive mode with analysis (PhantomByte editorial workflow):**
 When Vinny runs IronPulse interactively and specifically requests themes and article ideas, the delivery has three parts:
@@ -189,7 +189,7 @@ When Vinny runs IronPulse interactively and specifically requests themes and art
    - If Vinny specified a OneDrive subfolder (e.g. `TODAYS DATA FILES`), ALSO copy there: `C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES\ironpulse-YYYY-MM-DD.txt`
    - Verify both copies exist
 
-2. **Email delivery:** Send the full report as a MIMEMultipart attachment to hello@phantom-byte.com, with the 3 themes and 3 article ideas in the email body (above the attachment reference). Each theme should include the namediff, explicitly stating why it does NOT overlap with a specific published PhantomByte article. IONOS SMTP: smtp.ionos.com:587, user hello@phantom-byte.com, pass VJBvjbhydro1202$$. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 3 Unpublished Themes`.
+2. **Email delivery:** Send the full report as a MIMEMultipart attachment to hello@phantom-byte.com, with the 3 themes and 3 article ideas in the email body (above the attachment reference). Each theme should include the namediff, explicitly stating why it does NOT overlap with a specific published PhantomByte article. IONOS SMTP: smtp.ionos.com:587, user hello@phantom-byte.com, pass [REDACTED_PASSWORD]. Subject format: `IronPulse Report - YYYY-MM-DD - AI News + 3 Unpublished Themes`.
 
 3. **Telegram notification (email confirmed):** When the user explicitly requests "Message me on Telegram after the email has been sent," send a brief notification confirming delivery. This is a confirmation of the email being sent, NOT a report delivery, keep it short (e.g. "Sent. 30 stories, 3 themes in the email body. File at path."). Do NOT paste report content (headlines, summaries, themes, or ideas) into the notification.
 
@@ -202,6 +202,6 @@ When Vinny runs IronPulse interactively and specifically requests themes and art
 
 [DELETED delivery mode description]
 
-**CRITICAL, ALWAYS return a Windows-native path** (`C:\\Users\\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`). Never return a WSL path or `\\\\wsl.localhost\\...`. The user works on Windows and needs paths he can paste into File Explorer, text editors, and other Windows applications directly.
+**CRITICAL, ALWAYS return a Windows-native path** (`C:\Users\<user>\\Desktop\\ironpulse-YYYY-MM-DD.txt`). Never return a WSL path or `\\\\wsl.localhost\\...`. The user works on Windows and needs paths he can paste into File Explorer, text editors, and other Windows applications directly.
 
 **Email delivery for scheduled runs:** When creating a cron job for IronPulse, set `deliver: "email"`, Vinny expects the report in his inbox, not a Telegram message. The delivery target is part of the job definition, not optional metadata. If you don't know his email address, it's hello@phantom-byte.com (the IONOS account). Telegram delivery is for interactive-mode quick outputs only; scheduled reports go to email.

@@ -23,7 +23,7 @@ Two consecutive days (May 5 and May 6, 2026) an IronPulse cron job was correctly
 1. `cronjob(action="list")`, `last_run_at: null`, `last_status: null` despite being scheduled
 2. Check agent.log: `grep "cron_f1c48b92da1a" ~/.hermes/logs/agent.log`, process prefix exists but trails off
 3. Output directory is empty for that date: `ls ~/.hermes/workspace/ironpulse-outputs/ironpulse-2026-05-06.txt`, not found
-4. Desktop copy absent: `ls "/mnt/c/Users/<user>/Desktop/ironpulse-2026-05-06.txt"`, not found
+4. Desktop copy absent: `ls ".../<user>/Desktop/ironpulse-2026-05-06.txt"`, not found
 
 ## Root Cause
 

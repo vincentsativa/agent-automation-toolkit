@@ -30,6 +30,14 @@ revived March 2026, still getting views from 2019 pins today.
   5-10/day if saves/impressions hold or grow.
 - **Consistency beats volume, always.** Daily 3 >> weekend burst of 30.
 
+## Topic Allocation (measured, not even), audit 2026-08-14 to 2026-11-12
+
+The cadence above is unchanged. What changes is which boards those 3-5 (or 10 in the daily batch) posts feed. Split the daily batch 3 AI News, 2 Robotics & Physical AI, 2 AI for Developers, 2 AI Tools for Business, 1 AI Agents, with Agent Security and Quantum only as contingencies (security swaps out one news slot for a real attack-plus-fix story; quantum swaps out one news slot only for a major dated development, at most weekly).
+
+Reason: robotics carries a sixth of the news board's impressions but the top engagement rate (2.30%) and save rate (0.82%) on the account, which reads as under-published rather than weak. Developer and tools hold the reach at 0.73% engagement, so their fix is a save reason, not more volume. Quantum produced 1,147 impressions and zero outbound clicks in 90 days, so it does not deserve a standing slot. This is a re-weighting, never a volume increase: keep the cadence, raise the hit rate.
+
+Live numbers and the full rule set: the `pinterest-academy` skill, file references/performance-allocation.md. Read today's slots with `python3 ~/.hermes/scripts/pinterest_performance.py --brief`.
+
 ## Index Lag & The Long Tail (the compounding asset)
 
 - **~4-month index lag.** A pin posted today doesn't get pushed until ~4 months out.
@@ -79,7 +87,7 @@ every pin like a Google landing page, post a little every day, let the decade ta
 
 ## Best Sources (validated by search)
 
-- **Tier 1 (authority):** Pinterest's own Creator Academy / Fundamentals, 
+- **Tier 1 (authority):** Pinterest's own Creator Academy / Fundamentals -
   `create.pinterest.com`. Pinterest teaching Pinterest; algorithm changes land here first.
   This is the primary source text, not blog rehashes.
   - **How to fetch these official docs** (both are JS-rendered React; scrapling fails,

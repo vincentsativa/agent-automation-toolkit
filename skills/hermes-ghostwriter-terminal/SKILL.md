@@ -15,7 +15,7 @@ description: |
 2b. **Then optimize the title for keywords.** This is a POST-writing step: it runs on the finished article, against words a searcher would actually type, and the optimized title is the one that ships. Keep the entity, the proper nouns, and the numbers; the goal is findability, not brevity. Report the final title to Vinny.
 3. Add: X post (190 chars), Pinterest title (60-80 chars), Pinterest description (150-300 chars), quick keywords
 4. Save to `C:\Users\<user>\workspace\article-drafts\ghostwriter-terminal\YYYY-MM-DD-slug-draft.txt`
-   - In WSL, the equivalent path is `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/`. Always translate Windows paths to `/mnt/c/` equivalents when writing files.
+   - In WSL, the equivalent path is `.../<user>/workspace/article-drafts/ghostwriter-terminal/`. Always translate Windows paths to `/mnt/c/` equivalents when writing files.
 5. If Vinny asks to email the draft, use the `email-sender` skill to send it to hello@phantom-byte.com with the file attached. Do NOT paste the full article text into chat.
 6. Deliver the Windows path
 
@@ -23,7 +23,7 @@ description: |
 
 - **NEVER hard-wrap. Never 79 columns. Never any column width.** Write each paragraph as ONE long line and let the reader's client wrap it. A column-wrapped .txt enrages Vinny; assume any wrapped file is rejected on sight.
 - Do not run a finished article through any formatter, normalizer, or reflow pass. Write it correct in one `write_file` call.
-- Layout template: match `/mnt/c/Users/<user>/workspace/article-drafts/ghostwriter-terminal/ARTICLE 194 COMPLETE.txt`. Title line 1 in normal case, one byline line (`By Vinny Barreca, PhantomByte. September 19, 2026.`), `// HEADER` in caps for sections, one blank line between blocks, full paragraphs unwrapped, then a plain `==========================================` separator and the social block labeled `X POST`, `PINTEREST TITLE`, `PINTEREST DESCRIPTION`, `QUICK KEYWORDS` each on its own line.
+- Layout template: match `.../<user>/workspace/article-drafts/ghostwriter-terminal/ARTICLE 194 COMPLETE.txt`. Title line 1 in normal case, one byline line (`By Vinny Barreca, PhantomByte. September 19, 2026.`), `// HEADER` in caps for sections, one blank line between blocks, full paragraphs unwrapped, then a plain `==========================================` separator and the social block labeled `X POST`, `PINTEREST TITLE`, `PINTEREST DESCRIPTION`, `QUICK KEYWORDS` each on its own line.
 - Pre-send check: `grep -n '^// '` shows every header with no leading space, `grep -c '^$'` is non-zero, and the longest paragraph line is in the hundreds of characters, not 79.
 
 ## If there's no outline

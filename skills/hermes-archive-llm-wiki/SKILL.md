@@ -264,7 +264,7 @@ When the user provides a source (URL, file, paste), integrate it into the wiki:
    - Pasted text → save to appropriate `raw/` subdirectory
    - Name the file descriptively: `raw/articles/karpathy-llm-wiki-2026.md`
    - **Add raw frontmatter** (`source_url`, `ingested`, `sha256` of the body).
-     On re-ingest of the same URL: recompute the sha256, compare to the stored value, 
+     On re-ingest of the same URL: recompute the sha256, compare to the stored value -
      skip if identical, flag drift and update if different. This is cheap enough to
      do on every re-ingest and catches silent source changes.
 

@@ -1,7 +1,7 @@
 # Architecture
 
-Two coding agents, one workstation, a Linux box, and a cron layer that makes both do
-scheduled work without a human in the loop.
+Two harnesses, six agents, one cron layer that makes them all do scheduled work without
+a human in the loop.
 
 ```
                         ┌──────────────────────────────┐
@@ -9,24 +9,32 @@ scheduled work without a human in the loop.
                         │  (Telegram)                   │
                         └───────────┬──────────────────┘
                                     │ commands / reports
-              ┌─────────────────────┴─────────────────────┐
-              │                                           │
-   ┌──────────▼───────────┐                  ┌────────────▼───────────┐
-   │  Pi (coding agent)   │                  │  Hermes (agent + cron) │
-   │  Windows workstation │                  │  Windows + Linux box   │
-   │  - skills/           │                  │  - skills/             │
-   │  - scripts/          │                  │  - cron job table      │
-   │  - site deploys      │                  │  - inbox processor     │
-   └──────────┬───────────┘                  └────────────┬───────────┘
-              │                                           │
-              └─────────────────┬─────────────────────────┘
-                                │
-                   ┌────────────▼────────────┐
-                   │  Shared script layer    │
-                   │  scripts/ (this repo)   │
-                   │  deterministic, no LLM  │
-                   └─────────────────────────┘
+        ┌───────────────────────────┴───────────────────────────┐
+        │                                                       │
+┌───────▼───────────┐   ┌────────────────┐   ┌─────────────────▼───┐
+│  Pi harness       │   │  Hermes harness │   │  Hermes harness     │
+│                   │   │                 │   │                     │
+│  Windows Pi       │   │  WSL Hermes     │   │  Windows Hermes     │
+│  (workstation)    │   │  (Linux dev box)│   │  (workstation)      │
+│                   │   │  skills/ cron/  │   │  skills/ cron/      │
+│  InstaBox Pi      │   │  Frank, agent 2 │   │  Karma, agent 3     │
+│  (cloud VM)       │   ├─────────────────┤   ├─────────────────────┤
+│                   │   │  fifi profile   │   │  InstaBox Hermes    │
+│                   │   │  (Windows, own  │   │  (cloud VM)         │
+│                   │   │   cron + backup)│   │                     │
+└─────────┬─────────┘   └────────┬────────┘   └─────────┬───────────┘
+          │                      │                      │
+          └──────────────────────┴──────────────────────┘
+                                 │
+                   ┌─────────────▼─────────────┐
+                   │  Shared script layer      │
+                   │  scripts/ (this repo)     │
+                   │  deterministic, no LLM    │
+                   └───────────────────────────┘
 ```
+
+Each of the six agents has its own home directory, skills and cron table. They share
+conventions and this repository, not state. Each backs up to its own private git remote.
 
 ## The split that matters
 
@@ -72,13 +80,15 @@ Two runner types, deliberately:
 | `deterministic-script` | Backup, cleanup, re-arm | Runs a script. No tokens spent, no variance, a failure is an exit code |
 | `agent-prompt` | Inbox processing, content generation, research | Needs judgement; the prompt carries the procedure and the delivery rule |
 
-A job that can be made deterministic is made deterministic. The live table is exported in
-`crons/hermes-cron-jobs.json`.
+A job that can be made deterministic is made deterministic. There is one live job table
+per agent, all exported in `crons/`: `hermes-cron-jobs.json` (36 jobs, WSL Hermes),
+`windows-hermes-cron-jobs.json` (10 jobs, Windows Hermes), `fifi-cron-jobs.json` (2 jobs,
+fifi profile) and `instabox-cron-jobs.json` (3 jobs, InstaBox Hermes).
 
-Two cron jobs in the table exist only to make another job reliable: `PANEL RE-ARM` arms a
-polling window that a later failure could leave disarmed, and `PANEL STALE CLEANUP` clears
-state left behind by an interrupted run. Watchdog jobs are cheaper than diagnosing a
-silently dead schedule.
+Two cron jobs in the Windows table exist only to make another job reliable: `PANEL RE-ARM`
+arms a polling window that a later failure could leave disarmed, and `PANEL STALE CLEANUP`
+clears state left behind by an interrupted run. Watchdog jobs are cheaper than diagnosing
+a silently dead schedule.
 
 ## Backup and restore
 

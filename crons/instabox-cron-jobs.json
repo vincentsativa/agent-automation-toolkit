@@ -1,0 +1,48 @@
+[
+  {
+    "name": "BACKUP",
+    "schedule": "10 20 * * *",
+    "schedule_display": "10 20 * * *",
+    "enabled": true,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": null,
+    "model": "mimo-v2.6-flash",
+    "provider": "ollama-cloud",
+    "skills": [
+      "instabox-backup"
+    ],
+    "deliver": "telegram",
+    "instructions": "Push backup to GitHub using istabox backup skill"
+  },
+  {
+    "name": "ARTICLE OUTLINE PANEL - 5 CHATBOTS",
+    "schedule": "20 17 * * *",
+    "schedule_display": "20 17 * * *",
+    "enabled": true,
+    "runner": "agent-prompt",
+    "no_agent": false,
+    "script": "prep_campaign.py",
+    "model": "deepseek-v4.1-flash:1017",
+    "provider": "ollama-cloud",
+    "skills": [
+      "email-sender"
+    ],
+    "deliver": "telegram",
+    "instructions": "You are Vinny's instabox Hermes agent. THIS IS THE ARTICLE OUTLINE PANEL JOB. The prep_campaign.py output is injected above this prompt, read it first.\r\n\r\nIf the output starts with WAITING or ALREADY_SENT, reply with exactly [SILENT] and stop.\r\nIf it starts with LAUNCHED, RUNNING or READY, continue with step 1.\r\nIf it starts with FAILED, telegram Vinny one short line describing the failure and stop.\r\n\r\n1. WAIT FOR THE BOTS\r\n   - For LAUNCHED or RUNNING: read the STATUS json file named in the script output every 60 seconds (up to 25 times, `cat` it) until it contains \"done\": true.\r\n   - For READY: go straight on.\r\n\r\n2. READ THE INPUTS\r\n   - The Windows Hermes selection report named after REPORT in the script output.\r\n   - Every bot answer file inside OUTDIR: gemini.md, chatgpt.md, grok.md, muse.md, deepseek.md (whatever exists), plus status.json.\r\n\r\n3. WRITE THE PANEL REPORT\r\n   Write a single text file into the panel folder: \"PANEL REPORT <YYYY-MM-DD>.txt\" (use today's date).\r\n   Structure:\r\n     - Header: date, folder, which bots answered and which did not.\r\n     - One section per bot: the bot's name, then its answer VERBATIM. Do not summarise away its argument.\r\n     - One section with the Windows Hermes selection report verbatim.\r\n     - Final section \"VERDICT\": the single best outline to write next and why, in plain English, judged on authority + GEO/SEO visibility, and naming any outline the panel disagreed on.\r\n\r\n4. EMAIL 1, to hello@phantom-byte.com\r\n   Subject: \"ARTICLE PANEL <date> - best next outline\"\r\n   Body: the VERDICT section only, in plain text.\r\n   Attach the PANEL REPORT .txt.\r\n   Use smtplib with the IONOS credentials already in ~/.hermes/.env (EMAIL_ADDRESS, EMAIL_PASSWORD, EMAIL_SMTP_HOST, EMAIL_SMTP_PORT), there is a working example at /data/workspace/send_email_instabox_test.py.\r\n\r\n5. EMAIL 2, to [REDACTED_EMAIL]\r\n   Subject: \"Read the panel report and tell Vinny what you think\"\r\n   Body must say: read the attached panel report, decide whether the selected outline is the best one for articles.phantom-byte.com, then message Vinny on Telegram saying whether you agree with the pick, and if you would write a different outline, say which one and why.\r\n   Attach the same PANEL REPORT .txt.\r\n\r\n6. MARK AND NOTIFY\r\n   - touch \"<panel folder>/.report-sent\"\r\n   - Telegram Vinny one short message: the winning outline's title and one line of why.\r\n\r\n7. FAILURE RULE\r\n   If status.json shows a bot with status \"failed\" or \"short-answer\", retry that bot once:\r\n     cd /data/workspace/chatbot-run && DISPLAY=:1 BOTS_ONLY=<bot> node bots.mjs \"<panel folder>\"\r\n   then re-read its .md, add it to the report, and continue. If it fails again, send both emails anyway and say in the report which bot is missing. Never finish this job without sending the two emails."
+  },
+  {
+    "name": "disk stale cleanup",
+    "schedule": "0 20 * * *",
+    "schedule_display": "0 20 * * *",
+    "enabled": true,
+    "runner": "deterministic-script",
+    "no_agent": true,
+    "script": "disk_stale_cleanup.py",
+    "model": "mimo-v2.6-flash",
+    "provider": "ollama-cloud",
+    "skills": [],
+    "deliver": "origin",
+    "instructions": "Clear stale stuff on the disk when /data is running low."
+  }
+]

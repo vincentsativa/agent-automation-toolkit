@@ -63,7 +63,7 @@ Use `td_list_instances` to discover all running instances and their ports.
 ### td_execute_python returns error
 
 The error message from td_execute_python often contains the Python traceback.
-If it's unclear, use `td_read_textport` to see the full TD console output, 
+If it's unclear, use `td_read_textport` to see the full TD console output -
 Python exceptions are always printed there.
 
 Common causes:
@@ -112,7 +112,7 @@ Workflow:
 
 ### Diagnosing slow performance
 
-Use `td_get_perf` to see which operators are slow. Look at cook times, 
+Use `td_get_perf` to see which operators are slow. Look at cook times -
 anything over 1ms per frame is worth investigating.
 
 Common causes:

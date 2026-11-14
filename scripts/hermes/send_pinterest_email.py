@@ -9,7 +9,7 @@ Usage:
     python3 ~/send_pinterest_email.py [path_to_posts_file]
 
 If no path is given, it looks for today's file in the standard location:
-    /mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/pinterest_posts_YYYY-MM-DD.txt
+    .../<user>/OneDrive/Desktop/TODAYS DATA FILES/pinterest_posts_YYYY-MM-DD.txt
 """
 import smtplib
 import os
@@ -26,9 +26,9 @@ FROM = "hello@phantom-byte.com"
 SMTP_HOST = "smtp.ionos.com"
 SMTP_PORT = 587
 SMTP_USER = "hello@phantom-byte.com"
-SMTP_PASS = "VJBvjbhydro1202$$"
-DATA_DIR = "/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES"
-MARKER_DIR = "~/cron/sent_markers"
+SMTP_PASS = "[REDACTED_PASSWORD]"
+DATA_DIR = ".../<user>/OneDrive/Desktop/TODAYS DATA FILES"
+MARKER_DIR = "~/.hermes/cron/sent_markers"
 
 
 def find_today_file():

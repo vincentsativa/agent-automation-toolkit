@@ -31,7 +31,7 @@ Keep it running (process manager so it survives logout/reboot).
 Set credentials in Windows `.env` (`%LOCALAPPDATA%\hermes\.env`):
 ```
 HERMES_DASHBOARD_BASIC_AUTH_USERNAME=admin
-HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=[REDACTED]
+HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=choose-a-strong-password
 HERMES_DASHBOARD_BASIC_AUTH_SECRET=<random value>
 ```
 The SECRET line matters: without a stable value you get logged out on every

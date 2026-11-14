@@ -31,7 +31,7 @@ page = sf.fetch('https://example.com', headless=True, network_idle=True)
 `import scrapling` failing in the session interpreter does NOT mean scrapling is unavailable. The CLI is installed at `~/.local/bin/scrapling` and needs no venv:
 
 ```bash
-SCRATCH=$(mktemp -d ~/cache/scratch/fetch-XXXXXX)
+SCRATCH=$(mktemp -d ~/.hermes/cache/scratch/fetch-XXXXXX)
 scrapling extract get "https://example.com/page" "$SCRATCH/page.txt"
 scrapling extract fetch "https://example.com/page" "$SCRATCH/page.txt"   # StealthyFetcher, for bot-walled pages
 ```
@@ -76,11 +76,11 @@ The `browser_exec` tool runs through the browser-use CLI harness (`uvx browser-u
 
 ## Windows Hermes agent (Pi) browser fix, SAME root cause, different port
 
-The Windows Hermes agent (Pi, at `/mnt/c/Users/<user>/AppData/Local/hermes/`) uses the same browser-use harness and had the same `chrome-not-running` failure. Fixed 2026-08-12:
+The Windows Hermes agent (Pi, at `.../<user>/AppData/Local/hermes/`) uses the same browser-use harness and had the same `chrome-not-running` failure. Fixed 2026-08-12:
 
 - **Port conflict:** WSL2 shares localhost with Windows. My WSL Chromium holds 9222, so the Windows Chrome must use a DIFFERENT port (9223). Windows cannot reach the WSL-side 9222, and WSL cannot reach the Windows-side Chrome the way the harness needs.
-- **Config:** `browser.cdp_url: http://127.0.0.1:9223` set in `/mnt/c/Users/<user>/AppData/Local/hermes/config.yaml`.
-- **Launcher:** `/mnt/c/Users/<user>/.hermes/start-windows-browser.bat` launches Windows Chrome with `--remote-debugging-port=9223 --user-data-dir=C:\Users\<user>\.hermes\chrome-debug-9223`. Idempotent. Copied to the Windows Startup folder (`...\Start Menu\Programs\Startup\start-hermes-browser.bat`) so it auto-starts on login.
+- **Config:** `browser.cdp_url: http://127.0.0.1:9223` set in `.../<user>/AppData/Local/hermes/config.yaml`.
+- **Launcher:** `.../<user>/.hermes/start-windows-browser.bat` launches Windows Chrome with `--remote-debugging-port=9223 --user-data-dir=C:\Users\<user>\.hermes\chrome-debug-9223`. Idempotent. Copied to the Windows Startup folder (`...\Start Menu\Programs\Startup\start-hermes-browser.bat`) so it auto-starts on login.
 - **Verify from WSL:** `powershell.exe -NoProfile -Command "try { (Invoke-WebRequest -Uri 'http://127.0.0.1:9223/json/version' -TimeoutSec 2 -UseBasicParsing).Content } catch { 'down' }"`, must show `Chrome/151` (Windows build), NOT HeadlessChrome (that's the WSL one).
 - **Test the harness:** pipe a script into the Windows CLI: `powershell.exe -NoProfile -Command "cd 'C:\Users\<user>\AppData\Local\hermes'; \$env:HERMES_HOME='C:\Users\<user>\AppData\Local\hermes'; \$env:BU_CDP_URL='http://127.0.0.1:9223'; Get-Content '.\test.py' | & '.\bin\uvx.exe' browser-use"`. PowerShell has no heredocs, write the Python to a file and pipe it.
 

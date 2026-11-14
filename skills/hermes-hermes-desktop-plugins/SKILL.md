@@ -75,7 +75,7 @@ The ONLY import surface is `@hermes/plugin-sdk` (plus `react` /
   (`workspace` is the main thread; also `sessions`, `terminal`, `files`,
   `review`, `logs`), `pos` is `'top'|'bottom'|'left'|'right'|'center'`.
   E.g. "below the conversation" = `dock: { pane: 'workspace', pos: 'bottom' }`
-  - declare a `height` (e.g. `'200px'`) so it doesn't take half the zone.
+ , declare a `height` (e.g. `'200px'`) so it doesn't take half the zone.
 - Full PAGES: register `area: ROUTES_AREA` with `data: { path: '/my-page' }`
   and a `render`, the page mounts in the workspace (main) pane like any
   built-in view. Make it reachable with a sidebar nav row:

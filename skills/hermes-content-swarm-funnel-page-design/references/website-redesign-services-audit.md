@@ -40,8 +40,8 @@ Extract: job names, schedules, what they do. These are live automations that pro
 
 ### 4. Scripts Directory
 ```bash
-ls /mnt/c/Users/<user>/workspace/scripts/ | grep -iE '\.py$|\.js$|\.sh$'
-ls /mnt/c/Users/<user>/workspace/ | grep -iE '\.html$|\.js$|\.py$|\.css$'
+ls .../<user>/workspace/scripts/ | grep -iE '\.py$|\.js$|\.sh$'
+ls .../<user>/workspace/ | grep -iE '\.html$|\.js$|\.py$|\.css$'
 ```
 Extract: what categories of scripts exist (scraping, SEO, email, PDF, Gumroad, backup, competitor monitoring, etc.). These map directly to service offerings.
 

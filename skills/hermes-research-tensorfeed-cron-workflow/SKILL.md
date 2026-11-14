@@ -317,7 +317,7 @@ The #1 pick should score high on ALL five criteria. Each subsequent pick should 
 ## Two Distinct TODAYS DATA FILES Folders (verified Sept 13, 2026)
 
 `~/Desktop/TODAYS DATA FILES/` and
-`/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/` are **different directories**, not
+`.../<user>/OneDrive/Desktop/TODAYS DATA FILES/` are **different directories**, not
 mirrors of each other. The Linux one holds older reports (tensorfeed_report_2026-08-12 through
 09-12); the OneDrive one was empty before this run. When Vinny names the Windows OneDrive path
 explicitly, write the new report to BOTH locations (write to the OneDrive path, then `cp` to the
@@ -326,9 +326,16 @@ Linux path) so dedup reads and his Desktop shortcut both stay correct.
 ## Dedup Method That Works (verified Sept 13, 2026)
 
 Do NOT hand-compare headlines. Extract prior-report headlines with
-`re.findall(r'^\d+\.\s*\[([^\]]+)\]\s*(.+)$', text, flags=re.M)` and token-overlap the new
+`re.findall(r'^\s{1,3}\d+\.\s+(.+)$', text, flags=re.M)` (prior reports number each story as
+`  1. TITLE` with two leading spaces, NOT `[Source]` brackets; the bracket form matches nothing and
+yields a silent zero-duplicate result that looks like a clean run) and token-overlap the new
 candidate titles against them (Jaccard over the smaller token set, threshold 0.75 treats a
 reworded headline as already covered). This is what filters yesterday's stories reliably.
+**Freshness note (verified Nov 6, 2026):** the feed rolls over hard overnight. A 50 story pool at
+08:00 can share zero stories with the previous morning's report, which is normal, not a dedup
+failure. Confirm the regex found prior headlines (print the count, expect roughly 40 to 50 per
+prior report) before trusting a zero-duplicate result.
+
 - `references/parallel-curl-batch-download.md`, Pattern for downloading 15+ article HTML pages in a single terminal() call. Use when you need full-text extraction for many articles.
 - `references/scrapling-browser-news-extraction.md`, Verified Aug 3, 2026. Per-source scrapling recipes (TechCrunch, The Verge, Google News, Fox) for IronPulse-style browser-news research in cron mode, where execute_code is blocked. Includes the Verge broad-anchor-regex pitfall and aria-label Google News parsing.
 - `references/phantombyte-category-counts-2026-08-08.md`, Current PhantomByte category counts (Aug 8, 2026): 156 total, AI Infrastructure 66, AI Engineering 23, AI Security 22, AI Industry 16. Zero-article gaps unchanged: AI Hardware, AI Energy, Model Architecture, Open Source AI. Also records that the `<h3><a>` regex is the reliable title extractor (the `#N` regex failed). Use THIS for article-recommendation gap analysis.

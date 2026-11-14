@@ -20,7 +20,7 @@ Tool name takes absolute precedence over pattern matching. If Vinny specifies a 
 
 ## TensorFeed (a different tool entirely)
 - **Trigger word:** "tensorfeed" (always)
-- **Type:** API-based news via `tensorfeed_client.py` script at `/mnt/c/Users/<user>/workspace/scripts/`
+- **Type:** API-based news via `tensorfeed_client.py` script at `.../<user>/workspace/scripts/`
 - **Sources:** Hacker News AI, ZDNet, The Verge, WIRED, MIT Tech Review, arXiv, via Python API client
 - **Output:** Raw article list with snippets, benchmark data, trending repos
 - **Delivery:** Save to file, email as attachment, reply with file path only

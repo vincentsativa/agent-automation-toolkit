@@ -9,11 +9,11 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, "~/hermes-agent")
+sys.path.insert(0, "~/.hermes/hermes-agent")
 
 from tools.file_tools_write_guards import _stale_overwrite_blocker
 
-HOOK = "~/scripts/scratch_path_guard.py"
+HOOK = "~/.hermes/scripts/scratch_path_guard.py"
 TARGET = "/tmp/e2e_extract_all.py"
 
 results = []

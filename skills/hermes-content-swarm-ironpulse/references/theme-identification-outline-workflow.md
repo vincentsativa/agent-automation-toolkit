@@ -8,7 +8,7 @@ When Vinny provides a **data file directory** plus optionally a **draft article 
 
 2. **Scan articles.phantom-byte.com** to capture the full list of existing article titles and themes. This is the "already covered" set. Every proposed theme must be genuinely new, no overlap with existing coverage.
 
-3. **Read all data files** in the provided directory. The user will point to a folder like `TODAYS DATA FILES` on the desktop. **Path pitfall:** Vinny's OneDrive path is `/mnt/c/Users/<user>/OneDrive/Desktop/` not `/mnt/c/Users/<user>/Desktop/`. The OneDrive path is the correct one for data file folders that live on the desktop.
+3. **Read all data files** in the provided directory. The user will point to a folder like `TODAYS DATA FILES` on the desktop. **Path pitfall:** Vinny's OneDrive path is `.../<user>/OneDrive/Desktop/` not `.../<user>/Desktop/`. The OneDrive path is the correct one for data file folders that live on the desktop.
 
 4. **Extract all stories/themes from data files.** Each report (Grok, Perplexity, Larry, Frank/TensorFeed, IronPulse) may have different structures and section headers. Parse all of them into a unified set of potential themes.
 
@@ -20,7 +20,7 @@ When Vinny provides a **data file directory** plus optionally a **draft article 
 
 8. **Save each outline as a SEPARATE text file** to the desktop:
    - Pattern: `OUTLINE N - [Short Theme Name].txt`
-   - Path: `/mnt/c/Users/<user>/OneDrive/Desktop/OUTLINE N - Theme Name.txt`
+   - Path: `.../<user>/OneDrive/Desktop/OUTLINE N - Theme Name.txt`
    - 3 outlines = 3 separate files
 
 9. **Email all outlines as attachments** to hello@phantom-byte.com via IONOS SMTP. Use `MIMEMultipart` with `MIMEBase` for each file attachment (never inline body). Subject line should describe what's in the email. Include a brief summary in the email body listing each outline's title and one-line pitch.
@@ -39,7 +39,7 @@ When Vinny provides a **data file directory** plus optionally a **draft article 
 
 ## Pitfalls
 
-- **OneDrive path:** Vinny's desktop data folders are at `/mnt/c/Users/<user>/OneDrive/Desktop/`, not `/mnt/c/Users/<user>/Desktop/`. The latter path may exist but won't contain the data folders. Always check the OneDrive path first.
+- **OneDrive path:** Vinny's desktop data folders are at `.../<user>/OneDrive/Desktop/`, not `.../<user>/Desktop/`. The latter path may exist but won't contain the data folders. Always check the OneDrive path first.
 - **Draft article exclusion:** If Vinny says "do not write about this article," it means the article's themes are off-limits, not that you can't reference its data points. Use the data, skip the thesis.
 - **Constraint enforcement:** The constraint matters. If all 3 proposed themes end up being infrastructure-related, you've failed the constraint. Force diversity before writing.
 - **Separate files per outline:** Vinny expects individual text files, not one combined document. Each outline gets its own file.

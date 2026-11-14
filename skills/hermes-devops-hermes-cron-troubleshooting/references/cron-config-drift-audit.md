@@ -13,10 +13,10 @@ Delivery-brief jobs (email-primary + short Telegram confirmation, e.g. "Social m
 
 ```python
 import json, glob, difflib
-cur = json.load(open('~/cron/jobs.json'))
+cur = json.load(open('~/.hermes/cron/jobs.json'))
 curj = {j['id']: j for j in cur['jobs']}
 tgt = curj['50dcd9876b7b']
-for f in sorted(glob.glob('~/cron/jobs.json.bak*')):
+for f in sorted(glob.glob('~/.hermes/cron/jobs.json.bak*')):
     d = json.load(open(f))
     bj = {j['id']: j for j in d['jobs']}
     bt = bj.get('50dcd9876b7b')

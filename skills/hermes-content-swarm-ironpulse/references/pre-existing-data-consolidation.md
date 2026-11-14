@@ -30,9 +30,9 @@ Read every data file the user specified. Build a comprehensive list of story hea
 
 ```python
 # Read all data files to build the exclusion list
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/blogwatcher-dump-YYYY-MM-DD.txt")
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt")
-read_file(path="/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.txt")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/blogwatcher-dump-YYYY-MM-DD.txt")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/ironpulse-YYYY-MM-DD.txt")
+read_file(path=".../<user>/OneDrive/Desktop/TODAYS DATA FILES/tensorfeed_report_YYYY-MM-DD.txt")
 ```
 
 Extract every headline and topic from each file. This is your exclusion list.
@@ -71,7 +71,7 @@ Write to the exact path the user specified. Common patterns:
 
 ```bash
 # Dated filename on Windows Desktop
-/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES/20-AI-News-Stories-YYYY-MM-DD.md
+.../<user>/OneDrive/Desktop/TODAYS DATA FILES/20-AI-News-Stories-YYYY-MM-DD.md
 ```
 
 ### Phase 6: Email + Telegram Notification

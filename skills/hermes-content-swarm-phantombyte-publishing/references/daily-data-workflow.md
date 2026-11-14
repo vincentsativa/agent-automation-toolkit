@@ -8,7 +8,7 @@ Cron jobs dump data files to the user's Windows desktop throughout the day. The 
 C:\Users\<user>\OneDrive\Desktop\TODAYS DATA FILES
 ```
 
-From WSL, this is: `/mnt/c/Users/<user>/OneDrive/Desktop/TODAYS DATA FILES`
+From WSL, this is: `.../<user>/OneDrive/Desktop/TODAYS DATA FILES`
 
 ## The Core Principle: The Data Leads
 

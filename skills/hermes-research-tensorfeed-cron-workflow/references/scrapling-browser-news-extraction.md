@@ -60,7 +60,7 @@ category-page snapshot text when possible.
 
 ## Execution Pattern
 ```bash
-cd ~/scripts && timeout 90 python3 ironpulse_<src>.py 2>&1 | grep -v "WARNING\|INFO:"
+cd ~/.hermes/scripts && timeout 90 python3 ironpulse_<src>.py 2>&1 | grep -v "WARNING\|INFO:"
 ```
 Write one script per source (e.g. `ironpulse_tc.py`, `ironpulse_verge.py`,
 `ironpulse_gn.py`, `ironpulse_fox.py`), run them in parallel terminal calls, and

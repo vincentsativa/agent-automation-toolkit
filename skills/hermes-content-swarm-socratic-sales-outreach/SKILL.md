@@ -106,6 +106,19 @@ The full sequence is below. Steps 2 through 6 are the socratic core, and every o
 
 Page: phantom-byte.com/email-deliverability-rescue. $500 flat fee for one domain, optional $250 per month monitoring, free findings form as the top path. Structure in the order it appears: h1 question about the invoice arriving, subhead naming the four DNS records as the thing almost nobody can describe, two buttons with free first, three honest questions about invoice replies and quotes and spoofing, the reframe that the gap is in his records not his knowledge, a four-row table (SPF, DKIM, DMARC, Alignment) of what is wrong and what it costs, the two-minute self-check, the $500 scope list, the before and after report, verification, the recorded walkthrough, the price-against-pain question, the "what I will not promise" block, the audience list, the monitoring tier, and the free findings form. Every section after the h1 continues the same move: put the question in front of him and let his own records answer it.
 
+## Auditing an email-capture offer and ranking the fixes
+
+When Vinny asks how to make a lead magnet, ad unit, or opt-in page collect more emails, the deliverable is a ranked set of offer changes, each with verbatim copy and the link target, best first. Work in this order.
+
+1. **Read the live pages before writing a word.** Fetch the article unit, the landing page, and the confirmation state, then record five things: the exact CTA verb, the form fields, where the button actually points, what the confirmation says, and whether a second opt-in competes on the same page. Copy critiques written from memory describe a page that no longer exists.
+2. **Test the promise against the mechanics, and lead the report with the mismatch.** A button that says DOWNLOAD and lands on a form that says "check your inbox" is a broken promise, and it costs the capture before any copy is judged. So does a name field the page has no use for, and two different email boxes on one article. These are defects, they outrank every wording improvement, and they belong at the top of the report rather than buried in a suggestion.
+3. **Rank offer structures, not adjectives.** The order that holds for a content site: per-article or per-category content upgrade (the artifact the article cannot contain), then a socratic gate page asking three click-only questions before the email field, then a one-click micro-commitment poll that reveals the ask, then a rewrite of the existing page for specificity and honest delivery, and an exit-intent unit last. State why each one outranks the one below it, because the ranking is the argument.
+4. **Give verbatim copy for every idea.** Headline, body line, button text, and the single field. Copy he cannot paste is not a deliverable.
+5. **Name the link target for every idea.** The article unit, a grouped page, an in-place expand, or a new result page. The target is half the idea and the half that usually gets skipped.
+6. **Close with what the method does not license.** Fake scarcity, countdown timers, invented subscriber counts, and a DOWNLOAD button that opens a form.
+
+Conversion figures taken from operator blog posts about content upgrades and popups are self-reported by the operator, not audited. Attribute them as self-reported and keep the load-bearing form claims on Baymard's measured research.
+
 ## Reviewing a live sales page
 
 When Vinny shows you a page he built, read the DOM elements before commenting, not a text dump. A plain text extraction can drop the h1 and other elements, and critiquing copy you have not actually seen is worse than saying nothing. Pull h1 and h2 elements explicitly, then comment. He tests what he ships. Assume the page works and find out what it says before you describe it.

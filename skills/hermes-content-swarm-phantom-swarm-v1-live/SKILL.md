@@ -44,7 +44,7 @@ Full pipeline: SEO audit → Intelligence gathering → Synthesis → Writing �
 ```yaml
 # ~/.hermes/config.yaml
 delegation:
-  api_key: "[REDACTED]"  # Required for delegate_task()
+  api_key: "your-openai-api-key-here"  # Required for delegate_task()
   max_concurrent_children: 3
 ```
 
@@ -267,7 +267,7 @@ Save to `~/.hermes/workspace/phantom-swarm/[date]-final-article.md`
 ⚠️ **CRITICAL TELEGRAM PROTOCOL** ⚠️
 - Send **ONE message ONLY**
 - Content: **THE FILE PATH STRING ONLY**
-- Format: `\\wsl.localhost\Ubuntu\home\vincent\.hermes\workspace\phantom-swarm\YYYY-MM-DD-final-article.md`
+- Format: `\\wsl.localhost\Ubuntu\home\<user>\.hermes\workspace\phantom-swarm\YYYY-MM-DD-final-article.md`
 - **DO NOT paste article content**
 - **DO NOT send summaries, headlines, or previews**
 - **DO NOT send multiple messages**
